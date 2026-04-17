@@ -42,7 +42,7 @@ export default function Home() {
           <div className="anim-fade-up delay-1 flex items-center gap-3 mb-12">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">
-              Automation Infrastructure — Since 2020
+              AI-native automation firm · Since 2020
             </p>
           </div>
 
@@ -310,6 +310,11 @@ export default function Home() {
           <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
             <a href="mailto:hello@polycloud.in" className="hover:text-white transition-colors">Contact</a>
           </div>
+        <div className="mt-8 pt-6 border-t border-white/10">
+          <p className="mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
+            Deployable across India · GCC · Southeast Asia · English-first delivery
+          </p>
+        </div>
         </div>
       </footer>
     </div>

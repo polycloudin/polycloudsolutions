@@ -138,6 +138,9 @@ export default function About() {
               </div>
             ))}
           </div>
+          <p className="mt-10 text-[15px] text-[var(--color-text-secondary)] leading-relaxed max-w-2xl">
+            <span className="text-[var(--color-ink)] font-medium">Dogfooded internally.</span> The same framework we deploy for clients — AgentOS — runs PolyCloud's own operations. We do not ship anything we wouldn't trust with our own work.
+          </p>
         </div>
       </section>
 
@@ -242,6 +245,11 @@ function Footer() {
           <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
           <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
+        </div>
+        <div className="mt-8 pt-6 border-t border-white/10">
+          <p className="mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
+            Deployable across India · GCC · Southeast Asia · English-first delivery
+          </p>
         </div>
       </div>
     </footer>
