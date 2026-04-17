@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../../components/BookButton";
+import DashboardMockup from "../../components/DashboardMockup";
+import MockupLightbox from "../../components/MockupLightbox";
 
 export const metadata: Metadata = {
   title: "CA Firm AI Employee — GSTR-2B, OCR, ITC dashboard",
@@ -161,6 +163,29 @@ export default function CaFirmSolution() {
           </div>
           <p className="mt-10 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
             REAL PILOT NUMBERS REPLACE THIS BLOCK ONCE WEEK 4 COMPLETES.
+          </p>
+        </div>
+      </section>
+
+      {/* Dashboard mockup */}
+      <section className="px-6 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">The dashboard</p>
+              <h2 className="text-[clamp(2rem,5vw,4rem)] max-w-2xl leading-[1]">
+                Runs on your <span className="text-serif-accent text-[var(--color-primary-blue)]">laptop</span>. Data never leaves the firm.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              FastAPI + SQLite + Next.js, bundled in a Docker compose. Partners open localhost in a browser — no cloud, no accounts, no vendor lock-in.
+            </p>
+          </div>
+          <MockupLightbox caption="ITC risk dashboard · runs locally on the firm's laptop. Click to collapse.">
+            <DashboardMockup />
+          </MockupLightbox>
+          <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+            ILLUSTRATIVE — real dashboard renders live Recharts, updates on every reconciliation run. Click to expand.
           </p>
         </div>
       </section>
