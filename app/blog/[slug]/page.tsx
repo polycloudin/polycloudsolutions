@@ -109,7 +109,7 @@ export default async function BlogPost({ params }: Props) {
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <a
-                    href="https://cal.com/polycloud/intro"
+                    href="mailto:hello@polycloud.in"
                     className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
                   >
                     Book a call ↗
@@ -167,7 +167,7 @@ function Nav() {
           <Link href="/consulting" className="link-underline">Consulting</Link>
           <Link href="/blog" className="link-underline text-[var(--color-ink)] font-medium">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
-          <a href="https://cal.com/polycloud/intro" className="btn-primary !py-2 !px-4 !text-[13px]">
+          <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
             Book a call
           </a>
         </div>

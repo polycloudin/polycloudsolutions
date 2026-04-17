@@ -182,7 +182,7 @@ export default function Digital() {
               We build the website, run the ads, create the content, and keep everything optimized monthly. You get a system that grows quietly — while you focus on the business.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="https://cal.com/polycloud/intro" className="btn-primary">
+              <a href="mailto:hello@polycloud.in" className="btn-primary">
                 Book a discovery call ↗
               </a>
               <Link href="#bundles" className="btn-secondary">
@@ -289,7 +289,7 @@ export default function Digital() {
                   ))}
                 </ul>
                 <a
-                  href="https://cal.com/polycloud/intro"
+                  href="mailto:hello@polycloud.in"
                   className={
                     b.featured
                       ? "btn-primary !bg-white !text-[var(--color-ink)] !border-white"
@@ -474,7 +474,7 @@ export default function Digital() {
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href="https://cal.com/polycloud/intro"
+              href="mailto:hello@polycloud.in"
               className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
             >
               Book a call ↗
@@ -506,7 +506,7 @@ function Nav() {
           <Link href="/consulting" className="link-underline">Consulting</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
-          <a href="https://cal.com/polycloud/intro" className="btn-primary !py-2 !px-4 !text-[13px]">
+          <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
             Book a call
           </a>
         </div>

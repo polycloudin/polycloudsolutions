@@ -1,4 +1,5 @@
 import Link from "next/link";
+import VerticalTabs from "./components/VerticalTabs";
 
 export default function Home() {
   return (
@@ -14,11 +15,11 @@ export default function Home() {
             <Link href="/consulting" className="link-underline">Consulting</Link>
             <Link href="/blog" className="link-underline">Insights</Link>
             <Link href="/about" className="link-underline">About</Link>
-            <a href="https://cal.com/polycloud/intro" className="btn-primary !py-2 !px-4 !text-[13px]">
+            <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
               Book a call
             </a>
           </div>
-          <a href="https://cal.com/polycloud/intro" className="md:hidden btn-primary !py-2 !px-3 !text-xs">
+          <a href="mailto:hello@polycloud.in" className="md:hidden btn-primary !py-2 !px-3 !text-xs">
             Book
           </a>
         </div>
@@ -55,7 +56,7 @@ export default function Home() {
               88% of companies use AI. Only 6% see bottom-line impact. The difference is implementation — the invisible work of redesigning how tasks move, who makes decisions, and where the AI actually fits. That's what we build.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="https://cal.com/polycloud/intro" className="btn-primary">
+              <a href="mailto:hello@polycloud.in" className="btn-primary">
                 Book a call
                 <span className="text-base opacity-70">↗</span>
               </a>
@@ -67,20 +68,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Proof line — replaces marquee */}
-      <section className="px-6 md:px-10 py-10 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
-        <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <p className="text-eyebrow text-[var(--color-text-secondary)]">
+      {/* Vertical tabs */}
+      <section className="px-6 md:px-10 py-20 md:py-28 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
+        <div className="max-w-[1440px] mx-auto">
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">
             Trusted by operators across
           </p>
-          <div className="flex flex-wrap gap-x-10 gap-y-2 text-sm text-[var(--color-ink)]/80">
-            <span>SaaS</span>
-            <span>D2C brands</span>
-            <span>Fintech</span>
-            <span>Professional services</span>
-            <span>Healthcare</span>
-            <span>Manufacturing</span>
-          </div>
+          <VerticalTabs />
         </div>
       </section>
 
@@ -289,7 +283,7 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap gap-3">
               <a
-                href="https://cal.com/polycloud/intro"
+                href="mailto:hello@polycloud.in"
                 className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
               >
                 Book a call ↗
