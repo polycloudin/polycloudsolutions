@@ -1,5 +1,6 @@
 import Link from "next/link";
 import VerticalTabs from "./components/VerticalTabs";
+import BookButton from "./components/BookButton";
 
 export default function Home() {
   return (
@@ -15,13 +16,13 @@ export default function Home() {
             <Link href="/consulting" className="link-underline">Consulting</Link>
             <Link href="/blog" className="link-underline">Insights</Link>
             <Link href="/about" className="link-underline">About</Link>
-            <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
+            <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">
               Book a call
-            </a>
+            </BookButton>
           </div>
-          <a href="mailto:hello@polycloud.in" className="md:hidden btn-primary !py-2 !px-3 !text-xs">
+          <BookButton variant="primary" className="md:hidden !py-2 !px-3 !text-xs">
             Book
-          </a>
+          </BookButton>
         </div>
       </nav>
 
@@ -56,10 +57,10 @@ export default function Home() {
               88% of companies use AI. Only 6% see bottom-line impact. The difference is implementation — the invisible work of redesigning how tasks move, who makes decisions, and where the AI actually fits. That's what we build.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="mailto:hello@polycloud.in" className="btn-primary">
+              <BookButton variant="primary">
                 Book a call
                 <span className="text-base opacity-70">↗</span>
-              </a>
+              </BookButton>
               <Link href="#paths" className="btn-secondary">
                 How we work
               </Link>
@@ -282,12 +283,9 @@ export default function Home() {
               A 15-minute call tells us — and you — whether automation is worth building, what to ship first, and where the real leverage lives. No decks. No discovery-call theater.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a
-                href="mailto:hello@polycloud.in"
-                className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
-              >
+              <BookButton variant="light-primary">
                 Book a call ↗
-              </a>
+              </BookButton>
               <a
                 href="mailto:hello@polycloud.in"
                 className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]"

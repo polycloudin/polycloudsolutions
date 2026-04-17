@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BookButton from "../components/BookButton";
 
 export const metadata: Metadata = {
   title: "Digital — Websites, ads, automation | PolyCloud",
@@ -182,9 +183,7 @@ export default function Digital() {
               We build the website, run the ads, create the content, and keep everything optimized monthly. You get a system that grows quietly — while you focus on the business.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="mailto:hello@polycloud.in" className="btn-primary">
-                Book a discovery call ↗
-              </a>
+              <BookButton variant="primary" topic="digital">Book a discovery call ↗</BookButton>
               <Link href="#bundles" className="btn-secondary">
                 See bundles
               </Link>
@@ -288,16 +287,12 @@ export default function Digital() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="mailto:hello@polycloud.in"
-                  className={
-                    b.featured
-                      ? "btn-primary !bg-white !text-[var(--color-ink)] !border-white"
-                      : "btn-primary"
-                  }
+                <BookButton
+                  variant={b.featured ? "light-primary" : "primary"}
+                  topic="digital"
                 >
                   Start this bundle ↗
-                </a>
+                </BookButton>
               </div>
             ))}
           </div>
@@ -473,12 +468,7 @@ export default function Digital() {
             A 15-minute call tells us — and you — whether a bundle fits, whether a custom scope makes more sense, or whether you should do something else entirely.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a
-              href="mailto:hello@polycloud.in"
-              className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
-            >
-              Book a call ↗
-            </a>
+            <BookButton variant="light-primary">Book a call ↗</BookButton>
             <a
               href="mailto:hello@polycloud.in"
               className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]"
@@ -506,9 +496,7 @@ function Nav() {
           <Link href="/consulting" className="link-underline">Consulting</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
-          <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
-            Book a call
-          </a>
+          <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
         </div>
       </div>
     </nav>
