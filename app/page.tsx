@@ -1,6 +1,7 @@
 import Link from "next/link";
 import VerticalTabs from "./components/VerticalTabs";
 import BookButton from "./components/BookButton";
+import { posts } from "./blog/posts";
 
 export default function Home() {
   return (
@@ -232,18 +233,14 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
-            {[
-              { slug: "small-business-ai-automation", title: "The automation stack for growth-stage operators", meta: "6 min read" },
-              { slug: "whatsapp-chatbots", title: "Messaging automation as a conversion engine", meta: "6 min read" },
-              { slug: "ai-vs-hiring", title: "When to build automation vs. hire humans", meta: "7 min read" },
-            ].map((p, i) => (
+            {posts.slice(-3).reverse().map((p, i) => (
               <Link
                 key={p.slug}
                 href={`/blog/${p.slug}`}
                 className="group relative bg-[var(--color-surface)] p-10 md:p-12 min-h-[340px] flex flex-col justify-between hover:bg-white transition-colors"
               >
                 <p className="mono text-xs text-[var(--color-text-muted)]">
-                  0{i + 1} / {p.meta}
+                  0{i + 1} / {p.readTime}
                 </p>
                 <div>
                   <h3 className="text-[clamp(1.5rem,2.2vw,2.1rem)] mb-6 leading-[1.15] group-hover:text-[var(--color-primary-blue)] transition-colors">
