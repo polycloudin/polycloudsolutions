@@ -13,6 +13,7 @@ export default function Home() {
             <Link href="/digital" className="link-underline">Digital</Link>
             <Link href="/consulting" className="link-underline">Consulting</Link>
             <Link href="/blog" className="link-underline">Insights</Link>
+            <Link href="/about" className="link-underline">About</Link>
             <a href="https://cal.com/polycloud/intro" className="btn-primary !py-2 !px-4 !text-[13px]">
               Book a call
             </a>

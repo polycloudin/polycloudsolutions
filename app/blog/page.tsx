@@ -20,7 +20,8 @@ export default function BlogIndex() {
           <div className="flex gap-6 text-sm">
             <Link href="/digital" className="hover:text-[var(--color-primary-blue)]">Digital</Link>
             <Link href="/consulting" className="hover:text-[var(--color-primary-blue)]">Consulting</Link>
-            <Link href="/blog" className="text-[var(--color-primary-blue)] font-semibold">Blog</Link>
+            <Link href="/blog" className="text-[var(--color-primary-blue)] font-semibold">Insights</Link>
+            <Link href="/about" className="hover:text-[var(--color-primary-blue)]">About</Link>
           </div>
         </div>
       </nav>
