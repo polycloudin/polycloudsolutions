@@ -80,10 +80,17 @@ export default function About() {
             <p className="text-eyebrow text-[var(--color-text-secondary)]">About</p>
           </div>
           <h1 className="text-display text-[clamp(2.75rem,9vw,8rem)] mb-10 max-w-[1200px] leading-[0.95]">
-            An automation firm — <span className="text-serif-accent text-[var(--color-primary-blue)]">small by design</span>.
+            Most companies don't need another tool — they need the{" "}
+            <span className="text-serif-accent text-[var(--color-primary-blue)]">work done</span>.
           </h1>
-          <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-            We started PolyCloud because we kept watching good businesses scale by throwing bodies at problems that were really systems problems. Six years in, we're still building the same thing — infrastructure that operators can hire instead of headcount.
+          <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-3xl leading-relaxed">
+            PolyCloud is a firm built on a simple idea. We sit down with business owners to find where time, money, or attention is leaking — including the gaps they haven't spotted themselves — then design, build, and operate the fix end-to-end.
+          </p>
+          <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-3xl leading-relaxed mt-6">
+            That could mean a machine learning model forecasting which customers will churn, a deep-research agent tracking competitor moves every morning, a data pipeline turning raw operations numbers into weekly decisions, a workflow automation removing hours of manual work, a dashboard replacing ten spreadsheets, or taking over the digital marketing entirely.
+          </p>
+          <p className="text-[18px] md:text-2xl text-[var(--color-ink)] max-w-3xl leading-relaxed mt-8 font-[var(--font-display)]">
+            You get the outcome. We handle everything behind it.
           </p>
         </div>
       </section>

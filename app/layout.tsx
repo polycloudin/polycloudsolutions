@@ -4,8 +4,12 @@ import "./globals.css";
 const SITE_URL = "https://polycloud.in";
 const SITE_NAME = "PolyCloud";
 const SITE_TAGLINE = "Your business, on autopilot.";
+// Short — Google meta description (opening hook of the manifesto)
 const SITE_DESCRIPTION =
-  "Automation infrastructure for modern operators. Websites, ads, AI integration, GST compliance. Digital services for SMBs and AI consulting for finance operators.";
+  "Polycloud is a firm built on a simple idea: most companies don't need another tool — they need the work done.";
+// Long — full manifesto for OpenGraph / social shares
+const SITE_MANIFESTO =
+  "Most companies don't need another tool — they need the work done. PolyCloud sits with operators to find where time, money, or attention is leaking, then designs, builds, and runs the fix end-to-end. ML models, deep-research agents, data pipelines, workflow automation, dashboards, digital marketing — whatever the job needs. You get the outcome. We handle everything behind it.";
 
 export const metadata: Metadata = {
   title: {
@@ -44,7 +48,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `${SITE_NAME} | ${SITE_TAGLINE}`,
-    description: SITE_DESCRIPTION,
+    description: SITE_MANIFESTO,
     url: SITE_URL,
     siteName: SITE_NAME,
     type: "website",
@@ -61,7 +65,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `${SITE_NAME} | ${SITE_TAGLINE}`,
-    description: SITE_DESCRIPTION,
+    description: SITE_MANIFESTO,
     images: ["/opengraph-image"],
   },
   robots: {
