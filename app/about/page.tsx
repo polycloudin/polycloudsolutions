@@ -2,9 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About — PolyCloud",
+  title: "About — Two operators, one thesis",
   description:
-    "PolyCloud is a two-founder automation firm. We build infrastructure that operators hire instead of headcount.",
+    "PolyCloud is a two-founder automation firm based in Hyderabad, founded 2020. We build AI and automation infrastructure for SMBs and finance-sector operators — so teams scale output, not headcount.",
+  alternates: { canonical: "/about" },
+  keywords: [
+    "PolyCloud founders",
+    "automation agency Hyderabad",
+    "AI consulting firm India",
+    "Virat Kota",
+    "Aasrith Mareddy",
+  ],
 };
 
 const principles = [
@@ -237,7 +245,7 @@ export default function About() {
             <span className="text-serif-accent text-[var(--color-primary-orange)]">conversation</span>.
           </h2>
           <a
-            href="https://cal.com/polycloud/intro"
+            href="mailto:hello@polycloud.in"
             className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
           >
             Book a call ↗
@@ -262,7 +270,7 @@ function Nav() {
           <Link href="/consulting" className="link-underline">Consulting</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline text-[var(--color-ink)] font-medium">About</Link>
-          <a href="https://cal.com/polycloud/intro" className="btn-primary !py-2 !px-4 !text-[13px]">
+          <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
             Book a call
           </a>
         </div>

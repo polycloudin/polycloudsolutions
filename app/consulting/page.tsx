@@ -103,7 +103,7 @@ export default function Consulting() {
               88% of firms use AI. Only 6% see bottom-line impact. The difference is implementation — the invisible work of redesigning how tasks move, who makes decisions, and where the AI actually fits. That's what we do.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="https://cal.com/polycloud/intro" className="btn-primary">
+              <a href="mailto:hello@polycloud.in" className="btn-primary">
                 Scope an audit ↗
               </a>
               <Link href="#engagements" className="btn-secondary">
@@ -183,7 +183,7 @@ export default function Consulting() {
                   </div>
                 </div>
                 <a
-                  href="https://cal.com/polycloud/intro"
+                  href="mailto:hello@polycloud.in"
                   className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-orange)] hover:!border-[var(--color-primary-orange)] hover:!text-white self-start"
                 >
                   Pilot on your firm ↗
@@ -490,7 +490,7 @@ export default function Consulting() {
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href="https://cal.com/polycloud/intro"
+              href="mailto:hello@polycloud.in"
               className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
             >
               Scope an audit ↗
@@ -522,7 +522,7 @@ function Nav() {
           <Link href="/consulting" className="link-underline text-[var(--color-ink)] font-medium">Consulting</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
-          <a href="https://cal.com/polycloud/intro" className="btn-primary !py-2 !px-4 !text-[13px]">
+          <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
             Book a call
           </a>
         </div>
