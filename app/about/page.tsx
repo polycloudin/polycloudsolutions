@@ -1,0 +1,264 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "About — PolyCloud",
+  description:
+    "PolyCloud is a two-founder automation firm. We build infrastructure that operators hire instead of headcount.",
+};
+
+const principles = [
+  {
+    num: "01",
+    name: "Systems over deliverables",
+    body: "A report tells you what's broken. A system fixes it — continuously. Every engagement ends with something running, not something documented.",
+  },
+  {
+    num: "02",
+    name: "Data over opinions",
+    body: "Paid-acquisition dashboards, server logs, conversion funnels. We plan from what the instruments show, not from what sounds right in the meeting.",
+  },
+  {
+    num: "03",
+    name: "Quiet compounding",
+    body: "The best systems we've built aren't visible. They run in the background while teams sleep — and the founders notice only because the dashboard kept moving up.",
+  },
+  {
+    num: "04",
+    name: "No magic-talk",
+    body: "If a technique sounds magical, we can't defend it under a CFO's scrutiny. We work in mechanisms — input, transform, output — and name them in plain language.",
+  },
+];
+
+const stack = [
+  { category: "AI & Agents", items: ["Claude", "OpenAI", "custom agent framework (AgentOS)"] },
+  { category: "Frontend", items: ["Next.js", "TypeScript", "Tailwind"] },
+  { category: "Backend", items: ["Python", "FastAPI", "Postgres", "Redis"] },
+  { category: "Infrastructure", items: ["Vercel", "AWS", "Cloudflare"] },
+  { category: "Integrations", items: ["WhatsApp Business API", "Tally", "Zoho", "Stripe", "GSTN"] },
+  { category: "Analytics", items: ["GA4", "PostHog", "custom attribution"] },
+];
+
+export default function About() {
+  return (
+    <div className="min-h-screen bg-[var(--color-surface)] text-[var(--color-ink)]">
+      <Nav />
+
+      {/* Hero */}
+      <section className="relative pt-40 md:pt-48 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(26, 95, 212, 0.05) 0%, transparent 60%)",
+          }}
+        />
+        <div className="max-w-[1440px] mx-auto relative">
+          <div className="flex items-center gap-3 mb-10">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
+            <p className="text-eyebrow text-[var(--color-text-secondary)]">About</p>
+          </div>
+          <h1 className="text-display text-[clamp(2.75rem,9vw,8rem)] mb-10 max-w-[1200px] leading-[0.95]">
+            Two operators. One <span className="text-serif-accent text-[var(--color-primary-blue)]">thesis</span>.
+          </h1>
+          <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
+            PolyCloud is a small firm by design — two founders, one framework, a short list of operators we work with. We built the company because we kept watching good businesses scale by throwing bodies at problems that were really systems problems.
+          </p>
+        </div>
+      </section>
+
+      {/* Founders */}
+      <section className="px-6 md:px-10 py-24 md:py-36 border-t border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto">
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-16">01 / Founders</p>
+
+          <div className="grid md:grid-cols-2 gap-10 md:gap-16">
+            {[
+              {
+                name: "Virat Kota",
+                role: "Co-founder · Systems & Infrastructure",
+                bio: "Builds the platform layer — AI agents, data pipelines, and the internal tooling (JARVIS) that lets a two-person firm operate like a ten-person one. Writes code, ships systems, runs the build side of PolyCloud.",
+                link: "https://linkedin.com/in/viratkota",
+              },
+              {
+                name: "Aasrith Mareddy",
+                role: "Co-founder · Strategy & Engagements",
+                bio: "Runs client engagements, scopes audits, and designs the commercial side of every project. Spends most of his time with operators — translating what they say they want into what they actually need built.",
+                link: "https://linkedin.com/in/aasrithmareddy",
+              },
+            ].map((f, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-xl border border-[var(--color-line)] p-10 md:p-12 card-hover"
+              >
+                <div className="flex items-start gap-6 mb-8">
+                  <div
+                    style={{ backgroundColor: "#0A0A0A" }}
+                    className="w-20 h-20 rounded-lg flex items-center justify-center shrink-0"
+                  >
+                    <span className="text-display text-3xl text-white">
+                      {f.name.split(" ")[0][0]}
+                      {f.name.split(" ")[1][0]}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-[clamp(1.5rem,2.2vw,2rem)] mb-2 leading-tight">{f.name}</h3>
+                    <p className="mono text-xs text-[var(--color-text-secondary)] uppercase tracking-[0.2em]">
+                      {f.role}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed mb-6">{f.bio}</p>
+                <a
+                  href={f.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium link-underline"
+                >
+                  LinkedIn ↗
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Principles */}
+      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Principles</p>
+              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+                How we <span className="text-serif-accent">think</span>.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              Four operating principles that govern what we build, what we decline, and how we decide.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
+            {principles.map((p, i) => (
+              <div key={i} className="bg-[var(--color-surface-warm)] p-10 md:p-14 hover:bg-white transition-colors">
+                <div className="flex items-baseline gap-5 mb-6">
+                  <span className="mono text-xs text-[var(--color-primary-orange)]">{p.num}</span>
+                </div>
+                <h3 className="text-[clamp(1.5rem,2.5vw,2.25rem)] mb-6 leading-tight">{p.name}</h3>
+                <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed max-w-md">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stack */}
+      <section className="px-6 md:px-10 py-24 md:py-36">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Stack</p>
+              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+                What we <span className="text-serif-accent">build on</span>.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              We're opinionated about the tools we use — not religious. The stack updates when something cleaner ships.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {stack.map((s, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
+              >
+                <p className="text-eyebrow text-[var(--color-primary-orange)] mb-5">{s.category}</p>
+                <ul className="space-y-2">
+                  {s.items.map((item, j) => (
+                    <li key={j} className="text-[var(--color-text)] text-[15px] flex gap-3 items-baseline">
+                      <span className="text-[var(--color-primary-blue)] text-xs">→</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section
+        style={{ backgroundColor: "#0A0A0A" }}
+        className="px-6 md:px-10 py-24 md:py-36 text-white relative overflow-hidden"
+      >
+        <div
+          className="absolute inset-0 opacity-40 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 50% at 50% 100%, rgba(26, 95, 212, 0.18) 0%, transparent 60%)",
+          }}
+        />
+        <div className="max-w-[1100px] mx-auto relative">
+          <p className="text-eyebrow text-white/50 mb-8">Work with us</p>
+          <h2 className="text-display text-[clamp(2.25rem,7vw,5.5rem)] mb-10 leading-[0.95]">
+            Most engagements start with a{" "}
+            <span className="text-serif-accent text-[var(--color-primary-orange)]">conversation</span>.
+          </h2>
+          <a
+            href="https://cal.com/polycloud/intro"
+            className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
+          >
+            Book a call ↗
+          </a>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}
+
+function Nav() {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-5 backdrop-blur-xl bg-[var(--color-surface)]/75 border-b border-[var(--color-line)]">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between">
+        <Link href="/" className="text-display text-xl tracking-tight">
+          Polycloud<span className="text-[var(--color-primary-orange)]">.</span>
+        </Link>
+        <div className="hidden md:flex items-center gap-10 text-sm">
+          <Link href="/digital" className="link-underline">Digital</Link>
+          <Link href="/consulting" className="link-underline">Consulting</Link>
+          <Link href="/blog" className="link-underline">Insights</Link>
+          <Link href="/about" className="link-underline text-[var(--color-ink)] font-medium">About</Link>
+          <a href="https://cal.com/polycloud/intro" className="btn-primary !py-2 !px-4 !text-[13px]">
+            Book a call
+          </a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="px-6 md:px-10 py-14 bg-[var(--color-ink)] border-t border-white/10 text-white/60">
+      <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between gap-6 text-sm">
+        <div className="flex items-center gap-3">
+          <span className="text-display text-lg text-white">
+            Polycloud<span className="text-[var(--color-primary-orange)]">.</span>
+          </span>
+          <span className="text-white/30">·</span>
+          <span>© 2026 · Est. 2020</span>
+        </div>
+        <div className="flex gap-8">
+          <Link href="/digital" className="hover:text-white transition-colors">Digital</Link>
+          <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
+          <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
+          <Link href="/about" className="hover:text-white transition-colors">About</Link>
+        </div>
+      </div>
+    </footer>
+  );
+}
