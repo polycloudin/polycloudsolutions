@@ -184,6 +184,7 @@ function Nav() {
         <div className="hidden md:flex items-center gap-10 text-sm">
           <Link href="/digital" className="link-underline">Digital</Link>
           <Link href="/consulting" className="link-underline">Consulting</Link>
+          <Link href="/work" className="link-underline">Work</Link>
           <Link href="/blog" className="link-underline text-[var(--color-ink)] font-medium">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
           <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
@@ -207,6 +208,7 @@ function Footer() {
         <div className="flex gap-8">
           <Link href="/digital" className="hover:text-white transition-colors">Digital</Link>
           <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
+          <Link href="/work" className="link-underline">Work</Link>
           <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
         </div>
