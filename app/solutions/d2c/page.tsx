@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../../components/BookButton";
+import EcommerceMockup from "../../components/EcommerceMockup";
+import MockupLightbox from "../../components/MockupLightbox";
 
 export const metadata: Metadata = {
   title: "D2C solutions — Storefronts, ads, WhatsApp post-purchase",
@@ -33,7 +35,7 @@ const pillars = [
     num: "03",
     name: "WhatsApp post-purchase",
     tagline: "Order confirmation → review → reorder.",
-    body: "Confirmation, shipping updates, review requests, restock alerts, birthday offers — all on WhatsApp Business API. 40%+ reorder lift on brands we've shipped this to.",
+    body: "Confirmation, shipping updates, review requests, restock alerts, birthday offers — all on WhatsApp Business API. Industry benchmark: 25-40% reorder lift on post-purchase messaging flows.",
   },
   {
     num: "04",
@@ -45,7 +47,7 @@ const pillars = [
 
 const outcomes = [
   { stat: "3.2×", label: "Average return on ad spend", sub: "measured on live dashboards" },
-  { stat: "40%+", label: "Reorder lift", sub: "from WhatsApp post-purchase flows" },
+  { stat: "25-40%", label: "Reorder lift benchmark", sub: "from WhatsApp post-purchase flows" },
   { stat: "2–6 weeks", label: "Launch to live storefront", sub: "depending on catalog size" },
 ];
 
@@ -129,10 +131,33 @@ export default function D2C() {
         </div>
       </section>
 
+      {/* Mockup */}
+      <section className="px-6 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / The system</p>
+              <h2 className="text-[clamp(2rem,5vw,4rem)] max-w-2xl leading-[1]">
+                Storefront → <span className="text-serif-accent text-[var(--color-primary-blue)]">WhatsApp</span>. One system.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              Product catalog on your domain. Checkout on Razorpay. Post-purchase entirely on WhatsApp Business API — confirmation, tracking, review, reorder nudge, all automated.
+            </p>
+          </div>
+          <MockupLightbox caption="D2C storefront + WhatsApp post-purchase flow · click to expand">
+            <EcommerceMockup />
+          </MockupLightbox>
+          <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+            ILLUSTRATIVE — real builds ship with your brand system, product catalog, and inventory integration.
+          </p>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Pricing</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing</p>
           <h2 className="text-[clamp(2.25rem,6vw,5rem)] mb-14 leading-[1]">
             Launch for <span className="text-serif-accent">₹1.5L</span>. Run for <span className="text-serif-accent">₹32K/mo</span>.
           </h2>
