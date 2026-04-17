@@ -4,9 +4,9 @@ import BookButton from "../components/BookButton";
 import AIGapChart from "../components/AIGapChart";
 
 export const metadata: Metadata = {
-  title: "Consulting — AI integration for finance operators | PolyCloud",
+  title: "Consulting — AI integration across verticals | PolyCloud",
   description:
-    "AI integration for CA firms, NBFCs, and fintechs. We map workflows, build custom automations, and embed until the systems compound.",
+    "AI integration for operators across any vertical. We map workflows, build custom automations, and embed until the systems compound. Finance, SaaS, D2C, healthcare, manufacturing, professional services.",
 };
 
 const engagements = [
@@ -77,20 +77,28 @@ const flagshipTools = [
 
 const verticals = [
   {
-    name: "CA Firms",
-    detail: "GST reconciliation, document processing, MIS automation.",
+    name: "Finance & Compliance",
+    detail: "CA firms, NBFCs, fintechs. GSTR-2B reconciliation, bank-statement analysis, KYC automation, compliance audit trails.",
   },
   {
-    name: "Small NBFCs",
-    detail: "Bank statement analysis, alternative credit scoring, compliance audit trails.",
+    name: "SaaS & Digital Products",
+    detail: "Lead routing, CRM automation, messaging-first sales engines, onboarding flows, churn prediction.",
   },
   {
-    name: "Fintech Startups",
-    detail: "RBI FREE-AI compliance, KYC automation, regulatory reporting.",
+    name: "D2C & Retail",
+    detail: "WhatsApp post-purchase engines, attribution pipelines, inventory + reorder automation, creative production at scale.",
   },
   {
-    name: "D2C & Professional Services",
-    detail: "Messaging-first sales engines, CRM automation, attribution pipelines.",
+    name: "Manufacturing & Supply Chain",
+    detail: "Invoice OCR, three-way match, vendor comms, ERP integration, live MIS dashboards.",
+  },
+  {
+    name: "Healthcare & Clinics",
+    detail: "WhatsApp-based appointment booking, payment reminders, EHR integration, patient-data workflows.",
+  },
+  {
+    name: "Professional Services",
+    detail: "Law firms, consultancies, advisories. Document processing, client communication, research agents, compliance tracking.",
   },
 ];
 
@@ -163,7 +171,7 @@ export default function Consulting() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / Flagship system</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / One deep example</p>
               <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
                 The{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">GSTR-2B</span>{" "}
@@ -171,7 +179,7 @@ export default function Consulting() {
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Our first fully-productized consulting engagement. Built for CA firms. Shipping in weeks, not quarters.
+              One deep example of what we ship. Built for CA firms, but the same engagement shape applies across verticals — audit, sprint, platform, retainer.
             </p>
           </div>
 
@@ -461,15 +469,15 @@ export default function Consulting() {
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Who we work with</p>
               <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
-                Finance-first, by <span className="text-serif-accent">design</span>.
+                Across <span className="text-serif-accent">verticals</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              We lead with finance-adjacent verticals because that's where the team's domain expertise is deepest — and where the regulatory and workflow complexity creates the highest switching costs.
+              We work across verticals. Finance is where our deepest flagship lives, but the same engagement shape (audit → sprint → retainer) applies to SaaS, D2C, manufacturing, healthcare, and professional services.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {verticals.map((v, i) => (
               <div
                 key={i}
@@ -509,6 +517,9 @@ export default function Consulting() {
               <p>Every engagement produces a template, connector, or dataset we keep — so the next similar client starts at 60% done, not zero.</p>
             </div>
           </div>
+          <p className="mt-14 pt-8 border-t border-[var(--color-line)] text-display text-serif-accent text-[clamp(1.25rem,2vw,1.65rem)] text-[var(--color-primary-blue)] leading-[1.2]">
+            Every engagement produces a reusable asset. Every output is documented. Every result is measured.
+          </p>
         </div>
       </section>
 
@@ -584,6 +595,11 @@ function Footer() {
           <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
           <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
+        </div>
+        <div className="mt-8 pt-6 border-t border-white/10">
+          <p className="mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
+            Deployable across India · GCC · Southeast Asia · English-first delivery
+          </p>
         </div>
       </div>
     </footer>

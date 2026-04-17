@@ -411,6 +411,11 @@ function Footer() {
           <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
         </div>
+        <div className="mt-8 pt-6 border-t border-white/10">
+          <p className="mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
+            Deployable across India · GCC · Southeast Asia · English-first delivery
+          </p>
+        </div>
       </div>
     </footer>
   );
