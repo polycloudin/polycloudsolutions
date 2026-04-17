@@ -3,16 +3,16 @@ import Link from "next/link";
 import BookButton from "../components/BookButton";
 
 export const metadata: Metadata = {
-  title: "About — Two operators, one thesis",
+  title: "About — How we think, what we build",
   description:
-    "PolyCloud is a two-founder automation firm based in Hyderabad, founded 2020. We build AI and automation infrastructure for SMBs and finance-sector operators — so teams scale output, not headcount.",
+    "PolyCloud is an automation firm based in Hyderabad, founded 2020. We build AI and automation infrastructure for SMBs and finance-sector operators — so teams scale output, not headcount.",
   alternates: { canonical: "/about" },
   keywords: [
-    "PolyCloud founders",
     "automation agency Hyderabad",
     "AI consulting firm India",
-    "Virat Kota",
-    "Aasrith Mareddy",
+    "workflow automation company",
+    "GST automation firm",
+    "PolyCloud company",
   ],
 };
 
@@ -24,28 +24,40 @@ const principles = [
   },
   {
     num: "02",
-    name: "Data over opinions",
-    body: "Paid-acquisition dashboards, server logs, conversion funnels. We plan from what the instruments show, not from what sounds right in the meeting.",
+    name: "We decline most engagements",
+    body: "Fit matters more than revenue. We've said no to roughly 60% of intros — not because we're precious, but because we couldn't believe the underlying thesis, or the client wanted AI-as-decoration, not AI-as-infrastructure. Short list of clients, longer time per client.",
   },
   {
     num: "03",
-    name: "Quiet compounding",
-    body: "The best systems we've built aren't visible. They run in the background while teams sleep — and the founders notice only because the dashboard kept moving up.",
+    name: "Data over opinions",
+    body: "Paid-acquisition dashboards, server logs, conversion funnels, actual Claude usage data. We plan from what the instruments show, not from what sounds right in a meeting.",
   },
   {
     num: "04",
+    name: "Quiet compounding",
+    body: "The best systems we've built aren't visible. They run in the background while teams sleep — and the operator notices only because the dashboard kept moving up.",
+  },
+  {
+    num: "05",
     name: "No magic-talk",
     body: "If a technique sounds magical, we can't defend it under a CFO's scrutiny. We work in mechanisms — input, transform, output — and name them in plain language.",
   },
 ];
 
 const stack = [
-  { category: "AI & Agents", items: ["Claude", "OpenAI", "custom agent framework (AgentOS)"] },
+  { category: "AI & Agents", items: ["Claude", "OpenAI", "custom agent framework"] },
   { category: "Frontend", items: ["Next.js", "TypeScript", "Tailwind"] },
   { category: "Backend", items: ["Python", "FastAPI", "Postgres", "Redis"] },
   { category: "Infrastructure", items: ["Vercel", "AWS", "Cloudflare"] },
   { category: "Integrations", items: ["WhatsApp Business API", "Tally", "Zoho", "Stripe", "GSTN"] },
   { category: "Analytics", items: ["GA4", "PostHog", "custom attribution"] },
+];
+
+const facts = [
+  { label: "Founded", value: "2020" },
+  { label: "Headquarters", value: "Hyderabad, India" },
+  { label: "Clients served", value: "Selective — small by design" },
+  { label: "Engagement length", value: "From 2-week audits to multi-year retainers" },
 ];
 
 export default function About() {
@@ -68,122 +80,53 @@ export default function About() {
             <p className="text-eyebrow text-[var(--color-text-secondary)]">About</p>
           </div>
           <h1 className="text-display text-[clamp(2.75rem,9vw,8rem)] mb-10 max-w-[1200px] leading-[0.95]">
-            Two operators. One <span className="text-serif-accent text-[var(--color-primary-blue)]">thesis</span>.
+            An automation firm — <span className="text-serif-accent text-[var(--color-primary-blue)]">small by design</span>.
           </h1>
           <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-            PolyCloud is a small firm by design — two founders, one framework, a short list of operators we work with. We built the company because we kept watching good businesses scale by throwing bodies at problems that were really systems problems.
+            We started PolyCloud because we kept watching good businesses scale by throwing bodies at problems that were really systems problems. Six years in, we're still building the same thing — infrastructure that operators can hire instead of headcount.
           </p>
         </div>
       </section>
 
-      {/* Founders */}
-      <section className="px-6 md:px-10 py-24 md:py-36 border-t border-[var(--color-line)]">
-        <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-16">01 / Founders</p>
-
-          <div className="grid md:grid-cols-2 gap-10 md:gap-16">
-            {[
-              {
-                name: "Virat Kota",
-                role: "Co-founder · Systems & Infrastructure",
-                bio: "Builds the platform layer — AI agents, data pipelines, and the internal tooling (JARVIS) that lets a two-person firm operate like a ten-person one. Writes code, ships systems, runs the build side of PolyCloud.",
-                link: "https://linkedin.com/in/viratkota",
-              },
-              {
-                name: "Aasrith Mareddy",
-                role: "Co-founder · Strategy & Engagements",
-                bio: "Runs client engagements, scopes audits, and designs the commercial side of every project. Spends most of his time with operators — translating what they say they want into what they actually need built.",
-                link: "https://linkedin.com/in/aasrithmareddy",
-              },
-            ].map((f, i) => (
-              <div
-                key={i}
-                style={{ backgroundColor: i === 0 ? "#0A0A0A" : "#FAFAF8" }}
-                className={`rounded-xl p-10 md:p-14 card-hover relative overflow-hidden ${
-                  i === 0 ? "text-white" : "border border-[var(--color-line)]"
-                }`}
-              >
-                {i === 0 && (
-                  <div
-                    className="absolute inset-0 opacity-30 pointer-events-none"
-                    style={{
-                      background:
-                        "radial-gradient(ellipse 60% 60% at 90% 10%, rgba(26, 95, 212, 0.25) 0%, transparent 60%)",
-                    }}
-                  />
-                )}
-                <div className="relative flex flex-col h-full">
-                  <p
-                    className="mono text-[10px] uppercase tracking-[0.22em] mb-4"
-                    style={{
-                      color: i === 0 ? "rgba(255,255,255,0.5)" : "var(--color-text-secondary)",
-                    }}
-                  >
-                    Co-founder — 0{i + 1}
-                  </p>
-                  <h3
-                    className="text-display text-[clamp(2.5rem,5vw,4rem)] mb-5 leading-[0.95]"
-                    style={{ color: i === 0 ? "white" : "var(--color-ink)" }}
-                  >
-                    {f.name}
-                  </h3>
-                  <p
-                    className="mono text-xs uppercase tracking-[0.18em] mb-8"
-                    style={{
-                      color: i === 0 ? "var(--color-primary-orange)" : "var(--color-primary-blue)",
-                    }}
-                  >
-                    {f.role.replace("Co-founder · ", "")}
-                  </p>
-                  <p
-                    className="text-[15px] leading-relaxed mb-10 flex-1"
-                    style={{
-                      color: i === 0 ? "rgba(255,255,255,0.75)" : "var(--color-text-secondary)",
-                    }}
-                  >
-                    {f.bio}
-                  </p>
-                  <a
-                    href={f.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={
-                      i === 0
-                        ? "btn-primary !bg-white !text-[var(--color-ink)] !border-white self-start"
-                        : "btn-secondary self-start"
-                    }
-                  >
-                    LinkedIn ↗
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Facts strip */}
+      <section className="px-6 md:px-10 py-14 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
+        <div className="max-w-[1440px] mx-auto grid md:grid-cols-4 gap-8 md:gap-10">
+          {facts.map((f) => (
+            <div key={f.label}>
+              <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.22em] mb-2">
+                {f.label}
+              </p>
+              <p className="text-[15px] md:text-[16px] font-medium leading-tight">{f.value}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Principles */}
-      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-24 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Principles</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / Principles</p>
               <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
                 How we <span className="text-serif-accent">think</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Four operating principles that govern what we build, what we decline, and how we decide.
+              Five operating principles that govern what we build, what we decline, and how we decide. We'd rather be specific and wrong than vague and safe.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
-            {principles.map((p, i) => (
-              <div key={i} className="bg-[var(--color-surface-warm)] p-10 md:p-14 hover:bg-white transition-colors">
-                <div className="flex items-baseline gap-5 mb-6">
-                  <span className="mono text-xs text-[var(--color-primary-orange)]">{p.num}</span>
-                </div>
-                <h3 className="text-[clamp(1.5rem,2.5vw,2.25rem)] mb-6 leading-tight">{p.name}</h3>
+            {principles.map((p) => (
+              <div
+                key={p.num}
+                className="bg-[var(--color-surface)] p-10 md:p-14 hover:bg-white transition-colors"
+              >
+                <span className="mono text-xs text-[var(--color-primary-orange)]">{p.num}</span>
+                <h3 className="text-[clamp(1.5rem,2.5vw,2.25rem)] mt-4 mb-6 leading-tight">
+                  {p.name}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed max-w-md">{p.body}</p>
               </div>
             ))}
@@ -192,30 +135,30 @@ export default function About() {
       </section>
 
       {/* Stack */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
+      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Stack</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Stack</p>
               <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
                 What we <span className="text-serif-accent">build on</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              We're opinionated about the tools we use — not religious. The stack updates when something cleaner ships.
+              Opinionated, not religious. The stack updates when something cleaner ships. Tool-agnostic on the parts that matter — we pick the cleanest tool for the workflow, never the one with the biggest margin for us.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-5">
-            {stack.map((s, i) => (
+            {stack.map((s) => (
               <div
-                key={i}
+                key={s.category}
                 className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
               >
                 <p className="text-eyebrow text-[var(--color-primary-orange)] mb-5">{s.category}</p>
                 <ul className="space-y-2">
-                  {s.items.map((item, j) => (
-                    <li key={j} className="text-[var(--color-text)] text-[15px] flex gap-3 items-baseline">
+                  {s.items.map((item) => (
+                    <li key={item} className="text-[var(--color-text)] text-[15px] flex gap-3 items-baseline">
                       <span className="text-[var(--color-primary-blue)] text-xs">→</span>
                       {item}
                     </li>
@@ -245,6 +188,9 @@ export default function About() {
             Most engagements start with a{" "}
             <span className="text-serif-accent text-[var(--color-primary-orange)]">conversation</span>.
           </h2>
+          <p className="text-white/60 text-[17px] max-w-2xl leading-relaxed mb-10">
+            Fifteen minutes to tell us what you're building. Fifteen more to tell you — honestly — whether we're the right team for it, or whether you should talk to someone else entirely.
+          </p>
           <BookButton variant="light-primary">Book a call ↗</BookButton>
         </div>
       </section>

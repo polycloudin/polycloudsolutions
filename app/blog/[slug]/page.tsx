@@ -30,8 +30,31 @@ export default async function BlogPost({ params }: Props) {
   const post = getPost(slug);
   if (!post) notFound();
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    author: { "@type": "Organization", name: "PolyCloud" },
+    publisher: {
+      "@type": "Organization",
+      name: "PolyCloud",
+      logo: { "@type": "ImageObject", url: "https://polycloud.in/icon.svg" },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://polycloud.in/blog/${post.slug}`,
+    },
+    articleSection: post.category,
+    inLanguage: "en-IN",
+  };
+
   return (
     <div className="min-h-screen bg-[var(--color-surface)] text-[var(--color-ink)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <Nav />
 
       {/* Article header */}

@@ -91,10 +91,6 @@ const organizationJsonLd = {
   description: SITE_DESCRIPTION,
   slogan: SITE_TAGLINE,
   foundingDate: "2020",
-  founders: [
-    { "@type": "Person", name: "Virat Kota" },
-    { "@type": "Person", name: "Aasrith Mareddy" },
-  ],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Hyderabad",
@@ -176,10 +172,6 @@ const localBusinessJsonLd = {
     opens: "09:00",
     closes: "19:00",
   },
-  founder: [
-    { "@type": "Person", name: "Virat Kota" },
-    { "@type": "Person", name: "Aasrith Mareddy" },
-  ],
   foundingDate: "2020",
   slogan: SITE_TAGLINE,
 };
