@@ -417,7 +417,7 @@ export default function Consulting() {
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              We lead with finance-adjacent verticals because that's where both founders' domain expertise is deepest — and where the regulatory and workflow complexity creates the highest switching costs.
+              We lead with finance-adjacent verticals because that's where the team's domain expertise is deepest — and where the regulatory and workflow complexity creates the highest switching costs.
             </p>
           </div>
 
@@ -445,8 +445,8 @@ export default function Consulting() {
           </h2>
           <div className="grid md:grid-cols-2 gap-10 md:gap-14 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
             <div>
-              <p className="font-semibold text-[var(--color-ink)] mb-2">Co-founders do the work</p>
-              <p>No bait-and-switch with junior staff. Virat architects the systems. Aasrith runs the engagement. You get both on every call.</p>
+              <p className="font-semibold text-[var(--color-ink)] mb-2">Senior-led engagements</p>
+              <p>No bait-and-switch with junior staff. The people who scope the work are the people who ship it. You get senior engineers and strategists on every call.</p>
             </div>
             <div>
               <p className="font-semibold text-[var(--color-ink)] mb-2">Tool-agnostic stack</p>

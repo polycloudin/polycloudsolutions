@@ -98,7 +98,7 @@ export default function BookModal({
               We'll be in touch within <span className="text-serif-accent text-[var(--color-primary-blue)]">24 hours</span>.
             </h2>
             <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed mb-8">
-              One of the founders will email you back with a short Calendly link and a couple of prep questions specific to what you shared. No marketing autoresponder.
+              We'll email you back with a short Calendly link and a couple of prep questions specific to what you shared. Senior team responds directly — no marketing autoresponder.
             </p>
             <button
               onClick={onClose}
@@ -119,7 +119,7 @@ export default function BookModal({
 
             <div className="space-y-5">
               <div className="grid md:grid-cols-2 gap-5">
-                <Field label="Your name" name="name" required placeholder="Virat Kota" />
+                <Field label="Your name" name="name" required placeholder="Your full name" />
                 <Field label="Work email" name="email" type="email" required placeholder="you@company.com" />
               </div>
 
