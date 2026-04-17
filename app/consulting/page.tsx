@@ -151,49 +151,219 @@ export default function Consulting() {
             </p>
           </div>
 
-          <div
-            style={{ backgroundColor: "#0A0A0A" }}
-            className="rounded-xl p-10 md:p-16 text-white relative overflow-hidden"
-          >
+          <div className="grid md:grid-cols-[1fr_1.15fr] gap-8 items-stretch">
+            {/* Info card */}
             <div
-              className="absolute inset-0 opacity-30 pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse 40% 50% at 90% 10%, rgba(244, 107, 44, 0.3) 0%, transparent 60%)",
-              }}
-            />
-            <div className="relative grid md:grid-cols-2 gap-14 md:gap-20">
-              <div>
+              style={{ backgroundColor: "#0A0A0A" }}
+              className="rounded-xl p-10 md:p-14 text-white relative overflow-hidden"
+            >
+              <div
+                className="absolute inset-0 opacity-30 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 60% at 90% 10%, rgba(244, 107, 44, 0.3) 0%, transparent 60%)",
+                }}
+              />
+              <div className="relative flex flex-col h-full">
                 <p className="text-eyebrow text-[var(--color-primary-orange)] mb-6">For CA Firms</p>
-                <h3 className="text-display text-[clamp(2rem,3.5vw,3rem)] mb-8 leading-[1.05]">
+                <h3 className="text-display text-[clamp(1.75rem,3vw,2.5rem)] mb-8 leading-[1.05]">
                   {flagship.title}
                 </h3>
                 <p className="mono text-xs text-white/50 uppercase tracking-[0.2em] mb-10">
                   {flagship.market}
                 </p>
+                <div className="space-y-6 mb-10 flex-1">
+                  <div>
+                    <p className="text-eyebrow text-white/50 mb-2">The pain</p>
+                    <p className="text-white/80 text-[14px] leading-relaxed">{flagship.pain}</p>
+                  </div>
+                  <div>
+                    <p className="text-eyebrow text-[var(--color-primary-orange)] mb-2">Outcome</p>
+                    <p className="text-white font-medium text-[14px] leading-relaxed">{flagship.result}</p>
+                  </div>
+                </div>
                 <a
                   href="https://cal.com/polycloud/intro"
-                  className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-orange)] hover:!border-[var(--color-primary-orange)] hover:!text-white"
+                  className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-orange)] hover:!border-[var(--color-primary-orange)] hover:!text-white self-start"
                 >
                   Pilot on your firm ↗
                 </a>
               </div>
-              <div className="space-y-8">
-                <div>
-                  <p className="text-eyebrow text-white/50 mb-3">The pain</p>
-                  <p className="text-white/80 text-[15px] leading-relaxed">{flagship.pain}</p>
+            </div>
+
+            {/* Excel mockup */}
+            <div className="bg-white rounded-xl border border-[var(--color-line)] overflow-hidden shadow-[0_24px_80px_-30px_rgba(10,10,10,0.18)]">
+              {/* File chrome */}
+              <div className="flex items-center gap-2 px-5 py-3 bg-[#F6F3EA] border-b border-[var(--color-line)]">
+                <div className="flex gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E5E5E0]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E5E5E0]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E5E5E0]" />
                 </div>
-                <div>
-                  <p className="text-eyebrow text-white/50 mb-3">What we built</p>
-                  <p className="text-white/80 text-[15px] leading-relaxed">{flagship.solution}</p>
-                </div>
-                <div>
-                  <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Outcome</p>
-                  <p className="text-white font-medium text-[15px] leading-relaxed">{flagship.result}</p>
-                </div>
+                <span className="mono text-[11px] text-[var(--color-text-muted)] ml-3 truncate">
+                  GSTR2B_Recon_Oct2026_[Redacted-Client].xlsx
+                </span>
+              </div>
+
+              {/* Summary bar */}
+              <div className="grid grid-cols-3 border-b border-[var(--color-line)]">
+                {[
+                  { label: "Total invoices", value: "1,284", tone: "ink" },
+                  { label: "Matched", value: "94.3%", tone: "success" },
+                  { label: "ITC at risk", value: "₹2,41,380", tone: "risk" },
+                ].map((s, i) => (
+                  <div
+                    key={i}
+                    className={`p-5 ${i < 2 ? "border-r border-[var(--color-line)]" : ""}`}
+                  >
+                    <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em] mb-2">
+                      {s.label}
+                    </p>
+                    <p
+                      className="text-display text-2xl"
+                      style={{
+                        color:
+                          s.tone === "success"
+                            ? "#15803D"
+                            : s.tone === "risk"
+                            ? "#DC2626"
+                            : "var(--color-ink)",
+                      }}
+                    >
+                      {s.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Column headers */}
+              <div className="grid grid-cols-[1.4fr_1fr_1fr_0.8fr_0.9fr] gap-3 px-5 py-2.5 bg-[var(--color-surface-warm)] border-b border-[var(--color-line)] mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
+                <span>Vendor / Invoice</span>
+                <span>GSTIN</span>
+                <span className="text-right">Invoice Amt</span>
+                <span className="text-right">ITC</span>
+                <span className="text-right">Status</span>
+              </div>
+
+              {/* Rows */}
+              {[
+                {
+                  v: "Vendor A · INV-10428",
+                  g: "29ABCDE••••F1Z5",
+                  amt: "₹1,24,500",
+                  itc: "₹18,950",
+                  status: "matched",
+                },
+                {
+                  v: "Vendor B · INV/2026/031",
+                  g: "36GHIJK••••L2Z7",
+                  amt: "₹86,200",
+                  itc: "₹13,120",
+                  status: "matched",
+                },
+                {
+                  v: "Vendor C · 441",
+                  g: "27MNOPQ••••R3Z9",
+                  amt: "₹3,40,000",
+                  itc: "₹51,780",
+                  status: "mismatch",
+                },
+                {
+                  v: "Vendor D · INV-22",
+                  g: "33STUVW••••X4Z1",
+                  amt: "₹19,750",
+                  itc: "₹3,010",
+                  status: "matched",
+                },
+                {
+                  v: "Vendor E · PO-1807",
+                  g: "24YZABC••••D5Z3",
+                  amt: "₹2,15,000",
+                  itc: "₹32,750",
+                  status: "unmatched",
+                },
+                {
+                  v: "Vendor F · INV/10/A",
+                  g: "32EFGHI••••J6Z5",
+                  amt: "₹58,900",
+                  itc: "₹8,970",
+                  status: "matched",
+                },
+              ].map((r, i) => {
+                const statusColor =
+                  r.status === "matched"
+                    ? "#15803D"
+                    : r.status === "mismatch"
+                    ? "#DC2626"
+                    : "#B45309";
+                const statusBg =
+                  r.status === "matched"
+                    ? "#ECFDF3"
+                    : r.status === "mismatch"
+                    ? "#FEF2F2"
+                    : "#FFFBEB";
+                const statusLabel =
+                  r.status === "matched"
+                    ? "Matched"
+                    : r.status === "mismatch"
+                    ? "Mismatch"
+                    : "Unmatched";
+                return (
+                  <div
+                    key={i}
+                    className={`grid grid-cols-[1.4fr_1fr_1fr_0.8fr_0.9fr] gap-3 px-5 py-3 text-[12.5px] ${
+                      i % 2 === 1 ? "bg-[var(--color-surface)]" : "bg-white"
+                    } border-b border-[var(--color-line)] items-center`}
+                  >
+                    <span className="text-[var(--color-ink)] font-medium truncate">{r.v}</span>
+                    <span className="mono text-[11px] text-[var(--color-text-secondary)] truncate">
+                      {r.g}
+                    </span>
+                    <span className="mono text-right text-[var(--color-text)]">{r.amt}</span>
+                    <span className="mono text-right text-[var(--color-text-secondary)]">{r.itc}</span>
+                    <span className="flex justify-end">
+                      <span
+                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium mono"
+                        style={{ color: statusColor, backgroundColor: statusBg }}
+                      >
+                        <span
+                          className="w-1 h-1 rounded-full"
+                          style={{ backgroundColor: statusColor }}
+                        />
+                        {statusLabel}
+                      </span>
+                    </span>
+                  </div>
+                );
+              })}
+
+              {/* Sheet tabs */}
+              <div className="flex items-center gap-1 px-3 py-2 bg-[#F6F3EA] border-t border-[var(--color-line)] overflow-x-auto">
+                {[
+                  { name: "Summary", active: true },
+                  { name: "Matched" },
+                  { name: "Mismatches" },
+                  { name: "Unmatched" },
+                  { name: "Vendor Follow-up" },
+                ].map((t, i) => (
+                  <div
+                    key={i}
+                    className={`px-3 py-1 text-[11px] rounded ${
+                      t.active
+                        ? "bg-white border border-[var(--color-line)] text-[var(--color-ink)] font-medium"
+                        : "text-[var(--color-text-secondary)]"
+                    }`}
+                  >
+                    {t.name}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
+
+          <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+            ILLUSTRATIVE — Client names + GSTINs redacted. Amounts and structure reflect real engine output.
+          </p>
         </div>
       </section>
 
