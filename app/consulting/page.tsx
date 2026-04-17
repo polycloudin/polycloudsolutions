@@ -45,12 +45,35 @@ const engagements = [
 ];
 
 const flagship = {
-  title: "GSTR-2B reconciliation for CA firms",
-  market: "100,138 registered CA firms in India. 72% solo practices.",
-  pain: "40–60 hours/month spent manually matching purchase registers against GSTR-2B. Data-entry errors cause 40% of GST compliance issues. Manual reconciliation alone consumes 8+ hours per filing cycle.",
-  solution: "A fuzzy-matching reconciliation engine that ingests GSTR-2B JSON + Tally purchase register, matches on GSTIN + invoice + amount tolerance, and outputs a 5-sheet Excel with ITC-at-risk flagged. Plus vendor follow-up automation via WhatsApp.",
-  result: "Filing time drops from 10+ hours to under 2. One Chennai firm reported 75% bookkeeping time reduction and 40% higher revenue per client within six months.",
+  title: "The CA Firm AI Employee",
+  market: "100,138 registered CA firms in India. 72% solo practices. ₹15–25K/mo retainer.",
+  pain: "40–60 hours/month manually matching purchase registers against GSTR-2B. Data-entry errors cause 40% of GST compliance issues. Reconciliation alone consumes 8+ hours per filing cycle.",
+  solution: "A 4-tool stack, unified under one CLI and installed on the CA's laptop via Docker compose. Reconciliation engine + WhatsApp vendor follow-up + invoice OCR into Tally + ITC risk dashboard — each one replacing a measurable piece of junior-associate work.",
+  result: "Demo data: 16 invoices processed, 81.2% match rate, ₹2,685 ITC-at-risk caught on first run. Target: 10+ hours/month reclaimed per filing cycle, validated against baseline.",
 };
+
+const flagshipTools = [
+  {
+    num: "01",
+    name: "Reconciliation engine",
+    detail: "GSTR-2B JSON + Tally purchase register → 5-sheet Excel with matched, mismatched, and only-in-books rows, ITC-at-risk flagged.",
+  },
+  {
+    num: "02",
+    name: "Vendor follow-up bot",
+    detail: "Mismatch rows auto-generate personalized WhatsApp messages to vendors. Three Meta-approved templates cover missing invoice, amount mismatch, and GSTIN mismatch.",
+  },
+  {
+    num: "03",
+    name: "Invoice OCR to Tally",
+    detail: "Client WhatsApps an invoice photo → Tesseract + Claude Vision extract fields → balanced double-entry Tally XML voucher draft queued for CA review.",
+  },
+  {
+    num: "04",
+    name: "ITC risk dashboard",
+    detail: "Monthly MIS: ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart. Runs on the CA's laptop — no data leaves the firm.",
+  },
+];
 
 const verticals = [
   {
@@ -360,6 +383,31 @@ export default function Consulting() {
           <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
             ILLUSTRATIVE — Client names + GSTINs redacted. Amounts and structure reflect real engine output.
           </p>
+
+          {/* The 4-tool stack */}
+          <div className="mt-20">
+            <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
+              <p className="text-eyebrow text-[var(--color-text-secondary)]">The stack — four tools, one install</p>
+              <Link
+                href="/solutions/ca-firm"
+                className="text-sm font-medium link-underline"
+              >
+                Full product page →
+              </Link>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {flagshipTools.map((t) => (
+                <div
+                  key={t.num}
+                  className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
+                >
+                  <p className="mono text-xs text-[var(--color-primary-orange)] mb-4">{t.num}</p>
+                  <h4 className="text-[clamp(1.15rem,1.5vw,1.35rem)] leading-tight mb-4">{t.name}</h4>
+                  <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">{t.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
