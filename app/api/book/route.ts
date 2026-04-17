@@ -139,12 +139,20 @@ export async function POST(req: Request) {
   }
 
   // Backend 3: Formsubmit (free, no key at all)
-  // First submission requires a one-time email confirmation at TO_EMAIL
+  // First submission requires a one-time email confirmation at TO_EMAIL.
+  // Formsubmit's AJAX endpoint rejects requests without a browser-like Referer;
+  // we supply one so Vercel serverless calls are accepted.
   if (!delivered) {
     try {
       const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(TO_EMAIL)}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Referer: "https://polycloud.in/",
+          Origin: "https://polycloud.in",
+          "User-Agent": "Mozilla/5.0 (PolyCloud booking)",
+        },
         body: JSON.stringify({
           _subject: subject,
           _replyto: body.email,
@@ -158,11 +166,22 @@ export async function POST(req: Request) {
           source: "polycloud.in",
         }),
       });
-      if (res.ok) {
+      const responseText = await res.text();
+      let responseJson: { success?: boolean | string; message?: string } | null = null;
+      try {
+        responseJson = JSON.parse(responseText);
+      } catch {
+        // not JSON, keep text
+      }
+      const ok =
+        res.ok &&
+        responseJson &&
+        (responseJson.success === true || responseJson.success === "true");
+      if (ok) {
         delivered = true;
         console.log("[/api/book] Delivered via Formsubmit");
       } else {
-        lastErr = `Formsubmit ${res.status}: ${await res.text()}`;
+        lastErr = `Formsubmit ${res.status}: ${responseText.slice(0, 200)}`;
       }
     } catch (err) {
       lastErr = `Formsubmit exception: ${err}`;
