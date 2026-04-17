@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../../components/BookButton";
-import ProjectCard from "../../components/ProjectCard";
-import { projects } from "../../work/projects";
 
 export const metadata: Metadata = {
   title: "Local business — Websites, Google, WhatsApp, done",
@@ -53,10 +51,6 @@ const outcomes = [
 
 const industries = ["Clinics", "Salons", "Restaurants", "Interior studios", "Law firms", "Landscaping", "Coaching centres", "Boutiques"];
 
-const localProjects = projects.filter((p) =>
-  ["local-business", "healthcare", "real-estate", "professional-services"].includes(p.verticalSlug)
-);
-
 export default function LocalBusiness() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)] text-[var(--color-ink)]">
@@ -86,7 +80,7 @@ export default function LocalBusiness() {
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary">Book a discovery call ↗</BookButton>
-              <Link href="#work" className="btn-secondary">See work</Link>
+              <Link href="#pricing" className="btn-secondary">See pricing</Link>
             </div>
           </div>
         </div>
@@ -149,32 +143,10 @@ export default function LocalBusiness() {
         </div>
       </section>
 
-      {/* Featured work */}
-      {localProjects.length > 0 && (
-        <section id="work" className="px-6 md:px-10 py-24 md:py-32">
-          <div className="max-w-[1440px] mx-auto">
-            <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
-              <div>
-                <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Selected work</p>
-                <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl leading-[1]">
-                  Businesses we've <span className="text-serif-accent">launched</span>.
-                </h2>
-              </div>
-              <Link href="/work" className="btn-secondary">All work →</Link>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {localProjects.map((p) => (
-                <ProjectCard key={p.slug} project={p} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Pricing */}
-      <section className="px-6 md:px-10 py-24 md:py-32 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section id="pricing" className="px-6 md:px-10 py-24 md:py-32 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Pricing</p>
           <h2 className="text-[clamp(2.25rem,6vw,5rem)] mb-14 leading-[1]">
             Launch for <span className="text-serif-accent">₹70K</span>. Run for <span className="text-serif-accent">₹12K/mo</span>.
           </h2>
@@ -262,7 +234,6 @@ function Nav() {
         <div className="hidden md:flex items-center gap-10 text-sm">
           <Link href="/digital" className="link-underline">Digital</Link>
           <Link href="/consulting" className="link-underline">Consulting</Link>
-          <Link href="/work" className="link-underline">Work</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
           <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
@@ -286,7 +257,6 @@ function Footer() {
         <div className="flex gap-8">
           <Link href="/digital" className="hover:text-white transition-colors">Digital</Link>
           <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
-          <Link href="/work" className="hover:text-white transition-colors">Work</Link>
           <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
         </div>
