@@ -260,6 +260,7 @@ function Nav() {
         <div className="hidden md:flex items-center gap-10 text-sm">
           <Link href="/digital" className="link-underline">Digital</Link>
           <Link href="/consulting" className="link-underline">Consulting</Link>
+          <Link href="/labs" className="link-underline">Labs</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline text-[var(--color-ink)] font-medium">About</Link>
           <a href="https://cal.com/polycloud/intro" className="btn-primary !py-2 !px-4 !text-[13px]">
