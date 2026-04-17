@@ -3,6 +3,8 @@ import Link from "next/link";
 import BookButton from "../../components/BookButton";
 import EcommerceMockup from "../../components/EcommerceMockup";
 import MockupLightbox from "../../components/MockupLightbox";
+import SiteNav from "../../components/SiteNav";
+import SiteFooter from "../../components/SiteFooter";
 
 export const metadata: Metadata = {
   title: "D2C solutions — Storefronts, ads, WhatsApp post-purchase",
@@ -54,10 +56,10 @@ const outcomes = [
 export default function D2C() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)] text-[var(--color-ink)]">
-      <Nav />
+      <SiteNav active="digital" />
 
       {/* Hero */}
-      <section className="relative pt-40 md:pt-48 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-36 md:pt-44 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -238,7 +240,7 @@ export default function D2C() {
 
 function Nav() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-5 backdrop-blur-xl bg-[var(--color-surface)]/75 border-b border-[var(--color-line)]">
+    <nav className="fixed top-[48px] md:top-[52px] left-0 right-0 z-50 px-6 md:px-10 py-5 backdrop-blur-xl bg-[var(--color-surface)]/75 border-b border-[var(--color-line)]">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between">
         <Link href="/" className="text-display text-xl tracking-tight">
           Polycloud<span className="text-[var(--color-primary-orange)]">.</span>
@@ -248,7 +250,6 @@ function Nav() {
           <Link href="/consulting" className="link-underline">Consulting</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
-          <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
         </div>
       </div>
     </nav>
@@ -256,28 +257,5 @@ function Nav() {
 }
 
 function Footer() {
-  return (
-    <footer className="px-6 md:px-10 py-14 bg-[var(--color-ink)] border-t border-white/10 text-white/60">
-      <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between gap-6 text-sm">
-        <div className="flex items-center gap-3">
-          <span className="text-display text-lg text-white">
-            Polycloud<span className="text-[var(--color-primary-orange)]">.</span>
-          </span>
-          <span className="text-white/30">·</span>
-          <span>© 2026 · Est. 2020</span>
-        </div>
-        <div className="flex gap-8">
-          <Link href="/digital" className="hover:text-white transition-colors">Digital</Link>
-          <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
-          <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
-          <Link href="/about" className="hover:text-white transition-colors">About</Link>
-        </div>
-        <div className="mt-8 pt-6 border-t border-white/10">
-          <p className="mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
-            Deployable across India · GCC · Southeast Asia · English-first delivery
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
+  return <SiteFooter />;
 }

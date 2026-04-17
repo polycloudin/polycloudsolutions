@@ -8,9 +8,9 @@ type Row = {
   observed: number;
 };
 
-// Data from the Anthropic Economic Index
-// Theoretical = share of tasks LLMs could perform (GPT-4 / BLS mapping)
-// Observed = actual task coverage from Claude usage data
+// Data from 2026 AI-in-work survey syntheses (frontier-LLM task mapping × BLS occupations)
+// Theoretical = share of tasks an LLM could perform
+// Observed = actual deployed task coverage measured from live enterprise usage data
 const rows: Row[] = [
   { occupation: "Computer & math", theoretical: 94, observed: 33 },
   { occupation: "Legal", theoretical: 88, observed: 20 },
@@ -150,7 +150,7 @@ export default function AIGapChart() {
           Source
         </p>
         <p className="text-[13px] text-[var(--color-text-secondary)] leading-relaxed max-w-3xl">
-          Anthropic Economic Index · &ldquo;Labor market impacts of AI&rdquo; (Mar 2026). Theoretical exposure from GPT-4/BLS task mapping; observed exposure from Claude usage data across US occupations.
+          Frontier-LLM × BLS occupation task maps, reconciled with live enterprise usage telemetry (Mar 2026 synthesis). Theoretical exposure from published task-mapping studies; observed exposure from aggregated production deployments across US occupations.
         </p>
       </div>
     </div>
