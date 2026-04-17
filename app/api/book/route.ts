@@ -1,4 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { upsertLead, enqueueEmail, getDb } from "@/app/lib/email/db";
+import { buildVars, composeAndSend, TEMPLATE_SUBJECTS } from "@/app/lib/email/compose";
 
 type Payload = {
   name?: string;
@@ -42,6 +44,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
+  // -----------------------------------------------------------------------
+  // NEW (Day 5): Lead nurture pipeline.
+  // Runs AFTER the HTTP response is sent, via next/server's `after`.
+  // Guardrail: Turso failure cannot break form submissions.
+  //   - Never throws (wrapped in try/catch)
+  //   - Never delays the response (runs post-response)
+  //   - If TURSO_DATABASE_URL isn't set, all DB calls no-op gracefully
+  //   - If RESEND_API_KEY isn't set, welcome skips with a logged reason
+  // -----------------------------------------------------------------------
+  after(async () => {
+    try {
+      await runLeadPipeline(body);
+    } catch (e) {
+      console.error("[/api/book] lead pipeline failed (non-fatal):", e);
+    }
+  });
+
+  // -----------------------------------------------------------------------
+  // ORIGINAL: Team notification delivery chain. UNCHANGED from pre-Day-5.
+  // Resend → Web3Forms → Formsubmit. Same env var names, same log prefixes,
+  // same always-success client response. Day 5 must not alter this behavior.
+  // -----------------------------------------------------------------------
   const subject = `New booking — ${body.name}${body.company ? ` (${body.company})` : ""}`;
   const text = [
     `Name: ${body.name}`,
@@ -152,4 +176,86 @@ export async function POST(req: Request) {
   // Always return success to the client — we've logged the submission server-side
   // and we don't want to leak backend failures to the user.
   return NextResponse.json({ success: true });
+}
+
+// ---------------------------------------------------------------------------
+// Lead nurture pipeline (Day 5, non-blocking via `after`)
+// ---------------------------------------------------------------------------
+
+async function runLeadPipeline(body: Payload): Promise<void> {
+  const { name, email, company, topic, stage, message } = body;
+  if (!name || !email || !message) return; // validated above, defensive
+
+  // Step 1: upsert lead in Turso. If Turso isn't configured or fails, returns null.
+  const leadId = await upsertLead({ name, email, company, topic, stage, message });
+  if (!leadId) {
+    console.warn("[/api/book/lead] lead upsert returned null (Turso unreachable or unconfigured)");
+    return;
+  }
+
+  // Step 2: render + send welcome email inline. Best-effort.
+  const unsubscribeUrl = buildUnsubscribeUrl(email);
+  const welcomeVars = buildVars({
+    template: "welcome",
+    lead: {
+      name,
+      email,
+      topic: topic ?? "general",
+      company: company ?? null,
+    },
+    unsubscribeUrl,
+  });
+  const welcomeResult = await composeAndSend({
+    template: "welcome",
+    to: email,
+    vars: welcomeVars,
+  });
+
+  if (welcomeResult.delivered) {
+    // Step 3: log welcome send + mark lead contacted
+    const db = getDb();
+    if (db) {
+      try {
+        await db.execute({
+          sql: `INSERT INTO email_log (lead_id, template, provider, provider_id, subject)
+                VALUES (?, ?, ?, ?, ?)`,
+          args: [
+            leadId,
+            "welcome",
+            welcomeResult.provider,
+            welcomeResult.providerId,
+            TEMPLATE_SUBJECTS.welcome,
+          ],
+        });
+        await db.execute({
+          sql: `UPDATE leads
+                SET last_contacted_at = datetime('now'), status = 'contacted'
+                WHERE id = ?`,
+          args: [leadId],
+        });
+      } catch (e) {
+        console.error("[/api/book/lead] welcome log failed (non-fatal):", e);
+      }
+    }
+  } else {
+    console.warn(
+      `[/api/book/lead] welcome email not delivered (reason: ${welcomeResult.reason}). Lead stored for later nurture.`,
+    );
+  }
+
+  // Step 4: enqueue nurture-1 (+3 days) and nurture-2 (+7 days). Worker picks up.
+  const now = Date.now();
+  const day = 24 * 60 * 60 * 1000;
+  await enqueueEmail({ leadId, template: "nurture-1", scheduledAt: new Date(now + 3 * day) });
+  await enqueueEmail({ leadId, template: "nurture-2", scheduledAt: new Date(now + 7 * day) });
+
+  console.log(
+    `[/api/book/lead] ✓ lead #${leadId} (${email}) — welcome ${welcomeResult.delivered ? "sent" : "skipped"}, nurtures queued`,
+  );
+}
+
+function buildUnsubscribeUrl(email: string): string {
+  const token = Buffer.from(email).toString("base64url");
+  const base = process.env.SITE_URL || "https://polycloud.in";
+  return `${base}/api/email/unsubscribe?token=${token}`;
 }
