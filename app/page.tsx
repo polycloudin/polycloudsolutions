@@ -1,34 +1,17 @@
 import Link from "next/link";
 import VerticalTabs from "./components/VerticalTabs";
 import BookButton from "./components/BookButton";
+import SiteNav from "./components/SiteNav";
+import SiteFooter from "./components/SiteFooter";
 import { posts } from "./blog/posts";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)] text-[var(--color-ink)]">
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-5 backdrop-blur-xl bg-[var(--color-surface)]/75 border-b border-[var(--color-line)]">
-        <div className="max-w-[1440px] mx-auto flex items-center justify-between">
-          <Link href="/" className="text-display text-xl tracking-tight">
-            Polycloud<span className="text-[var(--color-primary-orange)]">.</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-10 text-sm text-[var(--color-text)]">
-            <Link href="/digital" className="link-underline">Digital</Link>
-            <Link href="/consulting" className="link-underline">Consulting</Link>
-          <Link href="/blog" className="link-underline">Insights</Link>
-            <Link href="/about" className="link-underline">About</Link>
-            <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">
-              Book a call
-            </BookButton>
-          </div>
-          <BookButton variant="primary" className="md:hidden !py-2 !px-3 !text-xs">
-            Book
-          </BookButton>
-        </div>
-      </nav>
+      <SiteNav />
 
       {/* Hero */}
-      <section className="relative pt-40 md:pt-48 pb-28 md:pb-40 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-36 md:pt-44 pb-28 md:pb-40 px-6 md:px-10 overflow-hidden">
         {/* Background gradient */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -95,22 +78,22 @@ export default function Home() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / Two practices</p>
-              <h2 className="text-[clamp(2.5rem,6.5vw,5.5rem)] max-w-2xl">
-                Pick the one that <span className="text-serif-accent">fits</span>.
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / The firm</p>
+              <h2 className="text-[clamp(2.5rem,6.5vw,5.5rem)] max-w-3xl leading-[1.02]">
+                Three practices. One <span className="text-serif-accent">operating system</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Two real businesses, honestly split. Digital is productized services for any SMB. Consulting is AI integration concentrated on finance operators. Different buyers. Shared standard.
+              Different customers, one shared engine. Digital sharpens SMB commercial intelligence. Consulting exposes workflow patterns across mid-market operators. Labs distills deep-tech signals for capital allocators and operators. Every engagement trains the next.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-3 gap-5">
             {/* Digital */}
             <Link
               href="/digital"
               style={{ backgroundColor: "#0A0A0A", borderColor: "#0A0A0A" }}
-              className="card-hover relative overflow-hidden rounded-xl p-10 md:p-14 text-white group aspect-[4/3] md:aspect-auto flex flex-col justify-between border min-h-[440px]"
+              className="card-hover relative overflow-hidden rounded-xl p-8 md:p-10 text-white group flex flex-col justify-between border min-h-[440px]"
             >
               <div
                 className="absolute inset-0 opacity-30 pointer-events-none"
@@ -128,17 +111,17 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative">
-                <h3 className="text-[clamp(2.25rem,4.5vw,4rem)] mb-6 max-w-xl leading-[1.02]">
+                <h3 className="text-[clamp(1.5rem,2.5vw,2.1rem)] mb-5 leading-[1.1]">
                   Websites, ads, automation — for any SMB.
                 </h3>
-                <p className="text-white/60 text-[15px] mb-10 max-w-md leading-relaxed">
-                  Pre-configured bundles for local businesses, D2C brands, coaching centres, professional services. Starting at ₹70K one-time + ₹12K/month.
+                <p className="text-white/60 text-[14px] mb-8 leading-relaxed">
+                  Pre-configured bundles for local businesses, D2C brands, coaching centres, professional services. From ₹70K + ₹12K/month.
                 </p>
-                <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/50">
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-white/50">
                   <span>Websites</span>
-                  <span>Google + Meta ads</span>
+                  <span>Ads</span>
                   <span>SEO</span>
-                  <span>WhatsApp Business</span>
+                  <span>WhatsApp</span>
                   <span>CRM</span>
                 </div>
               </div>
@@ -148,28 +131,65 @@ export default function Home() {
             <Link
               href="/consulting"
               style={{ backgroundColor: "#1A5FD4", borderColor: "#1A5FD4" }}
-              className="card-hover relative overflow-hidden rounded-xl p-10 md:p-14 text-white group flex flex-col justify-between border min-h-[440px]"
+              className="card-hover relative overflow-hidden rounded-xl p-8 md:p-10 text-white group flex flex-col justify-between border min-h-[440px]"
             >
               <div className="flex items-start justify-between">
                 <p className="text-eyebrow text-white/70">
-                  Consulting — For Finance Operators
+                  Consulting — For Operators
                 </p>
                 <div className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500">
                   ↗
                 </div>
               </div>
               <div>
-                <h3 className="text-[clamp(1.75rem,3vw,2.75rem)] mb-6 leading-[1.05]">
-                  AI integration for CA firms, NBFCs, fintechs.
+                <h3 className="text-[clamp(1.5rem,2.5vw,2.1rem)] mb-5 leading-[1.1]">
+                  AI integration across verticals.
                 </h3>
-                <p className="text-white/75 text-[15px] mb-10 max-w-md leading-relaxed">
-                  We rebuild workflows around AI — starting with a 2-week audit. Flagship: GSTR-2B reconciliation. From ₹1L audit · ₹50K–5L builds.
+                <p className="text-white/75 text-[14px] mb-8 leading-relaxed">
+                  Rebuild workflows around AI. Finance, SaaS, D2C, healthcare, manufacturing, professional services. From ₹1L audit · ₹50K–5L builds.
                 </p>
-                <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/70">
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-white/70">
                   <span>Audits</span>
                   <span>Builds</span>
                   <span>Platforms</span>
                   <span>Retainers</span>
+                </div>
+              </div>
+            </Link>
+
+            {/* Research */}
+            <Link
+              href="/labs"
+              style={{ backgroundColor: "#F46B2C", borderColor: "#F46B2C" }}
+              className="card-hover relative overflow-hidden rounded-xl p-8 md:p-10 text-white group flex flex-col justify-between border min-h-[440px]"
+            >
+              <div
+                className="absolute inset-0 opacity-25 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 50% at 90% 10%, rgba(10, 10, 10, 0.35) 0%, transparent 60%)",
+                }}
+              />
+              <div className="flex items-start justify-between relative">
+                <p className="text-eyebrow text-white/80">
+                  Labs — Deep-tech intelligence
+                </p>
+                <div className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500">
+                  ↗
+                </div>
+              </div>
+              <div className="relative">
+                <h3 className="text-[clamp(1.5rem,2.5vw,2.1rem)] mb-5 leading-[1.1]">
+                  Deep-tech intelligence, on tap.
+                </h3>
+                <p className="text-white/80 text-[14px] mb-8 leading-relaxed">
+                  Eight research agents, six-phase pipeline, knowledge-graph memory — pointed at any sector. Technical DD, cohort screens, IP landscapes, and sector thesis work for VCs, incubators, and deep-tech operators. Delivered in weeks.
+                </p>
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-white/70">
+                  <span>DD reports</span>
+                  <span>Cohort screens</span>
+                  <span>IP landscape</span>
+                  <span>Sector thesis</span>
                 </div>
               </div>
             </Link>
@@ -294,29 +314,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="px-6 md:px-10 py-14 bg-[var(--color-ink)] border-t border-white/10 text-white/60">
-        <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between gap-6 text-sm">
-          <div className="flex items-center gap-3">
-            <span className="text-display text-lg text-white">
-              Polycloud<span className="text-[var(--color-primary-orange)]">.</span>
-            </span>
-            <span className="text-white/30">·</span>
-            <span>© 2026 · Est. 2020</span>
-          </div>
-          <div className="flex gap-8">
-            <Link href="/digital" className="hover:text-white transition-colors">Digital</Link>
-            <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
-          <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
-            <a href="mailto:hello@polycloud.in" className="hover:text-white transition-colors">Contact</a>
-          </div>
-        <div className="mt-8 pt-6 border-t border-white/10">
-          <p className="mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
-            Deployable across India · GCC · Southeast Asia · English-first delivery
-          </p>
-        </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../components/BookButton";
+import SiteNav from "../components/SiteNav";
+import SiteFooter from "../components/SiteFooter";
 
 export const metadata: Metadata = {
   title: "About — How we think, what we build",
@@ -30,7 +32,7 @@ const principles = [
   {
     num: "03",
     name: "Data over opinions",
-    body: "Paid-acquisition dashboards, server logs, conversion funnels, actual Claude usage data. We plan from what the instruments show, not from what sounds right in a meeting.",
+    body: "Paid-acquisition dashboards, server logs, conversion funnels, actual production telemetry. We plan from what the instruments show, not from what sounds right in a meeting.",
   },
   {
     num: "04",
@@ -45,13 +47,39 @@ const principles = [
 ];
 
 const stack = [
-  { category: "AI & Agents", items: ["Claude", "OpenAI", "custom agent framework"] },
-  { category: "Frontend", items: ["Next.js", "TypeScript", "Tailwind"] },
-  { category: "Backend", items: ["Python", "FastAPI", "Postgres", "Redis"] },
-  { category: "Infrastructure", items: ["Vercel", "AWS", "Cloudflare"] },
-  { category: "Integrations", items: ["WhatsApp Business API", "Tally", "Zoho", "Stripe", "GSTN"] },
-  { category: "Analytics", items: ["GA4", "PostHog", "custom attribution"] },
+  {
+    category: "Research, on tap",
+    body: "Weekly intel and deep due-diligence reports that would take a human analyst months. You get defensible, cited, PhD-grade synthesis across your sector — delivered in days.",
+    tag: "Labs",
+  },
+  {
+    category: "AI employees that fit your team",
+    body: "Agents trained on your vocabulary, your data, and your approval gates — not a generic copilot. They fill a real seat on your ops team, and they come with the audit trail a CFO can defend.",
+    tag: "Consulting",
+  },
+  {
+    category: "India data, ready to ship",
+    body: "Live access to Tally, GSTN, MCA, eCourts, EPFO, Vahan, DGCA, and WhatsApp Business — the data sources most SaaS vendors leave on the table. You move first on things competitors can't even see.",
+    tag: "Digital + Consulting",
+  },
+  {
+    category: "Forty-hour workflows, done overnight",
+    body: "GSTR-2B reconciliation, ITC-at-risk flagging, vendor follow-ups — the monthly grind collapses from a week of CA hours into an evening of review. Output is the audit-trail-ready artefact your filing team expected.",
+    tag: "Digital",
+  },
+  {
+    category: "Alt-data signals, before the market sees them",
+    body: "Private pipelines from aviation, mobility, retail, and regulatory disclosures — turned into signals that appear in portfolio briefings before they show up in price charts. Backtested, deployed, and monitored.",
+    tag: "Labs + ops",
+  },
+  {
+    category: "Decisions with a paper trail",
+    body: "Every recommendation you get is defended by an adversarial review — the logic is written down, the sources are cited, and anyone on your team can trace the reasoning. Scrutiny-proof by design.",
+    tag: "All engagements",
+  },
 ];
+
+const substrate = "We own the logic, we rent the substrate — so the artefacts you take home are yours, and the compute bill doesn't move the needle on your ROI.";
 
 const facts = [
   { label: "Founded", value: "2020" },
@@ -63,10 +91,10 @@ const facts = [
 export default function About() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)] text-[var(--color-ink)]">
-      <Nav />
+      <SiteNav active="about" />
 
       {/* Hero */}
-      <section className="relative pt-40 md:pt-48 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-36 md:pt-44 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -149,13 +177,13 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Stack</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / What we&apos;ve built</p>
               <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
-                What we <span className="text-serif-accent">build on</span>.
+                The <span className="text-serif-accent">proprietary</span> layer.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Opinionated, not religious. The stack updates when something cleaner ships. Tool-agnostic on the parts that matter — we pick the cleanest tool for the workflow, never the one with the biggest margin for us.
+              Most firms describe their stack as a list of public tools anyone can rent. Our moat is the layer above it — data pipelines, agent runtimes, and decision systems we own. Each engagement makes the next one faster.
             </p>
           </div>
 
@@ -163,20 +191,31 @@ export default function About() {
             {stack.map((s) => (
               <div
                 key={s.category}
-                className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
+                className="relative bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover overflow-hidden"
               >
-                <p className="text-eyebrow text-[var(--color-primary-orange)] mb-5">{s.category}</p>
-                <ul className="space-y-2">
-                  {s.items.map((item) => (
-                    <li key={item} className="text-[var(--color-text)] text-[15px] flex gap-3 items-baseline">
-                      <span className="text-[var(--color-primary-blue)] text-xs">→</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse 50% 40% at 0% 0%, rgba(26, 95, 212, 0.04) 0%, transparent 60%)",
+                  }}
+                />
+                <div className="flex items-center justify-between mb-5 relative">
+                  <p className="text-eyebrow text-[var(--color-primary-orange)]">{s.category}</p>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-[var(--color-text-muted)] px-2 py-1 rounded-full border border-[var(--color-line)] bg-[var(--color-surface-warm)]">
+                    {s.tag}
+                  </span>
+                </div>
+                <p className="text-[var(--color-text)] text-[14.5px] leading-relaxed relative">
+                  {s.body}
+                </p>
               </div>
             ))}
           </div>
+
+          <p className="mt-10 text-[13px] font-mono uppercase tracking-[0.18em] text-[var(--color-text-muted)] text-center md:text-left">
+            {substrate}
+          </p>
         </div>
       </section>
 
@@ -212,7 +251,7 @@ export default function About() {
 
 function Nav() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-5 backdrop-blur-xl bg-[var(--color-surface)]/75 border-b border-[var(--color-line)]">
+    <nav className="fixed top-[48px] md:top-[52px] left-0 right-0 z-50 px-6 md:px-10 py-5 backdrop-blur-xl bg-[var(--color-surface)]/75 border-b border-[var(--color-line)]">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between">
         <Link href="/" className="text-display text-xl tracking-tight">
           Polycloud<span className="text-[var(--color-primary-orange)]">.</span>
@@ -222,7 +261,6 @@ function Nav() {
           <Link href="/consulting" className="link-underline">Consulting</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline text-[var(--color-ink)] font-medium">About</Link>
-          <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
         </div>
       </div>
     </nav>
@@ -230,28 +268,5 @@ function Nav() {
 }
 
 function Footer() {
-  return (
-    <footer className="px-6 md:px-10 py-14 bg-[var(--color-ink)] border-t border-white/10 text-white/60">
-      <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between gap-6 text-sm">
-        <div className="flex items-center gap-3">
-          <span className="text-display text-lg text-white">
-            Polycloud<span className="text-[var(--color-primary-orange)]">.</span>
-          </span>
-          <span className="text-white/30">·</span>
-          <span>© 2026 · Est. 2020</span>
-        </div>
-        <div className="flex gap-8">
-          <Link href="/digital" className="hover:text-white transition-colors">Digital</Link>
-          <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
-          <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
-          <Link href="/about" className="hover:text-white transition-colors">About</Link>
-        </div>
-        <div className="mt-8 pt-6 border-t border-white/10">
-          <p className="mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
-            Deployable across India · GCC · Southeast Asia · English-first delivery
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
+  return <SiteFooter />;
 }
