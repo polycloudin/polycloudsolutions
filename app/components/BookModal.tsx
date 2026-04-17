@@ -15,32 +15,15 @@ export default function BookModal({
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
-  const [mounted, setMounted] = useState(false);
 
-  // Mount + unmount transitions — double-rAF so the browser paints the initial
-  // off-screen state before flipping to the mounted state, guaranteeing the transition fires.
   useEffect(() => {
-    if (open) {
-      let frame2 = 0;
-      const frame1 = requestAnimationFrame(() => {
-        frame2 = requestAnimationFrame(() => setMounted(true));
-      });
-      return () => {
-        cancelAnimationFrame(frame1);
-        if (frame2) cancelAnimationFrame(frame2);
-      };
-    } else {
-      setMounted(false);
+    if (!open) {
       const t = setTimeout(() => {
         setStatus("idle");
         setErrorMsg("");
       }, 300);
       return () => clearTimeout(t);
     }
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
@@ -88,18 +71,12 @@ export default function BookModal({
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className={`absolute inset-0 bg-[#0A0A0A]/70 backdrop-blur-md transition-opacity duration-300 ${
-          mounted ? "opacity-100" : "opacity-0"
-        }`}
+        className="absolute inset-0 bg-[#0A0A0A]/70 backdrop-blur-md animate-book-fade"
       />
 
       {/* Modal */}
       <div
-        className={`relative w-full max-w-[640px] max-h-[92vh] overflow-y-auto rounded-2xl bg-[var(--color-surface)] border border-[var(--color-line)] shadow-[0_50px_140px_-30px_rgba(10,10,10,0.6),0_0_0_1px_rgba(255,255,255,0.04)] transition-all duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          mounted
-            ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 translate-y-6 scale-[0.97]"
-        }`}
+        className="relative w-full max-w-[640px] max-h-[92vh] overflow-y-auto rounded-2xl bg-[var(--color-surface)] border border-[var(--color-line)] shadow-[0_50px_140px_-30px_rgba(10,10,10,0.6),0_0_0_1px_rgba(255,255,255,0.04)] animate-book-in"
         style={{
           backgroundImage:
             "radial-gradient(ellipse 80% 50% at 0% 0%, rgba(26, 95, 212, 0.04) 0%, transparent 55%), radial-gradient(ellipse 60% 40% at 100% 100%, rgba(244, 107, 44, 0.03) 0%, transparent 55%)",
