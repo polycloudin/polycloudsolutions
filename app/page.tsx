@@ -52,7 +52,7 @@ export default function Home() {
 
           <div className="anim-fade-up delay-5 grid md:grid-cols-[1.2fr_1fr] gap-12 md:gap-24 items-end">
             <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-xl leading-relaxed">
-              We design systems that run growth, ops, and customer workflows at machine speed. The operators we work with stop scaling by headcount — and start scaling by infrastructure.
+              88% of companies use AI. Only 6% see bottom-line impact. The difference is implementation — the invisible work of redesigning how tasks move, who makes decisions, and where the AI actually fits. That's what we build.
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="https://cal.com/polycloud/intro" className="btn-primary">
@@ -99,13 +99,13 @@ export default function Home() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / Engagement models</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / Two practices</p>
               <h2 className="text-[clamp(2.5rem,6.5vw,5.5rem)] max-w-2xl">
-                Two ways we <span className="text-serif-accent">work</span>.
+                Pick the one that <span className="text-serif-accent">fits</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Productized automation for growth-stage operators. Custom consulting for companies shipping platform-grade systems. Different scope. Same standard.
+              Two real businesses, honestly split. Digital is productized services for any SMB. Consulting is AI integration concentrated on finance operators. Different buyers. Shared standard.
             </p>
           </div>
 
@@ -125,22 +125,25 @@ export default function Home() {
               />
               <div className="flex items-start justify-between relative">
                 <p className="text-eyebrow text-white/60">
-                  Digital — Productized
+                  Digital — For SMBs
                 </p>
                 <div className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500">
                   ↗
                 </div>
               </div>
               <div className="relative">
-                <h3 className="text-[clamp(2.25rem,4.5vw,4rem)] mb-10 max-w-xl leading-[1.02]">
-                  Growth systems that ship in weeks.
+                <h3 className="text-[clamp(2.25rem,4.5vw,4rem)] mb-6 max-w-xl leading-[1.02]">
+                  Websites, ads, automation — for any SMB.
                 </h3>
-                <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/60">
+                <p className="text-white/60 text-[15px] mb-10 max-w-md leading-relaxed">
+                  Pre-configured bundles for local businesses, D2C brands, coaching centres, professional services. Starting at ₹70K one-time + ₹12K/month.
+                </p>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/50">
                   <span>Websites</span>
-                  <span>Paid acquisition</span>
+                  <span>Google + Meta ads</span>
                   <span>SEO</span>
-                  <span>Messaging</span>
-                  <span>CRM automation</span>
+                  <span>WhatsApp Business</span>
+                  <span>CRM</span>
                 </div>
               </div>
             </Link>
@@ -153,20 +156,23 @@ export default function Home() {
             >
               <div className="flex items-start justify-between">
                 <p className="text-eyebrow text-white/70">
-                  Consulting — Custom
+                  Consulting — For Finance Operators
                 </p>
                 <div className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500">
                   ↗
                 </div>
               </div>
               <div>
-                <h3 className="text-[clamp(1.75rem,3vw,2.75rem)] mb-10 leading-[1.05]">
-                  Platform-grade systems for serious operators.
+                <h3 className="text-[clamp(1.75rem,3vw,2.75rem)] mb-6 leading-[1.05]">
+                  AI integration for CA firms, NBFCs, fintechs.
                 </h3>
-                <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/75">
+                <p className="text-white/75 text-[15px] mb-10 max-w-md leading-relaxed">
+                  We rebuild workflows around AI — starting with a 2-week audit. Flagship: GSTR-2B reconciliation. From ₹1L audit · ₹50K–5L builds.
+                </p>
+                <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/70">
                   <span>Audits</span>
-                  <span>Sprints</span>
-                  <span>Platform builds</span>
+                  <span>Builds</span>
+                  <span>Platforms</span>
                   <span>Retainers</span>
                 </div>
               </div>
@@ -175,26 +181,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats — editorial */}
+      {/* Stats — integration gap */}
       <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-20">02 / Track record</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-20">02 / The integration gap</p>
           <div className="grid md:grid-cols-3 gap-12 md:gap-10">
             {[
               {
-                n: "50+",
-                label: "Operators partnered with",
-                detail: "Growth-stage teams across SaaS, D2C, and professional services.",
+                n: "88%",
+                label: "Companies using AI today",
+                detail: "Adoption is near-universal across mid-market operators and SMBs alike.",
               },
               {
-                n: "₹5Cr+",
-                label: "Client revenue generated",
-                detail: "Measured on live paid-acquisition dashboards. Not testimonials.",
+                n: "6%",
+                label: "See bottom-line impact",
+                detail: "The vast majority bolt AI onto existing processes and see no measurable return.",
               },
               {
-                n: "70%",
-                label: "Operational time reclaimed",
-                detail: "Manual workflows replaced by systems that run continuously.",
+                n: "21%",
+                label: "Redesign workflows around it",
+                detail: "Where the real returns live — and where most firms never go.",
               },
             ].map((s, i) => (
               <div key={i} className="border-t border-[var(--color-ink)]/80 pt-8">
@@ -208,6 +214,9 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <p className="mt-14 mono text-xs text-[var(--color-text-muted)] tracking-[0.15em]">
+            SOURCES — McKinsey State of AI 2025, Libertify, RAND AI Failure Analysis.
+          </p>
         </div>
       </section>
 
