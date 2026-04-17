@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../../components/BookButton";
+import WebsiteMockup from "../../components/WebsiteMockup";
+import MockupLightbox from "../../components/MockupLightbox";
 
 export const metadata: Metadata = {
   title: "Local business — Websites, Google, WhatsApp, done",
@@ -143,10 +145,33 @@ export default function LocalBusiness() {
         </div>
       </section>
 
+      {/* Mockup */}
+      <section className="px-6 md:px-10 py-24 md:py-32">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / What you get</p>
+              <h2 className="text-[clamp(2rem,5vw,4rem)] max-w-2xl leading-[1]">
+                Website, Google, <span className="text-serif-accent text-[var(--color-primary-blue)]">WhatsApp</span> — bookings in.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              A site that loads in under 2 seconds, ranks locally, and hands off to WhatsApp the moment a visitor wants to book. Google Business Profile tuned so the search traffic actually arrives.
+            </p>
+          </div>
+          <MockupLightbox caption="Local business site with WhatsApp booking · click to expand">
+            <WebsiteMockup />
+          </MockupLightbox>
+          <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+            ILLUSTRATIVE — real sites ship with your brand, photos, services, and content.
+          </p>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="px-6 md:px-10 py-24 md:py-32 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Pricing</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing</p>
           <h2 className="text-[clamp(2.25rem,6vw,5rem)] mb-14 leading-[1]">
             Launch for <span className="text-serif-accent">₹70K</span>. Run for <span className="text-serif-accent">₹12K/mo</span>.
           </h2>
