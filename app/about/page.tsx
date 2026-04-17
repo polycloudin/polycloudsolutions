@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BookButton from "../components/BookButton";
 
 export const metadata: Metadata = {
   title: "About — Two operators, one thesis",
@@ -244,12 +245,7 @@ export default function About() {
             Most engagements start with a{" "}
             <span className="text-serif-accent text-[var(--color-primary-orange)]">conversation</span>.
           </h2>
-          <a
-            href="mailto:hello@polycloud.in"
-            className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
-          >
-            Book a call ↗
-          </a>
+          <BookButton variant="light-primary">Book a call ↗</BookButton>
         </div>
       </section>
 
@@ -270,9 +266,7 @@ function Nav() {
           <Link href="/consulting" className="link-underline">Consulting</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline text-[var(--color-ink)] font-medium">About</Link>
-          <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
-            Book a call
-          </a>
+          <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
         </div>
       </div>
     </nav>

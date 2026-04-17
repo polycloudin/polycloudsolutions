@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BookButton from "../components/BookButton";
 import { posts } from "./posts";
 
 export const metadata: Metadata = {
@@ -92,12 +93,7 @@ export default function BlogIndex() {
           <h2 className="text-display text-[clamp(2.25rem,6vw,4.5rem)] mb-10 leading-[0.95]">
             Reading isn't shipping. <span className="text-serif-accent text-[var(--color-primary-orange)]">Let's talk</span>.
           </h2>
-          <a
-            href="mailto:hello@polycloud.in"
-            className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
-          >
-            Book a call ↗
-          </a>
+          <BookButton variant="light-primary">Book a call ↗</BookButton>
         </div>
       </section>
 
@@ -118,9 +114,7 @@ function Nav() {
           <Link href="/consulting" className="link-underline">Consulting</Link>
           <Link href="/blog" className="link-underline text-[var(--color-ink)] font-medium">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
-          <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
-            Book a call
-          </a>
+          <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
         </div>
       </div>
     </nav>

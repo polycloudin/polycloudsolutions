@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BookButton from "../components/BookButton";
 
 export const metadata: Metadata = {
   title: "Consulting — AI integration for finance operators | PolyCloud",
@@ -103,9 +104,7 @@ export default function Consulting() {
               88% of firms use AI. Only 6% see bottom-line impact. The difference is implementation — the invisible work of redesigning how tasks move, who makes decisions, and where the AI actually fits. That's what we do.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="mailto:hello@polycloud.in" className="btn-primary">
-                Scope an audit ↗
-              </a>
+              <BookButton variant="primary" topic="consulting">Scope an audit ↗</BookButton>
               <Link href="#engagements" className="btn-secondary">
                 Engagement models
               </Link>
@@ -182,12 +181,7 @@ export default function Consulting() {
                     <p className="text-white font-medium text-[14px] leading-relaxed">{flagship.result}</p>
                   </div>
                 </div>
-                <a
-                  href="mailto:hello@polycloud.in"
-                  className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-orange)] hover:!border-[var(--color-primary-orange)] hover:!text-white self-start"
-                >
-                  Pilot on your firm ↗
-                </a>
+                <BookButton variant="light-primary" topic="consulting" className="self-start hover:!bg-[var(--color-primary-orange)] hover:!border-[var(--color-primary-orange)]">Pilot on your firm ↗</BookButton>
               </div>
             </div>
 
@@ -489,12 +483,7 @@ export default function Consulting() {
             Fixed scope. Fixed fee. Written diagnostic and roadmap at the end — whether or not you continue with PolyCloud. A good audit pays for itself in avoided mistakes alone.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a
-              href="mailto:hello@polycloud.in"
-              className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
-            >
-              Scope an audit ↗
-            </a>
+            <BookButton variant="light-primary">Scope an audit ↗</BookButton>
             <a
               href="mailto:hello@polycloud.in"
               className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]"
@@ -522,9 +511,7 @@ function Nav() {
           <Link href="/consulting" className="link-underline text-[var(--color-ink)] font-medium">Consulting</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
-          <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
-            Book a call
-          </a>
+          <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
         </div>
       </div>
     </nav>

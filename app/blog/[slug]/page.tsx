@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import BookButton from "../../components/BookButton";
 import { notFound } from "next/navigation";
 import { getPost, posts } from "../posts";
 
@@ -108,12 +109,7 @@ export default async function BlogPost({ params }: Props) {
                   {post.cta}
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <a
-                    href="mailto:hello@polycloud.in"
-                    className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)] hover:!text-white"
-                  >
-                    Book a call ↗
-                  </a>
+                  <BookButton variant="light-primary">Book a call ↗</BookButton>
                   <a
                     href="mailto:hello@polycloud.in"
                     className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]"
@@ -167,9 +163,7 @@ function Nav() {
           <Link href="/consulting" className="link-underline">Consulting</Link>
           <Link href="/blog" className="link-underline text-[var(--color-ink)] font-medium">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
-          <a href="mailto:hello@polycloud.in" className="btn-primary !py-2 !px-4 !text-[13px]">
-            Book a call
-          </a>
+          <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
         </div>
       </div>
     </nav>
