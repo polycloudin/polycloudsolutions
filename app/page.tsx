@@ -1,9 +1,7 @@
 import Link from "next/link";
 import VerticalTabs from "./components/VerticalTabs";
 import BookButton from "./components/BookButton";
-import ProjectCard from "./components/ProjectCard";
 import { posts } from "./blog/posts";
-import { featuredProjects } from "./work/projects";
 
 export default function Home() {
   return (
@@ -17,7 +15,6 @@ export default function Home() {
           <div className="hidden md:flex items-center gap-10 text-sm text-[var(--color-text)]">
             <Link href="/digital" className="link-underline">Digital</Link>
             <Link href="/consulting" className="link-underline">Consulting</Link>
-            <Link href="/work" className="link-underline">Work</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
             <Link href="/about" className="link-underline">About</Link>
             <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">
@@ -220,35 +217,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Reference builds */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-6 flex-wrap gap-6">
-            <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Reference builds</p>
-              <h2 className="text-[clamp(2.5rem,6.5vw,5.5rem)] max-w-2xl">
-                What we build, <span className="text-serif-accent">by vertical</span>.
-              </h2>
-            </div>
-            <Link href="/work" className="btn-secondary">All reference builds →</Link>
-          </div>
-          <p className="text-[var(--color-text-secondary)] max-w-2xl text-[15px] leading-relaxed mb-14">
-            Reference implementations of the kind of site we ship per vertical. Production client work is under NDA — these templates show what you get.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6">
-            {featuredProjects.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Blog */}
       <section className="px-6 md:px-10 py-24 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">04 / Insights</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Insights</p>
               <h2 className="text-[clamp(2.5rem,6.5vw,5.5rem)] max-w-2xl">
                 The playbook, <span className="text-serif-accent">public</span>.
               </h2>
@@ -296,7 +270,7 @@ export default function Home() {
           }}
         />
         <div className="max-w-[1440px] mx-auto relative">
-          <p className="text-eyebrow text-white/50 mb-10">05 / Engage</p>
+          <p className="text-eyebrow text-white/50 mb-10">04 / Engage</p>
           <h2 className="text-display text-[clamp(2.75rem,10vw,9.5rem)] mb-12 max-w-[1200px] leading-[0.95]">
             Ship the first system in{" "}
             <span className="text-serif-accent text-[var(--color-primary-orange)]">fourteen days</span>.
@@ -333,7 +307,6 @@ export default function Home() {
           <div className="flex gap-8">
             <Link href="/digital" className="hover:text-white transition-colors">Digital</Link>
             <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
-            <Link href="/work" className="link-underline">Work</Link>
           <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
             <a href="mailto:hello@polycloud.in" className="hover:text-white transition-colors">Contact</a>
           </div>

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../../components/BookButton";
-import ProjectCard from "../../components/ProjectCard";
-import { projects } from "../../work/projects";
 
 export const metadata: Metadata = {
   title: "D2C solutions — Storefronts, ads, WhatsApp post-purchase",
@@ -51,8 +49,6 @@ const outcomes = [
   { stat: "2–6 weeks", label: "Launch to live storefront", sub: "depending on catalog size" },
 ];
 
-const d2cProjects = projects.filter((p) => p.verticalSlug === "d2c");
-
 export default function D2C() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)] text-[var(--color-ink)]">
@@ -82,7 +78,7 @@ export default function D2C() {
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary">Book a discovery call ↗</BookButton>
-              <Link href="#work" className="btn-secondary">See work</Link>
+              <Link href="#pricing" className="btn-secondary">See pricing</Link>
             </div>
           </div>
         </div>
@@ -133,32 +129,10 @@ export default function D2C() {
         </div>
       </section>
 
-      {/* Featured work */}
-      {d2cProjects.length > 0 && (
-        <section id="work" className="px-6 md:px-10 py-24 md:py-32 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
-          <div className="max-w-[1440px] mx-auto">
-            <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
-              <div>
-                <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Selected D2C work</p>
-                <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl leading-[1]">
-                  Brands we've <span className="text-serif-accent">shipped</span>.
-                </h2>
-              </div>
-              <Link href="/work" className="btn-secondary">All work →</Link>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {d2cProjects.map((p) => (
-                <ProjectCard key={p.slug} project={p} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Pricing */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
+      <section id="pricing" className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Pricing</p>
           <h2 className="text-[clamp(2.25rem,6vw,5rem)] mb-14 leading-[1]">
             Launch for <span className="text-serif-accent">₹1.5L</span>. Run for <span className="text-serif-accent">₹32K/mo</span>.
           </h2>
@@ -247,7 +221,6 @@ function Nav() {
         <div className="hidden md:flex items-center gap-10 text-sm">
           <Link href="/digital" className="link-underline">Digital</Link>
           <Link href="/consulting" className="link-underline">Consulting</Link>
-          <Link href="/work" className="link-underline">Work</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
           <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
@@ -271,7 +244,6 @@ function Footer() {
         <div className="flex gap-8">
           <Link href="/digital" className="hover:text-white transition-colors">Digital</Link>
           <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
-          <Link href="/work" className="hover:text-white transition-colors">Work</Link>
           <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
         </div>
