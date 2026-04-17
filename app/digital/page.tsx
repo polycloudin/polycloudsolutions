@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../components/BookButton";
+import ProjectCard from "../components/ProjectCard";
+import { featuredProjects } from "../work/projects";
 
 export const metadata: Metadata = {
   title: "Digital — Websites, ads, automation | PolyCloud",
@@ -395,10 +397,30 @@ export default function Digital() {
         </div>
       </section>
 
-      {/* Process */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
+      {/* Selected work */}
+      <section className="px-6 md:px-10 py-24 md:py-36 border-t border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">05 / How we work</p>
+          <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">05 / Selected work</p>
+              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+                Sites we've <span className="text-serif-accent">shipped</span>.
+              </h2>
+            </div>
+            <Link href="/work" className="btn-secondary">All work →</Link>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredProjects.map((p) => (
+              <ProjectCard key={p.slug} project={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process */}
+      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto">
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">06 / How we work</p>
           <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl mb-16">
             From discovery to <span className="text-serif-accent">live in four steps</span>.
           </h2>
@@ -415,9 +437,9 @@ export default function Digital() {
       </section>
 
       {/* Good to know */}
-      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-24 md:py-36">
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">06 / Good to know</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">07 / Good to know</p>
           <div className="grid md:grid-cols-2 gap-10 md:gap-12 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
             <div>
               <p className="font-semibold text-[var(--color-ink)] mb-2">Pricing</p>
@@ -494,6 +516,7 @@ function Nav() {
         <div className="hidden md:flex items-center gap-10 text-sm">
           <Link href="/digital" className="link-underline text-[var(--color-ink)] font-medium">Digital</Link>
           <Link href="/consulting" className="link-underline">Consulting</Link>
+          <Link href="/work" className="link-underline">Work</Link>
           <Link href="/blog" className="link-underline">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
           <BookButton variant="primary" className="!py-2 !px-4 !text-[13px]">Book a call</BookButton>
@@ -517,6 +540,7 @@ function Footer() {
         <div className="flex gap-8">
           <Link href="/digital" className="hover:text-white transition-colors">Digital</Link>
           <Link href="/consulting" className="hover:text-white transition-colors">Consulting</Link>
+          <Link href="/work" className="link-underline">Work</Link>
           <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
         </div>

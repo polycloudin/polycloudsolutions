@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { posts } from "./blog/posts";
+import { projects } from "./work/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://polycloud.in";
@@ -10,9 +11,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/digital`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/consulting`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/solutions/ca-firm`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${base}/solutions/d2c`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${base}/solutions/local-business`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${base}/work`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
   ];
+
+  const workRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
+    url: `${base}/work/${project.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
 
   const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${base}/blog/${post.slug}`,
@@ -21,5 +32,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...blogRoutes];
+  return [...staticRoutes, ...workRoutes, ...blogRoutes];
 }
