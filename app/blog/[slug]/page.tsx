@@ -106,7 +106,7 @@ export default async function BlogPost({ params }: Props) {
                 <a href="https://wa.me/919876543210" className="btn-primary !bg-white !text-[var(--color-ink)] !border-white hover:!bg-[var(--color-primary-orange)] hover:!border-[var(--color-primary-orange)] hover:!text-white">
                   Start on WhatsApp <span className="text-lg">→</span>
                 </a>
-                <a href="mailto:hello@polycloudsolutions.com" className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]">
+                <a href="mailto:hello@polycloud.in" className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]">
                   Email us
                 </a>
               </div>
