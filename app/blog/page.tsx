@@ -3,9 +3,9 @@ import Link from "next/link";
 import { posts } from "./posts";
 
 export const metadata: Metadata = {
-  title: "PolyCloud Blog | AI Automation & Digital Marketing India",
+  title: "PolyCloud Insights | Automation playbooks for modern operators",
   description:
-    "Practical guides on AI automation, WhatsApp chatbots, GST filing, and digital marketing for Indian small businesses and CA firms.",
+    "Long-form playbooks on AI automation, messaging infrastructure, and operational systems for growth-stage operators.",
 };
 
 export default function BlogIndex() {
@@ -29,13 +29,13 @@ export default function BlogIndex() {
       <section className="px-4 md:px-8 py-16 bg-gradient-to-b from-[var(--color-surface)] to-white">
         <div className="max-w-3xl mx-auto">
           <p className="text-sm font-semibold text-[var(--color-primary-orange)] mb-3 tracking-widest uppercase">
-            Resources
+            Insights
           </p>
           <h1 className="text-4xl md:text-5xl font-bold font-[Plus Jakarta Sans] tracking-tight mb-4">
-            AI automation, demystified.
+            The playbook, public.
           </h1>
           <p className="text-lg text-[var(--color-text-secondary)]">
-            Guides for Indian business owners — from clinics to CA firms. No jargon, just what works.
+            Long-form essays on automation infrastructure, messaging systems, and the economics of scaling output without scaling headcount.
           </p>
         </div>
       </section>

@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PolyCloud Solutions | Your Business, On Autopilot",
-  description: "Digital automation and AI consulting for small businesses and enterprises. Increase revenue, save time, reduce costs.",
-  metadataBase: new URL("https://polycloudsolutions.com"),
+  title: "PolyCloud | Your business, on autopilot.",
+  description: "Automation infrastructure for modern operators. Systems that run workflows, campaigns, and customer interactions at machine speed — so you scale output, not headcount.",
+  metadataBase: new URL("https://polycloud.in"),
   openGraph: {
-    title: "PolyCloud Solutions | Your Business, On Autopilot",
-    description: "Digital automation and AI consulting for small businesses and enterprises.",
+    title: "PolyCloud | Your business, on autopilot.",
+    description: "Automation infrastructure for modern operators. Scale output, not headcount.",
     type: "website",
+    url: "https://polycloud.in",
   },
 };
 
