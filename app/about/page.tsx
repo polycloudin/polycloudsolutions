@@ -89,34 +89,64 @@ export default function About() {
             ].map((f, i) => (
               <div
                 key={i}
-                className="bg-white rounded-xl border border-[var(--color-line)] p-10 md:p-12 card-hover"
+                style={{ backgroundColor: i === 0 ? "#0A0A0A" : "#FAFAF8" }}
+                className={`rounded-xl p-10 md:p-14 card-hover relative overflow-hidden ${
+                  i === 0 ? "text-white" : "border border-[var(--color-line)]"
+                }`}
               >
-                <div className="flex items-start gap-6 mb-8">
+                {i === 0 && (
                   <div
-                    style={{ backgroundColor: "#0A0A0A" }}
-                    className="w-20 h-20 rounded-lg flex items-center justify-center shrink-0"
+                    className="absolute inset-0 opacity-30 pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(ellipse 60% 60% at 90% 10%, rgba(26, 95, 212, 0.25) 0%, transparent 60%)",
+                    }}
+                  />
+                )}
+                <div className="relative flex flex-col h-full">
+                  <p
+                    className="mono text-[10px] uppercase tracking-[0.22em] mb-4"
+                    style={{
+                      color: i === 0 ? "rgba(255,255,255,0.5)" : "var(--color-text-secondary)",
+                    }}
                   >
-                    <span className="text-display text-3xl text-white">
-                      {f.name.split(" ")[0][0]}
-                      {f.name.split(" ")[1][0]}
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-[clamp(1.5rem,2.2vw,2rem)] mb-2 leading-tight">{f.name}</h3>
-                    <p className="mono text-xs text-[var(--color-text-secondary)] uppercase tracking-[0.2em]">
-                      {f.role}
-                    </p>
-                  </div>
+                    Co-founder — 0{i + 1}
+                  </p>
+                  <h3
+                    className="text-display text-[clamp(2.5rem,5vw,4rem)] mb-5 leading-[0.95]"
+                    style={{ color: i === 0 ? "white" : "var(--color-ink)" }}
+                  >
+                    {f.name}
+                  </h3>
+                  <p
+                    className="mono text-xs uppercase tracking-[0.18em] mb-8"
+                    style={{
+                      color: i === 0 ? "var(--color-primary-orange)" : "var(--color-primary-blue)",
+                    }}
+                  >
+                    {f.role.replace("Co-founder · ", "")}
+                  </p>
+                  <p
+                    className="text-[15px] leading-relaxed mb-10 flex-1"
+                    style={{
+                      color: i === 0 ? "rgba(255,255,255,0.75)" : "var(--color-text-secondary)",
+                    }}
+                  >
+                    {f.bio}
+                  </p>
+                  <a
+                    href={f.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={
+                      i === 0
+                        ? "btn-primary !bg-white !text-[var(--color-ink)] !border-white self-start"
+                        : "btn-secondary self-start"
+                    }
+                  >
+                    LinkedIn ↗
+                  </a>
                 </div>
-                <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed mb-6">{f.bio}</p>
-                <a
-                  href={f.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium link-underline"
-                >
-                  LinkedIn ↗
-                </a>
               </div>
             ))}
           </div>

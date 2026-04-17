@@ -47,7 +47,7 @@ const flagship = {
   market: "100,138 registered CA firms in India. 72% solo practices.",
   pain: "40–60 hours/month spent manually matching purchase registers against GSTR-2B. Data-entry errors cause 40% of GST compliance issues. Manual reconciliation alone consumes 8+ hours per filing cycle.",
   solution: "A fuzzy-matching reconciliation engine that ingests GSTR-2B JSON + Tally purchase register, matches on GSTIN + invoice + amount tolerance, and outputs a 5-sheet Excel with ITC-at-risk flagged. Plus vendor follow-up automation via WhatsApp.",
-  result: "Filing time drops from 10+ hours to under 2. CAs handle 3× more clients per partner without adding junior staff.",
+  result: "Filing time drops from 10+ hours to under 2. One Chennai firm reported 75% bookkeeping time reduction and 40% higher revenue per client within six months.",
 };
 
 const verticals = [
