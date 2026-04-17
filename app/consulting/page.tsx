@@ -166,12 +166,85 @@ export default function Consulting() {
         </div>
       </section>
 
+      {/* Engagements */}
+      <section id="engagements" className="px-6 md:px-10 py-24 md:py-36">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / Engagement models</p>
+              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+                Four ways to <span className="text-serif-accent">work with us</span>.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              Most engagements start with an Audit or a single Automation build. The best ones become Retainers — because the systems we build keep paying back.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
+            {engagements.map((e, i) => (
+              <div
+                key={i}
+                className="bg-white p-10 md:p-14 hover:bg-[var(--color-surface)] transition-colors"
+              >
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div className="flex items-baseline gap-5">
+                    <span className="mono text-xs text-[var(--color-primary-orange)]">{e.num}</span>
+                    <span className="mono text-xs text-[var(--color-text-muted)]">{e.duration}</span>
+                  </div>
+                  <span className="text-display text-sm text-[var(--color-primary-blue)] whitespace-nowrap">
+                    {e.price}
+                  </span>
+                </div>
+                <h3 className="text-[clamp(1.75rem,3vw,2.5rem)] mb-6 leading-tight">{e.name}</h3>
+                <p className="text-[var(--color-text)] text-[15px] leading-relaxed mb-6 max-w-lg">
+                  {e.pitch}
+                </p>
+                <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed max-w-lg">
+                  <span className="text-[var(--color-ink)] font-medium">Deliverable —</span> {e.deliverable}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Verticals */}
+      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Who we work with</p>
+              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+                Across <span className="text-serif-accent">verticals</span>.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              We work across verticals. Finance is where our deepest flagship lives, but the same engagement shape (audit → sprint → retainer) applies to SaaS, D2C, manufacturing, healthcare, and professional services.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {verticals.map((v, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
+              >
+                <p className="text-eyebrow text-[var(--color-primary-orange)] mb-5">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="text-[clamp(1.25rem,1.8vw,1.5rem)] mb-4 leading-tight">{v.name}</h3>
+                <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">{v.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Flagship — GSTR-2B */}
       <section className="px-6 md:px-10 py-24 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / One deep example</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / One deep example</p>
               <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
                 The{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">GSTR-2B</span>{" "}
@@ -415,79 +488,6 @@ export default function Consulting() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Engagements */}
-      <section id="engagements" className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
-            <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Engagement models</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
-                Four ways to <span className="text-serif-accent">work with us</span>.
-              </h2>
-            </div>
-            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Most engagements start with an Audit or a single Automation build. The best ones become Retainers — because the systems we build keep paying back.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
-            {engagements.map((e, i) => (
-              <div
-                key={i}
-                className="bg-white p-10 md:p-14 hover:bg-[var(--color-surface)] transition-colors"
-              >
-                <div className="flex items-start justify-between gap-4 mb-6">
-                  <div className="flex items-baseline gap-5">
-                    <span className="mono text-xs text-[var(--color-primary-orange)]">{e.num}</span>
-                    <span className="mono text-xs text-[var(--color-text-muted)]">{e.duration}</span>
-                  </div>
-                  <span className="text-display text-sm text-[var(--color-primary-blue)] whitespace-nowrap">
-                    {e.price}
-                  </span>
-                </div>
-                <h3 className="text-[clamp(1.75rem,3vw,2.5rem)] mb-6 leading-tight">{e.name}</h3>
-                <p className="text-[var(--color-text)] text-[15px] leading-relaxed mb-6 max-w-lg">
-                  {e.pitch}
-                </p>
-                <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed max-w-lg">
-                  <span className="text-[var(--color-ink)] font-medium">Deliverable —</span> {e.deliverable}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Verticals */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
-            <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Who we work with</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
-                Across <span className="text-serif-accent">verticals</span>.
-              </h2>
-            </div>
-            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              We work across verticals. Finance is where our deepest flagship lives, but the same engagement shape (audit → sprint → retainer) applies to SaaS, D2C, manufacturing, healthcare, and professional services.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {verticals.map((v, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
-              >
-                <p className="text-eyebrow text-[var(--color-primary-orange)] mb-5">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="text-[clamp(1.25rem,1.8vw,1.5rem)] mb-4 leading-tight">{v.name}</h3>
-                <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">{v.detail}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
