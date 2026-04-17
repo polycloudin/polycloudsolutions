@@ -19,10 +19,10 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "gold-store",
-    name: "Gold Store",
+    name: "D2C Jewelry — luxury storefront",
     vertical: "D2C · Jewelry",
     verticalSlug: "d2c",
-    tagline: "Premium dark-luxury e-commerce for a jewelry D2C brand.",
+    tagline: "Premium dark-luxury e-commerce reference build for a jewelry D2C brand.",
     description:
       "A luxury-grade storefront with monotone-to-gold product reveals, cursor-tracked magnetic interactions, and a dense product catalog. Brand aesthetic: Bloomberg-terminal meets editorial jewelry magazine.",
     stack: ["Next.js", "GSAP", "Tailwind", "Stripe", "Sanity CMS"],
@@ -38,8 +38,8 @@ export const projects: Project[] = [
   },
   {
     slug: "likhita-group",
-    name: "Likhita Group",
-    vertical: "Industrial conglomerate",
+    name: "Industrial holding-company",
+    vertical: "Enterprise · Conglomerate",
     verticalSlug: "enterprise",
     tagline: "Industrial-luxury holding-company site with scrubbed scroll parallax.",
     description:
@@ -57,10 +57,10 @@ export const projects: Project[] = [
   },
   {
     slug: "clinic-hyderabad",
-    name: "Clinic Hyderabad",
-    vertical: "Healthcare",
+    name: "Multi-specialty clinic",
+    vertical: "Healthcare · Clinic",
     verticalSlug: "healthcare",
-    tagline: "Multi-specialty clinic with appointment booking + WhatsApp intake.",
+    tagline: "Multi-specialty clinic reference build with appointment booking + WhatsApp intake.",
     description:
       "Patient-facing clinic site with online appointment booking, WhatsApp-based triage intake, doctor profiles, and a receptionist dashboard for the morning schedule.",
     stack: ["Next.js", "Tailwind", "WhatsApp Business API", "Postgres"],
@@ -76,7 +76,7 @@ export const projects: Project[] = [
   },
   {
     slug: "law-firm",
-    name: "Law Firm",
+    name: "Law firm directory",
     vertical: "Professional services · Legal",
     verticalSlug: "professional-services",
     tagline: "Authoritative law-firm site with practice-area depth + secure client intake.",
@@ -95,7 +95,7 @@ export const projects: Project[] = [
   },
   {
     slug: "real-estate",
-    name: "Real Estate Platform",
+    name: "Real estate portal",
     vertical: "Real estate",
     verticalSlug: "real-estate",
     tagline: "Property-listing platform with interactive maps + agent dashboard.",
@@ -114,7 +114,7 @@ export const projects: Project[] = [
   },
   {
     slug: "interior-design",
-    name: "Interior Design Studio",
+    name: "Interior design studio",
     vertical: "Local business · Interiors",
     verticalSlug: "local-business",
     tagline: "Portfolio-led interior design studio site with project gallery + lead intake.",
@@ -133,7 +133,7 @@ export const projects: Project[] = [
   },
   {
     slug: "stepin-interiors",
-    name: "Stepin Interiors",
+    name: "Turnkey interior service",
     vertical: "Local business · Interiors",
     verticalSlug: "local-business",
     tagline: "Turnkey home-interior service with transparent pricing calculator.",
@@ -152,7 +152,7 @@ export const projects: Project[] = [
   },
   {
     slug: "landscape",
-    name: "Landscape Studio",
+    name: "Landscape design studio",
     vertical: "Local business · Landscaping",
     verticalSlug: "local-business",
     tagline: "Nature-forward design studio site with seasonal portfolio + garden planner.",
@@ -171,7 +171,7 @@ export const projects: Project[] = [
   },
   {
     slug: "voiceforge",
-    name: "VoiceForge",
+    name: "Voice-AI SaaS",
     vertical: "SaaS · Voice AI",
     verticalSlug: "saas",
     tagline: "Voice-AI SaaS with live demo + usage dashboard.",
@@ -190,7 +190,7 @@ export const projects: Project[] = [
   },
   {
     slug: "brandforge",
-    name: "BrandForge",
+    name: "Creative agency portal",
     vertical: "Agency · Creative",
     verticalSlug: "agency",
     tagline: "Creative agency site with case-study-driven narrative + client portal.",

@@ -397,18 +397,21 @@ export default function Digital() {
         </div>
       </section>
 
-      {/* Selected work */}
+      {/* Reference builds */}
       <section className="px-6 md:px-10 py-24 md:py-36 border-t border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">05 / Selected work</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">05 / Reference builds</p>
               <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
-                Sites we've <span className="text-serif-accent">shipped</span>.
+                What we build, <span className="text-serif-accent">by vertical</span>.
               </h2>
             </div>
-            <Link href="/work" className="btn-secondary">All work →</Link>
+            <Link href="/work" className="btn-secondary">All reference builds →</Link>
           </div>
+          <p className="text-[var(--color-text-secondary)] max-w-2xl text-[15px] leading-relaxed mb-10">
+            Reference implementations of the kind of site we ship in each vertical. Production client work is under NDA — these templates show what you get.
+          </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProjects.map((p) => (
               <ProjectCard key={p.slug} project={p} />

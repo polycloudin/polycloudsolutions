@@ -5,9 +5,9 @@ import ProjectCard from "../components/ProjectCard";
 import { projects, verticals } from "./projects";
 
 export const metadata: Metadata = {
-  title: "Work — Shipped projects across verticals",
+  title: "Reference builds — What we ship, by vertical",
   description:
-    "A selection of shipped work — D2C storefronts, SaaS dashboards, law firms, healthcare booking, real estate platforms, local-business portfolios.",
+    "Reference implementations showing what we build in each vertical — D2C storefronts, SaaS dashboards, law firm directories, healthcare booking, real estate portals, local-business portfolios.",
   alternates: { canonical: "/work" },
 };
 
@@ -28,14 +28,14 @@ export default function Work() {
         <div className="max-w-[1440px] mx-auto relative">
           <div className="flex items-center gap-3 mb-10">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
-            <p className="text-eyebrow text-[var(--color-text-secondary)]">Work</p>
+            <p className="text-eyebrow text-[var(--color-text-secondary)]">Reference builds</p>
           </div>
           <h1 className="text-display text-[clamp(2.75rem,9vw,8rem)] mb-10 max-w-[1100px] leading-[0.95]">
-            Shipped across{" "}
-            <span className="text-serif-accent text-[var(--color-primary-blue)]">ten verticals</span>.
+            What we ship,{" "}
+            <span className="text-serif-accent text-[var(--color-primary-blue)]">by vertical</span>.
           </h1>
           <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-3xl leading-relaxed">
-            A selection of engagements. D2C jewelry storefronts, SaaS dashboards, law firm directories, healthcare booking, real estate maps, local-business portfolios, industrial-group holdings. Each one designed and built end-to-end.
+            Reference implementations of the kind of site we ship in each vertical. D2C storefronts, SaaS platforms, law firm directories, healthcare booking, real estate portals, local-business portfolios. Production client work is under NDA — these templates show what you get.
           </p>
         </div>
       </section>
@@ -44,12 +44,12 @@ export default function Work() {
       <section className="px-6 md:px-10 py-12 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
         <div className="max-w-[1440px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
           <div>
-            <p className="text-display text-[clamp(2rem,4vw,3rem)] leading-none mb-1">{projects.length}+</p>
-            <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.2em]">Shipped projects</p>
+            <p className="text-display text-[clamp(2rem,4vw,3rem)] leading-none mb-1">{projects.length}</p>
+            <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.2em]">Reference builds</p>
           </div>
           <div>
             <p className="text-display text-[clamp(2rem,4vw,3rem)] leading-none mb-1">{verticals.length}</p>
-            <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.2em]">Verticals</p>
+            <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.2em]">Verticals covered</p>
           </div>
           <div>
             <p className="text-display text-[clamp(2rem,4vw,3rem)] leading-none mb-1">2–6</p>
@@ -65,7 +65,7 @@ export default function Work() {
       {/* All projects */}
       <section className="px-6 md:px-10 py-16 md:py-24">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-10">All projects</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-10">All reference builds</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((p) => (
               <ProjectCard key={p.slug} project={p} />
