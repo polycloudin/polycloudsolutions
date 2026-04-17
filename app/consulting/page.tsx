@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../components/BookButton";
+import AIGapChart from "../components/AIGapChart";
 
 export const metadata: Metadata = {
   title: "Consulting — AI integration for finance operators | PolyCloud",
@@ -116,19 +117,20 @@ export default function Consulting() {
       {/* Gap stats */}
       <section className="px-6 md:px-10 py-20 md:py-28 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-14">The integration gap</p>
-          <div className="grid md:grid-cols-3 gap-10">
-            {gapData.map((g, i) => (
-              <div key={i} className="border-t border-[var(--color-ink)]/80 pt-6">
-                <div className="text-display text-[clamp(3.5rem,8vw,6.5rem)] leading-none mb-4">{g.stat}</div>
-                <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed max-w-xs">
-                  {g.label}
-                </p>
-              </div>
-            ))}
+          <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">The integration gap</p>
+              <h2 className="text-[clamp(2rem,5vw,3.75rem)] max-w-2xl leading-[1]">
+                Where companies <span className="text-serif-accent">actually lose</span> the AI race.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              Adoption is near-universal. Measurable impact is not. Each step below is where companies drop out — and where the real work lives.
+            </p>
           </div>
-          <p className="mt-16 text-[var(--color-text-secondary)] text-sm max-w-2xl leading-relaxed">
-            Sources: McKinsey State of AI 2025, Libertify, RAND AI Failure Analysis. The integration gap isn't a technology problem. It's a workflow problem.
+          <AIGapChart />
+          <p className="mt-14 text-[var(--color-text-muted)] text-[13px] leading-relaxed max-w-2xl">
+            The integration gap isn't a technology problem. It's a workflow problem — which is why frontier-lab model releases don't close it.
           </p>
         </div>
       </section>
