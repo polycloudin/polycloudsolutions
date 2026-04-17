@@ -103,12 +103,12 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-5 gap-5">
+          <div className="grid md:grid-cols-2 gap-5">
             {/* Digital */}
             <Link
               href="/digital"
               style={{ backgroundColor: "#0A0A0A", borderColor: "#0A0A0A" }}
-              className="card-hover md:col-span-3 relative overflow-hidden rounded-xl p-10 md:p-14 text-white group aspect-[4/3] md:aspect-auto flex flex-col justify-between border min-h-[440px]"
+              className="card-hover relative overflow-hidden rounded-xl p-10 md:p-14 text-white group aspect-[4/3] md:aspect-auto flex flex-col justify-between border min-h-[440px]"
             >
               <div
                 className="absolute inset-0 opacity-30 pointer-events-none"
@@ -146,7 +146,7 @@ export default function Home() {
             <Link
               href="/consulting"
               style={{ backgroundColor: "#1A5FD4", borderColor: "#1A5FD4" }}
-              className="card-hover md:col-span-2 relative overflow-hidden rounded-xl p-10 md:p-14 text-white group flex flex-col justify-between border min-h-[440px]"
+              className="card-hover relative overflow-hidden rounded-xl p-10 md:p-14 text-white group flex flex-col justify-between border min-h-[440px]"
             >
               <div className="flex items-start justify-between">
                 <p className="text-eyebrow text-white/70">
