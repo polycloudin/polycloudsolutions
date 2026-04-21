@@ -31,10 +31,10 @@ const services: Service[] = [
     name: "Ads Management",
     tagline: "Meta + Google, on autopilot",
     description:
-      "Claude Opus analyses your ad accounts daily. Recommends pause-worthy campaigns, budget shifts, and copy fixes. Average 20% ROAS improvement.",
+      "Autopilot analyses your ad accounts daily. Recommends pause-worthy campaigns, budget shifts, and copy fixes. Average 20% ROAS improvement.",
     bundles: ["local-starter", "growth", "total-growth"],
     kpi: "+20% ROAS",
-    stack: ["Meta Graph API", "Google Ads API", "Claude Opus 4.7"],
+    stack: ["Meta Graph API", "Google Ads API", "Autopilot v4"],
     icon: "◎",
     depth: {
       "local-starter": "Google Ads only · local search",
@@ -47,7 +47,7 @@ const services: Service[] = [
     name: "SEO",
     tagline: "Rank without hiring an agency",
     description:
-      "On-page, technical, and local SEO audit. Claude-generated content briefs monthly. India-specific (JustDial, IndiaMART, regional keywords).",
+      "On-page, technical, and local SEO audit. Autopilot-generated content briefs monthly. India-specific (JustDial, IndiaMART, regional keywords).",
     bundles: ["growth", "total-growth"],
     kpi: "+30% organic traffic",
     stack: ["BeautifulSoup", "GSC API", "Ahrefs"],
@@ -65,7 +65,7 @@ const services: Service[] = [
       "Weekly posts, photo uploads, Q&A management, review responses. Plus competitor benchmarking for Tier 1-3 cities.",
     bundles: ["local-starter", "growth", "total-growth"],
     kpi: "+40% direction requests",
-    stack: ["Google Business API", "Claude Opus"],
+    stack: ["Google Business API", "Autopilot"],
     icon: "⊙",
     depth: {
       "local-starter": "Setup + weekly posts",
@@ -97,7 +97,7 @@ const services: Service[] = [
       "Festival-aware calendar (Diwali, Holi, Eid). Auto-scheduled across platforms. AI visuals via Midjourney (Total Growth).",
     bundles: ["growth", "total-growth"],
     kpi: "3-5% engagement",
-    stack: ["Meta Business API", "LinkedIn API", "X API", "Claude Opus"],
+    stack: ["Meta Business API", "LinkedIn API", "X API", "Autopilot"],
     icon: "◇",
     depth: {
       growth: "16 captions/mo · auto-scheduled",
@@ -112,7 +112,7 @@ const services: Service[] = [
       "Because India = WhatsApp. Depth scales from a click-to-chat button up to full automated sales flows.",
     bundles: ["local-starter", "growth", "total-growth"],
     kpi: "<2 min response",
-    stack: ["Interakt/Meta Cloud API", "Razorpay", "Claude Opus"],
+    stack: ["Interakt/Meta Cloud API", "Razorpay", "Autopilot"],
     icon: "◉",
     depth: {
       "local-starter": "Click-to-chat widget",
@@ -140,7 +140,7 @@ const services: Service[] = [
     name: "Review Management",
     tagline: "Never miss a review again",
     description:
-      "Monitor Google, Facebook, JustDial, IndiaMART. Claude drafts responses. Owner approves via WhatsApp. Negative reviews trigger alerts.",
+      "Monitor Google, Facebook, JustDial, IndiaMART. Autopilot drafts responses. Owner approves via WhatsApp. Negative reviews trigger alerts.",
     bundles: ["total-growth"],
     kpi: "+0.3 avg rating",
     stack: ["GMB API", "Facebook Graph", "Playwright"],
@@ -375,7 +375,7 @@ export default function DigitalPage() {
                 <>
                   <strong>Ads (Meta + Google)</strong> accelerate what's
                   already converting. No guessing — every campaign is analysed
-                  daily by Claude.
+                  daily by our Autopilot.
                 </>,
               ],
               [
@@ -470,7 +470,7 @@ export default function DigitalPage() {
                       Outcome
                     </p>
                     <p className="text-white font-medium text-[14px] leading-relaxed">
-                      5 minutes to read, 4 decisions per week. Everything else runs on autopilot — and every action Claude took is logged right there.
+                      5 minutes to read, 4 decisions per week. Everything else runs on Autopilot — and every action it took is logged right there.
                     </p>
                   </div>
                 </div>
@@ -857,11 +857,11 @@ export default function DigitalPage() {
             {[
               {
                 q: "Is this an agency?",
-                a: "No. Agencies have account managers running spreadsheets. We have Claude Opus analysing your ads every hour, drafting every response, and flagging what needs human decisions. You get agency-level service at SaaS prices.",
+                a: "No. Agencies have account managers running spreadsheets. We have Autopilot analysing your ads every hour, drafting every response, and flagging what needs human decisions. You get agency-level service at SaaS prices.",
               },
               {
-                q: "Why not just use Ryze AI, Claude directly, or a marketing SaaS tool?",
-                a: "Those are tools — you still do the work. Ryze builds dashboards for marketers who tweak their own ads. Claude Cowork generates artifacts when you prompt it. We're the opposite: you don't prompt anything. We run the campaigns, respond to reviews, post on WhatsApp, handle the ad platforms — the dashboard is just how you check our work. If you want to do it yourself, the tools are cheaper. If you want someone else to do it and just see the result, that's us.",
+                q: "Why not just use a marketing SaaS tool, a dashboard builder, or AI directly?",
+                a: "Those are tools — you still do the work. Dashboard builders let marketers tweak their own ads. Raw AI tools generate artifacts when you prompt them. We're the opposite: you don't prompt anything. We run the campaigns, respond to reviews, post on WhatsApp, handle the ad platforms — the dashboard is just how you check our work. If you want to do it yourself, the tools are cheaper. If you want someone else to do it and just see the result, that's us.",
               },
               {
                 q: "What's the difference between the bundles and these 9 services?",
@@ -876,7 +876,7 @@ export default function DigitalPage() {
                 a: "We run in dry-run mode for the first 2 weeks so you see every recommendation before anything executes. Every action is logged (audit trail). If we can't prove value in 60 days, you walk.",
               },
               {
-                q: "Can I see what Claude recommends before it runs?",
+                q: "Can I see what Autopilot recommends before it runs?",
                 a: "Yes. Dry-run mode is default. You approve or auto-approve for low-risk changes (pause under-performers). Budget moves and copy rewrites always need a human green-light first.",
               },
             ].map((item) => (
