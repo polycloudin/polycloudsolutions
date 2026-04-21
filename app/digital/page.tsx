@@ -235,31 +235,31 @@ export default function DigitalPage() {
           <div className="flex items-center gap-3 mb-10">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">
-              PolyCloud Digital · The dashboard that runs your marketing
+              PolyCloud Digital · We run your marketing. You read the dashboard.
             </p>
           </div>
 
           <h1 className="text-display text-[clamp(2.75rem,9vw,8rem)] mb-10 max-w-[1200px] leading-[0.95]">
-            <span className="block">Monday morning,</span>
+            <span className="block">We run it.</span>
             <span className="block text-serif-accent text-[var(--color-primary-blue)]">
-              in five minutes.
+              You read it.
             </span>
           </h1>
 
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-20 items-end">
             <p className="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-              Every ad, every review, every keyword — one dashboard, updated
-              nightly. Nine modules feed it: ads, SEO, GMB, social, WhatsApp,
-              reviews, CRM. We run them. You see what worked, what didn't, and
-              the four calls you need to make this week.
+              Other tools let you build dashboards and tweak ads yourself.
+              We're not a tool. We're the operator. We run your ads, reviews,
+              WhatsApp, GMB — nine channels, daily. Monday morning you open
+              one URL and see what we did while you slept.
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary">
                 Book a free audit
                 <span className="text-base opacity-70">↗</span>
               </BookButton>
-              <Link href="#dashboard" className="btn-secondary">
-                See the dashboard
+              <Link href="/client/demo" className="btn-secondary">
+                See the live dashboard
               </Link>
             </div>
           </div>
@@ -713,9 +713,18 @@ export default function DigitalPage() {
             </div>
           </div>
 
-          <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-            ILLUSTRATIVE — Client names + metrics redacted. Structure and data ranges reflect real dashboard output.
-          </p>
+          <div className="mt-8 flex items-center justify-between flex-wrap gap-4">
+            <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+              ILLUSTRATIVE — Client names + metrics redacted. Structure and data ranges reflect real dashboard output.
+            </p>
+            <Link
+              href="/client/demo"
+              className="btn-secondary text-sm"
+            >
+              Open the full demo
+              <span className="ml-1 opacity-70">↗</span>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -849,6 +858,10 @@ export default function DigitalPage() {
               {
                 q: "Is this an agency?",
                 a: "No. Agencies have account managers running spreadsheets. We have Claude Opus analysing your ads every hour, drafting every response, and flagging what needs human decisions. You get agency-level service at SaaS prices.",
+              },
+              {
+                q: "Why not just use Ryze AI, Claude directly, or a marketing SaaS tool?",
+                a: "Those are tools — you still do the work. Ryze builds dashboards for marketers who tweak their own ads. Claude Cowork generates artifacts when you prompt it. We're the opposite: you don't prompt anything. We run the campaigns, respond to reviews, post on WhatsApp, handle the ad platforms — the dashboard is just how you check our work. If you want to do it yourself, the tools are cheaper. If you want someone else to do it and just see the result, that's us.",
               },
               {
                 q: "What's the difference between the bundles and these 9 services?",
