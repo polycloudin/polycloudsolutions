@@ -23,6 +23,17 @@ export const polycloud: ClientData = {
   },
   auth: "private",
 
+  liveFeeds: {
+    ga4: {
+      propertyId: "533972528", // polycloud.in GA4 property
+    },
+    vercelAnalytics: {
+      projectId: "prj_o9xnq4hIB1xOByHQHyUqizDbXa6z",
+      teamId: "team_IOg3Xvssr5P5GKJ1fuLazWfO",
+      siteUrl: "polycloud.in",
+    },
+  },
+
   overview: {
     kpis: [
       { label: "polycloud.in visits (7d)", value: "—", tone: "ink", delta: "Vercel Analytics · pending" },

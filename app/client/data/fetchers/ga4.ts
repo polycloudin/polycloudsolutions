@@ -1,13 +1,14 @@
 import type { KPI, SiteTraffic } from "../types";
 
 /**
- * Google Analytics 4 Data API fetcher.
+ * Google Analytics 4 Data API fetcher — reusable across clients.
  *
- * Returns live site-traffic numbers for the past 7 days. Runs server-side
- * only (never expose GA4_SERVICE_ACCOUNT_KEY to the client).
+ * Called per-client with a propertyId from data/<slug>.ts.liveFeeds.ga4.
+ * Uses one shared service account (env var) with Reader role on each
+ * client's property. To onboard a new client: add their property ID to
+ * their config + add the service-account email to their GA Reader list.
  *
- * Env vars:
- *   GA4_PROPERTY_ID           — numeric property id (e.g. "533972528")
+ * Shared env var (one per PolyCloud, not per-client):
  *   GA4_SERVICE_ACCOUNT_KEY   — full service-account JSON, minified
  */
 
@@ -16,8 +17,7 @@ interface Ga4Section {
   siteTraffic?: SiteTraffic;
 }
 
-export async function fetchGa4(): Promise<Ga4Section | null> {
-  const propertyId = process.env.GA4_PROPERTY_ID;
+export async function fetchGa4(propertyId: string): Promise<Ga4Section | null> {
   const saKey = process.env.GA4_SERVICE_ACCOUNT_KEY;
   if (!propertyId || !saKey) return null;
 

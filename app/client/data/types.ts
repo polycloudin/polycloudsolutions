@@ -206,6 +206,22 @@ export interface SourcesSection {
   sources: DataSource[];
 }
 
+// --- Live feed config (per-client) ---
+// Each client declares which live data sources to pull from. Credentials stay
+// in server-side env vars (shared across clients for now — e.g. one GA service
+// account with Reader role on every property we manage). The client-specific
+// IDs live in data/<slug>.ts so adding a new client is a copy-paste.
+export interface LiveFeedConfig {
+  ga4?: {
+    propertyId: string; // e.g. "533972528"
+  };
+  vercelAnalytics?: {
+    projectId: string; // e.g. "prj_o9xnq4hIB1xOByHQHyUqizDbXa6z"
+    teamId?: string;   // e.g. "team_IOg3Xvssr5P5GKJ1fuLazWfO"
+    siteUrl?: string;  // e.g. "polycloud.in" — for top-page path display
+  };
+}
+
 export interface OutreachSection {
   kpis: KPI[];
   touches: OutreachTouch[]; // every outbound message (draft/queued/sent)
@@ -221,6 +237,7 @@ export interface LeadsSection {
 export interface ClientData {
   meta: ClientMeta;
   auth: Auth;
+  liveFeeds?: LiveFeedConfig;
   overview: OverviewSection;
   ads?: AdsSection;
   organic?: OrganicSection;
