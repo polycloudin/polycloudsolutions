@@ -369,6 +369,267 @@ export default function DigitalPage() {
         </div>
       </section>
 
+      {/* Product demo — Weekly dashboard */}
+      <section className="px-6 md:px-10 py-24 md:py-36 border-t border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">
+                02 / The deliverable
+              </p>
+              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-3xl">
+                The{" "}
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">
+                  weekly performance
+                </span>{" "}
+                dashboard.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              One deep example of what we ship. Every Digital client — all 9 services, one URL, updated nightly.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-[1fr_1.15fr] gap-8 items-stretch">
+            {/* Info card */}
+            <div
+              style={{ backgroundColor: "#0A0A0A" }}
+              className="rounded-xl p-10 md:p-14 text-white relative overflow-hidden"
+            >
+              <div
+                className="absolute inset-0 opacity-30 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 60% at 90% 10%, rgba(244, 107, 44, 0.3) 0%, transparent 60%)",
+                }}
+              />
+              <div className="relative flex flex-col h-full">
+                <p className="text-eyebrow text-[var(--color-primary-orange)] mb-6">
+                  For every Digital client
+                </p>
+                <h3 className="text-display text-[clamp(1.75rem,3vw,2.5rem)] mb-8 leading-[1.05]">
+                  One dashboard. Every Monday.
+                </h3>
+                <p className="mono text-xs text-white/50 uppercase tracking-[0.2em] mb-10">
+                  9 services · 1 URL · Updated nightly
+                </p>
+                <div className="space-y-6 mb-10 flex-1">
+                  <div>
+                    <p className="text-eyebrow text-white/50 mb-2">The pain</p>
+                    <p className="text-white/80 text-[14px] leading-relaxed">
+                      Agencies send a PDF once a month. By the time you see it, the budget is spent and the leads are cold. You're the last one to know when something's broken.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-eyebrow text-[var(--color-primary-orange)] mb-2">
+                      Outcome
+                    </p>
+                    <p className="text-white font-medium text-[14px] leading-relaxed">
+                      5 minutes to read, 4 decisions per week. Everything else runs on autopilot — and every action Claude took is logged right there.
+                    </p>
+                  </div>
+                </div>
+                <BookButton
+                  variant="light-primary"
+                  topic="digital"
+                  className="self-start hover:!bg-[var(--color-primary-orange)] hover:!border-[var(--color-primary-orange)]"
+                >
+                  Get your own dashboard ↗
+                </BookButton>
+              </div>
+            </div>
+
+            {/* Dashboard mockup */}
+            <div className="bg-white rounded-xl border border-[var(--color-line)] overflow-hidden shadow-[0_24px_80px_-30px_rgba(10,10,10,0.18)]">
+              {/* Browser chrome */}
+              <div className="flex items-center gap-2 px-5 py-3 bg-[#F6F3EA] border-b border-[var(--color-line)]">
+                <div className="flex gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E5E5E0]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E5E5E0]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E5E5E0]" />
+                </div>
+                <span className="mono text-[11px] text-[var(--color-text-muted)] ml-3 truncate">
+                  dash.polycloudsolutions.com / kumar-textiles · week-of-14-Apr
+                </span>
+              </div>
+
+              {/* Summary bar */}
+              <div className="grid grid-cols-3 border-b border-[var(--color-line)]">
+                {[
+                  { label: "Leads (7d)", value: "342", tone: "ink" },
+                  { label: "Blended CPL", value: "₹184", tone: "success" },
+                  { label: "Needs you", value: "4", tone: "risk" },
+                ].map((s, i) => (
+                  <div
+                    key={i}
+                    className={`p-5 ${
+                      i < 2 ? "border-r border-[var(--color-line)]" : ""
+                    }`}
+                  >
+                    <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em] mb-2">
+                      {s.label}
+                    </p>
+                    <p
+                      className="text-display text-2xl"
+                      style={{
+                        color:
+                          s.tone === "success"
+                            ? "#15803D"
+                            : s.tone === "risk"
+                            ? "#DC2626"
+                            : "var(--color-ink)",
+                      }}
+                    >
+                      {s.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Column headers */}
+              <div className="grid grid-cols-[1.8fr_1fr_0.9fr_0.7fr_0.8fr] gap-3 px-5 py-2.5 bg-[var(--color-surface-warm)] border-b border-[var(--color-line)] mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
+                <span>Channel</span>
+                <span>Metric</span>
+                <span className="text-right">Spend</span>
+                <span className="text-right">Leads</span>
+                <span className="text-right">Status</span>
+              </div>
+
+              {/* Rows */}
+              {[
+                {
+                  ch: "Meta Ads · Bridal-LAL-1%",
+                  metric: "ROAS 4.1×",
+                  spend: "₹18,400",
+                  leads: "86",
+                  status: "winning",
+                  trend: "+32%",
+                },
+                {
+                  ch: "Google Ads · Search-Brand",
+                  metric: "CPL ₹92",
+                  spend: "₹8,200",
+                  leads: "54",
+                  status: "winning",
+                  trend: "+14%",
+                },
+                {
+                  ch: "Meta Ads · Cold-IG-Carousel",
+                  metric: "CPL ₹640",
+                  spend: "₹4,100",
+                  leads: "7",
+                  status: "paused",
+                  trend: "−47%",
+                },
+                {
+                  ch: "SEO · silk sarees hyderabad",
+                  metric: "Rank #4",
+                  spend: "—",
+                  leads: "22",
+                  status: "winning",
+                  trend: "+3",
+                },
+                {
+                  ch: "WhatsApp · Auto-replies",
+                  metric: "22% → booked",
+                  spend: "—",
+                  leads: "41",
+                  status: "winning",
+                  trend: "+9%",
+                },
+                {
+                  ch: "Reviews · Vikram · 2★ Google",
+                  metric: "Owner callback",
+                  spend: "—",
+                  leads: "—",
+                  status: "watch",
+                  trend: "!",
+                },
+              ].map((r, i) => {
+                const statusColor =
+                  r.status === "winning"
+                    ? "#15803D"
+                    : r.status === "paused"
+                    ? "#DC2626"
+                    : "#B45309";
+                const statusBg =
+                  r.status === "winning"
+                    ? "#ECFDF3"
+                    : r.status === "paused"
+                    ? "#FEF2F2"
+                    : "#FFFBEB";
+                const statusLabel =
+                  r.status === "winning"
+                    ? `Winning ${r.trend}`
+                    : r.status === "paused"
+                    ? "Paused"
+                    : "Needs you";
+                return (
+                  <div
+                    key={i}
+                    className={`grid grid-cols-[1.8fr_1fr_0.9fr_0.7fr_0.8fr] gap-3 px-5 py-3 text-[12.5px] ${
+                      i % 2 === 1 ? "bg-[var(--color-surface)]" : "bg-white"
+                    } border-b border-[var(--color-line)] items-center`}
+                  >
+                    <span className="text-[var(--color-ink)] font-medium truncate">
+                      {r.ch}
+                    </span>
+                    <span className="mono text-[11px] text-[var(--color-text-secondary)] truncate">
+                      {r.metric}
+                    </span>
+                    <span className="mono text-right text-[var(--color-text)]">
+                      {r.spend}
+                    </span>
+                    <span className="mono text-right text-[var(--color-text-secondary)]">
+                      {r.leads}
+                    </span>
+                    <span className="flex justify-end">
+                      <span
+                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium mono"
+                        style={{ color: statusColor, backgroundColor: statusBg }}
+                      >
+                        <span
+                          className="w-1 h-1 rounded-full"
+                          style={{ backgroundColor: statusColor }}
+                        />
+                        {statusLabel}
+                      </span>
+                    </span>
+                  </div>
+                );
+              })}
+
+              {/* Tabs */}
+              <div className="flex items-center gap-1 px-3 py-2 bg-[#F6F3EA] border-t border-[var(--color-line)] overflow-x-auto">
+                {[
+                  { name: "Overview", active: true },
+                  { name: "Ads" },
+                  { name: "Organic" },
+                  { name: "Social" },
+                  { name: "WhatsApp" },
+                  { name: "Reviews" },
+                ].map((t, i) => (
+                  <div
+                    key={i}
+                    className={`px-3 py-1 text-[11px] rounded whitespace-nowrap ${
+                      t.active
+                        ? "bg-white border border-[var(--color-line)] text-[var(--color-ink)] font-medium"
+                        : "text-[var(--color-text-secondary)]"
+                    }`}
+                  >
+                    {t.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+            ILLUSTRATIVE — Client names + metrics redacted. Structure and data ranges reflect real dashboard output.
+          </p>
+        </div>
+      </section>
+
       {/* Pricing — Bundles */}
       <section
         id="pricing"
