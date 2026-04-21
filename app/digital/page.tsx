@@ -94,14 +94,14 @@ const services: Service[] = [
     name: "Social Content",
     tagline: "Instagram, Facebook, X, LinkedIn — done",
     description:
-      "Festival-aware calendar (Diwali, Holi, Eid). Auto-scheduled across platforms. AI visuals via Midjourney (Total Growth).",
+      "Festival-aware calendar (Diwali, Holi, Eid). Auto-scheduled across platforms. AI-generated images + short videos for Total Growth clients — on-brand, on-schedule, no agency loop.",
     bundles: ["growth", "total-growth"],
     kpi: "3-5% engagement",
-    stack: ["Meta Business API", "LinkedIn API", "X API", "Autopilot"],
+    stack: ["Meta Business API", "LinkedIn API", "X API", "Nano Banana", "Kling AI", "Autopilot"],
     icon: "◇",
     depth: {
       growth: "16 captions/mo · auto-scheduled",
-      "total-growth": "30 posts/mo + branded graphics + video ads",
+      "total-growth": "30 posts/mo + AI-generated graphics (Nano Banana) + short video reels (Kling)",
     },
   },
   {
