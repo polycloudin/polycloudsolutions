@@ -486,118 +486,162 @@ export default function DigitalPage() {
                 ))}
               </div>
 
-              {/* Column headers */}
-              <div className="grid grid-cols-[1.8fr_1fr_0.9fr_0.7fr_0.8fr] gap-3 px-5 py-2.5 bg-[var(--color-surface-warm)] border-b border-[var(--color-line)] mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
-                <span>Channel</span>
-                <span>Metric</span>
-                <span className="text-right">Spend</span>
-                <span className="text-right">Leads</span>
-                <span className="text-right">Status</span>
-              </div>
+              {/* Graphs */}
+              {(() => {
+                const leadsDaily = [42, 51, 48, 56, 63, 58, 24];
+                const leadsMax = Math.max(...leadsDaily);
+                const days = ["M", "T", "W", "T", "F", "S", "S"];
 
-              {/* Rows */}
-              {[
-                {
-                  ch: "Meta Ads · Bridal-LAL-1%",
-                  metric: "ROAS 4.1×",
-                  spend: "₹18,400",
-                  leads: "86",
-                  status: "winning",
-                  trend: "+32%",
-                },
-                {
-                  ch: "Google Ads · Search-Brand",
-                  metric: "CPL ₹92",
-                  spend: "₹8,200",
-                  leads: "54",
-                  status: "winning",
-                  trend: "+14%",
-                },
-                {
-                  ch: "Meta Ads · Cold-IG-Carousel",
-                  metric: "CPL ₹640",
-                  spend: "₹4,100",
-                  leads: "7",
-                  status: "paused",
-                  trend: "−47%",
-                },
-                {
-                  ch: "SEO · silk sarees hyderabad",
-                  metric: "Rank #4",
-                  spend: "—",
-                  leads: "22",
-                  status: "winning",
-                  trend: "+3",
-                },
-                {
-                  ch: "WhatsApp · Auto-replies",
-                  metric: "22% → booked",
-                  spend: "—",
-                  leads: "41",
-                  status: "winning",
-                  trend: "+9%",
-                },
-                {
-                  ch: "Reviews · Vikram · 2★ Google",
-                  metric: "Owner callback",
-                  spend: "—",
-                  leads: "—",
-                  status: "watch",
-                  trend: "!",
-                },
-              ].map((r, i) => {
-                const statusColor =
-                  r.status === "winning"
-                    ? "#15803D"
-                    : r.status === "paused"
-                    ? "#DC2626"
-                    : "#B45309";
-                const statusBg =
-                  r.status === "winning"
-                    ? "#ECFDF3"
-                    : r.status === "paused"
-                    ? "#FEF2F2"
-                    : "#FFFBEB";
-                const statusLabel =
-                  r.status === "winning"
-                    ? `Winning ${r.trend}`
-                    : r.status === "paused"
-                    ? "Paused"
-                    : "Needs you";
+                const cplTrend = [320, 294, 268, 241, 220, 198, 184];
+                const cplMax = Math.max(...cplTrend);
+                const cplMin = Math.min(...cplTrend);
+                const cplPoints = cplTrend
+                  .map((v, i) => {
+                    const x = (i / (cplTrend.length - 1)) * 100;
+                    const y = 100 - ((v - cplMin) / (cplMax - cplMin)) * 100;
+                    return `${x},${y}`;
+                  })
+                  .join(" ");
+                const cplArea = `0,100 ${cplPoints} 100,100`;
+
+                const channelMix = [
+                  { name: "Meta Ads", leads: 148, color: "#1A5FD4" },
+                  { name: "Google Ads", leads: 112, color: "#F46B2C" },
+                  { name: "Organic / SEO", leads: 48, color: "#15803D" },
+                  { name: "WhatsApp", leads: 21, color: "#7C3AED" },
+                  { name: "GMB / Local", leads: 13, color: "#B45309" },
+                ];
+                const channelMax = Math.max(...channelMix.map((c) => c.leads));
+
                 return (
-                  <div
-                    key={i}
-                    className={`grid grid-cols-[1.8fr_1fr_0.9fr_0.7fr_0.8fr] gap-3 px-5 py-3 text-[12.5px] ${
-                      i % 2 === 1 ? "bg-[var(--color-surface)]" : "bg-white"
-                    } border-b border-[var(--color-line)] items-center`}
-                  >
-                    <span className="text-[var(--color-ink)] font-medium truncate">
-                      {r.ch}
-                    </span>
-                    <span className="mono text-[11px] text-[var(--color-text-secondary)] truncate">
-                      {r.metric}
-                    </span>
-                    <span className="mono text-right text-[var(--color-text)]">
-                      {r.spend}
-                    </span>
-                    <span className="mono text-right text-[var(--color-text-secondary)]">
-                      {r.leads}
-                    </span>
-                    <span className="flex justify-end">
-                      <span
-                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium mono"
-                        style={{ color: statusColor, backgroundColor: statusBg }}
+                  <div className="p-5 md:p-6 space-y-6 border-b border-[var(--color-line)]">
+                    {/* Leads bar chart */}
+                    <div>
+                      <div className="flex items-baseline justify-between mb-3">
+                        <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.14em]">
+                          Leads · This week
+                        </p>
+                        <p className="mono text-[10px] text-[#15803D] font-medium">
+                          +28% vs last week
+                        </p>
+                      </div>
+                      <div>
+                        <div className="flex items-end gap-2 h-20">
+                          {leadsDaily.map((v, i) => {
+                            const h = (v / leadsMax) * 100;
+                            const isPeak = v === leadsMax;
+                            return (
+                              <div
+                                key={i}
+                                className="flex-1 rounded-t-sm"
+                                style={{
+                                  height: `${h}%`,
+                                  backgroundColor: isPeak
+                                    ? "var(--color-primary-blue)"
+                                    : "rgba(26, 95, 212, 0.35)",
+                                }}
+                              />
+                            );
+                          })}
+                        </div>
+                        <div className="flex gap-2 mt-2">
+                          {days.map((d, i) => (
+                            <span
+                              key={i}
+                              className="flex-1 text-center mono text-[9px] text-[var(--color-text-muted)]"
+                            >
+                              {d}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* CPL trend */}
+                    <div>
+                      <div className="flex items-baseline justify-between mb-3">
+                        <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.14em]">
+                          Blended CPL · 7 weeks
+                        </p>
+                        <p className="mono text-[10px] text-[#15803D] font-medium">
+                          ₹320 → ₹184 (−43%)
+                        </p>
+                      </div>
+                      <svg
+                        viewBox="0 0 100 100"
+                        preserveAspectRatio="none"
+                        className="w-full h-20"
                       >
-                        <span
-                          className="w-1 h-1 rounded-full"
-                          style={{ backgroundColor: statusColor }}
+                        <defs>
+                          <linearGradient id="cplGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#15803D" stopOpacity="0.25" />
+                            <stop offset="100%" stopColor="#15803D" stopOpacity="0" />
+                          </linearGradient>
+                        </defs>
+                        <polygon points={cplArea} fill="url(#cplGrad)" />
+                        <polyline
+                          points={cplPoints}
+                          fill="none"
+                          stroke="#15803D"
+                          strokeWidth="1.5"
+                          vectorEffect="non-scaling-stroke"
                         />
-                        {statusLabel}
-                      </span>
-                    </span>
+                        {cplTrend.map((v, i) => {
+                          const x = (i / (cplTrend.length - 1)) * 100;
+                          const y = 100 - ((v - cplMin) / (cplMax - cplMin)) * 100;
+                          const isLast = i === cplTrend.length - 1;
+                          return (
+                            <circle
+                              key={i}
+                              cx={x}
+                              cy={y}
+                              r={isLast ? "2" : "1"}
+                              fill={isLast ? "#15803D" : "#fff"}
+                              stroke="#15803D"
+                              strokeWidth="1"
+                              vectorEffect="non-scaling-stroke"
+                            />
+                          );
+                        })}
+                      </svg>
+                    </div>
+
+                    {/* Channel mix */}
+                    <div>
+                      <div className="flex items-baseline justify-between mb-3">
+                        <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.14em]">
+                          Leads by channel · 7 days
+                        </p>
+                        <p className="mono text-[10px] text-[var(--color-text-muted)]">
+                          342 total
+                        </p>
+                      </div>
+                      <div className="space-y-2">
+                        {channelMix.map((c) => (
+                          <div key={c.name} className="flex items-center gap-3">
+                            <span className="w-24 shrink-0 text-[11px] text-[var(--color-text-secondary)]">
+                              {c.name}
+                            </span>
+                            <div className="flex-1 h-5 bg-[var(--color-surface-warm)] rounded-sm overflow-hidden relative">
+                              <div
+                                className="h-full rounded-sm transition-all"
+                                style={{
+                                  width: `${(c.leads / channelMax) * 100}%`,
+                                  backgroundColor: c.color,
+                                  opacity: 0.85,
+                                }}
+                              />
+                              <span className="absolute right-2 top-1/2 -translate-y-1/2 mono text-[10px] text-[var(--color-ink)] font-medium">
+                                {c.leads}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 );
-              })}
+              })()}
 
               {/* Tabs */}
               <div className="flex items-center gap-1 px-3 py-2 bg-[#F6F3EA] border-t border-[var(--color-line)] overflow-x-auto">
