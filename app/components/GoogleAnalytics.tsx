@@ -8,8 +8,12 @@ import Script from "next/script";
  *
  * Measurement ID looks like "G-XXXXXXXXXX".
  */
+// Public Measurement ID is safe to commit — it's exposed to every visitor anyway
+// via the gtag script tag. Env var takes precedence so we can rotate without a deploy.
+const DEFAULT_GA_ID = "G-SJ69BM14MB";
+
 export default function GoogleAnalytics() {
-  const id = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const id = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || DEFAULT_GA_ID;
   if (!id || process.env.NODE_ENV !== "production") return null;
 
   return (
