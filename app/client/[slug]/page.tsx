@@ -14,12 +14,16 @@ import {
   PipelineTab,
   OpsTab,
   SourcesTab,
+  OutreachTab,
+  LeadsTab,
 } from "../components/tabs";
 import { getClient } from "../data/registry";
 import type { ClientData } from "../data/types";
 
 type TabId =
   | "overview"
+  | "outreach"
+  | "leads"
   | "ads"
   | "organic"
   | "social"
@@ -36,6 +40,18 @@ type TabId =
 function tabsFor(data: ClientData): { id: TabId; label: string; count?: string }[] {
   const all: { id: TabId; label: string; count?: string; when: boolean }[] = [
     { id: "overview", label: "Overview", when: true },
+    {
+      id: "outreach",
+      label: "Outreach",
+      count: data.outreach ? String(data.outreach.drafts.length) : undefined,
+      when: !!data.outreach,
+    },
+    {
+      id: "leads",
+      label: "Leads",
+      count: data.leads ? String(data.leads.leads.length) : undefined,
+      when: !!data.leads,
+    },
     { id: "ads", label: "Ads", count: data.ads ? String(data.ads.campaigns.length) : undefined, when: !!data.ads },
     { id: "organic", label: "Organic", when: !!data.organic },
     { id: "social", label: "Social", count: data.social ? String(data.social.posts.length) : undefined, when: !!data.social },
@@ -138,6 +154,8 @@ export default function ClientDashboardPage() {
       {/* Content */}
       <main className="px-5 md:px-8 py-6 md:py-10 max-w-[1440px] mx-auto">
         {tab === "overview" && <OverviewTab data={data} />}
+        {tab === "outreach" && <OutreachTab data={data} />}
+        {tab === "leads" && <LeadsTab data={data} />}
         {tab === "ads" && <AdsTab data={data} />}
         {tab === "organic" && <OrganicTab data={data} />}
         {tab === "social" && <SocialTab data={data} />}

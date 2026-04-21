@@ -1,4 +1,13 @@
-import type { ClientData, ActivityEntry } from "../data/types";
+"use client";
+
+import { useState } from "react";
+import type {
+  ClientData,
+  ActivityEntry,
+  DraftTemplate,
+  Lead,
+  OutreachTouch,
+} from "../data/types";
 import { Pill, KpiGrid, SectionHeader, SourceStatusPill } from "./primitives";
 import { LeadsChart, CplChart, ChannelMix } from "./charts";
 
@@ -394,6 +403,335 @@ export function OpsTab({ data }: { data: ClientData }) {
             <p className="flex-1 text-[13.5px] leading-relaxed">{a.text}</p>
             <ActivityKind kind={a.kind} />
           </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) {
+  const [state, setState] = useState<"idle" | "copied">("idle");
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+          setState("copied");
+          setTimeout(() => setState("idle"), 1500);
+        } catch {}
+      }}
+      className="mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded border border-[var(--color-line)] hover:border-[var(--color-primary-blue)]/40 hover:bg-[var(--color-surface-warm)] transition-colors"
+    >
+      {state === "copied" ? "Copied ✓" : label}
+    </button>
+  );
+}
+
+function DraftCard({ draft }: { draft: DraftTemplate }) {
+  const [queued, setQueued] = useState(false);
+  const typeStyle: Record<DraftTemplate["type"], string> = {
+    email: "bg-[#EEF4FF] text-[#1A5FD4]",
+    whatsapp: "bg-[#ECFDF3] text-[#15803D]",
+    "linkedin-post": "bg-[#EEF4FF] text-[#1A5FD4]",
+    "linkedin-dm": "bg-[#EEF4FF] text-[#1A5FD4]",
+    "x-tweet": "bg-black/5 text-black",
+    "x-thread": "bg-black/5 text-black",
+    blog: "bg-[#FFFBEB] text-[#B45309]",
+  };
+  return (
+    <div className="p-4 border border-[var(--color-line)] rounded-xl bg-white">
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span
+            className={`mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded ${typeStyle[draft.type]}`}
+          >
+            {draft.type}
+          </span>
+          <span className="mono text-[10px] text-[var(--color-text-muted)]">→ {draft.audience}</span>
+          {draft.length && (
+            <span className="mono text-[10px] text-[var(--color-text-muted)]">· {draft.length}</span>
+          )}
+        </div>
+        {draft.status === "ready" ? (
+          <Pill tone="success">Ready</Pill>
+        ) : draft.status === "needs-edit" ? (
+          <Pill tone="warn">Needs edit</Pill>
+        ) : (
+          <Pill tone="neutral">Experiment</Pill>
+        )}
+      </div>
+      <h4 className="text-[14px] font-medium mb-1.5">{draft.title}</h4>
+      <p className="text-[13px] text-[var(--color-text-secondary)] leading-relaxed mb-3">
+        {draft.preview}
+      </p>
+      <div className="flex items-center gap-2 pt-2 border-t border-[var(--color-line)]">
+        <CopyButton text={draft.preview} label="Copy preview" />
+        <button
+          type="button"
+          onClick={() => setQueued(!queued)}
+          className={`mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded border transition-colors ${
+            queued
+              ? "border-[#15803D]/40 bg-[#ECFDF3] text-[#15803D]"
+              : "border-[var(--color-line)] hover:border-[var(--color-primary-blue)]/40 hover:bg-[var(--color-surface-warm)]"
+          }`}
+        >
+          {queued ? "✓ Queued to send" : "Queue to send"}
+        </button>
+        {draft.path && (
+          <span className="ml-auto mono text-[10px] text-[var(--color-text-muted)] truncate">
+            {draft.path.split("/").slice(-2).join("/")}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function TouchRow({ touch }: { touch: OutreachTouch }) {
+  const channelIcon: Record<OutreachTouch["channel"], string> = {
+    email: "✉",
+    whatsapp: "WA",
+    linkedin: "in",
+    x: "X",
+    "in-person": "◉",
+    phone: "☎",
+  };
+  return (
+    <div className="flex items-center gap-4 py-2.5 border-b border-[var(--color-line)] last:border-b-0 text-[13px]">
+      <span className="mono text-[10px] uppercase tracking-wider text-[var(--color-text-muted)] w-10">
+        {channelIcon[touch.channel]}
+      </span>
+      <div className="flex-1 min-w-0">
+        <p className="font-medium truncate">{touch.target}</p>
+        <p className="text-[11px] text-[var(--color-text-secondary)] truncate">{touch.preview}</p>
+      </div>
+      <span className="mono text-[10px] text-[var(--color-text-muted)] shrink-0">
+        {touch.sentAt || "—"}
+      </span>
+      <Pill
+        tone={
+          touch.status === "replied" || touch.status === "booked" || touch.status === "closed-won"
+            ? "success"
+            : touch.status === "sent" || touch.status === "opened"
+            ? "neutral"
+            : touch.status === "closed-lost"
+            ? "risk"
+            : "warn"
+        }
+      >
+        {touch.status}
+      </Pill>
+    </div>
+  );
+}
+
+export function OutreachTab({ data }: { data: ClientData }) {
+  if (!data.outreach) return <EmptyState label="Outreach" />;
+  const { kpis, drafts, touches } = data.outreach;
+
+  const byType = drafts.reduce<Record<string, DraftTemplate[]>>((acc, d) => {
+    acc[d.type] = acc[d.type] || [];
+    acc[d.type].push(d);
+    return acc;
+  }, {});
+  const typeOrder: DraftTemplate["type"][] = [
+    "linkedin-post",
+    "x-tweet",
+    "x-thread",
+    "email",
+    "whatsapp",
+    "blog",
+    "linkedin-dm",
+  ];
+
+  return (
+    <div className="space-y-6">
+      <KpiGrid kpis={kpis} />
+
+      <div className="p-5 border border-[var(--color-line)] rounded-xl bg-white">
+        <SectionHeader
+          eyebrow="Drafts ready to fire"
+          title="Everything stays in this tab"
+          right={`${drafts.length} drafts · copy or queue — no external apps open`}
+        />
+        {typeOrder
+          .filter((t) => byType[t]?.length)
+          .map((t) => (
+            <div key={t} className="mb-6 last:mb-0">
+              <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] mb-3">
+                {t.replace("-", " ")}
+              </p>
+              <div className="grid md:grid-cols-2 gap-3">
+                {byType[t].map((d) => (
+                  <DraftCard key={d.id} draft={d} />
+                ))}
+              </div>
+            </div>
+          ))}
+      </div>
+
+      <div className="p-5 border border-[var(--color-line)] rounded-xl bg-white">
+        <SectionHeader
+          eyebrow="Outbound log"
+          title="Every touch we've sent"
+          right={touches.length === 0 ? "nothing sent yet" : `${touches.length} touches`}
+        />
+        {touches.length === 0 ? (
+          <EmptyState label="No touches yet" sub="Queue a draft above, then green-light the send from Overview." />
+        ) : (
+          <div>
+            {touches.map((t) => (
+              <TouchRow key={t.id} touch={t} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function LeadRow({ lead }: { lead: Lead }) {
+  const [expanded, setExpanded] = useState(false);
+  const tempColor: Record<Lead["temperature"], Parameters<typeof Pill>[0]["tone"]> = {
+    cold: "neutral",
+    warm: "warn",
+    engaged: "success",
+    qualified: "success",
+    disqualified: "risk",
+  };
+  return (
+    <div className="border-b border-[var(--color-line)] last:border-b-0">
+      <div
+        className="grid grid-cols-[2fr_1fr_1fr_0.8fr_0.6fr] gap-3 px-5 py-3 text-[13px] items-center cursor-pointer hover:bg-[var(--color-surface-warm)]"
+        onClick={() => setExpanded(!expanded)}
+      >
+        <span className="font-medium truncate">{lead.name}</span>
+        <span className="mono text-[11px] text-[var(--color-text-secondary)] truncate">
+          {lead.role || lead.vertical}
+        </span>
+        <span className="mono text-[11px] text-[var(--color-text-secondary)] truncate">
+          {lead.city}
+        </span>
+        <Pill tone={tempColor[lead.temperature]}>{lead.temperature}</Pill>
+        <span className="text-right mono text-[10px] text-[var(--color-text-muted)]">
+          {expanded ? "▾" : "▸"}
+        </span>
+      </div>
+      {expanded && (
+        <div className="px-5 pb-4 bg-[var(--color-surface-warm)] grid md:grid-cols-[1fr_1fr] gap-4 text-[12.5px]">
+          <div className="space-y-1">
+            <p>
+              <span className="text-[var(--color-text-muted)]">Email:</span>{" "}
+              {lead.email ? (
+                <>
+                  <span className="font-mono">{lead.email}</span>{" "}
+                  <CopyButton text={lead.email} label="Copy" />
+                </>
+              ) : (
+                <span className="text-[#DC2626]">missing — scrape from GMB / website</span>
+              )}
+            </p>
+            <p>
+              <span className="text-[var(--color-text-muted)]">Phone:</span>{" "}
+              {lead.phone ? (
+                <>
+                  <span className="font-mono">{lead.phone}</span>{" "}
+                  <CopyButton text={lead.phone} label="Copy" />
+                </>
+              ) : (
+                <span className="text-[#DC2626]">missing</span>
+              )}
+            </p>
+            <p>
+              <span className="text-[var(--color-text-muted)]">LinkedIn:</span>{" "}
+              {lead.linkedin ? (
+                <>
+                  <span className="font-mono">{lead.linkedin}</span>{" "}
+                  <CopyButton text={lead.linkedin} label="Copy" />
+                </>
+              ) : (
+                <span className="text-[#DC2626]">missing</span>
+              )}
+            </p>
+          </div>
+          <div className="space-y-1">
+            <p>
+              <span className="text-[var(--color-text-muted)]">Source:</span> {lead.source}
+            </p>
+            <p>
+              <span className="text-[var(--color-text-muted)]">Next action:</span>{" "}
+              {lead.nextAction || "—"}
+            </p>
+            <p>
+              <span className="text-[var(--color-text-muted)]">Last touch:</span>{" "}
+              {lead.lastTouchAt || "never"}
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function LeadsTab({ data }: { data: ClientData }) {
+  if (!data.leads) return <EmptyState label="Leads" />;
+  const { kpis, leads } = data.leads;
+  const [filter, setFilter] = useState<"all" | Lead["temperature"]>("all");
+  const visible = filter === "all" ? leads : leads.filter((l) => l.temperature === filter);
+  const temps: ("all" | Lead["temperature"])[] = [
+    "all",
+    "cold",
+    "warm",
+    "engaged",
+    "qualified",
+  ];
+  return (
+    <div className="space-y-6">
+      <KpiGrid kpis={kpis} />
+
+      <div className="border border-[var(--color-line)] rounded-xl bg-white overflow-hidden">
+        <div className="px-5 py-4 border-b border-[var(--color-line)] flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em] mb-1">
+              Lead list · click a row to expand
+            </p>
+            <h3 className="text-base font-medium">
+              {visible.length} lead{visible.length === 1 ? "" : "s"}
+              {filter !== "all" && (
+                <span className="ml-2 mono text-[11px] text-[var(--color-text-muted)]">
+                  (filter: {filter})
+                </span>
+              )}
+            </h3>
+          </div>
+          <div className="flex items-center gap-1">
+            {temps.map((t) => (
+              <button
+                key={t}
+                onClick={() => setFilter(t)}
+                className={`mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded border ${
+                  filter === t
+                    ? "border-[var(--color-primary-blue)] bg-[var(--color-primary-blue)]/10 text-[var(--color-primary-blue)]"
+                    : "border-[var(--color-line)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-warm)]"
+                }`}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-[2fr_1fr_1fr_0.8fr_0.6fr] gap-3 px-5 py-2 bg-[var(--color-surface-warm)] border-b border-[var(--color-line)] mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
+          <span>Name</span>
+          <span>Role / vertical</span>
+          <span>City</span>
+          <span>Temp</span>
+          <span />
+        </div>
+
+        {visible.map((l) => (
+          <LeadRow key={l.id} lead={l} />
         ))}
       </div>
     </div>
