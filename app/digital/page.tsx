@@ -235,58 +235,59 @@ export default function DigitalPage() {
           <div className="flex items-center gap-3 mb-10">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">
-              PolyCloud Digital · 9 services · 3 bundles
+              PolyCloud Digital · The dashboard that runs your marketing
             </p>
           </div>
 
           <h1 className="text-display text-[clamp(2.75rem,9vw,8rem)] mb-10 max-w-[1200px] leading-[0.95]">
-            <span className="block">The nine things</span>
+            <span className="block">Monday morning,</span>
             <span className="block text-serif-accent text-[var(--color-primary-blue)]">
-              we actually run for you.
+              in five minutes.
             </span>
           </h1>
 
           <div className="grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-20 items-end">
             <p className="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-              Ads, SEO, websites, social, WhatsApp, reviews, CRM. AI does the
-              work. A human reviews before anything ships. Pick a bundle, we
-              run the rest.
+              Every ad, every review, every keyword — one dashboard, updated
+              nightly. Nine modules feed it: ads, SEO, GMB, social, WhatsApp,
+              reviews, CRM. We run them. You see what worked, what didn't, and
+              the four calls you need to make this week.
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary">
                 Book a free audit
                 <span className="text-base opacity-70">↗</span>
               </BookButton>
-              <Link href="#pricing" className="btn-secondary">
-                See bundles
+              <Link href="#dashboard" className="btn-secondary">
+                See the dashboard
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* Services Grid — reframed as dashboard modules */}
       <section
-        id="services"
+        id="modules"
         className="px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-line)]"
       >
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">
-                The catalog
+                01 / What we track
               </p>
               <h2 className="text-display text-[clamp(2rem,5vw,3.5rem)] leading-[1.05] max-w-3xl">
-                Nine services. One team.{" "}
+                Nine modules.{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">
-                  Compounding outcomes.
+                  One source of truth.
                 </span>
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-sm">
-              Each service is templated, measured, and integrated. We don't do
-              one-offs — everything feeds everything else. Badges show which
-              bundle includes each service.
+              Each module is a channel we run. Numbers flow into your
+              dashboard nightly. Depth scales with your bundle — badges show
+              which tier includes each module.
             </p>
           </div>
 
@@ -349,7 +350,7 @@ export default function DigitalPage() {
       <section className="px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-line)] bg-[var(--color-surface-warm)]">
         <div className="max-w-[1100px] mx-auto">
           <p className="text-eyebrow text-[var(--color-text-secondary)] mb-6">
-            How it compounds
+            02 / How it compounds
           </p>
           <h2 className="text-display text-[clamp(1.75rem,4vw,3rem)] leading-[1.1] mb-14">
             Services that{" "}
@@ -412,23 +413,25 @@ export default function DigitalPage() {
       </section>
 
       {/* Product demo — Weekly dashboard */}
-      <section className="px-6 md:px-10 py-24 md:py-36 border-t border-[var(--color-line)]">
+      <section
+        id="dashboard"
+        className="px-6 md:px-10 py-24 md:py-36 border-t border-[var(--color-line)]"
+      >
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">
-                02 / The deliverable
+                03 / The product you see
               </p>
               <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-3xl">
-                The{" "}
+                Your whole business{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">
-                  weekly performance
-                </span>{" "}
-                dashboard.
+                  on one URL.
+                </span>
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              One deep example of what we ship. Every Digital client — all 9 services, one URL, updated nightly.
+              One deep example of the product you log into every Monday — all 9 modules, one URL, updated nightly.
             </p>
           </div>
 
@@ -724,7 +727,7 @@ export default function DigitalPage() {
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-16">
             <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">
-              Bundles
+              04 / Bundles
             </p>
             <h2 className="text-display text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] mb-5">
               Three bundles.{" "}
@@ -832,7 +835,7 @@ export default function DigitalPage() {
       <section className="px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-line)]">
         <div className="max-w-[900px] mx-auto">
           <p className="text-eyebrow text-[var(--color-text-secondary)] mb-6">
-            Questions
+            05 / Questions
           </p>
           <h2 className="text-display text-[clamp(1.75rem,4vw,3rem)] leading-[1.1] mb-14">
             Things operators{" "}
