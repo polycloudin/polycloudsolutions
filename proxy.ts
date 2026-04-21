@@ -2,17 +2,16 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /**
- * Gate private routes behind HTTP Basic auth.
+ * Gate private client dashboards behind HTTP Basic auth.
  *
- * MVP: one shared username/password read from env. Good enough to keep the
- * internal dashboards (pipeline, ops, weekly focus) off the public web.
- * Upgrade to magic-link + per-user roles once we have 3+ people needing access.
+ * The allowlist of private slugs is defined here (separately from the
+ * data registry) because proxy.ts runs on the Edge runtime and can't
+ * synchronously import the full registry module.
+ *
+ * Keep this list in sync with `auth: "private"` entries in
+ * app/client/data/registry.ts.
  */
-const PRIVATE_PREFIXES = ["/client/polycloud"];
-
-function needsAuth(pathname: string): boolean {
-  return PRIVATE_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
-}
+const PRIVATE_CLIENT_SLUGS = new Set<string>(["polycloud"]);
 
 function unauthorized(): NextResponse {
   return new NextResponse("Authentication required", {
@@ -23,43 +22,44 @@ function unauthorized(): NextResponse {
   });
 }
 
+function misconfigured(): NextResponse {
+  return new NextResponse(
+    "Internal dashboards are not configured. Set PRIVATE_DASH_PASS in the environment.",
+    { status: 503 }
+  );
+}
+
 export function proxy(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
-  if (!needsAuth(pathname)) {
-    return NextResponse.next();
-  }
+
+  // Match /client/<slug> or /client/<slug>/*
+  const match = pathname.match(/^\/client\/([^/]+)(?:\/.*)?$/);
+  if (!match) return NextResponse.next();
+  const slug = match[1];
+  if (!PRIVATE_CLIENT_SLUGS.has(slug)) return NextResponse.next();
 
   const expectedUser = process.env.PRIVATE_DASH_USER || "polycloud";
   const expectedPass = process.env.PRIVATE_DASH_PASS;
-
-  // If no password set in env, refuse to serve — fail-closed.
-  if (!expectedPass) {
-    return new NextResponse(
-      "Internal dashboards are not configured. Set PRIVATE_DASH_PASS in the environment.",
-      { status: 503 }
-    );
-  }
+  if (!expectedPass) return misconfigured();
 
   const header = request.headers.get("authorization") || "";
-  if (!header.startsWith("Basic ")) {
-    return unauthorized();
-  }
+  if (!header.startsWith("Basic ")) return unauthorized();
 
   try {
     const decoded = atob(header.slice(6));
-    const separatorIndex = decoded.indexOf(":");
-    const user = decoded.slice(0, separatorIndex);
-    const pass = decoded.slice(separatorIndex + 1);
+    const sep = decoded.indexOf(":");
+    if (sep < 0) return unauthorized();
+    const user = decoded.slice(0, sep);
+    const pass = decoded.slice(sep + 1);
     if (user === expectedUser && pass === expectedPass) {
       return NextResponse.next();
     }
   } catch {
     return unauthorized();
   }
-
   return unauthorized();
 }
 
 export const config = {
-  matcher: ["/client/polycloud/:path*", "/client/polycloud"],
+  matcher: ["/client/:slug", "/client/:slug/:path*"],
 };
