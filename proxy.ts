@@ -11,7 +11,7 @@ import type { NextRequest } from "next/server";
  * Keep this list in sync with `auth: "private"` entries in
  * app/client/data/registry.ts.
  */
-const PRIVATE_CLIENT_SLUGS = new Set<string>(["polycloud"]);
+const PRIVATE_CLIENT_SLUGS = new Set<string>(["polycloud", "viratkota"]);
 
 function unauthorized(): NextResponse {
   return new NextResponse("Authentication required", {

@@ -1,6 +1,7 @@
 import type { ClientData } from "./types";
 import { kumarTextiles } from "./kumar-textiles";
 import { polycloud } from "./polycloud";
+import { viratkota } from "./viratkota";
 
 /**
  * Single registry of every client dashboard.
@@ -9,6 +10,7 @@ import { polycloud } from "./polycloud";
 export const CLIENT_REGISTRY: Record<string, ClientData> = {
   [kumarTextiles.meta.slug]: kumarTextiles,
   [polycloud.meta.slug]: polycloud,
+  [viratkota.meta.slug]: viratkota,
 };
 
 export function getClient(slug: string): ClientData | null {
