@@ -103,7 +103,7 @@ const reviewStream = [
   { platform: "Google", author: "Rohan D.", rating: 5, snippet: "Second time buying. Quality is consistent. Staff remembers us.", when: "6d ago", responded: true },
 ];
 
-const claudeActions = [
+const autopilotActions = [
   { time: "Mon 09:03", text: "Paused Meta ad set 'Cold-IG-Carousel' — CPL ₹640 vs target ₹250", kind: "auto" },
   { time: "Mon 09:04", text: "Reallocated ₹8K/day from above to 'Lookalike-1%-Bridal' (CPL ₹138)", kind: "auto" },
   { time: "Tue 11:20", text: "Drafted response to Meera's 4-star JustDial review · Awaiting your approval", kind: "needs" },
@@ -331,12 +331,12 @@ function OverviewTab() {
 
       <div className="p-5 border border-[var(--color-line)] rounded-xl bg-white">
         <SectionHeader
-          eyebrow="Claude activity · This week"
+          eyebrow="Autopilot activity · This week"
           title="What we did while you slept"
           right="47 actions · 41 auto · 6 needs you"
         />
         <div className="divide-y divide-[var(--color-line)]">
-          {claudeActions.map((a, i) => (
+          {autopilotActions.map((a, i) => (
             <div key={i} className="flex items-start gap-4 py-3">
               <span className="mono text-[11px] text-[var(--color-text-muted)] w-20 shrink-0">
                 {a.time}
