@@ -21,6 +21,8 @@ interface Service {
   kpi: string;
   stack: string[];
   icon: string;
+  // One-line depth per bundle — shown on the pricing card
+  depth: Partial<Record<Bundle, string>>;
 }
 
 const services: Service[] = [
@@ -34,6 +36,11 @@ const services: Service[] = [
     kpi: "+20% ROAS",
     stack: ["Meta Graph API", "Google Ads API", "Claude Opus 4.7"],
     icon: "◎",
+    depth: {
+      "local-starter": "Google Ads only · local search",
+      growth: "Meta + Google · daily AI optimization",
+      "total-growth": "Meta + Google + Performance Max · cross-platform strategy",
+    },
   },
   {
     slug: "seo",
@@ -45,6 +52,10 @@ const services: Service[] = [
     kpi: "+30% organic traffic",
     stack: ["BeautifulSoup", "GSC API", "Ahrefs"],
     icon: "◈",
+    depth: {
+      growth: "On-page + 4 content briefs/mo",
+      "total-growth": "Technical + backlinks + 8 blog posts/mo",
+    },
   },
   {
     slug: "gmb",
@@ -56,50 +67,73 @@ const services: Service[] = [
     kpi: "+40% direction requests",
     stack: ["Google Business API", "Claude Opus"],
     icon: "⊙",
+    depth: {
+      "local-starter": "Setup + weekly posts",
+      growth: "Weekly posts + Q&A responses",
+      "total-growth": "Full management + competitor tracking",
+    },
   },
   {
     slug: "websites",
     name: "Website Development",
     tagline: "Ship in 3-7 days, not 3-7 weeks",
     description:
-      "Business website (Local Starter), advanced website + blog (Growth), or full e-commerce / custom app (Total Growth). Next.js, mobile-first, UPI payments.",
+      "Next.js, mobile-first, UPI payments. Depth scales with bundle — template up to custom app.",
     bundles: ["local-starter", "growth", "total-growth"],
     kpi: "<2.5s page speed",
     stack: ["Next.js 15", "Tailwind", "Vercel"],
     icon: "◢",
+    depth: {
+      "local-starter": "Business site · 8 pages",
+      growth: "Advanced site · 15 pages + blog",
+      "total-growth": "E-commerce or custom web app",
+    },
   },
   {
     slug: "social-posts",
     name: "Social Content",
-    tagline: "Instagram, Facebook, LinkedIn — done",
+    tagline: "Instagram, Facebook, X, LinkedIn — done",
     description:
-      "Captions + blog posts (Growth), plus branded graphics and video ads (Total Growth). Festival-aware calendar (Diwali, Holi, Eid). Auto-scheduled.",
+      "Festival-aware calendar (Diwali, Holi, Eid). Auto-scheduled across platforms. AI visuals via Midjourney (Total Growth).",
     bundles: ["growth", "total-growth"],
     kpi: "3-5% engagement",
-    stack: ["Meta Business API", "LinkedIn API", "Claude Opus"],
+    stack: ["Meta Business API", "LinkedIn API", "X API", "Claude Opus"],
     icon: "◇",
+    depth: {
+      growth: "16 captions/mo · auto-scheduled",
+      "total-growth": "30 posts/mo + branded graphics + video ads",
+    },
   },
   {
     slug: "whatsapp",
     name: "WhatsApp Business",
     tagline: "Your #1 sales channel, automated",
     description:
-      "Click-to-chat widget (Local Starter), trained chatbot (Growth), or full automated flows + broadcasts (Total Growth). Because India = WhatsApp.",
+      "Because India = WhatsApp. Depth scales from a click-to-chat button up to full automated sales flows.",
     bundles: ["local-starter", "growth", "total-growth"],
     kpi: "<2 min response",
     stack: ["Interakt/Meta Cloud API", "Razorpay", "Claude Opus"],
     icon: "◉",
+    depth: {
+      "local-starter": "Click-to-chat widget",
+      growth: "Trained chatbot + auto-replies",
+      "total-growth": "Automated flows + broadcast campaigns",
+    },
   },
   {
     slug: "crm",
     name: "CRM + Email/SMS",
     tagline: "HubSpot is overkill. This is enough.",
     description:
-      "Lead capture CRM + nurture sequences (Growth). Lead scoring + pipeline automation + re-engagement sequences (Total Growth). Resend + MSG91 (DLT-compliant).",
+      "Resend for email, MSG91 (DLT-compliant) for SMS. Every inbound lead captured, tagged, nurtured automatically.",
     bundles: ["growth", "total-growth"],
     kpi: "5-8% lead-to-customer",
     stack: ["Resend", "MSG91", "SQLite"],
     icon: "◐",
+    depth: {
+      growth: "Capture + 5-step nurture sequence",
+      "total-growth": "Lead scoring + pipeline + re-engagement flows",
+    },
   },
   {
     slug: "reviews",
@@ -111,17 +145,25 @@ const services: Service[] = [
     kpi: "+0.3 avg rating",
     stack: ["GMB API", "Facebook Graph", "Playwright"],
     icon: "◑",
+    depth: {
+      "total-growth": "4 platforms monitored · AI-drafted replies · owner alerts",
+    },
   },
   {
     slug: "analytics",
     name: "Analytics Dashboard",
     tagline: "One dashboard. Every channel.",
     description:
-      "Monthly performance report (all bundles) with insights (Growth+) and competitor analysis + quarterly strategy review (Total Growth).",
+      "Unified reporting across every service. Anomaly detection built in — you see what broke before clients call.",
     bundles: ["local-starter", "growth", "total-growth"],
     kpi: "99% report accuracy",
     stack: ["Next.js", "Recharts", "Supabase"],
     icon: "◆",
+    depth: {
+      "local-starter": "Monthly PDF report",
+      growth: "Monthly report + insights",
+      "total-growth": "Weekly live dashboard + quarterly strategy review",
+    },
   },
 ];
 
@@ -748,15 +790,25 @@ export default function DigitalPage() {
                   <p className="text-[11px] uppercase tracking-wider text-[var(--color-text-secondary)] mb-3">
                     Includes {servicesInBundle.length} services
                   </p>
-                  <ul className="space-y-2 mb-8 text-sm">
-                    {servicesInBundle.map((s) => (
-                      <li key={s.slug} className="flex gap-2.5 items-start">
-                        <span className="text-[var(--color-primary-blue)] mt-0.5 shrink-0">
-                          ✓
-                        </span>
-                        <span>{s.name}</span>
-                      </li>
-                    ))}
+                  <ul className="space-y-3 mb-8 text-sm">
+                    {servicesInBundle.map((s) => {
+                      const depth = s.depth[bundle.slug as Bundle];
+                      return (
+                        <li key={s.slug} className="flex gap-2.5 items-start">
+                          <span className="text-[var(--color-primary-blue)] mt-0.5 shrink-0">
+                            ✓
+                          </span>
+                          <span className="flex-1">
+                            <span className="block font-medium">{s.name}</span>
+                            {depth && (
+                              <span className="block text-[12px] text-[var(--color-text-secondary)] leading-snug mt-0.5">
+                                {depth}
+                              </span>
+                            )}
+                          </span>
+                        </li>
+                      );
+                    })}
                   </ul>
 
                   <BookButton
