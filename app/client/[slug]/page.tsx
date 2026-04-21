@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { Pill } from "../components/primitives";
@@ -66,9 +66,42 @@ function tabsFor(data: ClientData): { id: TabId; label: string; count?: string }
 
 export default function ClientDashboardPage() {
   const { slug } = useParams<{ slug: string }>();
-  const data = useMemo(() => getClient(slug), [slug]);
+  const baseline = useMemo(() => getClient(slug), [slug]);
+  const [data, setData] = useState<ClientData | null>(baseline);
+  const [liveStatus, setLiveStatus] = useState<"idle" | "fetching" | "live" | "fallback">(
+    baseline?.liveFeeds ? "fetching" : "idle"
+  );
   const tabs = useMemo(() => (data ? tabsFor(data) : []), [data]);
   const [tab, setTab] = useState<TabId>("overview");
+
+  // Fetch live-overlay data from /api/live/<slug> if the client has liveFeeds.
+  // Falls back silently to the registry baseline if the API errors or returns
+  // no overlay.
+  useEffect(() => {
+    if (!baseline?.liveFeeds) {
+      setLiveStatus("idle");
+      return;
+    }
+    let cancelled = false;
+    setLiveStatus("fetching");
+    fetch(`/api/live/${slug}`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((live: ClientData | null) => {
+        if (cancelled) return;
+        if (live) {
+          setData(live);
+          setLiveStatus("live");
+        } else {
+          setLiveStatus("fallback");
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLiveStatus("fallback");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug, baseline?.liveFeeds]);
 
   if (!data) notFound();
 
@@ -88,6 +121,21 @@ export default function ClientDashboardPage() {
             </span>
           </div>
           <div className="flex items-center gap-3">
+            {liveStatus !== "idle" && (
+              <span
+                className="mono text-[10px] uppercase tracking-wider hidden md:inline"
+                style={{
+                  color:
+                    liveStatus === "live"
+                      ? "#15803D"
+                      : liveStatus === "fetching"
+                      ? "#B45309"
+                      : "#DC2626",
+                }}
+              >
+                {liveStatus === "live" ? "● live" : liveStatus === "fetching" ? "● fetching" : "● fallback"}
+              </span>
+            )}
             <span className="mono text-[11px] text-[var(--color-text-secondary)] hidden md:inline">
               Week of {m.weekLabel}
             </span>
