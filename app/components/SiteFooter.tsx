@@ -36,6 +36,39 @@ export default function SiteFooter() {
               <li><Link href="/blog" className="hover:text-white transition-colors">Insights</Link></li>
               <li><a href="mailto:hello@polycloud.in" className="hover:text-white transition-colors">Contact</a></li>
             </ul>
+            <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/40 mb-4 mt-8">Follow</p>
+            <ul className="space-y-3 text-[14px]">
+              <li>
+                <a
+                  href="https://x.com/polycloudin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  X — @polycloudin
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/polycloudsolutions/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  LinkedIn — PolyCloud
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/viratkota/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  LinkedIn — Virat (founder)
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 

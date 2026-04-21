@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 const SITE_URL = "https://polycloud.in";
 const SITE_NAME = "PolyCloud";
@@ -203,6 +204,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--color-surface)] text-[var(--color-text)]">
+        <GoogleAnalytics />
         {children}
       </body>
     </html>
