@@ -22,16 +22,18 @@ const meta = {
 };
 
 // Data source status — drives the connection banner
-const sources = [
-  { label: "Vercel Analytics (polycloud.in)", status: "pending" as const },
-  { label: "Formsubmit inbound (contact form)", status: "manual" as const },
-  { label: "X @polycloudin", status: "pending" as const },
-  { label: "X @viratkota", status: "pending" as const },
-  { label: "LinkedIn · PolyCloud Solutions", status: "pending" as const },
-  { label: "LinkedIn · Virat Kota", status: "pending" as const },
-  { label: "Meta Ads (PolyCloud)", status: "not-yet" as const },
-  { label: "Google Ads (PolyCloud)", status: "not-yet" as const },
-  { label: "GMB", status: "not-yet" as const },
+type SourceStatusValue = "live" | "pending" | "manual" | "not-yet";
+
+const sources: { label: string; status: SourceStatusValue }[] = [
+  { label: "Vercel Analytics (polycloud.in)", status: "pending" },
+  { label: "Formsubmit inbound (contact form)", status: "manual" },
+  { label: "X @polycloudin", status: "pending" },
+  { label: "X @viratkota", status: "pending" },
+  { label: "LinkedIn · PolyCloud Solutions", status: "pending" },
+  { label: "LinkedIn · Virat Kota", status: "pending" },
+  { label: "Meta Ads (PolyCloud)", status: "not-yet" },
+  { label: "Google Ads (PolyCloud)", status: "not-yet" },
+  { label: "GMB", status: "not-yet" },
 ];
 
 const overviewKpis = [
