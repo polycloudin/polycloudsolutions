@@ -111,6 +111,53 @@ export interface DataSource {
   status: SourceStatus;
 }
 
+// --- Outreach (drafts, queued, sent, replied) ---
+export type OutreachChannel = "email" | "whatsapp" | "linkedin" | "x" | "in-person" | "phone";
+export type OutreachStatus = "draft" | "queued" | "sent" | "opened" | "replied" | "booked" | "closed-won" | "closed-lost";
+
+export interface OutreachTouch {
+  id: string;
+  channel: OutreachChannel;
+  target: string; // lead name or handle
+  subject?: string;
+  preview: string;
+  status: OutreachStatus;
+  sentAt?: string;
+  repliedAt?: string;
+  notes?: string;
+}
+
+// --- Leads (the people we're targeting) ---
+export type LeadTemperature = "cold" | "warm" | "engaged" | "qualified" | "disqualified";
+
+export interface Lead {
+  id: string;
+  name: string;
+  company?: string;
+  role?: string;
+  vertical: string;
+  city: string;
+  phone?: string;
+  email?: string;
+  linkedin?: string;
+  source: string; // "scraped-maps" / "referral" / "website-form"
+  temperature: LeadTemperature;
+  lastTouchAt?: string;
+  nextAction?: string;
+}
+
+// --- Draft templates (ready-to-fire content) ---
+export interface DraftTemplate {
+  id: string;
+  type: "email" | "whatsapp" | "linkedin-post" | "linkedin-dm" | "x-tweet" | "x-thread" | "blog";
+  title: string;
+  audience: string; // "CA firms" / "textile traders" / "broad"
+  preview: string; // first 120 chars
+  length?: string; // "12 tweets" / "150 words" / "3 paragraphs"
+  path?: string; // filesystem path to full text
+  status: "ready" | "needs-edit" | "experiment";
+}
+
 // --- Tab sections ---
 export interface OverviewSection {
   kpis: KPI[];
@@ -159,6 +206,17 @@ export interface SourcesSection {
   sources: DataSource[];
 }
 
+export interface OutreachSection {
+  kpis: KPI[];
+  touches: OutreachTouch[]; // every outbound message (draft/queued/sent)
+  drafts: DraftTemplate[];  // content ready to fire
+}
+
+export interface LeadsSection {
+  kpis: KPI[];
+  leads: Lead[];
+}
+
 // --- Full client record ---
 export interface ClientData {
   meta: ClientMeta;
@@ -172,4 +230,6 @@ export interface ClientData {
   pipeline?: PipelineSection;
   ops?: OpsSection;
   sources?: SourcesSection;
+  outreach?: OutreachSection;
+  leads?: LeadsSection;
 }
