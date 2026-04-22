@@ -96,6 +96,37 @@ export interface ActivityEntry {
   time: string;
   text: string;
   kind?: "auto" | "needs" | "urgent" | "ship" | "build";
+  // Richer narrative — when present, entry renders as a full card instead of a row.
+  // Keeps legacy rows working for ops logs that don't need the story.
+  signal?: string;   // what the Autopilot saw — "Meta CPL jumped 3× in 24h"
+  action?: string;   // what it did — "Paused Cold-IG-Carousel"
+  outcome?: string;  // result — "Saved ₹9,600/day, freed budget to winning ad set"
+}
+
+// --- Transformation story (before/after hero) ---
+export interface TransformationMetric {
+  label: string;
+  before: string;
+  after: string;
+  delta: string;     // "+63%" / "−52%" / "+₹2.1L/mo"
+  tone?: Tone;
+}
+
+export interface Transformation {
+  window: string;    // "Feb → Apr 2026 · 90 days"
+  headline: string;  // "From drowning in ops to 342 leads/week, hands-off"
+  story: string;     // 1-2 sentence narrative
+  metrics: TransformationMetric[];
+}
+
+// --- Money story (revenue attribution) ---
+export interface MoneyStory {
+  adSpend: string;           // "₹61,100"
+  attributedRevenue: string; // "₹2,08,700"
+  margin: string;            // "₹1,47,600"
+  note?: string;             // context line shown under the numbers
+  blendedRoas: string;       // "3.4×"
+  benchmark?: string;        // "Industry avg: 1.8×" — optional
 }
 
 // --- Pipeline (internal) ---
@@ -165,6 +196,8 @@ export interface OverviewSection {
   autopilotActivity?: ActivityEntry[];
   weeklyFocus?: string[];
   healthLabel?: string;
+  transformation?: Transformation; // 90-day before/after hero (demo/sales)
+  money?: MoneyStory;              // revenue attribution strip (demo/sales)
 }
 
 export interface AdsSection {

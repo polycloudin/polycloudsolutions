@@ -3,30 +3,22 @@
 import { useState } from "react";
 import type {
   ClientData,
-  ActivityEntry,
   DraftTemplate,
   Lead,
   OutreachTouch,
 } from "../data/types";
 import { Pill, KpiGrid, SectionHeader, SourceStatusPill } from "./primitives";
 import { LeadsChart, CplChart, ChannelMix } from "./charts";
-
-function ActivityKind({ kind }: { kind?: ActivityEntry["kind"] }) {
-  if (kind === "urgent") return <Pill tone="risk">Urgent</Pill>;
-  if (kind === "needs") return <Pill tone="warn">Needs you</Pill>;
-  if (kind === "ship") return <Pill tone="success">Shipped</Pill>;
-  if (kind === "build") return <Pill tone="neutral">Built</Pill>;
-  return (
-    <span className="mono text-[10px] uppercase tracking-wider text-[var(--color-text-muted)]">
-      Auto
-    </span>
-  );
-}
+import { TransformationHero, MoneyStrip, ActivityCard } from "./demo-blocks";
 
 export function OverviewTab({ data }: { data: ClientData }) {
   const o = data.overview;
   return (
     <div className="space-y-6">
+      {o.transformation && <TransformationHero t={o.transformation} />}
+
+      {o.money && <MoneyStrip m={o.money} />}
+
       <KpiGrid kpis={o.kpis} />
 
       {o.charts?.leadsDaily || o.charts?.cplTrend ? (
@@ -39,7 +31,7 @@ export function OverviewTab({ data }: { data: ClientData }) {
       {o.charts?.channelMix && <ChannelMix channels={o.charts.channelMix} />}
 
       {o.autopilotActivity && o.autopilotActivity.length > 0 && (
-        <div className="p-5 border border-[var(--color-line)] rounded-xl bg-white">
+        <div className="p-5 md:p-6 border border-[var(--color-line)] rounded-xl bg-white">
           <SectionHeader
             eyebrow="Autopilot activity · This week"
             title="What we did while you slept"
@@ -47,13 +39,7 @@ export function OverviewTab({ data }: { data: ClientData }) {
           />
           <div className="divide-y divide-[var(--color-line)]">
             {o.autopilotActivity.map((a, i) => (
-              <div key={i} className="flex items-start gap-4 py-3">
-                <span className="mono text-[11px] text-[var(--color-text-muted)] w-24 shrink-0">
-                  {a.time}
-                </span>
-                <p className="flex-1 text-[13.5px] leading-relaxed">{a.text}</p>
-                <ActivityKind kind={a.kind} />
-              </div>
+              <ActivityCard key={i} a={a} />
             ))}
           </div>
         </div>
@@ -396,13 +382,7 @@ export function OpsTab({ data }: { data: ClientData }) {
       />
       <div className="divide-y divide-[var(--color-line)]">
         {data.ops.log.map((a, i) => (
-          <div key={i} className="flex items-start gap-4 py-3">
-            <span className="mono text-[11px] text-[var(--color-text-muted)] w-32 shrink-0">
-              {a.time}
-            </span>
-            <p className="flex-1 text-[13.5px] leading-relaxed">{a.text}</p>
-            <ActivityKind kind={a.kind} />
-          </div>
+          <ActivityCard key={i} a={a} />
         ))}
       </div>
     </div>
