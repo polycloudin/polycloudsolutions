@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BookButton from "./BookButton";
+import MobileMenu from "./MobileMenu";
 
 type NavKey = "digital" | "consulting" | "labs" | "insights" | "about";
 
@@ -35,13 +36,16 @@ export default function SiteNav({ active }: { active?: NavKey }) {
           ))}
         </div>
 
-        <BookButton
-          variant="primary"
-          className="!py-2 !px-4 !text-[13px] shrink-0"
-        >
-          <span className="hidden sm:inline">Book a call</span>
-          <span className="sm:hidden">Book</span>
-        </BookButton>
+        <div className="flex items-center gap-2 shrink-0">
+          <BookButton
+            variant="primary"
+            className="!py-2 !px-4 !text-[13px]"
+          >
+            <span className="hidden sm:inline">Book a call</span>
+            <span className="sm:hidden">Book</span>
+          </BookButton>
+          <MobileMenu links={links} active={active} />
+        </div>
       </div>
     </nav>
   );
