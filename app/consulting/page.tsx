@@ -81,28 +81,100 @@ const verticals = [
   {
     name: "Finance & Compliance",
     detail: "CA firms, NBFCs, fintechs. GSTR-2B reconciliation, bank-statement analysis, KYC automation, compliance audit trails.",
-  },
-  {
-    name: "SaaS & Digital Products",
-    detail: "Lead routing, CRM automation, messaging-first sales engines, onboarding flows, churn prediction.",
+    status: "shipped" as const,
+    statusNote: "CA firm stack live",
   },
   {
     name: "D2C & Retail",
     detail: "WhatsApp post-purchase engines, attribution pipelines, inventory + reorder automation, creative production at scale.",
+    status: "pilot" as const,
+    statusNote: "First pilots opening",
+  },
+  {
+    name: "SaaS & Digital Products",
+    detail: "Lead routing, CRM automation, messaging-first sales engines, onboarding flows, churn prediction.",
+    status: "design" as const,
+    statusNote: "Scoping with 2 firms",
   },
   {
     name: "Manufacturing & Supply Chain",
     detail: "Invoice OCR, three-way match, vendor comms, ERP integration, live MIS dashboards.",
+    status: "scope" as const,
+    statusNote: "Ready to scope · audit-first",
   },
   {
     name: "Healthcare & Clinics",
     detail: "WhatsApp-based appointment booking, payment reminders, EHR integration, patient-data workflows.",
+    status: "scope" as const,
+    statusNote: "Ready to scope · audit-first",
   },
   {
     name: "Professional Services",
     detail: "Law firms, consultancies, advisories. Document processing, client communication, research agents, compliance tracking.",
+    status: "scope" as const,
+    statusNote: "Ready to scope · audit-first",
   },
 ];
+
+const statusBadge: Record<string, { label: string; color: string; bg: string }> = {
+  shipped: { label: "Shipped", color: "#15803D", bg: "#ECFDF3" },
+  pilot: { label: "In pilot", color: "#B45309", bg: "#FFFBEB" },
+  design: { label: "In design", color: "#1A5FD4", bg: "#EEF4FF" },
+  scope: { label: "Ready to scope", color: "var(--color-text-muted)", bg: "var(--color-surface)" },
+};
+
+// India connectors — the actual moat. Shipped = production in CA-firm stack;
+// Pilot = partial integration in an active engagement; Ready = designed, awaits first engagement.
+const connectors = [
+  {
+    name: "Tally ERP",
+    use: "Purchase register ingest, voucher draft via XML, ODBC live sync.",
+    status: "shipped" as const,
+    depth: "Used live in the CA firm reconciliation pipeline.",
+  },
+  {
+    name: "GST Portal (GSTR-2B)",
+    use: "JSON ingest, fuzzy invoice matching, ITC-at-risk flagging.",
+    status: "shipped" as const,
+    depth: "5-sheet Excel output, reproducible via `python3 demo.py`.",
+  },
+  {
+    name: "WhatsApp Business API",
+    use: "Meta-approved templates, vendor follow-up send + audit log, inbound OCR webhook.",
+    status: "shipped" as const,
+    depth: "interakt.ai + msg91 dual-adapter, rate-limited.",
+  },
+  {
+    name: "UPI · Razorpay · Cashfree",
+    use: "Payment collection, subscription billing, reconciliation against bank statements.",
+    status: "pilot" as const,
+    depth: "Live in D2C checkout flows; reconciliation adapter in design.",
+  },
+  {
+    name: "MCA · Company registry",
+    use: "AOC-4, MGT-7 filing status, director KYC lookups, LLP compliance tracker.",
+    status: "ready" as const,
+    depth: "Scraper + ingest designed. Awaiting first engagement.",
+  },
+  {
+    name: "EPFO / ESIC",
+    use: "PF challan verification, contribution reconciliation, employee-level audit trails.",
+    status: "ready" as const,
+    depth: "Portal access patterns mapped. Compliance review in progress.",
+  },
+  {
+    name: "eCourts · Judgments",
+    use: "Case tracking, hearing reminders, judgment search for professional services + legal ops.",
+    status: "ready" as const,
+    depth: "Indexed dataset prepared. Agent layer on roadmap.",
+  },
+];
+
+const connectorStatus: Record<string, { label: string; color: string; bg: string }> = {
+  shipped: { label: "Shipped", color: "#15803D", bg: "#ECFDF3" },
+  pilot: { label: "In pilot", color: "#B45309", bg: "#FFFBEB" },
+  ready: { label: "Ready to wire", color: "var(--color-text-muted)", bg: "var(--color-surface)" },
+};
 
 const gapData = [
   { stat: "88%", label: "of organizations use AI today" },
@@ -247,17 +319,78 @@ export default function Consulting() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {verticals.map((v, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
-              >
-                <p className="text-eyebrow text-[var(--color-primary-orange)] mb-5">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="text-[clamp(1.25rem,1.8vw,1.5rem)] mb-4 leading-tight">{v.name}</h3>
-                <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">{v.detail}</p>
-              </div>
-            ))}
+            {verticals.map((v, i) => {
+              const b = statusBadge[v.status];
+              return (
+                <div
+                  key={i}
+                  className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
+                >
+                  <div className="flex items-center justify-between mb-5">
+                    <p className="text-eyebrow text-[var(--color-primary-orange)]">{String(i + 1).padStart(2, "0")}</p>
+                    <span
+                      className="mono text-[10px] uppercase tracking-[0.12em] px-2 py-0.5 rounded"
+                      style={{ color: b.color, backgroundColor: b.bg }}
+                    >
+                      {b.label}
+                    </span>
+                  </div>
+                  <h3 className="text-[clamp(1.25rem,1.8vw,1.5rem)] mb-3 leading-tight">{v.name}</h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed mb-4">{v.detail}</p>
+                  <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.08em]">
+                    {v.statusNote}
+                  </p>
+                </div>
+              );
+            })}
           </div>
+        </div>
+      </section>
+
+      {/* India connectors — the moat */}
+      <section className="px-6 md:px-10 py-16 md:py-36">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / The moat</p>
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-3xl leading-[1]">
+                Seven <span className="text-serif-accent text-[var(--color-primary-blue)]">India connectors</span> — the thing no US shop has.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              Every Indian operations workflow hits Tally, GSTN, WhatsApp, or a payments rail within the first week. We&apos;ve built the ingest, reconciliation, and write-back layer for each — so you don&apos;t wait on a vendor for the adapter that unblocks your whole sprint.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
+            {connectors.map((c, i) => {
+              const b = connectorStatus[c.status];
+              return (
+                <div key={i} className="bg-white p-7 md:p-8 hover:bg-[var(--color-surface)] transition-colors">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="mono text-[10px] text-[var(--color-primary-orange)] tracking-[0.18em]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className="mono text-[10px] uppercase tracking-[0.12em] px-2 py-0.5 rounded"
+                      style={{ color: b.color, backgroundColor: b.bg }}
+                    >
+                      {b.label}
+                    </span>
+                  </div>
+                  <h3 className="text-[clamp(1.1rem,1.5vw,1.3rem)] mb-3 leading-tight">{c.name}</h3>
+                  <p className="text-[var(--color-text-secondary)] text-[13.5px] leading-relaxed mb-3">{c.use}</p>
+                  <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.06em] leading-relaxed">
+                    {c.depth}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <p className="mt-8 text-[var(--color-text-muted)] text-[13px] leading-relaxed max-w-2xl">
+            &quot;Shipped&quot; means running in production today. &quot;In pilot&quot; means active in a live engagement. &quot;Ready to wire&quot; means designed — first engagement turns the key.
+          </p>
         </div>
       </section>
 
@@ -266,7 +399,7 @@ export default function Consulting() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / One deep example</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">04 / One deep example</p>
               <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl">
                 The{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">GSTR-2B</span>{" "}
