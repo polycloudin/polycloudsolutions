@@ -59,7 +59,7 @@ export default function D2C() {
       <SiteNav active="digital" />
 
       {/* Hero */}
-      <section className="relative pt-36 md:pt-44 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-28 md:pt-44 pb-16 md:pb-32 px-6 md:px-10 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -72,7 +72,7 @@ export default function D2C() {
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">Solution · D2C</p>
           </div>
-          <h1 className="text-display text-[clamp(2.75rem,10vw,9rem)] mb-10 max-w-[1250px] leading-[0.95]">
+          <h1 className="text-display text-[clamp(2.25rem,10vw,9rem)] mb-8 md:mb-10 max-w-[1250px] leading-[0.95]">
             From ad-click to{" "}
             <span className="text-serif-accent text-[var(--color-primary-blue)]">repeat purchase</span>.
           </h1>
@@ -105,12 +105,12 @@ export default function D2C() {
       </section>
 
       {/* Pillars */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
+      <section className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / The stack</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl leading-[1]">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl leading-[1]">
                 Four <span className="text-serif-accent">pillars</span>. One system.
               </h2>
             </div>
@@ -134,12 +134,12 @@ export default function D2C() {
       </section>
 
       {/* Mockup */}
-      <section className="px-6 md:px-10 py-24 md:py-32">
+      <section className="px-6 md:px-10 py-16 md:py-32">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / The system</p>
-              <h2 className="text-[clamp(2rem,5vw,4rem)] max-w-2xl leading-[1]">
+              <h2 className="text-[clamp(1.75rem,5vw,4rem)] max-w-2xl leading-[1]">
                 Storefront → <span className="text-serif-accent text-[var(--color-primary-blue)]">WhatsApp</span>. One system.
               </h2>
             </div>
@@ -157,10 +157,10 @@ export default function D2C() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section id="pricing" className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1100px] mx-auto">
           <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing</p>
-          <h2 className="text-[clamp(2.25rem,6vw,5rem)] mb-14 leading-[1]">
+          <h2 className="text-[clamp(1.875rem,6vw,5rem)] mb-14 leading-[1]">
             Launch for <span className="text-serif-accent">₹1.5L</span>. Run for <span className="text-serif-accent">₹32K/mo</span>.
           </h2>
           <div
@@ -214,7 +214,7 @@ export default function D2C() {
       {/* CTA */}
       <section
         style={{ backgroundColor: "#0A0A0A" }}
-        className="px-6 md:px-10 py-24 md:py-32 text-white relative overflow-hidden"
+        className="px-6 md:px-10 py-16 md:py-32 text-white relative overflow-hidden"
       >
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"

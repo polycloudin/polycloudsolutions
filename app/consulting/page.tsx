@@ -145,9 +145,9 @@ export default function Consulting() {
             </div>
           </div>
 
-          {/* Interactive demo strip */}
+          {/* Proof strip — points to CA-firm case */}
           <Link
-            href="/consulting/workflow-demo"
+            href="/solutions/ca-firm"
             className="group mt-12 md:mt-16 inline-flex items-center gap-3 md:gap-4 pl-4 md:pl-5 pr-4 py-3 md:py-3.5 border border-[var(--color-line)] hover:border-[var(--color-ink)] rounded-full bg-white transition-all hover:-translate-y-0.5 hover:shadow-md"
           >
             <span className="relative flex h-2 w-2 shrink-0">
@@ -155,10 +155,10 @@ export default function Consulting() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-primary-orange)]" />
             </span>
             <span className="mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)] hidden md:inline">
-              Interactive demo
+              Case · shipped
             </span>
             <span className="text-[13px] md:text-[14.5px] font-medium tracking-tight">
-              A CA firm&apos;s month-end close — before and after. Drag the nodes.
+              CA firm month-end close · 8 hrs → 45 min per client.
             </span>
             <span className="text-[var(--color-primary-blue)] group-hover:translate-x-0.5 transition-transform">
               →

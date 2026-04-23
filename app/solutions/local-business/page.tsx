@@ -61,7 +61,7 @@ export default function LocalBusiness() {
       <SiteNav active="digital" />
 
       {/* Hero */}
-      <section className="relative pt-36 md:pt-44 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-28 md:pt-44 pb-16 md:pb-32 px-6 md:px-10 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -74,7 +74,7 @@ export default function LocalBusiness() {
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">Solution · Local business</p>
           </div>
-          <h1 className="text-display text-[clamp(2.75rem,10vw,9rem)] mb-10 max-w-[1250px] leading-[0.95]">
+          <h1 className="text-display text-[clamp(2.25rem,10vw,9rem)] mb-8 md:mb-10 max-w-[1250px] leading-[0.95]">
             Your local business, online and{" "}
             <span className="text-serif-accent text-[var(--color-primary-blue)]">booked</span>.
           </h1>
@@ -119,12 +119,12 @@ export default function LocalBusiness() {
       </section>
 
       {/* Deliverables */}
-      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / The bundle</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl leading-[1]">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl leading-[1]">
                 Four pieces. <span className="text-serif-accent">One fee</span>.
               </h2>
             </div>
@@ -148,12 +148,12 @@ export default function LocalBusiness() {
       </section>
 
       {/* Mockup */}
-      <section className="px-6 md:px-10 py-24 md:py-32">
+      <section className="px-6 md:px-10 py-16 md:py-32">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / What you get</p>
-              <h2 className="text-[clamp(2rem,5vw,4rem)] max-w-2xl leading-[1]">
+              <h2 className="text-[clamp(1.75rem,5vw,4rem)] max-w-2xl leading-[1]">
                 Website, Google, <span className="text-serif-accent text-[var(--color-primary-blue)]">WhatsApp</span> — bookings in.
               </h2>
             </div>
@@ -171,10 +171,10 @@ export default function LocalBusiness() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="px-6 md:px-10 py-24 md:py-32 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section id="pricing" className="px-6 md:px-10 py-16 md:py-32 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1100px] mx-auto">
           <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing</p>
-          <h2 className="text-[clamp(2.25rem,6vw,5rem)] mb-14 leading-[1]">
+          <h2 className="text-[clamp(1.875rem,6vw,5rem)] mb-14 leading-[1]">
             Launch for <span className="text-serif-accent">₹70K</span>. Run for <span className="text-serif-accent">₹12K/mo</span>.
           </h2>
           <div
@@ -227,7 +227,7 @@ export default function LocalBusiness() {
       {/* CTA */}
       <section
         style={{ backgroundColor: "#0A0A0A" }}
-        className="px-6 md:px-10 py-24 md:py-32 text-white relative overflow-hidden"
+        className="px-6 md:px-10 py-16 md:py-32 text-white relative overflow-hidden"
       >
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
