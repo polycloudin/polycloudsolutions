@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /**
- * Gate private client dashboards behind HTTP Basic auth.
+ * Gate private client dashboards + the operator dashboard behind HTTP Basic auth.
  *
  * The allowlist of private slugs is defined here (separately from the
  * data registry) because proxy.ts runs on the Edge runtime and can't
@@ -29,15 +29,7 @@ function misconfigured(): NextResponse {
   );
 }
 
-export function proxy(request: NextRequest): NextResponse {
-  const { pathname } = request.nextUrl;
-
-  // Match /client/<slug> or /client/<slug>/*
-  const match = pathname.match(/^\/client\/([^/]+)(?:\/.*)?$/);
-  if (!match) return NextResponse.next();
-  const slug = match[1];
-  if (!PRIVATE_CLIENT_SLUGS.has(slug)) return NextResponse.next();
-
+function checkBasicAuth(request: NextRequest): NextResponse {
   const expectedUser = process.env.PRIVATE_DASH_USER || "polycloud";
   const expectedPass = process.env.PRIVATE_DASH_PASS;
   if (!expectedPass) return misconfigured();
@@ -60,6 +52,31 @@ export function proxy(request: NextRequest): NextResponse {
   return unauthorized();
 }
 
+export function proxy(request: NextRequest): NextResponse {
+  const { pathname } = request.nextUrl;
+
+  // Operator dashboard — always gated
+  if (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) {
+    return checkBasicAuth(request);
+  }
+
+  // Per-client dashboards — gated only for private slugs
+  const match = pathname.match(/^\/client\/([^/]+)(?:\/.*)?$/);
+  if (match) {
+    const slug = match[1];
+    if (PRIVATE_CLIENT_SLUGS.has(slug)) {
+      return checkBasicAuth(request);
+    }
+  }
+
+  return NextResponse.next();
+}
+
 export const config = {
-  matcher: ["/client/:slug", "/client/:slug/:path*"],
+  matcher: [
+    "/client/:slug",
+    "/client/:slug/:path*",
+    "/dashboard",
+    "/dashboard/:path*",
+  ],
 };

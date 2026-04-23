@@ -21,6 +21,10 @@ export interface ClientMeta {
   onboarded: string;
   healthLabel?: string;
   bannerNote?: string;
+  // Revenue — for the operator dashboard at /dashboard (aggregated across tenants)
+  retainerMonthly?: number; // e.g. 32000 for ₹32K/mo. Omitted = internal/non-paying.
+  setupFee?: number;        // e.g. 150000 for ₹1.5L setup. Already collected.
+  startedAt?: string;       // ISO date of first paid month, for MRR age.
 }
 
 export interface KPI {
