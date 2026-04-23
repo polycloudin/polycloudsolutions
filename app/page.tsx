@@ -45,10 +45,25 @@ export default function Home() {
                 Book a call
                 <span className="text-base opacity-70">↗</span>
               </BookButton>
-              <Link href="#paths" className="btn-secondary">
-                How we work
+              <Link href="/client/kumar-textiles" className="btn-secondary">
+                See a live dashboard →
               </Link>
             </div>
+          </div>
+
+          {/* Proof pulse — real numbers, client-shaped */}
+          <div className="anim-fade-up delay-6 mt-10 md:mt-14 flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] text-[var(--color-text-secondary)]">
+            <span className="flex items-center gap-2">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#15803D] opacity-60" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#15803D]" />
+              </span>
+              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">Right now</span>
+            </span>
+            <ProofChip value="1" label="paying client" />
+            <ProofChip value="342" label="leads/week automated" />
+            <ProofChip value="8h → 45min" label="per CA firm client" />
+            <ProofChip value="14 days" label="first system shipped" />
           </div>
         </div>
       </section>
@@ -114,9 +129,17 @@ export default function Home() {
                 <h3 className="text-[clamp(1.5rem,2.5vw,2.1rem)] mb-5 leading-[1.1]">
                   Websites, ads, automation — for any SMB.
                 </h3>
-                <p className="text-white/60 text-[14px] mb-8 leading-relaxed">
+                <p className="text-white/60 text-[14px] mb-6 leading-relaxed">
                   Pre-configured bundles for local businesses, D2C brands, coaching centres, professional services. From ₹70K + ₹12K/month.
                 </p>
+                <div className="mb-5 pb-5 border-b border-white/10">
+                  <p className="mono text-[10px] uppercase tracking-[0.18em] text-white/40 mb-1.5">
+                    Proof · Kumar Textiles
+                  </p>
+                  <p className="text-white/85 text-[13.5px] leading-snug">
+                    <span className="font-medium text-white">104 → 342 leads/week</span> in 76 days · ₹32K/mo live
+                  </p>
+                </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-white/50">
                   <span>Websites</span>
                   <span>Ads</span>
@@ -145,9 +168,17 @@ export default function Home() {
                 <h3 className="text-[clamp(1.5rem,2.5vw,2.1rem)] mb-5 leading-[1.1]">
                   AI integration across verticals.
                 </h3>
-                <p className="text-white/75 text-[14px] mb-8 leading-relaxed">
+                <p className="text-white/80 text-[14px] mb-6 leading-relaxed">
                   Rebuild workflows around AI. Finance, SaaS, D2C, healthcare, manufacturing, professional services. From ₹1L audit · ₹50K–5L builds.
                 </p>
+                <div className="mb-5 pb-5 border-b border-white/15">
+                  <p className="mono text-[10px] uppercase tracking-[0.18em] text-white/55 mb-1.5">
+                    Proof · ca-firm-toolkit
+                  </p>
+                  <p className="text-white text-[13.5px] leading-snug">
+                    <span className="font-medium">8h → 45min</span> per client per month · shipped to private repo
+                  </p>
+                </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-white/70">
                   <span>Audits</span>
                   <span>Builds</span>
@@ -182,9 +213,17 @@ export default function Home() {
                 <h3 className="text-[clamp(1.5rem,2.5vw,2.1rem)] mb-5 leading-[1.1]">
                   Deep-tech intelligence, on tap.
                 </h3>
-                <p className="text-white/80 text-[14px] mb-8 leading-relaxed">
+                <p className="text-white/85 text-[14px] mb-6 leading-relaxed">
                   Eight research agents, six-phase pipeline, knowledge-graph memory — pointed at any sector. Technical DD, cohort screens, IP landscapes, and sector thesis work for VCs, incubators, and deep-tech operators. Delivered in weeks.
                 </p>
+                <div className="mb-5 pb-5 border-b border-white/20">
+                  <p className="mono text-[10px] uppercase tracking-[0.18em] text-white/60 mb-1.5">
+                    Proof · LENR synthesis
+                  </p>
+                  <p className="text-white text-[13.5px] leading-snug">
+                    <span className="font-medium">8 agents · KG memory</span> · compounds every engagement
+                  </p>
+                </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-white/70">
                   <span>DD reports</span>
                   <span>Cohort screens</span>
@@ -237,12 +276,114 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Proof — live artefacts, no demos */}
+      <section className="px-6 md:px-10 py-16 md:py-36 border-t border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-10 md:mb-16 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4 md:mb-5">03 / Shipped</p>
+              <h2 className="text-[clamp(2rem,6.5vw,5.5rem)] max-w-3xl leading-[1.05]">
+                Three surfaces, <span className="text-serif-accent">live right now</span>.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-sm text-[14px] leading-relaxed">
+              Everything a prospect asks about — dashboard, consulting output, deliverable code — has a live link. No PDFs, no discovery-call theatre.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4 md:gap-5">
+            <Link
+              href="/client/kumar-textiles"
+              className="group relative bg-white border border-[var(--color-line)] rounded-xl p-6 md:p-8 hover:border-[var(--color-ink)] hover:-translate-y-0.5 transition-all min-h-[260px] flex flex-col justify-between"
+            >
+              <div className="flex items-start justify-between">
+                <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                  Live client dashboard
+                </p>
+                <span className="text-[var(--color-primary-blue)] group-hover:translate-x-0.5 transition-transform">
+                  ↗
+                </span>
+              </div>
+              <div>
+                <p className="text-display text-[clamp(1.65rem,2.3vw,2rem)] leading-[1.05] mb-3 tracking-tight">
+                  Kumar Textiles
+                </p>
+                <p className="text-[13.5px] text-[var(--color-text-secondary)] leading-relaxed mb-4">
+                  76-day transformation — 104 → 342 leads/week, CPL ₹380 → ₹184. Narrative Autopilot log, attribution, owner approvals queued.
+                </p>
+                <p className="mono text-[10.5px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em]">
+                  /client/kumar-textiles →
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              href="/solutions/ca-firm"
+              className="group relative bg-white border border-[var(--color-line)] rounded-xl p-6 md:p-8 hover:border-[var(--color-ink)] hover:-translate-y-0.5 transition-all min-h-[260px] flex flex-col justify-between"
+            >
+              <div className="flex items-start justify-between">
+                <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                  Consulting output · CA firms
+                </p>
+                <span className="text-[var(--color-primary-blue)] group-hover:translate-x-0.5 transition-transform">
+                  ↗
+                </span>
+              </div>
+              <div>
+                <p className="text-display text-[clamp(1.65rem,2.3vw,2rem)] leading-[1.05] mb-3 tracking-tight">
+                  Month-end close, line by line
+                </p>
+                <p className="text-[13.5px] text-[var(--color-text-secondary)] leading-relaxed mb-4">
+                  7 manual steps compressed to 4 parallel lanes. 8h → 45min per client per month. ₹4.4L/mo recovered for a 40-client firm.
+                </p>
+                <p className="mono text-[10.5px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em]">
+                  /solutions/ca-firm →
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              href="/onboard"
+              className="group relative rounded-xl p-6 md:p-8 hover:-translate-y-0.5 transition-all min-h-[260px] flex flex-col justify-between text-white border"
+              style={{ backgroundColor: "#0A0A0A", borderColor: "#0A0A0A" }}
+            >
+              <div
+                className="absolute inset-0 opacity-40 pointer-events-none rounded-xl"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 50% at 90% 10%, rgba(244, 107, 44, 0.3) 0%, transparent 60%)",
+                }}
+              />
+              <div className="flex items-start justify-between relative">
+                <p className="mono text-[10px] uppercase tracking-[0.18em] text-white/50">
+                  3-minute intake
+                </p>
+                <span className="text-white/80 group-hover:translate-x-0.5 transition-transform">
+                  ↗
+                </span>
+              </div>
+              <div className="relative">
+                <p className="text-display text-[clamp(1.65rem,2.3vw,2rem)] leading-[1.05] mb-3 tracking-tight">
+                  Your dashboard, in 5 working days.
+                </p>
+                <p className="text-[13.5px] text-white/70 leading-relaxed mb-4">
+                  No decks, no discovery calls. Fill three screens, see a signed scope within 24 hours, dashboard live within the week.
+                </p>
+                <p className="mono text-[10.5px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em]">
+                  /onboard →
+                </p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Blog */}
       <section className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-10 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4 md:mb-5">03 / Insights</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4 md:mb-5">04 / Insights</p>
               <h2 className="text-[clamp(2rem,6.5vw,5.5rem)] max-w-2xl leading-[1.05]">
                 The playbook, <span className="text-serif-accent">public</span>.
               </h2>
@@ -290,22 +431,28 @@ export default function Home() {
           }}
         />
         <div className="max-w-[1440px] mx-auto relative">
-          <p className="text-eyebrow text-white/50 mb-6 md:mb-10">04 / Engage</p>
+          <p className="text-eyebrow text-white/50 mb-6 md:mb-10">05 / Engage</p>
           <h2 className="text-display text-[clamp(2.25rem,10vw,9.5rem)] mb-8 md:mb-12 max-w-[1200px] leading-[1] md:leading-[0.95]">
             Ship the first system in{" "}
             <span className="text-serif-accent text-[var(--color-primary-orange)]">fourteen days</span>.
           </h2>
           <div className="grid md:grid-cols-[1.5fr_1fr] gap-8 md:gap-12 items-end">
             <p className="text-white/60 text-[16px] md:text-lg max-w-xl leading-relaxed">
-              A 15-minute call tells us — and you — whether automation is worth building, what to ship first, and where the real leverage lives. No decks. No discovery-call theater.
+              Two ways in. A 15-minute call tells us — and you — whether automation is worth building, what to ship first, and where the real leverage lives. Or skip the call: fill the 3-minute intake and we send a signed scope within 24 hours.
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="light-primary">
                 Book a call ↗
               </BookButton>
+              <Link
+                href="/onboard"
+                className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]"
+              >
+                Start intake →
+              </Link>
               <a
                 href="mailto:hello@polycloud.in"
-                className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]"
+                className="mono text-[11px] uppercase tracking-[0.18em] text-white/50 hover:text-white transition-colors self-center"
               >
                 hello@polycloud.in
               </a>
@@ -316,5 +463,17 @@ export default function Home() {
 
       <SiteFooter />
     </div>
+  );
+}
+
+function ProofChip({ value, label }: { value: string; label: string }) {
+  return (
+    <span className="inline-flex items-baseline gap-1.5">
+      <span className="mono text-[13px] font-medium text-[var(--color-ink)] tabular-nums">
+        {value}
+      </span>
+      <span className="text-[var(--color-text-muted)]">·</span>
+      <span className="text-[12px] text-[var(--color-text-secondary)]">{label}</span>
+    </span>
   );
 }
