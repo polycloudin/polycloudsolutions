@@ -133,27 +133,27 @@ const tools: Tool[] = [
 const timeline = [
   {
     week: "Week 1",
-    title: "Install + map the workflow",
+    title: "Install + pick tier",
     body:
-      "We come on-site (or remote via AnyDesk), run `install.sh` on your primary laptop, and map one full reconciliation cycle with your senior associate. First recon runs against last month's data within 90 minutes of install.",
+      "On-site (or remote via AnyDesk). `install.sh` runs on your primary laptop — Python + Tally ODBC + SQLite in 90 minutes. We walk the 10 tools, you pick Starter / Growth / Pro, and we configure what you'll use in week 1.",
   },
   {
     week: "Week 2",
-    title: "First real cycle",
+    title: "Starter stack live",
     body:
-      "We run the full reconciliation on this month's GSTR-2B + Tally data. You get the 5-sheet Excel. We sit together and go through mismatches. That's the moment the math clicks — 10 hours collapses to under 2.",
+      "Reconciliation engine runs on this month's actual GSTR-2B + Tally data. Vendor follow-up WhatsApp templates approved by Meta. Invoice OCR webhook wired to your clients. ITC risk dashboard on localhost — partners get a morning view. 10 hours collapses to under 2.",
   },
   {
     week: "Week 3",
-    title: "Enable vendor follow-up and OCR",
+    title: "Growth tier if you're on it",
     body:
-      "WhatsApp Business number configured and Meta templates approved. Invoice OCR webhook wired to your clients' WhatsApp. Junior associates stop doing data entry entirely.",
+      "Bank statement parser ingests last month's ICICI / HDFC / SBI statements → Tally Prime vouchers. TDS tracker computes 26Q + NSDL FVU file. Compliance calendar sends the first WhatsApp reminder batch across every client. English + Hindi reply classifier active.",
   },
   {
     week: "Week 4",
-    title: "Dashboard + handoff",
+    title: "Pro tier + handoff",
     body:
-      "ITC risk dashboard live on your laptop. Operator manual handed over. Unified CLI (`ca-firm recon`, `ca-firm followup`, etc.) works. Monthly retainer begins.",
+      "Form 3CD auto-fills its 6 high-value clauses on one test client. Client MIS dashboard white-labeled with your firm's logo. Receivables automation loads your firm's own outstanding invoices. Unified `ca-firm` CLI — 12 subcommands across the full stack. Monthly retainer begins.",
   },
 ];
 
@@ -475,7 +475,7 @@ export default function CaFirmSolution() {
             ))}
           </div>
           <p className="mt-10 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-            Numbers reproducible locally: <code className="font-mono">python3 recon.py --demo</code>
+            Numbers reproducible locally: <code className="font-mono">python3 demo.py --module recon</code> · swap <code className="font-mono">recon</code> for any of the 10 modules
           </p>
         </div>
       </section>
@@ -563,6 +563,30 @@ export default function CaFirmSolution() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Proof strip — shipped, not promised */}
+      <section className="px-6 md:px-10 py-10 md:py-14 border-y border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto flex flex-wrap items-center justify-between gap-6">
+          <div className="flex items-center gap-5 md:gap-8 flex-wrap">
+            <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-primary-orange)]">
+              Shipped · not promised
+            </span>
+            <span className="text-[13.5px] text-[var(--color-text)]">
+              <span className="font-medium">10 tools built</span>
+              <span className="text-[var(--color-text-muted)] mx-2">·</span>
+              <span className="font-medium">110 / 110 tests passing</span>
+              <span className="text-[var(--color-text-muted)] mx-2">·</span>
+              <span className="font-medium">every demo reproducible in &lt;90s</span>
+            </span>
+          </div>
+          <Link
+            href="/ca-firm"
+            className="mono text-[11px] text-[var(--color-primary-blue)] tracking-[0.1em] link-underline"
+          >
+            See the live MIS →
+          </Link>
         </div>
       </section>
 
@@ -731,7 +755,7 @@ export default function CaFirmSolution() {
             We're taking two more pilot <span className="text-serif-accent text-[var(--color-primary-orange)]">CA firms</span> this quarter.
           </h2>
           <p className="text-white/60 text-[17px] max-w-2xl leading-relaxed mb-10">
-            First install in week one. First reconciliation in week two. If it doesn't save you 8+ hours the first month, we don't charge for the next three weeks.
+            First install in week one. Starter stack live in week two. If the first reconciliation cycle doesn&apos;t save you 8+ hours vs baseline, we don&apos;t charge for weeks 3–4. Upgrade to Growth or Pro in place when the next stack earns it.
           </p>
           <div className="flex flex-wrap gap-3">
             <BookButton variant="light-primary" topic="consulting">
