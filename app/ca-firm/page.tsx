@@ -392,10 +392,16 @@ function Cta() {
             Book a call
           </BookButton>
           <Link
+            href="/solutions/ca-firm"
+            className="text-[14px] text-[var(--color-text-secondary)] link-underline hover:text-[var(--color-ink)]"
+          >
+            See pricing + 30-day pilot →
+          </Link>
+          <Link
             href="/digital"
             className="text-[14px] text-[var(--color-text-secondary)] link-underline hover:text-[var(--color-ink)]"
           >
-            See the Digital vertical →
+            Explore Digital →
           </Link>
         </div>
         <div className="anim-fade-up delay-4 mt-12 flex flex-wrap justify-center gap-x-8 gap-y-3 text-[13px] text-[var(--color-text-secondary)]">
