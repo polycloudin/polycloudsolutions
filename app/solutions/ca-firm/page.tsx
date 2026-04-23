@@ -7,9 +7,9 @@ import SiteNav from "../../components/SiteNav";
 import SiteFooter from "../../components/SiteFooter";
 
 export const metadata: Metadata = {
-  title: "CA Firm AI Employee — 10 tools, from GSTR-2B to Form 3CD",
+  title: "CA Firm AI Employee — 18 tools, from GSTR-2B to Form 3CD",
   description:
-    "A 10-tool AI employee installed on your firm's laptop: GSTR-2B recon, bank-statement → Tally vouchers, TDS 26Q + FVU, compliance calendar, Form 3CD auto-docs, client MIS dashboard, receivables chasing. ₹15-45K/month + per-audit SKU. Live demo at polycloud.in/ca-firm.",
+    "An 18-tool AI employee installed on your firm's laptop: GSTR-2B recon, bank → Tally vouchers, TDS + FVU, compliance calendar, Form 3CD auto-docs, client MIS, receivables, e-invoice IRN, AIS → ITR pre-fill, ICAI peer review pack, MCA21 ROC tracker, audit workbench, advisory copilot. ₹15-45K/mo + Article/partner seats. Live demo at polycloud.in/ca-firm.",
   alternates: { canonical: "/solutions/ca-firm" },
   keywords: [
     "CA firm automation",
@@ -18,6 +18,12 @@ export const metadata: Metadata = {
     "TDS 26Q FVU",
     "Form 3CD auto documentation",
     "compliance calendar CA",
+    "e-invoice IRN",
+    "AIS ITR pre-fill",
+    "ICAI peer review",
+    "MCA21 ROC tracker",
+    "audit workbench",
+    "advisory copilot",
     "Tally automation",
     "GST compliance automation",
     "AI for CA firms",
@@ -30,7 +36,7 @@ export const metadata: Metadata = {
 
 type Tool = {
   num: string;
-  tier: "Starter" | "Growth" | "Pro";
+  tier: "Starter" | "Growth" | "Pro" | "Seats" | "Platform";
   name: string;
   tagline: string;
   description: string;
@@ -128,6 +134,78 @@ const tools: Tool[] = [
       "Ingests firm-raised invoices from Zoho Books / QuickBooks / Tally exports. Five aging buckets (0–30 / 31–45 / 46–60 / 61–75 / 76+), each with a Meta-approval-style WhatsApp template — polite nudge, firm reminder (3-day ultimatum), urgent (48-hour ultimatum), partner escalation (internal, no message). 7-day cooldown with escalation-override semantics. Partner dashboard surfaces top debtors + recovery trend.",
     deliverable: "15–25% fee leakage to chase-fatigue recovered. Pays for itself on the first stuck invoice.",
   },
+  {
+    num: "11",
+    tier: "Pro",
+    name: "E-Invoice IRN at scale",
+    tagline: "NIC IRP integration. Bulk IRNs. GSP-ready.",
+    description:
+      "Pulls sales invoices from Tally → submits to NIC IRP → collects IRN + signed QR code per invoice → writes back to Tally-importable JSON. Covers B2B / B2C / SEZ / export supply types, intra-state (CGST+SGST) + inter-state (IGST), HSN + UQC validation. Sandbox-ready today; production goes live when the firm's GSP partnership lands (3-4 month NIC application).",
+    deliverable: "E-invoicing automation at threshold-drop scale. ~₹0.20-0.50 per IRN or ₹5K/mo flat.",
+  },
+  {
+    num: "12",
+    tier: "Pro",
+    name: "AIS → ITR pre-fill",
+    tagline: "Notice prevention. Refuses to file on mismatch.",
+    description:
+      "Loads AIS JSON from income-tax.gov.in → compares category-by-category against client-declared income → classifies mismatches on a 5-tier severity ladder (OK / TRIVIAL / MATERIAL / SIGNIFICANT / NOTICE_RISK). Drafts ITR XML skeleton + auto-generated client clarification letter. Blocks filing when any NOTICE_RISK mismatch exists — that's the moat.",
+    deliverable: "Prevents the ITR notice before it happens. ₹2–5K per ITR-3/4/5/6 filing or included in Pro retainer.",
+  },
+  {
+    num: "13",
+    tier: "Pro",
+    name: "ICAI Peer Review pack",
+    tagline: "Phase IV mandate deadline: 31 Dec 2026.",
+    description:
+      "24-entry working-paper catalogue mapping every SA (210/220/230/240/250/260/315/330/500/530/700) to engagement types + tax-audit + GST-audit variants. Engagement letter generator (7 client types × 7 engagement types). SQC 1 20-item quality-control checklist. Firm readiness score (0–100) that predicts peer review outcome BEFORE booking the review.",
+    deliverable: "₹25–50K one-time setup + ₹3K/mo maintenance. Break-even on one avoided review-failure.",
+  },
+  {
+    num: "14",
+    tier: "Pro",
+    name: "MCA21 ROC tracker",
+    tagline: "Every filing. Every fee. Every penalty. Formula-based.",
+    description:
+      "Deterministic deadline engine for AOC-4 / AOC-4 XBRL / MGT-7 / MGT-7A / DIR-3 KYC / DPT-3 / MSME-1 / Form 11 / Form 8. Fee-slab calculator by paid-up capital + per-form late penalties (₹100/day for corporate filings, flat ₹5K for DIR-3, 12×/18× slab for DPT-3). MCA21 portal scraper stubbed — firm enables with their own DSC + Playwright for filed-history lookups.",
+    deliverable: "One prevented DIN deactivation pays for a year of the tool. +₹3–5K/mo per company client.",
+  },
+  {
+    num: "15",
+    tier: "Growth",
+    name: "Tally ODBC connector",
+    tagline: "Live queries. No more XML exports.",
+    description:
+      "Graceful fallback: ODBC (pyodbc, port 9000) → Tally XML HTTP → deterministic mock. Handles trial balance, ledger-group fuzzy mapping (GST/TDS/Duties auto-classified), voucher extraction. Every other tool pulls live Tally data through this — no more manual Excel exports before each recon run.",
+    deliverable: "Saves 30 min/tool-run across 10+ monthly runs. Universal data plumbing.",
+  },
+  {
+    num: "16",
+    tier: "Seats",
+    name: "Audit workbench (Article assistant)",
+    tagline: "Five detectors. Replaces an Article's week.",
+    description:
+      "Statistical voucher sampling + vendor-ledger scrutiny (duplicates, round amounts, outstanding > 90 days, GSTIN state mismatch) + MSMED 45-day verifier with Section 23 indicative interest + related-party 40A(2)(b) flagging with >15% excess test + stock-count reconciliation (2% qty OR ₹10K value threshold). Every finding generates an auditable task linked to the right working paper code.",
+    deliverable: "Article hours per engagement 40 → 15. +₹15K/mo per Article seat. Typical 3-5 seats/firm.",
+  },
+  {
+    num: "17",
+    tier: "Seats",
+    name: "Advisory copilot (Partner assistant)",
+    tagline: "30-second answer with cited precedent.",
+    description:
+      "Retrieval across firm's own audit log + bundled ICAI/ITAT/CBDT/GST corpus + extensible drop-in JSON. Deterministic synthesis (first-sentence answer + \"must/shall\" assumption extraction) — no hallucinated summaries. Optional Ollama Gemma 4 for tighter synthesis. Every answer ships with top-3 cited precedents + assumptions to verify.",
+    deliverable: "Partner saves 2+ hrs/week of research. +₹15–25K/mo per partner seat. Typical 3-5 seats/firm.",
+  },
+  {
+    num: "18",
+    tier: "Platform",
+    name: "Cross-firm intelligence layer",
+    tagline: "Activates at cohort-scale. Honestly gated today.",
+    description:
+      "Three modules that refuse to run until PolyCloud's federated dataset crosses threshold: (D1) cross-client anomaly detection — vendor fraud + invoice inflation + revenue-recognition patterns; (D3) predictive peer review radar; (D5) cohort benchmarks (the 'Bloomberg for Indian CA' play). Each module's stub logs attempted access — that becomes our signal for demand. No fabricated cross-firm signals, ever.",
+    deliverable: "Activates at 10+ firms (D1/D3) and 50+ firms (D5). Premium pricing ₹50K–1L/mo when live.",
+  },
 ];
 
 const timeline = [
@@ -135,7 +213,7 @@ const timeline = [
     week: "Week 1",
     title: "Install + pick tier",
     body:
-      "On-site (or remote via AnyDesk). `install.sh` runs on your primary laptop — Python + Tally ODBC + SQLite in 90 minutes. We walk the 10 tools, you pick Starter / Growth / Pro, and we configure what you'll use in week 1.",
+      "On-site (or remote via AnyDesk). `install.sh` runs on your primary laptop — Python + Tally ODBC + SQLite in 90 minutes. We walk the 18 tools, you pick Starter / Growth / Pro (and whether to add Intelligence seats), and we configure what you'll use in week 1.",
   },
   {
     week: "Week 2",
@@ -203,16 +281,52 @@ const pricingTiers: Array<{
     name: "Pro",
     price: "₹35 – 45K",
     unit: "per month",
-    toolCount: "All 10 tools + audit SKU",
+    toolCount: "Tools 01 – 15 + audit SKU",
     summary:
-      "Growth plus tax audit, receivables, and a white-labeled client MIS. Add-on: ₹15–25K per tax-audit engagement during season.",
+      "Growth plus tax audit, receivables, client MIS, e-invoice IRN, AIS → ITR, ICAI peer review, MCA21 ROC, and live Tally ODBC. The complete CA practice stack.",
     includes: [
       "Everything in Growth",
       "Form 3CD auto-documentation — 6 high-value clauses auto-filled, 38 scaffolded",
       "Client MIS dashboard — multi-tenant, per-client SQLite, white-labeled",
       "Receivables automation — aging buckets + WhatsApp escalation ladder",
-      "Dedicated Slack channel + partner pairing for the first two audit cycles",
+      "E-invoice IRN — NIC IRP integration, sandbox-ready, GSP flip when live",
+      "AIS → ITR pre-fill with refuse-to-file mismatch guard",
+      "ICAI peer review pack (WP catalogue · letters · SQC-1 · readiness score)",
+      "MCA21 ROC tracker (AOC-4 / MGT-7 / DIR-3 KYC / DPT-3 / MSME-1 · fees · penalties)",
+      "Live Tally ODBC connector (with XML fallback)",
       "Tax-audit SKU (₹15–25K per client per season, Jul – Oct)",
+    ],
+  },
+  {
+    name: "Intelligence Seats",
+    price: "+₹15 – 25K",
+    unit: "per seat per month",
+    toolCount: "Workbench + Advisory",
+    summary:
+      "Add seats for Articles (audit workbench) and partners (advisory copilot) on top of any tier. Typical 3-5 Article + 3-5 partner seats per mid-size firm.",
+    includes: [
+      "Article seat · audit workbench — 5 detectors replace the junior's week",
+      "Partner seat · advisory copilot — 30-second precedent-backed answers",
+      "Firm's own audit log as retrievable corpus",
+      "Bundled ICAI / ITAT / CBDT / GST circulars",
+      "Drop-in JSON to extend the corpus with firm knowledge",
+      "Runs locally — no cloud, no data egress (Ollama optional for LLM synthesis)",
+    ],
+  },
+  {
+    name: "Platform Premium",
+    price: "₹50K – 1L",
+    unit: "per firm per month",
+    toolCount: "Cross-firm intelligence (D1 · D3 · D5)",
+    summary:
+      "Activates once PolyCloud's cohort crosses threshold. Cross-client anomaly detection, predictive peer review radar, industry benchmarks. Gated honestly — no fabricated signals.",
+    includes: [
+      "D1 cross-client anomaly detection — activates at 10+ firms / 300+ clients",
+      "D3 predictive peer review radar — activates with ICAI observations corpus + 10+ firms",
+      "D5 cohort benchmarks (Bloomberg for Indian CA) — activates at 50+ firms / 5,000+ clients",
+      "Differential privacy + k-anonymity on every query (no per-firm lookup)",
+      "Early-adopter pricing locked before threshold crosses",
+      "Stubs ship today with `check-readiness` status so you know where the cohort stands",
     ],
   },
 ];
@@ -327,7 +441,7 @@ export default function CaFirmSolution() {
           </h1>
           <div className="grid md:grid-cols-[1.3fr_1fr] gap-12 md:gap-20 items-end">
             <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-              A ten-tool AI employee installed on your firm&apos;s laptop — GSTR-2B recon, WhatsApp vendor follow-up, invoice OCR, bank → Tally vouchering, TDS 26Q + FVU, compliance calendar, Form 3CD auto-draft, multi-tenant client MIS, and receivables chasing. One unified CLI. 90-minute install. Three tiers from ₹15K to ₹45K/month. You stop doing data entry. Juniors stop chasing invoices. Partners get their evenings back.
+              An eighteen-tool AI employee installed on your firm&apos;s laptop — GSTR-2B recon, WhatsApp vendor follow-up, invoice OCR, bank → Tally vouchering, TDS 26Q + FVU, compliance calendar, Form 3CD auto-draft, multi-tenant client MIS, receivables, e-invoice IRN, AIS → ITR pre-fill, ICAI peer review, MCA21 ROC, live Tally ODBC, audit workbench, advisory copilot, and a cross-firm intelligence layer. One unified CLI. 90-minute install. Four tiers from ₹15K to ₹60K+/month. You stop doing data entry. Juniors stop chasing invoices. Partners get their evenings back.
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary" topic="consulting">
@@ -518,7 +632,7 @@ export default function CaFirmSolution() {
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / The stack</p>
               <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-3xl leading-[1]">
-                Ten tools, one{" "}
+                Eighteen tools, one{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">install</span>.
               </h2>
             </div>
@@ -574,11 +688,11 @@ export default function CaFirmSolution() {
               Shipped · not promised
             </span>
             <span className="text-[13.5px] text-[var(--color-text)]">
-              <span className="font-medium">10 tools built</span>
+              <span className="font-medium">18 tools built</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
-              <span className="font-medium">110 / 110 tests passing</span>
+              <span className="font-medium">220 / 220 tests passing</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
-              <span className="font-medium">every demo reproducible in &lt;90s</span>
+              <span className="font-medium">every demo reproducible in &lt;3s</span>
             </span>
           </div>
           <Link
@@ -635,7 +749,7 @@ export default function CaFirmSolution() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-4">
             {pricingTiers.map((tier) => (
               <div
                 key={tier.name}
