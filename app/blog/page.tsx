@@ -17,7 +17,7 @@ export default function BlogIndex() {
       <SiteNav active="insights" />
 
       {/* Hero */}
-      <section className="relative pt-36 md:pt-44 pb-20 md:pb-28 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-28 md:pt-44 pb-20 md:pb-28 px-6 md:px-10 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -30,7 +30,7 @@ export default function BlogIndex() {
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">Insights</p>
           </div>
-          <h1 className="text-display text-[clamp(2.75rem,9vw,8rem)] mb-10 max-w-[1100px] leading-[0.95]">
+          <h1 className="text-display text-[clamp(2.25rem,9vw,8rem)] mb-10 max-w-[1100px] leading-[0.95]">
             The playbook, <span className="text-serif-accent text-[var(--color-primary-blue)]">public</span>.
           </h1>
           <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
@@ -81,7 +81,7 @@ export default function BlogIndex() {
       {/* CTA */}
       <section
         style={{ backgroundColor: "#0A0A0A" }}
-        className="px-6 md:px-10 py-24 md:py-32 text-white relative overflow-hidden mt-16"
+        className="px-6 md:px-10 py-16 md:py-32 text-white relative overflow-hidden mt-16"
       >
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"

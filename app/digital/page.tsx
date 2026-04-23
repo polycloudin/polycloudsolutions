@@ -266,7 +266,7 @@ export default function DigitalPage() {
 
           {/* Live demo strip */}
           <Link
-            href="/digital/demos/depth-3d"
+            href="/digital/demos/3d-product"
             className="group mt-12 md:mt-16 inline-flex items-center gap-3 md:gap-4 pl-4 md:pl-5 pr-4 py-3 md:py-3.5 border border-[var(--color-line)] hover:border-[var(--color-ink)] rounded-full bg-white transition-all hover:-translate-y-0.5 hover:shadow-md"
           >
             <span className="relative flex h-2 w-2 shrink-0">
@@ -277,7 +277,7 @@ export default function DigitalPage() {
               Live demo
             </span>
             <span className="text-[13px] md:text-[14.5px] font-medium tracking-tight">
-              Turn your webcam into a 3D point cloud — in the browser.
+              A product page with real depth — scroll to see it move.
             </span>
             <span className="text-[var(--color-primary-blue)] group-hover:translate-x-0.5 transition-transform">
               →

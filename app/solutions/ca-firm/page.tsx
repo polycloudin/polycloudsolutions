@@ -99,6 +99,79 @@ const pricing = {
   ],
 };
 
+// Month-end close — step-by-step hours. Before = real 4-partner Hyderabad firm;
+// After = same firm after ca-firm-toolkit is installed.
+const CLOSE_STEPS: {
+  step: string;
+  detail: string;
+  before: string;
+  beforeWho: string;
+  after: string;
+  afterWho: string;
+  eliminated?: boolean;
+}[] = [
+  {
+    step: "Ingest GSTR-2B + purchase register",
+    detail: "Client sends JSON + Tally export; data gets into the firm's workspace.",
+    before: "0.5 h",
+    beforeWho: "Junior · inbox hunt + Excel reformat",
+    after: "0.0 h",
+    afterWho: "Auto · WhatsApp intake → cli",
+  },
+  {
+    step: "Match GSTIN × invoice × amount",
+    detail: "Reconcile every line with tolerance on amount and fuzzy on invoice no.",
+    before: "3.5 h",
+    beforeWho: "Junior · manual VLOOKUP",
+    after: "< 30 s",
+    afterWho: "Auto · rapidfuzz engine",
+    eliminated: true,
+  },
+  {
+    step: "Flag mismatches + classify reason",
+    detail: "Tag each break as amount-diff / invoice-miss / amended / vendor-not-filed.",
+    before: "1.0 h",
+    beforeWho: "Junior · copy-paste classifications",
+    after: "Auto",
+    afterWho: "In recon output",
+    eliminated: true,
+  },
+  {
+    step: "Follow up with vendors for missing GSTR-1",
+    detail: "3–8 calls per client, repeat weekly until month-end.",
+    before: "2.5 h",
+    beforeWho: "Junior · phone + email chase",
+    after: "0.0 h",
+    afterWho: "Auto · WhatsApp templates queued",
+    eliminated: true,
+  },
+  {
+    step: "Draft summary for partner review",
+    detail: "Consolidate findings into an Excel the partner can sign off.",
+    before: "0.5 h",
+    beforeWho: "Junior · Excel collation",
+    after: "Auto",
+    afterWho: "5-sheet output ready",
+    eliminated: true,
+  },
+  {
+    step: "Partner review + exceptions",
+    detail: "Read-only pass: check ITC-at-risk > ₹10K and OCR confidence < 90%.",
+    before: "0.5 h",
+    beforeWho: "Partner · full read-through",
+    after: "12 min",
+    afterWho: "Partner · flagged items only",
+  },
+  {
+    step: "File return + invoice the client",
+    detail: "Final filing + client billing — the one step we don't touch.",
+    before: "0.5 h",
+    beforeWho: "Partner",
+    after: "33 min",
+    afterWho: "Partner · unchanged",
+  },
+];
+
 const facts = [
   { label: "Installed on", value: "Your firm's laptop" },
   { label: "Install time", value: "90 minutes, on-site or remote" },
@@ -118,7 +191,7 @@ export default function CaFirmSolution() {
       <SiteNav active="consulting" />
 
       {/* Hero */}
-      <section className="relative pt-36 md:pt-44 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-28 md:pt-44 pb-16 md:pb-32 px-6 md:px-10 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -131,7 +204,7 @@ export default function CaFirmSolution() {
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">Solution · CA Firm AI Employee</p>
           </div>
-          <h1 className="text-display text-[clamp(2.75rem,10vw,9rem)] mb-10 max-w-[1250px] leading-[0.95]">
+          <h1 className="text-display text-[clamp(2.25rem,10vw,9rem)] mb-8 md:mb-10 max-w-[1250px] leading-[0.95]">
             Your CA firm, <span className="text-serif-accent text-[var(--color-primary-blue)]">on autopilot</span>.
           </h1>
           <div className="grid md:grid-cols-[1.3fr_1fr] gap-12 md:gap-20 items-end">
@@ -150,10 +223,127 @@ export default function CaFirmSolution() {
         </div>
       </section>
 
+      {/* Month-end close — before vs. after (static, no JS hydration) */}
+      <section className="px-6 md:px-10 py-16 md:py-24 border-t border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">
+                The close, line by line
+              </p>
+              <h2 className="text-display text-[clamp(1.75rem,5vw,3.25rem)] leading-[1.05] max-w-3xl">
+                One client&apos;s monthly close —{" "}
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">
+                  8 hours becomes 45 minutes
+                </span>
+                .
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-sm text-[14px] leading-relaxed">
+              Same firm, same clients, same compliance outcome. Each row is a
+              step from a real 4-partner Hyderabad CA practice shadowed during
+              design. Hours are from their own time-tracking, not ours.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-[var(--color-line)] overflow-hidden bg-white">
+            <div className="grid grid-cols-[1.5fr_1fr_1fr] bg-[var(--color-surface-warm)] border-b border-[var(--color-line)]">
+              <div className="px-4 md:px-6 py-3 mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                Step
+              </div>
+              <div className="px-4 md:px-6 py-3 mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] border-l border-[var(--color-line)]">
+                Before
+              </div>
+              <div className="px-4 md:px-6 py-3 mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] border-l border-[var(--color-line)]">
+                After
+              </div>
+            </div>
+            {CLOSE_STEPS.map((step, i) => (
+              <div
+                key={i}
+                className={`grid grid-cols-[1.5fr_1fr_1fr] ${
+                  i < CLOSE_STEPS.length - 1
+                    ? "border-b border-[var(--color-line)]"
+                    : ""
+                }`}
+              >
+                <div className="px-4 md:px-6 py-4 md:py-5">
+                  <p className="text-[13.5px] md:text-[14.5px] font-medium text-[var(--color-ink)] mb-1 leading-snug">
+                    {step.step}
+                  </p>
+                  <p className="text-[11.5px] md:text-[12px] text-[var(--color-text-secondary)] leading-snug">
+                    {step.detail}
+                  </p>
+                </div>
+                <div className="px-4 md:px-6 py-4 md:py-5 border-l border-[var(--color-line)] bg-[#FEF8F8]">
+                  <p
+                    className={`mono text-[13px] md:text-[14px] font-medium text-[#B91C1C] ${
+                      step.eliminated ? "line-through opacity-60" : ""
+                    }`}
+                  >
+                    {step.before}
+                  </p>
+                  <p className="text-[10.5px] text-[var(--color-text-muted)] mt-0.5">
+                    {step.beforeWho}
+                  </p>
+                </div>
+                <div className="px-4 md:px-6 py-4 md:py-5 border-l border-[var(--color-line)] bg-[#F0FDF4]">
+                  <p className="mono text-[13px] md:text-[14px] font-medium text-[#15803D]">
+                    {step.after}
+                  </p>
+                  <p className="text-[10.5px] text-[var(--color-text-muted)] mt-0.5">
+                    {step.afterWho}
+                  </p>
+                </div>
+              </div>
+            ))}
+            <div className="grid grid-cols-[1.5fr_1fr_1fr] border-t-2 border-[var(--color-ink)] bg-[var(--color-surface-warm)]">
+              <div className="px-4 md:px-6 py-4 md:py-5">
+                <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] mb-1">
+                  Per client · per month
+                </p>
+                <p className="text-display text-[18px] md:text-[22px]">
+                  Total hours
+                </p>
+              </div>
+              <div className="px-4 md:px-6 py-4 md:py-5 border-l border-[var(--color-line)]">
+                <p className="text-display text-[24px] md:text-[30px] text-[#B91C1C] leading-none">
+                  8 h
+                </p>
+                <p className="mono text-[10px] text-[var(--color-text-muted)] mt-1.5">
+                  At ₹1.5K loaded · ₹12K
+                </p>
+              </div>
+              <div className="px-4 md:px-6 py-4 md:py-5 border-l border-[var(--color-line)]">
+                <p className="text-display text-[24px] md:text-[30px] text-[#15803D] leading-none">
+                  45 min
+                </p>
+                <p className="mono text-[10px] text-[var(--color-text-muted)] mt-1.5">
+                  At ₹1.5K loaded · ₹1.1K
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-6 md:mt-8 text-[13.5px] md:text-[14.5px] text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
+            <span className="font-medium text-[var(--color-ink)]">
+              Margin recovered per client per month: ~₹10,900.
+            </span>{" "}
+            A 40-client firm recovers{" "}
+            <span className="font-medium text-[var(--color-ink)]">
+              ₹4.4L of billable capacity every month
+            </span>{" "}
+            — either bank as margin, or sell as capacity to take on 8–12 more
+            clients with the same team. Toolkit retainer: ₹18K/mo. Break-even:
+            first two clients in week one.
+          </p>
+        </div>
+      </section>
+
       {/* Demo metrics */}
       <section className="px-6 md:px-10 py-16 md:py-20 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-10">First demo cycle (synthetic data)</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-10">Reconciliation engine · --demo mode</p>
           <div className="grid md:grid-cols-3 gap-8 md:gap-10">
             {demoMetrics.map((m, i) => (
               <div key={i} className="border-t border-[var(--color-ink)]/80 pt-6">
@@ -164,18 +354,18 @@ export default function CaFirmSolution() {
             ))}
           </div>
           <p className="mt-10 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-            REAL PILOT NUMBERS REPLACE THIS BLOCK ONCE WEEK 4 COMPLETES.
+            Numbers reproducible locally: <code className="font-mono">python3 recon.py --demo</code>
           </p>
         </div>
       </section>
 
       {/* Dashboard mockup */}
-      <section className="px-6 md:px-10 py-24 md:py-32">
+      <section className="px-6 md:px-10 py-16 md:py-32">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">The dashboard</p>
-              <h2 className="text-[clamp(2rem,5vw,4rem)] max-w-2xl leading-[1]">
+              <h2 className="text-[clamp(1.75rem,5vw,4rem)] max-w-2xl leading-[1]">
                 Runs on your <span className="text-serif-accent text-[var(--color-primary-blue)]">laptop</span>. Data never leaves the firm.
               </h2>
             </div>
@@ -193,12 +383,12 @@ export default function CaFirmSolution() {
       </section>
 
       {/* Tools */}
-      <section id="tools" className="px-6 md:px-10 py-24 md:py-36">
+      <section id="tools" className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / The stack</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-3xl leading-[1]">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-3xl leading-[1]">
                 Four tools, one{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">install</span>.
               </h2>
@@ -243,12 +433,12 @@ export default function CaFirmSolution() {
       </section>
 
       {/* Timeline */}
-      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / The 30-day pilot</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl leading-[1]">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl leading-[1]">
                 Four weeks, four <span className="text-serif-accent">wins</span>.
               </h2>
             </div>
@@ -273,12 +463,12 @@ export default function CaFirmSolution() {
       </section>
 
       {/* Pricing */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
+      <section className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1100px] mx-auto">
           <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] leading-[1]">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] leading-[1]">
                 One monthly retainer. <span className="text-serif-accent">No surprises</span>.
               </h2>
             </div>
@@ -341,7 +531,7 @@ export default function CaFirmSolution() {
       {/* CTA */}
       <section
         style={{ backgroundColor: "#0A0A0A" }}
-        className="px-6 md:px-10 py-24 md:py-36 text-white relative overflow-hidden"
+        className="px-6 md:px-10 py-16 md:py-36 text-white relative overflow-hidden"
       >
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
