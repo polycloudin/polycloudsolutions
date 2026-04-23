@@ -56,12 +56,12 @@ const outputs = [
 ];
 
 const capabilities = [
-  { stat: "8", label: "Research agents", sub: "academic, patent, grant, VC, regulatory, talent, market, competitor" },
-  { stat: "6-phase", label: "Pipeline", sub: "plan → search → cross-pollinate → iterate → verify → synthesize" },
-  { stat: "12+", label: "Sources in parallel", sub: "arXiv, Semantic Scholar, USPTO, EPO, JPO, SIPO, grant DBs, VC press, regulatory bulletins" },
+  { stat: "10,300+", label: "Papers processed", sub: "LENR alone: 9,795 papers, 487 mainstream physics, 17 contested science cases, 14 meta-science papers" },
+  { stat: "4-panel", label: "Adversarial review", sub: "steelman + attack + blind-spot + proponent agent — no finding ships without stress-testing from all sides" },
+  { stat: "3-tier", label: "LLM routing", sub: "Gemma 4 local ($0) for extraction, Claude for synthesis, cross-tier verification catches hallucinations" },
   { stat: "KG", label: "Knowledge-graph memory", sub: "every run compounds — paper, patent, author, and deal links persist across engagements" },
   { stat: "Verified", label: "Primary-source depth", sub: "every key number checked against published literature — AI errors caught and corrected before delivery" },
-  { stat: "Weeks", label: "Turnaround", sub: "one week for screens, two weeks for full DD — months of work compressed" },
+  { stat: "$5", label: "Per sector analysis", sub: "50 hours of compute, $5 of API cost — same analysis from a traditional firm: $150K+" },
 ];
 
 const useCases = [
@@ -97,7 +97,7 @@ export default function Labs() {
           </h1>
           <div className="grid md:grid-cols-[1.3fr_1fr] gap-12 md:gap-20 items-end">
             <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-              Institutional-grade due diligence, cohort screening, IP landscaping, technical strategy, and sector thesis — for investors, incubators, and the deep-tech operators building the next platform shifts. Eight research agents, six-phase pipeline, knowledge-graph memory. Built to replace six-week Big 4 DD with two-week outputs that go deeper.
+              Institutional-grade due diligence, cohort screening, IP landscaping, technical strategy, and sector thesis — for investors, incubators, and the deep-tech operators building the next platform shifts. Our first report analyzed 10,300+ papers across four domains for $5 in two days. Built to replace six-week Big 4 DD with two-week outputs that go deeper.
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary">Scope a DD ↗</BookButton>
@@ -236,22 +236,40 @@ export default function Labs() {
           </div>
           <div className="flex flex-wrap gap-4 items-center">
             <a
-              href="/labs/lenr-report"
+              href="/lenr-report-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#0A0A0A] rounded-lg text-sm font-semibold hover:bg-white/90 transition-colors"
             >
-              Read the full report
+              Download the full report (PDF)
             </a>
             <a
-              href="https://polycloud-lenr.vercel.app/api/lenr/stats"
+              href="https://polycloud-lenr.vercel.app/dashboard/intelligence"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white rounded-lg text-sm font-medium hover:border-white/40 transition-colors"
             >
-              Query the live API
+              Explore the live platform
             </a>
             <span className="mono text-[10px] text-white/30 uppercase tracking-[0.18em] ml-2">
               18 primary sources cited · 4-panel adversarial review · 50 hrs processing
             </span>
+          </div>
+          <div className="mt-14 pt-10 border-t border-white/10">
+            <p className="mono text-[10px] text-white/40 uppercase tracking-[0.18em] mb-6">Coming next</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { sector: "LK-99 / Room-temp superconductivity", status: "Q2 2026" },
+                { sector: "Longevity / Senolytics", status: "Q3 2026" },
+                { sector: "Solid-state batteries", status: "Q3 2026" },
+                { sector: "AI consciousness claims", status: "Q4 2026" },
+              ].map((r) => (
+                <div key={r.sector} className="bg-white/5 rounded-lg border border-white/10 px-5 py-4">
+                  <p className="text-white/80 text-[13px] font-medium mb-1">{r.sector}</p>
+                  <p className="mono text-[10px] text-white/30 uppercase tracking-[0.15em]">{r.status}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -290,20 +308,20 @@ export default function Labs() {
           </h2>
           <div className="grid md:grid-cols-2 gap-10 md:gap-14 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
             <div>
-              <p className="font-semibold text-[var(--color-ink)] mb-2">Plan → Search → Cross-pollinate</p>
-              <p>Research agents parallel-search across 12 sources (arXiv, Semantic Scholar, Google Scholar, USPTO, grant databases, VC deals, press, regulatory bulletins). Cross-references close the gaps any single source misses.</p>
+              <p className="font-semibold text-[var(--color-ink)] mb-2">Bulk extraction at $0</p>
+              <p>Gemma 4 running locally processes thousands of papers in batches — 487 mainstream Pd-H papers in 6 hours, 9,795 LENR papers in 42 hours. Total cost: zero. We read 2,000 papers in a week for the cost of one junior analyst month.</p>
             </div>
             <div>
-              <p className="font-semibold text-[var(--color-ink)] mb-2">Iterate → Verify → Synthesize</p>
-              <p>Every claim gets a citation. Every citation gets verified. Uncertainty is flagged, not smoothed. The final synthesis is a written document you can defend under IC scrutiny — not a dashboard.</p>
+              <p className="font-semibold text-[var(--color-ink)] mb-2">Cross-domain verification</p>
+              <p>Every finding is cross-referenced against mainstream physics, meta-science failure modes, and 17 historical cases of contested science. We caught a 3-4x enthalpy error that would have shipped in any single-source analysis.</p>
             </div>
             <div>
-              <p className="font-semibold text-[var(--color-ink)] mb-2">LLM tier routing</p>
-              <p>Frontier-grade reasoning routed only where it pays, bulk generation on the next tier, classification run locally. Cost-controlled, reproducible, auditable — so the economics work on long horizons, not just one-off reports.</p>
+              <p className="font-semibold text-[var(--color-ink)] mb-2">Four-panel adversarial review</p>
+              <p>Every major finding goes through a steelman agent, an attack agent, a blind-spot agent, and a proponent-calibrated agent. No claim ships at a confidence level it cannot support. The LENR probability estimate (10-30%) came from four independent methods converging.</p>
             </div>
             <div>
-              <p className="font-semibold text-[var(--color-ink)] mb-2">Dogfooded before delivery</p>
-              <p>The full-domain synthesis format — hundreds of papers read at specialist depth, researcher profiles, materials-and-signals matrices, publishable follow-ups — has been shipped on our own research. Your sector is next.</p>
+              <p className="font-semibold text-[var(--color-ink)] mb-2">Queryable platform, not just a PDF</p>
+              <p>The output is a live, searchable dataset — 396 graded experiments, patent landscape, COP database, replication network graph. Not a static report that goes stale. Your data compounds as we add to it.</p>
             </div>
           </div>
           <p className="mt-14 pt-8 border-t border-[var(--color-line)] text-display text-serif-accent text-[clamp(1.25rem,2vw,1.65rem)] text-[var(--color-primary-blue)] leading-[1.2]">
@@ -331,11 +349,21 @@ export default function Labs() {
             <span className="text-serif-accent text-[var(--color-primary-orange)]">pipeline</span>.
           </h2>
           <p className="text-white/60 text-[17px] max-w-2xl leading-relaxed mb-10">
-            Two weeks. Fixed fee. Written DD in your hands by Friday of week two. If it doesn't match what your in-house analyst would have produced, we refund the engagement.
+            Two weeks. Fixed fee. Written DD in your hands by Friday of week two. If it doesn&apos;t match what your in-house analyst would have produced, we refund the engagement. Start with our LENR report as a sample of what the output looks like.
           </p>
-          <BookButton variant="light-primary">Scope a DD ↗</BookButton>
+          <div className="flex flex-wrap gap-4">
+            <BookButton variant="light-primary">Scope a DD ↗</BookButton>
+            <a
+              href="/lenr-report-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white rounded-lg text-sm font-medium hover:border-white/40 transition-colors"
+            >
+              Download sample report (LENR)
+            </a>
+          </div>
           <p className="mt-10 mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
-            Nexus research platform · live at polycloud-lenr.vercel.app · LENR dataset queryable now
+            Nexus research platform live · LENR dataset queryable · next reports: LK-99 superconductivity, longevity/senolytics
           </p>
         </div>
       </section>
