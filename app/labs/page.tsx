@@ -220,10 +220,9 @@ export default function Labs() {
               </p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
-              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Primary source verification</p>
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Chemistry ruled out</p>
               <p className="text-white/80 text-[14px] leading-relaxed">
-                AI extraction reported PdH enthalpy at 120-150 kJ/mol. We caught the error — verified value
-                is 37 kJ/mol (Flanagan &amp; Oates 1991). Every number checked against primary literature.
+                PdH formation enthalpy verified at 37 kJ/mol (Flanagan &amp; Oates 1991). Total chemical energy for a typical cell: ~2 kJ. Reported excess heat: 1,300+ kJ. Chemistry is orders of magnitude too small.
               </p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
