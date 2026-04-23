@@ -19,6 +19,9 @@ export const kumarTextiles: ClientData = {
     healthLabel: "Strong · 87/100",
     bannerNote:
       "Live demo · data shape identical to production · names and numbers anonymised. Scroll through to see what a Growth-bundle client sees every Monday morning.",
+    retainerMonthly: 32000,
+    setupFee: 150000,
+    startedAt: "2026-02-05",
   },
   auth: "public",
 
