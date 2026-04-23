@@ -6,6 +6,7 @@ import {
   formatRupees,
   formatCompactRupees,
 } from "../client/data/aggregates";
+import SignOutButton from "./SignOutButton";
 
 export const metadata: Metadata = {
   title: "Operator · PolyCloud Digital",
@@ -49,6 +50,7 @@ export default function OperatorDashboard() {
             >
               ← Site
             </Link>
+            <SignOutButton />
           </div>
         </div>
       </header>

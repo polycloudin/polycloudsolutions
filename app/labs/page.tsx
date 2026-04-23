@@ -60,7 +60,7 @@ const capabilities = [
   { stat: "6-phase", label: "Pipeline", sub: "plan → search → cross-pollinate → iterate → verify → synthesize" },
   { stat: "12+", label: "Sources in parallel", sub: "arXiv, Semantic Scholar, USPTO, EPO, JPO, SIPO, grant DBs, VC press, regulatory bulletins" },
   { stat: "KG", label: "Knowledge-graph memory", sub: "every run compounds — paper, patent, author, and deal links persist across engagements" },
-  { stat: "PhD-grade", label: "Depth, not breadth", sub: "published science evaluated at specialist depth, not abstract-level skims" },
+  { stat: "Verified", label: "Primary-source depth", sub: "every key number checked against published literature — AI errors caught and corrected before delivery" },
   { stat: "Weeks", label: "Turnaround", sub: "one week for screens, two weeks for full DD — months of work compressed" },
 ];
 
@@ -176,6 +176,86 @@ export default function Labs() {
         </div>
       </section>
 
+      {/* Case study — LENR */}
+      <section className="px-6 md:px-10 py-16 md:py-36 bg-[#0A0A0A] text-white relative overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-30 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 50% 40% at 10% 20%, rgba(26, 95, 212, 0.25) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 80% 80%, rgba(244, 107, 44, 0.15) 0%, transparent 55%)",
+          }}
+        />
+        <div className="max-w-[1440px] mx-auto relative">
+          <p className="text-eyebrow text-white/40 mb-5">Case study / Shipped</p>
+          <h2 className="text-[clamp(1.875rem,6vw,5rem)] mb-6 leading-[1]">
+            LENR field <span className="text-serif-accent text-[var(--color-primary-blue)]">intelligence</span>.
+          </h2>
+          <p className="text-white/50 text-[17px] max-w-3xl leading-relaxed mb-12">
+            We analyzed the entire published literature on Low Energy Nuclear Reactions — 37 years of contested science
+            that mainstream physics dismisses and believers oversell. Four-panel adversarial methodology. Every finding
+            stress-tested from both sides.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 md:gap-8 mb-14">
+            {[
+              { stat: "9,795", label: "Papers analyzed" },
+              { stat: "396", label: "Experiments graded A-F" },
+              { stat: "1,774", label: "Patents mapped" },
+              { stat: "223", label: "Researcher profiles" },
+              { stat: "73", label: "Cathode recipes" },
+              { stat: "10,300+", label: "Total across 4 domains" },
+              { stat: "~$5", label: "Total analytical cost" },
+            ].map((c) => (
+              <div key={c.label}>
+                <p className="text-display text-[clamp(1.5rem,3vw,2.25rem)] leading-none mb-1 text-white">{c.stat}</p>
+                <p className="mono text-[10px] text-white/40 uppercase tracking-[0.18em]">{c.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 mb-14">
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Novel finding</p>
+              <p className="text-white/80 text-[14px] leading-relaxed">
+                Transmutation co-occurs with excess heat in 67 papers vs 11 for helium-4.
+                The field&apos;s theoretical mainstream models the minority pathway. Never formally published before this analysis.
+              </p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Primary source verification</p>
+              <p className="text-white/80 text-[14px] leading-relaxed">
+                AI extraction reported PdH enthalpy at 120-150 kJ/mol. We caught the error — verified value
+                is 37 kJ/mol (Flanagan &amp; Oates 1991). Every number checked against primary literature.
+              </p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Adversarial methodology</p>
+              <p className="text-white/80 text-[14px] leading-relaxed">
+                Four-panel review: steelman, attack, blind-spot, and proponent-calibrated agent.
+                Probability estimate: 10-30% genuine nuclear phenomenon. Three independent methods converge.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-4 items-center">
+            <a
+              href="/labs/lenr-report"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#0A0A0A] rounded-lg text-sm font-semibold hover:bg-white/90 transition-colors"
+            >
+              Read the full report
+            </a>
+            <a
+              href="https://polycloud-lenr.vercel.app/api/lenr/stats"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white rounded-lg text-sm font-medium hover:border-white/40 transition-colors"
+            >
+              Query the live API
+            </a>
+            <span className="mono text-[10px] text-white/30 uppercase tracking-[0.18em] ml-2">
+              18 primary sources cited · 4-panel adversarial review · 50 hrs processing
+            </span>
+          </div>
+        </div>
+      </section>
+
       {/* Who we serve */}
       <section className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
@@ -255,7 +335,7 @@ export default function Labs() {
           </p>
           <BookButton variant="light-primary">Scope a DD ↗</BookButton>
           <p className="mt-10 mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
-            Nexus research platform · separate brand launching at polycloud.ai · Q3 2026
+            Nexus research platform · live at polycloud-lenr.vercel.app · LENR dataset queryable now
           </p>
         </div>
       </section>
