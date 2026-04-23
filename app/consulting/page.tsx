@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../components/BookButton";
 import AIGapChart from "../components/AIGapChart";
-import EdificeCRMMockup from "../components/EdificeCRMMockup";
 import SiteNav from "../components/SiteNav";
 import SiteFooter from "../components/SiteFooter";
 
@@ -51,20 +50,11 @@ const flagships = [
   {
     eyebrow: "For CA Firms",
     title: "The CA Firm AI Employee",
-    market: "100,138 registered CA firms in India. 72% solo practices. ₹15–25K/mo retainer.",
-    pain: "40–60 hours/month manually matching purchase registers against GSTR-2B. Data-entry errors cause 40% of GST compliance issues. Reconciliation alone consumes 8+ hours per filing cycle.",
-    result: "Demo data: 16 invoices processed, 81.2% match rate, ₹2,685 ITC-at-risk caught on first run. Target: 10+ hours/month reclaimed per filing cycle, validated against baseline.",
+    market: "100,138 registered CA firms in India. 72% solo practices. Target retainer ₹15–25K/mo.",
+    pain: "40–60 hours per month matching purchase registers against GSTR-2B. Reconciliation alone consumes 8+ hours per filing cycle. Data-entry errors account for a large share of GST compliance issues.",
+    result: "Built and runnable today: reconciliation engine, WhatsApp vendor follow-up, invoice OCR into Tally, ITC risk dashboard. Demo pass on synthetic 16-invoice dataset: 81.2% match, ₹2,685 ITC-at-risk surfaced. First pilot installs opening in Hyderabad.",
     ctaTopic: "consulting" as const,
     ctaLabel: "Pilot on your firm ↗",
-  },
-  {
-    eyebrow: "For Real Estate Developers",
-    title: "The OS for Indian builders",
-    market: "Mid-tier developers run 12 disconnected tools. 63% leads leak between WhatsApp and site visit. 18-month RERA slippage is routine. Founding terms open to first 5 builders.",
-    pain: "No incumbent has built end-to-end for the Indian developer lifecycle — from Dharani land DD through AOA handover. Western SaaS dies in week two: it doesn't know vastu is 60–80% of the decision, that Sunday is the big sales day, that one GO can shift land values overnight, or that every lead has 4–6 stakeholders.",
-    result: "Ten phases, shipped in sequence. Phase 0 — a 49-module market-intelligence layer — goes live in 30 days with zero integration and pays for itself by preventing one bad land deal. Sales modules (WhatsApp bot, multi-portal, 3D tours, CRM) follow at day 90. Construction and asset management follow demand.",
-    ctaTopic: "consulting" as const,
-    ctaLabel: "Request the platform deck ↗",
   },
 ];
 
@@ -96,45 +86,32 @@ const verticals = [
     name: "Finance & Compliance",
     detail: "CA firms, NBFCs, fintechs. GSTR-2B reconciliation, bank-statement analysis, KYC automation, compliance audit trails.",
     status: "shipped" as const,
-    statusNote: "CA firm stack live",
+    statusNote: "CA firm stack built · first pilots opening",
+    href: "/solutions/ca-firm",
   },
   {
     name: "Real Estate & Property",
-    detail: "An operating system for Indian developers — market intelligence, land due-diligence, sales CRM, approvals whispering, drone progress capture, asset management. Ten phases, shipped sequentially.",
-    status: "shipped" as const,
-    statusNote: "Platform build · first 5 founding builders open",
+    detail: "A dedicated 10-phase platform for Indian developers — market intel, land DD, sales, approvals, construction, handover.",
+    status: "design" as const,
+    statusNote: "Separate product · deck available for builders",
+    href: "/solutions/real-estate",
   },
   {
     name: "D2C & Retail",
     detail: "WhatsApp post-purchase engines, attribution pipelines, inventory + reorder automation, creative production at scale.",
     status: "pilot" as const,
-    statusNote: "First pilots opening",
+    statusNote: "First pilot conversations open",
+    href: "/solutions/d2c",
   },
   {
     name: "SaaS & Digital Products",
     detail: "Lead routing, CRM automation, messaging-first sales engines, onboarding flows, churn prediction.",
     status: "design" as const,
-    statusNote: "Scoping with 2 firms",
-  },
-  {
-    name: "Manufacturing & Supply Chain",
-    detail: "Invoice OCR, three-way match, vendor comms, ERP integration, live MIS dashboards.",
-    status: "scope" as const,
-    statusNote: "Ready to scope · audit-first",
-  },
-  {
-    name: "Healthcare & Clinics",
-    detail: "WhatsApp-based appointment booking, payment reminders, EHR integration, patient-data workflows.",
-    status: "scope" as const,
-    statusNote: "Ready to scope · audit-first",
-  },
-  {
-    name: "Professional Services",
-    detail: "Law firms, consultancies, advisories. Document processing, client communication, research agents, compliance tracking.",
-    status: "scope" as const,
-    statusNote: "Ready to scope · audit-first",
+    statusNote: "Scoping conversations open",
   },
 ];
+
+const alsoScopingFor = "Manufacturing · Healthcare · Professional services · Legal ops — scope audit-first, same engagement shape.";
 
 const statusBadge: Record<string, { label: string; color: string; bg: string }> = {
   shipped: { label: "Shipped", color: "#15803D", bg: "#ECFDF3" },
@@ -334,17 +311,19 @@ export default function Consulting() {
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              We work across verticals. Finance is where our deepest flagship lives, but the same engagement shape (audit → sprint → retainer) applies to SaaS, D2C, manufacturing, healthcare, and professional services.
+              Finance is where our deepest work lives today. The same engagement shape — audit, automation, retainer — applies wherever the bottleneck is workflow.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 gap-5">
             {verticals.map((v, i) => {
               const b = statusBadge[v.status];
+              const CardShell: React.ElementType = v.href ? Link : "div";
               return (
-                <div
+                <CardShell
                   key={i}
-                  className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
+                  {...(v.href ? { href: v.href } : {})}
+                  className={`block bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover ${v.href ? "cursor-pointer" : ""}`}
                 >
                   <div className="flex items-center justify-between mb-5">
                     <p className="text-eyebrow text-[var(--color-primary-orange)]">{String(i + 1).padStart(2, "0")}</p>
@@ -357,13 +336,24 @@ export default function Consulting() {
                   </div>
                   <h3 className="text-[clamp(1.25rem,1.8vw,1.5rem)] mb-3 leading-tight">{v.name}</h3>
                   <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed mb-4">{v.detail}</p>
-                  <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.08em]">
-                    {v.statusNote}
-                  </p>
-                </div>
+                  <div className="flex items-center justify-between">
+                    <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.08em]">
+                      {v.statusNote}
+                    </p>
+                    {v.href && (
+                      <span className="mono text-[11px] text-[var(--color-primary-blue)] tracking-[0.08em]">
+                        See more →
+                      </span>
+                    )}
+                  </div>
+                </CardShell>
               );
             })}
           </div>
+
+          <p className="mt-8 text-[var(--color-text-muted)] text-[13px] leading-relaxed max-w-3xl">
+            {alsoScopingFor}
+          </p>
         </div>
       </section>
 
@@ -374,7 +364,7 @@ export default function Consulting() {
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / The moat</p>
               <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-3xl leading-[1]">
-                Seven <span className="text-serif-accent text-[var(--color-primary-blue)]">India connectors</span> — the thing no US shop has.
+                Seven <span className="text-serif-accent text-[var(--color-primary-blue)]">India connectors</span> we&apos;ve already wired.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
@@ -419,14 +409,15 @@ export default function Consulting() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">04 / Two shipped platforms</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">04 / Live work</p>
               <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl">
-                From GST recon to{" "}
-                <span className="text-serif-accent text-[var(--color-primary-blue)]">luxury CRMs</span>.
+                The{" "}
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">GSTR-2B</span>{" "}
+                reconciliation engine.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Two production platforms in two different verticals, built on the same engagement shape — audit → sprint → platform → retainer. What the stack looks like varies; how we deliver does not.
+              One fully built stack, installable on a CA&apos;s laptop today. The same engagement shape — audit, automation, retainer — ports to the other verticals below as we earn them.
             </p>
           </div>
 
@@ -475,16 +466,16 @@ export default function Consulting() {
                   <span className="w-2.5 h-2.5 rounded-full bg-[#E5E5E0]" />
                 </div>
                 <span className="mono text-[11px] text-[var(--color-text-muted)] ml-3 truncate">
-                  GSTR2B_Recon_Oct2026_[Redacted-Client].xlsx
+                  GSTR2B_Recon_Demo.xlsx · synthetic data
                 </span>
               </div>
 
               {/* Summary bar */}
               <div className="grid grid-cols-3 border-b border-[var(--color-line)]">
                 {[
-                  { label: "Total invoices", value: "1,284", tone: "ink" },
-                  { label: "Matched", value: "94.3%", tone: "success" },
-                  { label: "ITC at risk", value: "₹2,41,380", tone: "risk" },
+                  { label: "Total invoices", value: "16", tone: "ink" },
+                  { label: "Matched", value: "81.2%", tone: "success" },
+                  { label: "ITC at risk", value: "₹2,685", tone: "risk" },
                 ].map((s, i) => (
                   <div
                     key={i}
@@ -636,7 +627,7 @@ export default function Consulting() {
           </div>
 
           <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-            ILLUSTRATIVE — Client names + GSTINs redacted. Amounts and structure reflect real engine output.
+            Numbers above are the actual output of <code className="font-mono">python3 demo.py</code> on synthetic data — reproducible locally. No client data is shown.
           </p>
 
           {/* The 4-tool stack */}
@@ -664,184 +655,24 @@ export default function Consulting() {
             </div>
           </div>
 
-          {/* Divider between flagships */}
-          <div className="my-20 md:my-28 border-t border-[var(--color-line)] relative">
-            <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--color-surface)] px-4 mono text-[10px] tracking-[0.25em] text-[var(--color-text-muted)] uppercase">
-              And in a completely different vertical
-            </span>
-          </div>
-
-          {/* Second flagship — Edifice real-estate CRM */}
-          <div className="grid md:grid-cols-[1fr_1.15fr] gap-8 items-stretch">
-            <div
-              style={{ backgroundColor: "#0A0A0A" }}
-              className="rounded-xl p-10 md:p-14 text-white relative overflow-hidden order-2 md:order-1"
-            >
-              <div
-                className="absolute inset-0 opacity-30 pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(ellipse 60% 60% at 10% 90%, rgba(26, 95, 212, 0.35) 0%, transparent 60%)",
-                }}
-              />
-              <div className="relative flex flex-col h-full">
-                <p className="text-eyebrow text-[var(--color-primary-blue)] mb-6">{flagships[1].eyebrow}</p>
-                <h3 className="text-display text-[clamp(1.75rem,3vw,2.5rem)] mb-8 leading-[1.05]">
-                  {flagships[1].title}
-                </h3>
-                <p className="mono text-xs text-white/50 uppercase tracking-[0.2em] mb-10">
-                  {flagships[1].market}
-                </p>
-                <div className="space-y-6 mb-10 flex-1">
-                  <div>
-                    <p className="text-eyebrow text-white/50 mb-2">The pain</p>
-                    <p className="text-white/80 text-[14px] leading-relaxed">{flagships[1].pain}</p>
-                  </div>
-                  <div>
-                    <p className="text-eyebrow text-[var(--color-primary-blue)] mb-2">Outcome</p>
-                    <p className="text-white font-medium text-[14px] leading-relaxed">{flagships[1].result}</p>
-                  </div>
-                </div>
-                <BookButton variant="light-primary" topic="consulting" className="self-start hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)]">{flagships[1].ctaLabel}</BookButton>
-              </div>
-            </div>
-
-            <div className="order-1 md:order-2">
-              <EdificeCRMMockup />
-            </div>
-          </div>
-
-          <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-            ILLUSTRATIVE — the sales CRM shown above is one module inside Phase 4. The full platform spans ten phases.
-          </p>
-
-          {/* 10-phase platform timeline */}
-          <div className="mt-14 md:mt-20">
-            <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
-              <p className="text-eyebrow text-[var(--color-text-secondary)]">The ten-phase platform · shipped in sequence</p>
-              <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-                Phase 0 ships first · rest follows demand
-              </p>
-            </div>
-            <div className="overflow-x-auto">
-              <div className="grid grid-cols-10 gap-1.5 min-w-[900px]">
-                {[
-                  { ph: "PH 0", name: "Market Intel", when: "Day 0–30", wedge: true },
-                  { ph: "PH 1", name: "Land DD", when: "Day 30+" },
-                  { ph: "PH 2", name: "Approvals", when: "Day 60+" },
-                  { ph: "PH 3", name: "Pre-Launch", when: "Day 60–90" },
-                  { ph: "PH 4", name: "Sales", when: "Day 90–180" },
-                  { ph: "PH 5", name: "Construction", when: "Day 180+" },
-                  { ph: "PH 6", name: "Handover", when: "Year 1+" },
-                  { ph: "PH 7", name: "Asset Mgmt", when: "Year 2" },
-                  { ph: "PH 8", name: "Operations", when: "Year 2" },
-                  { ph: "PH 9", name: "Strategic", when: "Year 2+" },
-                ].map((p, i) => (
-                  <div
-                    key={i}
-                    className={`rounded-md p-3 ${
-                      p.wedge
-                        ? "bg-[var(--color-ink)] text-white"
-                        : "bg-white border border-[var(--color-line)]"
-                    }`}
-                  >
-                    <p
-                      className={`mono text-[9px] uppercase tracking-[0.14em] mb-1 ${
-                        p.wedge ? "text-[var(--color-primary-orange)]" : "text-[var(--color-text-muted)]"
-                      }`}
-                    >
-                      {p.ph}
-                    </p>
-                    <p
-                      className={`text-[12.5px] font-medium leading-tight mb-1 ${
-                        p.wedge ? "text-white" : "text-[var(--color-ink)]"
-                      }`}
-                    >
-                      {p.name}
-                    </p>
-                    <p
-                      className={`mono text-[9.5px] tracking-[0.04em] ${
-                        p.wedge ? "text-white/60" : "text-[var(--color-text-muted)]"
-                      }`}
-                    >
-                      {p.when}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* What Phase 0 contains */}
-          <div className="mt-12">
-            <div className="flex items-end justify-between mb-6 flex-wrap gap-4">
-              <p className="text-eyebrow text-[var(--color-text-secondary)]">Phase 0 · the intelligence wedge · 49 modules · 6 categories</p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
-              {[
-                { cat: "Land & Site Intel", count: 10, detail: "Dharani ownership chain, EC, litigation, GO 111 zoning, infrastructure proximity." },
-                { cat: "Demand-Side Intel", count: 8, detail: "NRI pulse, BHK mix, vastu compliance, festival-cycle demand." },
-                { cat: "Supply-Side Intel", count: 7, detail: "Live inventory scan, sell-through rates, builder-reputation index." },
-                { cat: "Policy & Regulatory", count: 8, detail: "Government Order tracking, state policy shifts, infrastructure pipeline." },
-                { cat: "Comparables & Premium", count: 6, detail: "Sub-registrar data, view/floor/corner premium decomposition." },
-                { cat: "Channel + Risk", count: 10, detail: "Broker network map, litigation watch, regime-change exposure." },
-              ].map((c, i) => (
-                <div key={i} className="bg-white p-6 md:p-7">
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-[14px] font-medium text-[var(--color-ink)]">{c.cat}</p>
-                    <span className="mono text-[10px] bg-[var(--color-surface-warm)] text-[var(--color-primary-orange)] px-2 py-0.5 rounded tracking-[0.05em]">
-                      {c.count} modules
-                    </span>
-                  </div>
-                  <p className="text-[var(--color-text-secondary)] text-[13px] leading-relaxed">{c.detail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Seven unfair advantages */}
-          <div className="mt-12">
-            <div className="flex items-end justify-between mb-6 flex-wrap gap-4">
-              <p className="text-eyebrow text-[var(--color-text-secondary)]">Seven features no incumbent can ship</p>
-              <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-                Each one a moat by itself
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {[
-                { name: "Hyderabad Land Brain", line: "Real-time map of every plot — ownership chain, litigation, conversion potential, builder overlays.", tag: "Standalone moat" },
-                { name: "NRI Remote Closing", line: "Dubai/US → full purchase. Live video site visit, DigiLocker KYC, e-stamp + e-registration.", tag: "15–20% dead leads recaptured" },
-                { name: "Cement Hedger", line: "Commodity intel + procurement timing AI. 5–15% material savings across project lifetime.", tag: "Material cost edge" },
-                { name: "Drone Time Machine", line: "Weekly aerial capture compiled into growth GIFs. Auto-WhatsApped to 200 buyers monthly.", tag: "Buyer NPS +30" },
-                { name: "Approval Whisperer", line: "Predicts which officer or document will cause delay. Built on 500+ Hyderabad project histories.", tag: "Saves 3–12 months" },
-                { name: "Future Site View", line: "Greenfield land photo → photoreal AI render of the completed building. JDA negotiation weapon.", tag: "Unlock JDA terms" },
-                { name: "Resale Arbitrage Engine", line: "Alert when an owner in your project lists below market. Auto-bid, recapture, re-sell at premium.", tag: "Secondary market" },
-                { name: "India-native by design", line: "Vastu-weighted unit recommender. 4–6 stakeholder CRM. Telugu-first WhatsApp. Festival-cycle scheduling. GO 111 political-shock alerts in 48 hours.", tag: "What Silicon Valley misses" },
-              ].map((f, i) => (
-                <div key={i} className="bg-white rounded-xl border border-[var(--color-line)] p-6 card-hover">
-                  <h4 className="text-[clamp(1rem,1.4vw,1.2rem)] leading-tight mb-3 font-medium">{f.name}</h4>
-                  <p className="text-[var(--color-text-secondary)] text-[13px] leading-relaxed mb-4">{f.line}</p>
-                  <p className="mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-primary-orange)]">
-                    {f.tag}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Founding partner offer */}
-          <div className="mt-12 bg-[var(--color-surface-warm)] rounded-xl border border-[var(--color-line)] p-8 md:p-10 flex flex-wrap items-center justify-between gap-6">
+          {/* Link to dedicated real-estate product page */}
+          <div className="mt-16 md:mt-20 rounded-xl bg-[var(--color-surface-warm)] border border-[var(--color-line)] p-8 md:p-10 flex items-center justify-between flex-wrap gap-6">
             <div className="max-w-2xl">
-              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Founding partner · 90-day pilot · first 5 builders only</p>
-              <h4 className="text-display text-[clamp(1.25rem,2.25vw,1.75rem)] leading-tight mb-2">
-                You steer the roadmap. Founding terms lock forward.
-              </h4>
-              <p className="text-[var(--color-text-secondary)] text-[14px] leading-relaxed">
-                25 highest-value Phase 0 modules at launch · weekly Monday intel reports · direct Slack/WhatsApp with the build team · quarterly business review · first-look at Phases 3-4 in beta · one complimentary 3D tour of an active project. No long-term lock-in — cancel any month after the pilot.
+              <p className="text-eyebrow text-[var(--color-primary-blue)] mb-2">Building elsewhere</p>
+              <p className="text-[15px] leading-relaxed text-[var(--color-text)]">
+                For real-estate developers we&apos;re shipping a dedicated 10-phase platform — separate product, separate motion, its own pitch deck.
               </p>
             </div>
-            <BookButton variant="primary" topic="consulting">Request founding terms ↗</BookButton>
+            <Link
+              href="/solutions/real-estate"
+              className="btn-secondary whitespace-nowrap"
+            >
+              See the builder deck →
+            </Link>
           </div>
+
+          {/* LEGACY — second flagship block removed Apr 23 2026 post-adversarial-review.
+              Real Estate OS now lives at /solutions/real-estate. */}
         </div>
       </section>
 
