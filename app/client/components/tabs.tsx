@@ -1,12 +1,78 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type {
   ClientData,
   DraftTemplate,
   Lead,
   OutreachTouch,
 } from "../data/types";
+
+type OutreachStatus = OutreachTouch["status"];
+
+const TOUCH_STATUS_ORDER: OutreachStatus[] = [
+  "draft",
+  "queued",
+  "sent",
+  "opened",
+  "replied",
+  "booked",
+  "closed-won",
+  "closed-lost",
+];
+
+/**
+ * Client-side touch status override. Reads + writes `polycloud:touch:<id>`
+ * in localStorage so operator actions (mark sent, mark replied) persist
+ * between page loads without a backend. Swap for libsql when intakes
+ * table ships.
+ */
+function useTouchStatus(
+  touchId: string,
+  seed: OutreachStatus
+): { status: OutreachStatus; cycle: () => void; reset: () => void; overridden: boolean } {
+  const [override, setOverride] = useState<OutreachStatus | null>(null);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(`polycloud:touch:${touchId}`);
+      if (raw && TOUCH_STATUS_ORDER.includes(raw as OutreachStatus)) {
+        setOverride(raw as OutreachStatus);
+      }
+    } catch {
+      /* no-op (SSR / Safari private mode) */
+    }
+    setHydrated(true);
+  }, [touchId]);
+
+  const status = override ?? seed;
+
+  const cycle = () => {
+    const next =
+      TOUCH_STATUS_ORDER[
+        (TOUCH_STATUS_ORDER.indexOf(status) + 1) % TOUCH_STATUS_ORDER.length
+      ];
+    setOverride(next);
+    try {
+      localStorage.setItem(`polycloud:touch:${touchId}`, next);
+    } catch {}
+  };
+
+  const reset = () => {
+    setOverride(null);
+    try {
+      localStorage.removeItem(`polycloud:touch:${touchId}`);
+    } catch {}
+  };
+
+  return {
+    status,
+    cycle,
+    reset,
+    overridden: hydrated && override !== null && override !== seed,
+  };
+}
 import { Pill, KpiGrid, SectionHeader, SourceStatusPill } from "./primitives";
 import { LeadsChart, CplChart, ChannelMix } from "./charts";
 import { TransformationHero, MoneyStrip, ActivityCard } from "./demo-blocks";
@@ -489,6 +555,15 @@ function TouchRow({ touch }: { touch: OutreachTouch }) {
     "in-person": "◉",
     phone: "☎",
   };
+  const { status, cycle, reset, overridden } = useTouchStatus(touch.id, touch.status);
+
+  const toneFor = (s: OutreachStatus): Parameters<typeof Pill>[0]["tone"] => {
+    if (s === "replied" || s === "booked" || s === "closed-won") return "success";
+    if (s === "sent" || s === "opened") return "neutral";
+    if (s === "closed-lost") return "risk";
+    return "warn";
+  };
+
   return (
     <div className="flex items-center gap-4 py-2.5 border-b border-[var(--color-line)] last:border-b-0 text-[13px]">
       <span className="mono text-[10px] uppercase tracking-wider text-[var(--color-text-muted)] w-10">
@@ -501,19 +576,26 @@ function TouchRow({ touch }: { touch: OutreachTouch }) {
       <span className="mono text-[10px] text-[var(--color-text-muted)] shrink-0">
         {touch.sentAt || "—"}
       </span>
-      <Pill
-        tone={
-          touch.status === "replied" || touch.status === "booked" || touch.status === "closed-won"
-            ? "success"
-            : touch.status === "sent" || touch.status === "opened"
-            ? "neutral"
-            : touch.status === "closed-lost"
-            ? "risk"
-            : "warn"
-        }
-      >
-        {touch.status}
-      </Pill>
+      <div className="flex items-center gap-1.5 shrink-0">
+        <button
+          type="button"
+          onClick={cycle}
+          title="Click to advance status (draft → queued → sent → opened → replied → booked → closed)"
+          className="hover:opacity-80 transition-opacity cursor-pointer"
+        >
+          <Pill tone={toneFor(status)}>{status}</Pill>
+        </button>
+        {overridden && (
+          <button
+            type="button"
+            onClick={reset}
+            title="Revert to seeded status"
+            className="mono text-[10px] text-[var(--color-text-muted)] hover:text-[var(--color-ink)] transition-colors"
+          >
+            ↺
+          </button>
+        )}
+      </div>
     </div>
   );
 }
