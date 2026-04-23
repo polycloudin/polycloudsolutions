@@ -10,6 +10,17 @@ import type {
 import { Pill, KpiGrid, SectionHeader, SourceStatusPill } from "./primitives";
 import { LeadsChart, CplChart, ChannelMix } from "./charts";
 import { TransformationHero, MoneyStrip, ActivityCard } from "./demo-blocks";
+import dynamic from "next/dynamic";
+
+// Client-only: React Flow needs `window` at hydrate. Keeps the parent module lean.
+const PipelineFlow = dynamic(() => import("./PipelineFlow"), {
+  ssr: false,
+  loading: () => (
+    <div className="rounded-xl border border-[var(--color-line)] bg-white h-[260px] flex items-center justify-center">
+      <p className="mono text-[10px] uppercase tracking-wider text-[var(--color-text-muted)]">Loading funnel…</p>
+    </div>
+  ),
+});
 
 export function OverviewTab({ data }: { data: ClientData }) {
   const o = data.overview;
@@ -338,6 +349,7 @@ export function PipelineTab({ data }: { data: ClientData }) {
   if (!data.pipeline) return <EmptyState label="Pipeline" />;
   return (
     <div className="space-y-6">
+      <PipelineFlow stages={data.pipeline.stages} />
       {data.pipeline.stages.map((stage, i) => (
         <div key={i} className="p-5 border border-[var(--color-line)] rounded-xl bg-white">
           <div className="flex items-center justify-between mb-4">
