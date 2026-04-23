@@ -50,21 +50,6 @@ export default function Home() {
               </Link>
             </div>
           </div>
-
-          {/* Proof pulse — real numbers, client-shaped */}
-          <div className="anim-fade-up delay-6 mt-10 md:mt-14 flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] text-[var(--color-text-secondary)]">
-            <span className="flex items-center gap-2">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#15803D] opacity-60" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#15803D]" />
-              </span>
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">Right now</span>
-            </span>
-            <ProofChip value="1" label="paying client" />
-            <ProofChip value="342" label="leads/week automated" />
-            <ProofChip value="8h → 45min" label="per CA firm client" />
-            <ProofChip value="14 days" label="first system shipped" />
-          </div>
         </div>
       </section>
 
@@ -276,114 +261,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Proof — live artefacts, no demos */}
-      <section className="px-6 md:px-10 py-16 md:py-36 border-t border-[var(--color-line)]">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-10 md:mb-16 flex-wrap gap-6">
-            <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4 md:mb-5">03 / Shipped</p>
-              <h2 className="text-[clamp(2rem,6.5vw,5.5rem)] max-w-3xl leading-[1.05]">
-                Three surfaces, <span className="text-serif-accent">live right now</span>.
-              </h2>
-            </div>
-            <p className="text-[var(--color-text-secondary)] max-w-sm text-[14px] leading-relaxed">
-              Everything a prospect asks about — dashboard, consulting output, deliverable code — has a live link. No PDFs, no discovery-call theatre.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-4 md:gap-5">
-            <Link
-              href="/client/kumar-textiles"
-              className="group relative bg-white border border-[var(--color-line)] rounded-xl p-6 md:p-8 hover:border-[var(--color-ink)] hover:-translate-y-0.5 transition-all min-h-[260px] flex flex-col justify-between"
-            >
-              <div className="flex items-start justify-between">
-                <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-                  Live client dashboard
-                </p>
-                <span className="text-[var(--color-primary-blue)] group-hover:translate-x-0.5 transition-transform">
-                  ↗
-                </span>
-              </div>
-              <div>
-                <p className="text-display text-[clamp(1.65rem,2.3vw,2rem)] leading-[1.05] mb-3 tracking-tight">
-                  Kumar Textiles
-                </p>
-                <p className="text-[13.5px] text-[var(--color-text-secondary)] leading-relaxed mb-4">
-                  76-day transformation — 104 → 342 leads/week, CPL ₹380 → ₹184. Narrative Autopilot log, attribution, owner approvals queued.
-                </p>
-                <p className="mono text-[10.5px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em]">
-                  /client/kumar-textiles →
-                </p>
-              </div>
-            </Link>
-
-            <Link
-              href="/solutions/ca-firm"
-              className="group relative bg-white border border-[var(--color-line)] rounded-xl p-6 md:p-8 hover:border-[var(--color-ink)] hover:-translate-y-0.5 transition-all min-h-[260px] flex flex-col justify-between"
-            >
-              <div className="flex items-start justify-between">
-                <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
-                  Consulting output · CA firms
-                </p>
-                <span className="text-[var(--color-primary-blue)] group-hover:translate-x-0.5 transition-transform">
-                  ↗
-                </span>
-              </div>
-              <div>
-                <p className="text-display text-[clamp(1.65rem,2.3vw,2rem)] leading-[1.05] mb-3 tracking-tight">
-                  Month-end close, line by line
-                </p>
-                <p className="text-[13.5px] text-[var(--color-text-secondary)] leading-relaxed mb-4">
-                  7 manual steps compressed to 4 parallel lanes. 8h → 45min per client per month. ₹4.4L/mo recovered for a 40-client firm.
-                </p>
-                <p className="mono text-[10.5px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em]">
-                  /solutions/ca-firm →
-                </p>
-              </div>
-            </Link>
-
-            <Link
-              href="/onboard"
-              className="group relative rounded-xl p-6 md:p-8 hover:-translate-y-0.5 transition-all min-h-[260px] flex flex-col justify-between text-white border"
-              style={{ backgroundColor: "#0A0A0A", borderColor: "#0A0A0A" }}
-            >
-              <div
-                className="absolute inset-0 opacity-40 pointer-events-none rounded-xl"
-                style={{
-                  background:
-                    "radial-gradient(ellipse 60% 50% at 90% 10%, rgba(244, 107, 44, 0.3) 0%, transparent 60%)",
-                }}
-              />
-              <div className="flex items-start justify-between relative">
-                <p className="mono text-[10px] uppercase tracking-[0.18em] text-white/50">
-                  3-minute intake
-                </p>
-                <span className="text-white/80 group-hover:translate-x-0.5 transition-transform">
-                  ↗
-                </span>
-              </div>
-              <div className="relative">
-                <p className="text-display text-[clamp(1.65rem,2.3vw,2rem)] leading-[1.05] mb-3 tracking-tight">
-                  Your dashboard, in 5 working days.
-                </p>
-                <p className="text-[13.5px] text-white/70 leading-relaxed mb-4">
-                  No decks, no discovery calls. Fill three screens, see a signed scope within 24 hours, dashboard live within the week.
-                </p>
-                <p className="mono text-[10.5px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em]">
-                  /onboard →
-                </p>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Blog */}
       <section className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-10 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4 md:mb-5">04 / Insights</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4 md:mb-5">03 / Insights</p>
               <h2 className="text-[clamp(2rem,6.5vw,5.5rem)] max-w-2xl leading-[1.05]">
                 The playbook, <span className="text-serif-accent">public</span>.
               </h2>
@@ -431,7 +314,7 @@ export default function Home() {
           }}
         />
         <div className="max-w-[1440px] mx-auto relative">
-          <p className="text-eyebrow text-white/50 mb-6 md:mb-10">05 / Engage</p>
+          <p className="text-eyebrow text-white/50 mb-6 md:mb-10">04 / Engage</p>
           <h2 className="text-display text-[clamp(2.25rem,10vw,9.5rem)] mb-8 md:mb-12 max-w-[1200px] leading-[1] md:leading-[0.95]">
             Ship the first system in{" "}
             <span className="text-serif-accent text-[var(--color-primary-orange)]">fourteen days</span>.
@@ -463,17 +346,5 @@ export default function Home() {
 
       <SiteFooter />
     </div>
-  );
-}
-
-function ProofChip({ value, label }: { value: string; label: string }) {
-  return (
-    <span className="inline-flex items-baseline gap-1.5">
-      <span className="mono text-[13px] font-medium text-[var(--color-ink)] tabular-nums">
-        {value}
-      </span>
-      <span className="text-[var(--color-text-muted)]">·</span>
-      <span className="text-[12px] text-[var(--color-text-secondary)]">{label}</span>
-    </span>
   );
 }
