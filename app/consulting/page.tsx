@@ -116,7 +116,7 @@ export default function Consulting() {
       <SiteNav active="consulting" />
 
       {/* Hero */}
-      <section className="relative pt-36 md:pt-44 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-28 md:pt-44 pb-16 md:pb-32 px-6 md:px-10 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -129,7 +129,7 @@ export default function Consulting() {
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">Consulting — AI Integration</p>
           </div>
-          <h1 className="text-display text-[clamp(2.75rem,10vw,8.5rem)] mb-10 max-w-[1250px] leading-[0.95]">
+          <h1 className="text-display text-[clamp(2.25rem,10vw,8.5rem)] mb-8 md:mb-10 max-w-[1250px] leading-[0.95]">
             Most companies bolt AI on. We rebuild the{" "}
             <span className="text-serif-accent text-[var(--color-primary-blue)]">workflow</span> around it.
           </h1>
@@ -148,12 +148,12 @@ export default function Consulting() {
       </section>
 
       {/* Gap stats */}
-      <section className="px-6 md:px-10 py-20 md:py-28 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-14 md:py-28 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
+          <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">The integration gap</p>
-              <h2 className="text-[clamp(2rem,5vw,3.75rem)] max-w-2xl leading-[1]">
+              <h2 className="text-[clamp(1.75rem,5vw,3.75rem)] max-w-2xl leading-[1]">
                 Where companies <span className="text-serif-accent">actually lose</span> the AI race.
               </h2>
             </div>
@@ -169,12 +169,12 @@ export default function Consulting() {
       </section>
 
       {/* Engagements */}
-      <section id="engagements" className="px-6 md:px-10 py-24 md:py-36">
+      <section id="engagements" className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / Engagement models</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl">
                 Four ways to <span className="text-serif-accent">work with us</span>.
               </h2>
             </div>
@@ -212,12 +212,12 @@ export default function Consulting() {
       </section>
 
       {/* Verticals */}
-      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / Who we work with</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl">
                 Across <span className="text-serif-accent">verticals</span>.
               </h2>
             </div>
@@ -242,12 +242,12 @@ export default function Consulting() {
       </section>
 
       {/* Flagship — GSTR-2B */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
+      <section className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / One deep example</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl">
                 The{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">GSTR-2B</span>{" "}
                 reconciliation engine.
@@ -495,10 +495,10 @@ export default function Consulting() {
       </section>
 
       {/* How we deliver */}
-      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1100px] mx-auto">
           <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">04 / How we deliver</p>
-          <h2 className="text-[clamp(2.25rem,6vw,5rem)] mb-16 max-w-2xl">
+          <h2 className="text-[clamp(1.875rem,6vw,5rem)] mb-16 max-w-2xl">
             Senior-led, tool-agnostic, <span className="text-serif-accent">fast</span>.
           </h2>
           <div className="grid md:grid-cols-2 gap-10 md:gap-14 text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
@@ -528,7 +528,7 @@ export default function Consulting() {
       {/* CTA */}
       <section
         style={{ backgroundColor: "#0A0A0A" }}
-        className="px-6 md:px-10 py-24 md:py-36 text-white relative overflow-hidden"
+        className="px-6 md:px-10 py-16 md:py-36 text-white relative overflow-hidden"
       >
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
@@ -539,7 +539,7 @@ export default function Consulting() {
         />
         <div className="max-w-[1100px] mx-auto relative">
           <p className="text-eyebrow text-white/50 mb-8">Next step</p>
-          <h2 className="text-display text-[clamp(2.25rem,7vw,5.5rem)] mb-10 leading-[0.95]">
+          <h2 className="text-display text-[clamp(2rem,7vw,5.5rem)] mb-10 leading-[0.95]">
             Start with a 2-week <span className="text-serif-accent text-[var(--color-primary-orange)]">audit</span>.
           </h2>
           <p className="text-white/60 text-[17px] md:text-lg max-w-2xl leading-relaxed mb-10">

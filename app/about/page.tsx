@@ -94,7 +94,7 @@ export default function About() {
       <SiteNav active="about" />
 
       {/* Hero */}
-      <section className="relative pt-36 md:pt-44 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-28 md:pt-44 pb-16 md:pb-32 px-6 md:px-10 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -107,7 +107,7 @@ export default function About() {
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">About</p>
           </div>
-          <h1 className="text-display text-[clamp(2.75rem,9vw,8rem)] mb-10 max-w-[1200px] leading-[0.95]">
+          <h1 className="text-display text-[clamp(2.25rem,9vw,8rem)] mb-8 md:mb-10 max-w-[1200px] leading-[0.95]">
             Most companies don't need another tool — they need the{" "}
             <span className="text-serif-accent text-[var(--color-primary-blue)]">work done</span>.
           </h1>
@@ -138,12 +138,12 @@ export default function About() {
       </section>
 
       {/* Principles */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
+      <section className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / Principles</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl">
                 How we <span className="text-serif-accent">think</span>.
               </h2>
             </div>
@@ -173,12 +173,12 @@ export default function About() {
       </section>
 
       {/* Stack */}
-      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">02 / What we&apos;ve built</p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-2xl">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl">
                 The <span className="text-serif-accent">proprietary</span> layer.
               </h2>
             </div>
@@ -222,7 +222,7 @@ export default function About() {
       {/* CTA */}
       <section
         style={{ backgroundColor: "#0A0A0A" }}
-        className="px-6 md:px-10 py-24 md:py-36 text-white relative overflow-hidden"
+        className="px-6 md:px-10 py-16 md:py-36 text-white relative overflow-hidden"
       >
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
@@ -233,7 +233,7 @@ export default function About() {
         />
         <div className="max-w-[1100px] mx-auto relative">
           <p className="text-eyebrow text-white/50 mb-8">Work with us</p>
-          <h2 className="text-display text-[clamp(2.25rem,7vw,5.5rem)] mb-10 leading-[0.95]">
+          <h2 className="text-display text-[clamp(2rem,7vw,5.5rem)] mb-10 leading-[0.95]">
             Most engagements start with a{" "}
             <span className="text-serif-accent text-[var(--color-primary-orange)]">conversation</span>.
           </h2>
