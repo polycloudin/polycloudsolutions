@@ -11,7 +11,7 @@ export default function Home() {
       <SiteNav />
 
       {/* Hero */}
-      <section className="relative pt-36 md:pt-44 pb-28 md:pb-40 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-28 md:pt-44 pb-20 md:pb-40 px-6 md:px-10 overflow-hidden">
         {/* Background gradient */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -22,22 +22,22 @@ export default function Home() {
         />
 
         <div className="max-w-[1440px] mx-auto relative">
-          <div className="anim-fade-up delay-1 flex items-center gap-3 mb-12">
+          <div className="anim-fade-up delay-1 flex items-center gap-3 mb-8 md:mb-12">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">
               AI-native automation firm · Since 2020
             </p>
           </div>
 
-          <h1 className="text-display text-[clamp(3.25rem,13vw,12rem)] mb-12 max-w-[1300px]">
+          <h1 className="text-display text-[clamp(2.75rem,13vw,12rem)] mb-8 md:mb-12 max-w-[1300px]">
             <span className="block anim-fade-up delay-2">Your business,</span>
             <span className="block anim-fade-up delay-3 text-serif-accent text-[var(--color-primary-blue)]">
               on autopilot.
             </span>
           </h1>
 
-          <div className="anim-fade-up delay-5 grid md:grid-cols-[1.2fr_1fr] gap-12 md:gap-24 items-end">
-            <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-xl leading-relaxed">
+          <div className="anim-fade-up delay-5 grid md:grid-cols-[1.2fr_1fr] gap-8 md:gap-24 items-end">
+            <p className="text-[16px] md:text-xl text-[var(--color-text-secondary)] max-w-xl leading-relaxed">
               88% of companies use AI. Only 6% see bottom-line impact. The difference is implementation — the invisible work of redesigning how tasks move, who makes decisions, and where the AI actually fits. That's what we build.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -54,9 +54,9 @@ export default function Home() {
       </section>
 
       {/* Vertical tabs */}
-      <section className="px-6 md:px-10 py-20 md:py-28 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
+      <section className="px-6 md:px-10 py-14 md:py-28 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-6 md:mb-8">
             Trusted by operators across
           </p>
           <VerticalTabs />
@@ -64,36 +64,36 @@ export default function Home() {
       </section>
 
       {/* Manifesto */}
-      <section className="px-6 md:px-10 py-24 md:py-32">
+      <section className="px-6 md:px-10 py-16 md:py-32">
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">A note on how we work</p>
-          <p className="text-display text-[clamp(1.75rem,3.5vw,3rem)] leading-[1.15] tracking-tight">
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-6 md:mb-8">A note on how we work</p>
+          <p className="text-display text-[clamp(1.5rem,3.5vw,3rem)] leading-[1.2] md:leading-[1.15] tracking-tight">
             We don't build marketing funnels. We build <span className="text-serif-accent text-[var(--color-primary-blue)]">infrastructure</span> that operators can hire instead of headcount — systems that compound quietly, while teams focus on what only humans can do.
           </p>
         </div>
       </section>
 
       {/* Two paths — asymmetric bento */}
-      <section id="paths" className="px-6 md:px-10 py-24 md:py-36 border-t border-[var(--color-line)]">
+      <section id="paths" className="px-6 md:px-10 py-16 md:py-36 border-t border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
+          <div className="flex items-end justify-between mb-10 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / The firm</p>
-              <h2 className="text-[clamp(2.5rem,6.5vw,5.5rem)] max-w-3xl leading-[1.02]">
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4 md:mb-5">01 / The firm</p>
+              <h2 className="text-[clamp(2rem,6.5vw,5.5rem)] max-w-3xl leading-[1.05] md:leading-[1.02]">
                 Three practices. One <span className="text-serif-accent">operating system</span>.
               </h2>
             </div>
-            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[14px] md:text-[15px] leading-relaxed">
               Different customers, one shared engine. Digital sharpens SMB commercial intelligence. Consulting exposes workflow patterns across mid-market operators. Labs distills deep-tech signals for capital allocators and operators. Every engagement trains the next.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-5">
             {/* Digital */}
             <Link
               href="/digital"
               style={{ backgroundColor: "#0A0A0A", borderColor: "#0A0A0A" }}
-              className="card-hover relative overflow-hidden rounded-xl p-8 md:p-10 text-white group flex flex-col justify-between border min-h-[440px]"
+              className="card-hover relative overflow-hidden rounded-xl p-8 md:p-10 text-white group flex flex-col justify-between border md:min-h-[440px]"
             >
               <div
                 className="absolute inset-0 opacity-30 pointer-events-none"
@@ -131,7 +131,7 @@ export default function Home() {
             <Link
               href="/consulting"
               style={{ backgroundColor: "#1A5FD4", borderColor: "#1A5FD4" }}
-              className="card-hover relative overflow-hidden rounded-xl p-8 md:p-10 text-white group flex flex-col justify-between border min-h-[440px]"
+              className="card-hover relative overflow-hidden rounded-xl p-8 md:p-10 text-white group flex flex-col justify-between border md:min-h-[440px]"
             >
               <div className="flex items-start justify-between">
                 <p className="text-eyebrow text-white/70">
@@ -161,7 +161,7 @@ export default function Home() {
             <Link
               href="/labs"
               style={{ backgroundColor: "#F46B2C", borderColor: "#F46B2C" }}
-              className="card-hover relative overflow-hidden rounded-xl p-8 md:p-10 text-white group flex flex-col justify-between border min-h-[440px]"
+              className="card-hover relative overflow-hidden rounded-xl p-8 md:p-10 text-white group flex flex-col justify-between border md:min-h-[440px]"
             >
               <div
                 className="absolute inset-0 opacity-25 pointer-events-none"
@@ -199,10 +199,10 @@ export default function Home() {
       </section>
 
       {/* Stats — integration gap */}
-      <section className="px-6 md:px-10 py-24 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-20">02 / The integration gap</p>
-          <div className="grid md:grid-cols-3 gap-12 md:gap-10">
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-10 md:mb-20">02 / The integration gap</p>
+          <div className="grid md:grid-cols-3 gap-10 md:gap-10">
             {[
               {
                 n: "88%",
@@ -220,30 +220,30 @@ export default function Home() {
                 detail: "Where the real returns live — and where most firms never go.",
               },
             ].map((s, i) => (
-              <div key={i} className="border-t border-[var(--color-ink)]/80 pt-8">
-                <div className="text-display text-[clamp(4.5rem,10vw,8rem)] leading-none mb-6 text-[var(--color-ink)]">
+              <div key={i} className="border-t border-[var(--color-ink)]/80 pt-6 md:pt-8">
+                <div className="text-display text-[clamp(3.5rem,10vw,8rem)] leading-none mb-4 md:mb-6 text-[var(--color-ink)]">
                   {s.n}
                 </div>
-                <p className="font-medium text-lg mb-3 tracking-tight">{s.label}</p>
+                <p className="font-medium text-base md:text-lg mb-2 md:mb-3 tracking-tight">{s.label}</p>
                 <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed max-w-xs">
                   {s.detail}
                 </p>
               </div>
             ))}
           </div>
-          <p className="mt-14 mono text-xs text-[var(--color-text-muted)] tracking-[0.15em]">
+          <p className="mt-10 md:mt-14 mono text-xs text-[var(--color-text-muted)] tracking-[0.15em]">
             SOURCES — McKinsey State of AI 2025, Libertify, RAND AI Failure Analysis.
           </p>
         </div>
       </section>
 
       {/* Blog */}
-      <section className="px-6 md:px-10 py-24 md:py-36">
+      <section className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
+          <div className="flex items-end justify-between mb-10 md:mb-24 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Insights</p>
-              <h2 className="text-[clamp(2.5rem,6.5vw,5.5rem)] max-w-2xl">
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4 md:mb-5">03 / Insights</p>
+              <h2 className="text-[clamp(2rem,6.5vw,5.5rem)] max-w-2xl leading-[1.05]">
                 The playbook, <span className="text-serif-accent">public</span>.
               </h2>
             </div>
@@ -257,7 +257,7 @@ export default function Home() {
               <Link
                 key={p.slug}
                 href={`/blog/${p.slug}`}
-                className="group relative bg-[var(--color-surface)] p-10 md:p-12 min-h-[340px] flex flex-col justify-between hover:bg-white transition-colors"
+                className="group relative bg-[var(--color-surface)] p-8 md:p-12 md:min-h-[340px] flex flex-col justify-between gap-8 hover:bg-white transition-colors"
               >
                 <p className="mono text-xs text-[var(--color-text-muted)]">
                   0{i + 1} / {p.readTime}
@@ -280,7 +280,7 @@ export default function Home() {
       {/* Final CTA */}
       <section
         style={{ backgroundColor: "#0A0A0A" }}
-        className="px-6 md:px-10 py-24 md:py-40 text-white relative overflow-hidden"
+        className="px-6 md:px-10 py-16 md:py-40 text-white relative overflow-hidden"
       >
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
@@ -290,13 +290,13 @@ export default function Home() {
           }}
         />
         <div className="max-w-[1440px] mx-auto relative">
-          <p className="text-eyebrow text-white/50 mb-10">04 / Engage</p>
-          <h2 className="text-display text-[clamp(2.75rem,10vw,9.5rem)] mb-12 max-w-[1200px] leading-[0.95]">
+          <p className="text-eyebrow text-white/50 mb-6 md:mb-10">04 / Engage</p>
+          <h2 className="text-display text-[clamp(2.25rem,10vw,9.5rem)] mb-8 md:mb-12 max-w-[1200px] leading-[1] md:leading-[0.95]">
             Ship the first system in{" "}
             <span className="text-serif-accent text-[var(--color-primary-orange)]">fourteen days</span>.
           </h2>
-          <div className="grid md:grid-cols-[1.5fr_1fr] gap-12 items-end">
-            <p className="text-white/60 text-[17px] md:text-lg max-w-xl leading-relaxed">
+          <div className="grid md:grid-cols-[1.5fr_1fr] gap-8 md:gap-12 items-end">
+            <p className="text-white/60 text-[16px] md:text-lg max-w-xl leading-relaxed">
               A 15-minute call tells us — and you — whether automation is worth building, what to ship first, and where the real leverage lives. No decks. No discovery-call theater.
             </p>
             <div className="flex flex-wrap gap-3">

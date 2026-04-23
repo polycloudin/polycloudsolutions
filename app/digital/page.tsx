@@ -223,7 +223,7 @@ export default function DigitalPage() {
       <SiteNav />
 
       {/* Hero */}
-      <section className="relative pt-36 md:pt-44 pb-24 md:pb-32 px-6 md:px-10 overflow-hidden">
+      <section className="relative pt-28 md:pt-44 pb-16 md:pb-32 px-6 md:px-10 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -239,7 +239,7 @@ export default function DigitalPage() {
             </p>
           </div>
 
-          <h1 className="text-display text-[clamp(2.75rem,9vw,8rem)] mb-10 max-w-[1200px] leading-[0.95]">
+          <h1 className="text-display text-[clamp(2.25rem,9vw,8rem)] mb-8 md:mb-10 max-w-[1200px] leading-[0.95]">
             <span className="block">We run it.</span>
             <span className="block text-serif-accent text-[var(--color-primary-blue)]">
               You read it.
@@ -269,15 +269,15 @@ export default function DigitalPage() {
       {/* Services Grid — reframed as dashboard modules */}
       <section
         id="modules"
-        className="px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-line)]"
+        className="px-6 md:px-10 py-14 md:py-28 border-t border-[var(--color-line)]"
       >
         <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
+          <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">
                 01 / What we track
               </p>
-              <h2 className="text-display text-[clamp(2rem,5vw,3.5rem)] leading-[1.05] max-w-3xl">
+              <h2 className="text-display text-[clamp(1.75rem,5vw,3.5rem)] leading-[1.05] max-w-3xl">
                 Nine modules.{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">
                   One source of truth.
@@ -347,7 +347,7 @@ export default function DigitalPage() {
       </section>
 
       {/* How It Works (Integration Map) */}
-      <section className="px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-line)] bg-[var(--color-surface-warm)]">
+      <section className="px-6 md:px-10 py-14 md:py-28 border-t border-[var(--color-line)] bg-[var(--color-surface-warm)]">
         <div className="max-w-[1100px] mx-auto">
           <p className="text-eyebrow text-[var(--color-text-secondary)] mb-6">
             02 / How it compounds
@@ -415,7 +415,7 @@ export default function DigitalPage() {
       {/* Product demo — Weekly dashboard */}
       <section
         id="dashboard"
-        className="px-6 md:px-10 py-24 md:py-36 border-t border-[var(--color-line)]"
+        className="px-6 md:px-10 py-16 md:py-36 border-t border-[var(--color-line)]"
       >
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
@@ -423,7 +423,7 @@ export default function DigitalPage() {
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">
                 03 / The product you see
               </p>
-              <h2 className="text-[clamp(2.25rem,6vw,5rem)] max-w-3xl">
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-3xl">
                 Your whole business{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">
                   on one URL.
@@ -731,14 +731,14 @@ export default function DigitalPage() {
       {/* Pricing — Bundles */}
       <section
         id="pricing"
-        className="px-6 md:px-10 py-20 md:py-32 border-t border-[var(--color-line)]"
+        className="px-6 md:px-10 py-14 md:py-32 border-t border-[var(--color-line)]"
       >
         <div className="max-w-[1440px] mx-auto">
           <div className="text-center mb-16">
             <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">
               04 / Bundles
             </p>
-            <h2 className="text-display text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] mb-5">
+            <h2 className="text-display text-[clamp(1.875rem,5vw,4rem)] leading-[1.05] mb-5">
               Three bundles.{" "}
               <span className="text-serif-accent text-[var(--color-primary-blue)]">
                 Pick one.
@@ -841,7 +841,7 @@ export default function DigitalPage() {
       </section>
 
       {/* FAQ */}
-      <section className="px-6 md:px-10 py-20 md:py-28 border-t border-[var(--color-line)]">
+      <section className="px-6 md:px-10 py-14 md:py-28 border-t border-[var(--color-line)]">
         <div className="max-w-[900px] mx-auto">
           <p className="text-eyebrow text-[var(--color-text-secondary)] mb-6">
             05 / Questions
