@@ -67,7 +67,7 @@ const capabilities = [
 const useCases = [
   { who: "VCs", needs: "Deep-tech DD · technical plausibility · IP landscape · sector thesis" },
   { who: "Incubators", needs: "Cohort screening · mentorship matching · IP conflict checks · regulatory scan" },
-  { who: "Deep-tech operators", needs: "Competitive intel · prior-art defensibility · technical strategy · regulatory path · team benchmarking" },
+  { who: "Deep-tech operators", needs: "Competitive intel · prior-art defensibility · cathode/material recipe analysis · experiment design optimization · gap analysis with cost estimates" },
   { who: "Family offices", needs: "Sector thesis · co-investment screening · due diligence for deep-tech deals" },
   { who: "Rating agencies + research desks", needs: "Sector coverage · primitive data feeds · white-label research" },
 ];
@@ -201,7 +201,7 @@ export default function Labs() {
               { stat: "396", label: "Experiments graded A-F" },
               { stat: "1,774", label: "Patents mapped" },
               { stat: "223", label: "Researcher profiles" },
-              { stat: "73", label: "Cathode recipes" },
+              { stat: "193", label: "Cathode recipes clustered" },
               { stat: "10,300+", label: "Total across 4 domains" },
               { stat: "~$5", label: "Total analytical cost" },
             ].map((c) => (
@@ -211,9 +211,9 @@ export default function Labs() {
               </div>
             ))}
           </div>
-          <div className="grid md:grid-cols-3 gap-5 mb-14">
+          <div className="grid md:grid-cols-3 gap-5 mb-6">
             <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
-              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Novel finding</p>
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Signal co-occurrence paradox</p>
               <p className="text-white/80 text-[14px] leading-relaxed">
                 Transmutation co-occurs with excess heat in 67 papers vs 11 for helium-4.
                 The field&apos;s theoretical mainstream models the minority pathway. Never formally published before this analysis.
@@ -231,6 +231,27 @@ export default function Labs() {
               <p className="text-white/80 text-[14px] leading-relaxed">
                 Four-panel review: steelman, attack, blind-spot, and proponent-calibrated agent.
                 Probability estimate: 10-30% genuine nuclear phenomenon. Three independent methods converge.
+              </p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 mb-14">
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
+              <p className="text-eyebrow text-[var(--color-primary-blue)] mb-3">Cathode recipe analysis</p>
+              <p className="text-white/80 text-[14px] leading-relaxed">
+                193 cathode recipes — first systematic ML analysis ever performed on LENR preparation data.
+                Powder/nano cathodes succeed at 3x the rate of thin films. Heat treatment is the only prep that improves outcomes (+14%).
+              </p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
+              <p className="text-eyebrow text-[var(--color-primary-blue)] mb-3">COP by calorimetry method</p>
+              <p className="text-white/80 text-[14px] leading-relaxed">
+                Better instruments produce lower results. Flow calorimetry: median COP 1.24. Isoperibolic: 1.33. Pd + flow (most rigorous): 1.20. The &apos;real&apos; effect, if it exists, is at COP ~1.2.
+              </p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
+              <p className="text-eyebrow text-[var(--color-primary-blue)] mb-3">Contested science pattern match</p>
+              <p className="text-white/80 text-[14px] leading-relaxed">
+                Scored LENR against 17 historical cases — continental drift, H. pylori, prions, polywater, N-rays. LENR scores 6/20 on vindication factors. Closer to polywater than any vindicated case.
               </p>
             </div>
           </div>
