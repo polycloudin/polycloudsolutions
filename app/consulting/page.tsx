@@ -52,7 +52,7 @@ const flagships = [
     title: "The CA Firm AI Employee",
     market: "100,138 registered CA firms in India. 72% solo practices. Target retainer ₹15–25K/mo.",
     pain: "40–60 hours per month matching purchase registers against GSTR-2B. Reconciliation alone consumes 8+ hours per filing cycle. Data-entry errors account for a large share of GST compliance issues.",
-    result: "Built and runnable today: reconciliation engine, WhatsApp vendor follow-up, invoice OCR into Tally, ITC risk dashboard. Demo pass on synthetic 16-invoice dataset: 81.2% match, ₹2,685 ITC-at-risk surfaced. First pilot installs opening in Hyderabad.",
+    result: "Built and runnable today: 10 tools across 3 tiers (Starter / Growth / Pro) — GSTR-2B recon, WhatsApp vendor follow-up, invoice OCR, bank statement → Tally, TDS 26Q + FVU, compliance calendar, Form 3CD auto-docs, client MIS, receivables, ITC dashboard. Demo pass on synthetic 16-invoice dataset: 81.2% match, ₹2,685 ITC-at-risk surfaced. Full spec at /solutions/ca-firm · live white-label MIS at polycloud.in/ca-firm. First pilot installs opening in Hyderabad.",
     ctaTopic: "consulting" as const,
     ctaLabel: "Pilot on your firm ↗",
   },
@@ -60,24 +60,19 @@ const flagships = [
 
 const flagshipTools = [
   {
-    num: "01",
-    name: "Reconciliation engine",
-    detail: "GSTR-2B JSON + Tally purchase register → 5-sheet Excel with matched, mismatched, and only-in-books rows, ITC-at-risk flagged.",
+    tier: "Starter",
+    name: "GSTR-2B recon + WhatsApp follow-up",
+    detail: "GSTR-2B JSON + Tally purchase register → 5-sheet Excel, ITC-at-risk flagged. Mismatch vendors get Meta-approved WhatsApp nudges automatically. Invoice OCR + ITC dashboard round out the tier.",
   },
   {
-    num: "02",
-    name: "Vendor follow-up bot",
-    detail: "Mismatch rows auto-generate personalized WhatsApp messages to vendors. Three Meta-approved templates cover missing invoice, amount mismatch, and GSTIN mismatch.",
+    tier: "Growth",
+    name: "Bank → Tally + TDS 26Q FVU",
+    detail: "Bank PDFs (ICICI, HDFC, SBI, Axis, Kotak) classified + joined to GSTR-2B, Tally Prime XML out. TDS deductions computed, NSDL FVU file generated, late-deposit interest pre-calculated. Compliance calendar on WhatsApp across every client.",
   },
   {
-    num: "03",
-    name: "Invoice OCR to Tally",
-    detail: "Client WhatsApps an invoice photo → OCR + vision-LLM extract fields → balanced double-entry Tally XML voucher draft queued for CA review.",
-  },
-  {
-    num: "04",
-    name: "ITC risk dashboard",
-    detail: "Monthly MIS: ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart. Runs on the CA's laptop — no data leaves the firm.",
+    tier: "Pro",
+    name: "Form 3CD + client MIS + receivables",
+    detail: "44-clause Form 3CD auto-fills 6 clauses — the ones that eat 70% of audit hours. Per-client MIS dashboard with 30/60/90-day cashflow forecast. Firm's own receivables chased on a 5-bucket aging cadence.",
   },
 ];
 
@@ -630,24 +625,24 @@ export default function Consulting() {
             Numbers above are the actual output of <code className="font-mono">python3 demo.py</code> on synthetic data — reproducible locally. No client data is shown.
           </p>
 
-          {/* The 4-tool stack */}
+          {/* The 3-tier sampler — one hero tool per tier; full 10-tool list on /solutions/ca-firm */}
           <div className="mt-20">
             <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
-              <p className="text-eyebrow text-[var(--color-text-secondary)]">The stack — four tools, one install</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)]">The stack — 10 tools, 3 tiers, one install</p>
               <Link
                 href="/solutions/ca-firm"
                 className="text-sm font-medium link-underline"
               >
-                Full product page →
+                See all 10 tools →
               </Link>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid md:grid-cols-3 gap-5">
               {flagshipTools.map((t) => (
                 <div
-                  key={t.num}
+                  key={t.tier}
                   className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover"
                 >
-                  <p className="mono text-xs text-[var(--color-primary-orange)] mb-4">{t.num}</p>
+                  <p className="mono text-xs text-[var(--color-primary-orange)] mb-4">{t.tier}</p>
                   <h4 className="text-[clamp(1.15rem,1.5vw,1.35rem)] leading-tight mb-4">{t.name}</h4>
                   <p className="text-[var(--color-text-secondary)] text-sm leading-relaxed">{t.detail}</p>
                 </div>
