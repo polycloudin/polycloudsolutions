@@ -263,14 +263,6 @@ export default function Labs() {
             >
               Download the full report (PDF)
             </a>
-            <a
-              href="https://polycloud-lenr.vercel.app/dashboard/intelligence"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white rounded-lg text-sm font-medium hover:border-white/40 transition-colors"
-            >
-              Explore the live platform
-            </a>
             <span className="mono text-[10px] text-white/30 uppercase tracking-[0.18em] ml-2">
               18 primary sources cited · 4-panel adversarial review · 50 hrs processing
             </span>
