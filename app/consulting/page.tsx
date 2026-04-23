@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../components/BookButton";
 import AIGapChart from "../components/AIGapChart";
+import EdificeCRMMockup from "../components/EdificeCRMMockup";
 import SiteNav from "../components/SiteNav";
 import SiteFooter from "../components/SiteFooter";
 
@@ -46,13 +47,26 @@ const engagements = [
   },
 ];
 
-const flagship = {
-  title: "The CA Firm AI Employee",
-  market: "100,138 registered CA firms in India. 72% solo practices. ₹15–25K/mo retainer.",
-  pain: "40–60 hours/month manually matching purchase registers against GSTR-2B. Data-entry errors cause 40% of GST compliance issues. Reconciliation alone consumes 8+ hours per filing cycle.",
-  solution: "A 4-tool stack, unified under one CLI and installed on the CA's laptop via Docker compose. Reconciliation engine + WhatsApp vendor follow-up + invoice OCR into Tally + ITC risk dashboard — each one replacing a measurable piece of junior-associate work.",
-  result: "Demo data: 16 invoices processed, 81.2% match rate, ₹2,685 ITC-at-risk caught on first run. Target: 10+ hours/month reclaimed per filing cycle, validated against baseline.",
-};
+const flagships = [
+  {
+    eyebrow: "For CA Firms",
+    title: "The CA Firm AI Employee",
+    market: "100,138 registered CA firms in India. 72% solo practices. ₹15–25K/mo retainer.",
+    pain: "40–60 hours/month manually matching purchase registers against GSTR-2B. Data-entry errors cause 40% of GST compliance issues. Reconciliation alone consumes 8+ hours per filing cycle.",
+    result: "Demo data: 16 invoices processed, 81.2% match rate, ₹2,685 ITC-at-risk caught on first run. Target: 10+ hours/month reclaimed per filing cycle, validated against baseline.",
+    ctaTopic: "consulting" as const,
+    ctaLabel: "Pilot on your firm ↗",
+  },
+  {
+    eyebrow: "For Real Estate Developers",
+    title: "The OS for Indian builders",
+    market: "Mid-tier developers run 12 disconnected tools. 63% leads leak between WhatsApp and site visit. 18-month RERA slippage is routine. Founding terms open to first 5 builders.",
+    pain: "No incumbent has built end-to-end for the Indian developer lifecycle — from Dharani land DD through AOA handover. Western SaaS dies in week two: it doesn't know vastu is 60–80% of the decision, that Sunday is the big sales day, that one GO can shift land values overnight, or that every lead has 4–6 stakeholders.",
+    result: "Ten phases, shipped in sequence. Phase 0 — a 49-module market-intelligence layer — goes live in 30 days with zero integration and pays for itself by preventing one bad land deal. Sales modules (WhatsApp bot, multi-portal, 3D tours, CRM) follow at day 90. Construction and asset management follow demand.",
+    ctaTopic: "consulting" as const,
+    ctaLabel: "Request the platform deck ↗",
+  },
+];
 
 const flagshipTools = [
   {
@@ -83,6 +97,12 @@ const verticals = [
     detail: "CA firms, NBFCs, fintechs. GSTR-2B reconciliation, bank-statement analysis, KYC automation, compliance audit trails.",
     status: "shipped" as const,
     statusNote: "CA firm stack live",
+  },
+  {
+    name: "Real Estate & Property",
+    detail: "An operating system for Indian developers — market intelligence, land due-diligence, sales CRM, approvals whispering, drone progress capture, asset management. Ten phases, shipped sequentially.",
+    status: "shipped" as const,
+    statusNote: "Platform build · first 5 founding builders open",
   },
   {
     name: "D2C & Retail",
@@ -399,15 +419,14 @@ export default function Consulting() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">04 / One deep example</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">04 / Two shipped platforms</p>
               <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl">
-                The{" "}
-                <span className="text-serif-accent text-[var(--color-primary-blue)]">GSTR-2B</span>{" "}
-                reconciliation engine.
+                From GST recon to{" "}
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">luxury CRMs</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              One deep example of what we ship. Built for CA firms, but the same engagement shape applies across verticals — audit, sprint, platform, retainer.
+              Two production platforms in two different verticals, built on the same engagement shape — audit → sprint → platform → retainer. What the stack looks like varies; how we deliver does not.
             </p>
           </div>
 
@@ -425,24 +444,24 @@ export default function Consulting() {
                 }}
               />
               <div className="relative flex flex-col h-full">
-                <p className="text-eyebrow text-[var(--color-primary-orange)] mb-6">For CA Firms</p>
+                <p className="text-eyebrow text-[var(--color-primary-orange)] mb-6">{flagships[0].eyebrow}</p>
                 <h3 className="text-display text-[clamp(1.75rem,3vw,2.5rem)] mb-8 leading-[1.05]">
-                  {flagship.title}
+                  {flagships[0].title}
                 </h3>
                 <p className="mono text-xs text-white/50 uppercase tracking-[0.2em] mb-10">
-                  {flagship.market}
+                  {flagships[0].market}
                 </p>
                 <div className="space-y-6 mb-10 flex-1">
                   <div>
                     <p className="text-eyebrow text-white/50 mb-2">The pain</p>
-                    <p className="text-white/80 text-[14px] leading-relaxed">{flagship.pain}</p>
+                    <p className="text-white/80 text-[14px] leading-relaxed">{flagships[0].pain}</p>
                   </div>
                   <div>
                     <p className="text-eyebrow text-[var(--color-primary-orange)] mb-2">Outcome</p>
-                    <p className="text-white font-medium text-[14px] leading-relaxed">{flagship.result}</p>
+                    <p className="text-white font-medium text-[14px] leading-relaxed">{flagships[0].result}</p>
                   </div>
                 </div>
-                <BookButton variant="light-primary" topic="consulting" className="self-start hover:!bg-[var(--color-primary-orange)] hover:!border-[var(--color-primary-orange)]">Pilot on your firm ↗</BookButton>
+                <BookButton variant="light-primary" topic="consulting" className="self-start hover:!bg-[var(--color-primary-orange)] hover:!border-[var(--color-primary-orange)]">{flagships[0].ctaLabel}</BookButton>
               </div>
             </div>
 
@@ -644,13 +663,192 @@ export default function Consulting() {
               ))}
             </div>
           </div>
+
+          {/* Divider between flagships */}
+          <div className="my-20 md:my-28 border-t border-[var(--color-line)] relative">
+            <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--color-surface)] px-4 mono text-[10px] tracking-[0.25em] text-[var(--color-text-muted)] uppercase">
+              And in a completely different vertical
+            </span>
+          </div>
+
+          {/* Second flagship — Edifice real-estate CRM */}
+          <div className="grid md:grid-cols-[1fr_1.15fr] gap-8 items-stretch">
+            <div
+              style={{ backgroundColor: "#0A0A0A" }}
+              className="rounded-xl p-10 md:p-14 text-white relative overflow-hidden order-2 md:order-1"
+            >
+              <div
+                className="absolute inset-0 opacity-30 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 60% at 10% 90%, rgba(26, 95, 212, 0.35) 0%, transparent 60%)",
+                }}
+              />
+              <div className="relative flex flex-col h-full">
+                <p className="text-eyebrow text-[var(--color-primary-blue)] mb-6">{flagships[1].eyebrow}</p>
+                <h3 className="text-display text-[clamp(1.75rem,3vw,2.5rem)] mb-8 leading-[1.05]">
+                  {flagships[1].title}
+                </h3>
+                <p className="mono text-xs text-white/50 uppercase tracking-[0.2em] mb-10">
+                  {flagships[1].market}
+                </p>
+                <div className="space-y-6 mb-10 flex-1">
+                  <div>
+                    <p className="text-eyebrow text-white/50 mb-2">The pain</p>
+                    <p className="text-white/80 text-[14px] leading-relaxed">{flagships[1].pain}</p>
+                  </div>
+                  <div>
+                    <p className="text-eyebrow text-[var(--color-primary-blue)] mb-2">Outcome</p>
+                    <p className="text-white font-medium text-[14px] leading-relaxed">{flagships[1].result}</p>
+                  </div>
+                </div>
+                <BookButton variant="light-primary" topic="consulting" className="self-start hover:!bg-[var(--color-primary-blue)] hover:!border-[var(--color-primary-blue)]">{flagships[1].ctaLabel}</BookButton>
+              </div>
+            </div>
+
+            <div className="order-1 md:order-2">
+              <EdificeCRMMockup />
+            </div>
+          </div>
+
+          <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+            ILLUSTRATIVE — the sales CRM shown above is one module inside Phase 4. The full platform spans ten phases.
+          </p>
+
+          {/* 10-phase platform timeline */}
+          <div className="mt-14 md:mt-20">
+            <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
+              <p className="text-eyebrow text-[var(--color-text-secondary)]">The ten-phase platform · shipped in sequence</p>
+              <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+                Phase 0 ships first · rest follows demand
+              </p>
+            </div>
+            <div className="overflow-x-auto">
+              <div className="grid grid-cols-10 gap-1.5 min-w-[900px]">
+                {[
+                  { ph: "PH 0", name: "Market Intel", when: "Day 0–30", wedge: true },
+                  { ph: "PH 1", name: "Land DD", when: "Day 30+" },
+                  { ph: "PH 2", name: "Approvals", when: "Day 60+" },
+                  { ph: "PH 3", name: "Pre-Launch", when: "Day 60–90" },
+                  { ph: "PH 4", name: "Sales", when: "Day 90–180" },
+                  { ph: "PH 5", name: "Construction", when: "Day 180+" },
+                  { ph: "PH 6", name: "Handover", when: "Year 1+" },
+                  { ph: "PH 7", name: "Asset Mgmt", when: "Year 2" },
+                  { ph: "PH 8", name: "Operations", when: "Year 2" },
+                  { ph: "PH 9", name: "Strategic", when: "Year 2+" },
+                ].map((p, i) => (
+                  <div
+                    key={i}
+                    className={`rounded-md p-3 ${
+                      p.wedge
+                        ? "bg-[var(--color-ink)] text-white"
+                        : "bg-white border border-[var(--color-line)]"
+                    }`}
+                  >
+                    <p
+                      className={`mono text-[9px] uppercase tracking-[0.14em] mb-1 ${
+                        p.wedge ? "text-[var(--color-primary-orange)]" : "text-[var(--color-text-muted)]"
+                      }`}
+                    >
+                      {p.ph}
+                    </p>
+                    <p
+                      className={`text-[12.5px] font-medium leading-tight mb-1 ${
+                        p.wedge ? "text-white" : "text-[var(--color-ink)]"
+                      }`}
+                    >
+                      {p.name}
+                    </p>
+                    <p
+                      className={`mono text-[9.5px] tracking-[0.04em] ${
+                        p.wedge ? "text-white/60" : "text-[var(--color-text-muted)]"
+                      }`}
+                    >
+                      {p.when}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* What Phase 0 contains */}
+          <div className="mt-12">
+            <div className="flex items-end justify-between mb-6 flex-wrap gap-4">
+              <p className="text-eyebrow text-[var(--color-text-secondary)]">Phase 0 · the intelligence wedge · 49 modules · 6 categories</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
+              {[
+                { cat: "Land & Site Intel", count: 10, detail: "Dharani ownership chain, EC, litigation, GO 111 zoning, infrastructure proximity." },
+                { cat: "Demand-Side Intel", count: 8, detail: "NRI pulse, BHK mix, vastu compliance, festival-cycle demand." },
+                { cat: "Supply-Side Intel", count: 7, detail: "Live inventory scan, sell-through rates, builder-reputation index." },
+                { cat: "Policy & Regulatory", count: 8, detail: "Government Order tracking, state policy shifts, infrastructure pipeline." },
+                { cat: "Comparables & Premium", count: 6, detail: "Sub-registrar data, view/floor/corner premium decomposition." },
+                { cat: "Channel + Risk", count: 10, detail: "Broker network map, litigation watch, regime-change exposure." },
+              ].map((c, i) => (
+                <div key={i} className="bg-white p-6 md:p-7">
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-[14px] font-medium text-[var(--color-ink)]">{c.cat}</p>
+                    <span className="mono text-[10px] bg-[var(--color-surface-warm)] text-[var(--color-primary-orange)] px-2 py-0.5 rounded tracking-[0.05em]">
+                      {c.count} modules
+                    </span>
+                  </div>
+                  <p className="text-[var(--color-text-secondary)] text-[13px] leading-relaxed">{c.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Seven unfair advantages */}
+          <div className="mt-12">
+            <div className="flex items-end justify-between mb-6 flex-wrap gap-4">
+              <p className="text-eyebrow text-[var(--color-text-secondary)]">Seven features no incumbent can ship</p>
+              <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+                Each one a moat by itself
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {[
+                { name: "Hyderabad Land Brain", line: "Real-time map of every plot — ownership chain, litigation, conversion potential, builder overlays.", tag: "Standalone moat" },
+                { name: "NRI Remote Closing", line: "Dubai/US → full purchase. Live video site visit, DigiLocker KYC, e-stamp + e-registration.", tag: "15–20% dead leads recaptured" },
+                { name: "Cement Hedger", line: "Commodity intel + procurement timing AI. 5–15% material savings across project lifetime.", tag: "Material cost edge" },
+                { name: "Drone Time Machine", line: "Weekly aerial capture compiled into growth GIFs. Auto-WhatsApped to 200 buyers monthly.", tag: "Buyer NPS +30" },
+                { name: "Approval Whisperer", line: "Predicts which officer or document will cause delay. Built on 500+ Hyderabad project histories.", tag: "Saves 3–12 months" },
+                { name: "Future Site View", line: "Greenfield land photo → photoreal AI render of the completed building. JDA negotiation weapon.", tag: "Unlock JDA terms" },
+                { name: "Resale Arbitrage Engine", line: "Alert when an owner in your project lists below market. Auto-bid, recapture, re-sell at premium.", tag: "Secondary market" },
+                { name: "India-native by design", line: "Vastu-weighted unit recommender. 4–6 stakeholder CRM. Telugu-first WhatsApp. Festival-cycle scheduling. GO 111 political-shock alerts in 48 hours.", tag: "What Silicon Valley misses" },
+              ].map((f, i) => (
+                <div key={i} className="bg-white rounded-xl border border-[var(--color-line)] p-6 card-hover">
+                  <h4 className="text-[clamp(1rem,1.4vw,1.2rem)] leading-tight mb-3 font-medium">{f.name}</h4>
+                  <p className="text-[var(--color-text-secondary)] text-[13px] leading-relaxed mb-4">{f.line}</p>
+                  <p className="mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-primary-orange)]">
+                    {f.tag}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Founding partner offer */}
+          <div className="mt-12 bg-[var(--color-surface-warm)] rounded-xl border border-[var(--color-line)] p-8 md:p-10 flex flex-wrap items-center justify-between gap-6">
+            <div className="max-w-2xl">
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Founding partner · 90-day pilot · first 5 builders only</p>
+              <h4 className="text-display text-[clamp(1.25rem,2.25vw,1.75rem)] leading-tight mb-2">
+                You steer the roadmap. Founding terms lock forward.
+              </h4>
+              <p className="text-[var(--color-text-secondary)] text-[14px] leading-relaxed">
+                25 highest-value Phase 0 modules at launch · weekly Monday intel reports · direct Slack/WhatsApp with the build team · quarterly business review · first-look at Phases 3-4 in beta · one complimentary 3D tour of an active project. No long-term lock-in — cancel any month after the pilot.
+              </p>
+            </div>
+            <BookButton variant="primary" topic="consulting">Request founding terms ↗</BookButton>
+          </div>
         </div>
       </section>
 
       {/* How we deliver */}
       <section className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1100px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">04 / How we deliver</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">05 / How we deliver</p>
           <h2 className="text-[clamp(1.875rem,6vw,5rem)] mb-16 max-w-2xl">
             Senior-led, tool-agnostic, <span className="text-serif-accent">fast</span>.
           </h2>
