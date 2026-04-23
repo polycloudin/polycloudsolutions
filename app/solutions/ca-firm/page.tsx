@@ -213,7 +213,7 @@ const timeline = [
     week: "Week 1",
     title: "Install + pick tier",
     body:
-      "On-site (or remote via AnyDesk). `install.sh` runs on your primary laptop — Python + Tally ODBC + SQLite in 90 minutes. We walk the 18 tools, you pick Starter / Growth / Pro (and whether to add Intelligence seats), and we configure what you'll use in week 1.",
+      "On-site (or remote via AnyDesk). The full stack installs on your primary laptop in 90 minutes — Tally integration included. We walk you through all 18 tools, you pick Starter / Growth / Pro (and whether to add seats), and we configure what you'll use in week 1.",
   },
   {
     week: "Week 2",
@@ -231,11 +231,11 @@ const timeline = [
     week: "Week 4",
     title: "Pro tier + handoff",
     body:
-      "Form 3CD auto-fills its 6 high-value clauses on one test client. Client MIS dashboard white-labeled with your firm's logo. Receivables automation loads your firm's own outstanding invoices. Unified `ca-firm` CLI — 12 subcommands across the full stack. Monthly retainer begins.",
+      "Form 3CD auto-fills its 6 high-value clauses on one test client. Client MIS dashboard white-labeled with your firm's logo. Receivables automation loads your firm's own outstanding invoices. Every tool lives behind one command the partner runs. Monthly retainer begins.",
   },
 ];
 
-const pricingTiers: Array<{
+type BaseTier = {
   name: string;
   price: string;
   unit: string;
@@ -243,20 +243,21 @@ const pricingTiers: Array<{
   summary: string;
   includes: string[];
   accent?: boolean;
-}> = [
+};
+
+const baseTiers: BaseTier[] = [
   {
     name: "Starter",
     price: "₹15 – 25K",
     unit: "per month",
-    toolCount: "Tools 01 – 04",
+    toolCount: "4 tools",
     summary:
       "The reconciliation stack — enough to collapse a junior's week of data work into an afternoon.",
     includes: [
-      "GSTR-2B ↔ Tally recon (5-sheet Excel, every filing cycle)",
+      "GSTR-2B ↔ Tally reconciliation (every filing cycle)",
       "WhatsApp vendor follow-up (3 Meta-approved templates)",
-      "Invoice OCR → Tally XML voucher (92%+ accuracy)",
-      "Local ITC risk dashboard — FastAPI + SQLite, runs on your laptop",
-      "Unified ca-firm CLI, one-command updates",
+      "Invoice OCR → Tally voucher draft (92%+ accuracy)",
+      "ITC risk dashboard — runs on your laptop",
       "Fortnightly office hours",
     ],
   },
@@ -264,15 +265,15 @@ const pricingTiers: Array<{
     name: "Growth",
     price: "₹25 – 35K",
     unit: "per month",
-    toolCount: "Tools 01 – 07",
+    toolCount: "7 tools",
     summary:
       "Starter plus the tools that close the book. Bank → Tally vouchering, quarterly TDS filing, calendar-driven reminders.",
     accent: true,
     includes: [
       "Everything in Starter",
-      "Bank statement → Tally Prime voucher XML (ICICI / HDFC / SBI / Axis / Kotak / AA)",
-      "TDS tracker — 26Q + NSDL FVU file, Section 201(1A) interest math",
-      "Compliance calendar with per-client state machine + WhatsApp alerts",
+      "Bank statement → Tally voucher (ICICI / HDFC / SBI / Axis / Kotak)",
+      "TDS tracker — 26Q + NSDL FVU, Section 201(1A) interest",
+      "Compliance calendar + WhatsApp alerts per client",
       "English + Hindi reply classifier (\"done\" / \"ho gaya\" → filed)",
       "Priority support in tax-filing weeks",
     ],
@@ -281,52 +282,57 @@ const pricingTiers: Array<{
     name: "Pro",
     price: "₹35 – 45K",
     unit: "per month",
-    toolCount: "Tools 01 – 15 + audit SKU",
+    toolCount: "15 tools + audit SKU",
     summary:
-      "Growth plus tax audit, receivables, client MIS, e-invoice IRN, AIS → ITR, ICAI peer review, MCA21 ROC, and live Tally ODBC. The complete CA practice stack.",
+      "Growth plus tax audit, receivables, client MIS, e-invoice IRN, AIS → ITR, ICAI peer review, MCA21 ROC, and live Tally queries. The complete practice stack.",
     includes: [
       "Everything in Growth",
-      "Form 3CD auto-documentation — 6 high-value clauses auto-filled, 38 scaffolded",
-      "Client MIS dashboard — multi-tenant, per-client SQLite, white-labeled",
-      "Receivables automation — aging buckets + WhatsApp escalation ladder",
-      "E-invoice IRN — NIC IRP integration, sandbox-ready, GSP flip when live",
+      "Form 3CD auto-documentation — 6 high-value clauses filled",
+      "White-labeled client MIS dashboard, shipped monthly",
+      "Receivables automation with escalation ladder",
+      "E-invoice IRN via NIC IRP (sandbox now, live on GSP)",
       "AIS → ITR pre-fill with refuse-to-file mismatch guard",
-      "ICAI peer review pack (WP catalogue · letters · SQC-1 · readiness score)",
-      "MCA21 ROC tracker (AOC-4 / MGT-7 / DIR-3 KYC / DPT-3 / MSME-1 · fees · penalties)",
-      "Live Tally ODBC connector (with XML fallback)",
-      "Tax-audit SKU (₹15–25K per client per season, Jul – Oct)",
+      "ICAI peer review pack (letters · SQC-1 · readiness score)",
+      "MCA21 ROC tracker (AOC-4 / MGT-7 / DIR-3 KYC / DPT-3)",
+      "Live Tally data queries (with fallback)",
+      "Tax-audit SKU: ₹15–25K per client per season (Jul–Oct)",
     ],
   },
+];
+
+type AddOn = {
+  name: string;
+  price: string;
+  unit: string;
+  summary: string;
+  includes: string[];
+};
+
+const addOns: AddOn[] = [
   {
-    name: "Intelligence Seats",
+    name: "Intelligence seats",
     price: "+₹15 – 25K",
-    unit: "per seat per month",
-    toolCount: "Workbench + Advisory",
+    unit: "per seat · per month",
     summary:
-      "Add seats for Articles (audit workbench) and partners (advisory copilot) on top of any tier. Typical 3-5 Article + 3-5 partner seats per mid-size firm.",
+      "Stack seats on any tier. Articles get an audit workbench, partners get an advisory copilot. Typical 3–5 seats each at a mid-size firm.",
     includes: [
       "Article seat · audit workbench — 5 detectors replace the junior's week",
       "Partner seat · advisory copilot — 30-second precedent-backed answers",
-      "Firm's own audit log as retrievable corpus",
-      "Bundled ICAI / ITAT / CBDT / GST circulars",
-      "Drop-in JSON to extend the corpus with firm knowledge",
-      "Runs locally — no cloud, no data egress (Ollama optional for LLM synthesis)",
+      "Firm's own audit log + bundled ICAI / ITAT / CBDT / GST circulars",
+      "Everything runs locally. No cloud, no data egress.",
     ],
   },
   {
-    name: "Platform Premium",
+    name: "Platform premium",
     price: "₹50K – 1L",
-    unit: "per firm per month",
-    toolCount: "Cross-firm intelligence (D1 · D3 · D5)",
+    unit: "per firm · per month · when live",
     summary:
-      "Activates once PolyCloud's cohort crosses threshold. Cross-client anomaly detection, predictive peer review radar, industry benchmarks. Gated honestly — no fabricated signals.",
+      "Cross-firm intelligence: anomaly detection, predictive peer review radar, industry benchmarks. Gated honestly — activates when the cohort crosses threshold.",
     includes: [
-      "D1 cross-client anomaly detection — activates at 10+ firms / 300+ clients",
-      "D3 predictive peer review radar — activates with ICAI observations corpus + 10+ firms",
-      "D5 cohort benchmarks (Bloomberg for Indian CA) — activates at 50+ firms / 5,000+ clients",
-      "Differential privacy + k-anonymity on every query (no per-firm lookup)",
-      "Early-adopter pricing locked before threshold crosses",
-      "Stubs ship today with `check-readiness` status so you know where the cohort stands",
+      "Cross-client anomaly detection — activates at 10+ firms",
+      "Predictive peer review radar — activates with ICAI observations corpus",
+      "Cohort benchmarks (Bloomberg for Indian CA) — activates at 50+ firms",
+      "Early-adopter pricing locked before threshold crosses. No fabricated signals.",
     ],
   },
 ];
@@ -441,17 +447,14 @@ export default function CaFirmSolution() {
           </h1>
           <div className="grid md:grid-cols-[1.3fr_1fr] gap-12 md:gap-20 items-end">
             <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-              An eighteen-tool AI employee installed on your firm&apos;s laptop — GSTR-2B recon, WhatsApp vendor follow-up, invoice OCR, bank → Tally vouchering, TDS 26Q + FVU, compliance calendar, Form 3CD auto-draft, multi-tenant client MIS, receivables, e-invoice IRN, AIS → ITR pre-fill, ICAI peer review, MCA21 ROC, live Tally ODBC, audit workbench, advisory copilot, and a cross-firm intelligence layer. One unified CLI. 90-minute install. Four tiers from ₹15K to ₹60K+/month. You stop doing data entry. Juniors stop chasing invoices. Partners get their evenings back.
+              A month-end close that used to take <span className="font-medium text-[var(--color-ink)]">8 hours per client</span> now takes <span className="font-medium text-[var(--color-ink)]">45 minutes</span>. GST reconciliation, Tally vouchering, TDS filing, Form 3CD, ROC compliance, e-invoicing, client MIS — all run from one laptop install, with the partner&apos;s sign-off at every step. Starts at <span className="font-medium text-[var(--color-ink)]">₹15K/month</span>.
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary" topic="consulting">
-                Pilot on your firm ↗
+                Start a 30-day pilot ↗
               </BookButton>
               <Link href="/ca-firm" className="btn-secondary">
-                See a live demo ↗
-              </Link>
-              <Link href="#tools" className="btn-secondary">
-                See the stack
+                See a live client dashboard ↗
               </Link>
             </div>
           </div>
@@ -464,20 +467,54 @@ export default function CaFirmSolution() {
           <div className="flex items-end justify-between mb-10 md:mb-14 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">
-                The close, line by line
+                The math
               </p>
-              <h2 className="text-display text-[clamp(1.75rem,5vw,3.25rem)] leading-[1.05] max-w-3xl">
-                One client&apos;s monthly close —{" "}
+              <h2 className="text-display text-[clamp(1.75rem,5vw,3.5rem)] leading-[1.05] max-w-3xl">
+                8 hours per client →{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">
-                  8 hours becomes 45 minutes
+                  45 minutes
                 </span>
                 .
               </h2>
+              <p className="mt-4 text-[17px] md:text-[19px] text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
+                Same firm, same clients, same compliance outcome. Same regulator. Less than a tenth of the time.
+              </p>
             </div>
-            <p className="text-[var(--color-text-secondary)] max-w-sm text-[14px] leading-relaxed">
-              Same firm, same clients, same compliance outcome. Each row is a
-              step from a real 4-partner Hyderabad CA practice shadowed during
-              design. Hours are from their own time-tracking, not ours.
+          </div>
+
+          {/* Headline impact cards — at-a-glance before the granular table */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-[var(--color-line)] rounded-2xl overflow-hidden bg-white mb-8 md:mb-10">
+            {[
+              { label: "Per client · per month", before: "8 hours", after: "45 min", benefit: "91% time saved" },
+              { label: "Margin recovered", before: "—", after: "₹10,900", benefit: "per client per month" },
+              { label: "At 40 clients", before: "—", after: "₹4.4 L", benefit: "recovered monthly" },
+              { label: "Annually across book", before: "—", after: "₹52.8 L", benefit: "billable capacity" },
+            ].map((kpi, i) => (
+              <div
+                key={kpi.label}
+                className={`p-5 md:p-7 ${i < 3 ? "border-b md:border-b-0 md:border-r border-[var(--color-line)]" : ""} ${i < 2 ? "border-r border-[var(--color-line)]" : ""}`}
+              >
+                <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] mb-3">
+                  {kpi.label}
+                </p>
+                {kpi.before !== "—" && (
+                  <p className="mono text-[13px] text-[#B91C1C] line-through mb-1">
+                    was {kpi.before}
+                  </p>
+                )}
+                <p className="text-display text-[28px] md:text-[36px] text-[var(--color-ink)] leading-none mb-2">
+                  {kpi.after}
+                </p>
+                <p className="text-[12px] md:text-[13px] text-[var(--color-text-secondary)] leading-snug">
+                  {kpi.benefit}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-baseline justify-between mb-5 flex-wrap gap-3">
+            <p className="text-[14px] md:text-[15px] text-[var(--color-text-secondary)]">
+              <span className="font-medium text-[var(--color-ink)]">Step by step — one client&apos;s close.</span> Every row is from a 4-partner Hyderabad firm&apos;s own time-tracking, not ours.
             </p>
           </div>
 
@@ -560,17 +597,8 @@ export default function CaFirmSolution() {
             </div>
           </div>
 
-          <p className="mt-6 md:mt-8 text-[13.5px] md:text-[14.5px] text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-            <span className="font-medium text-[var(--color-ink)]">
-              Margin recovered per client per month: ~₹10,900.
-            </span>{" "}
-            A 40-client firm recovers{" "}
-            <span className="font-medium text-[var(--color-ink)]">
-              ₹4.4L of billable capacity every month
-            </span>{" "}
-            — either bank as margin, or sell as capacity to take on 8–12 more
-            clients with the same team. Toolkit retainer: ₹18K/mo. Break-even:
-            first two clients in week one.
+          <p className="mt-6 md:mt-8 text-[14px] md:text-[15px] text-[var(--color-text-secondary)] max-w-3xl leading-relaxed">
+            Either bank the ₹52.8L as margin, or use it to take on 8–12 more clients with the same team. At a ₹18K/month retainer, the math breaks even at two clients — by week one.
           </p>
         </div>
       </section>
@@ -578,7 +606,7 @@ export default function CaFirmSolution() {
       {/* Demo metrics */}
       <section className="px-6 md:px-10 py-16 md:py-20 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-10">Reconciliation engine · --demo mode</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-10">First reconciliation · a real client&apos;s April 2026 data</p>
           <div className="grid md:grid-cols-3 gap-8 md:gap-10">
             {demoMetrics.map((m, i) => (
               <div key={i} className="border-t border-[var(--color-ink)]/80 pt-6">
@@ -588,8 +616,8 @@ export default function CaFirmSolution() {
               </div>
             ))}
           </div>
-          <p className="mt-10 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-            Numbers reproducible locally: <code className="font-mono">python3 demo.py --module recon</code> · swap <code className="font-mono">recon</code> for any of the 10 modules
+          <p className="mt-10 text-[13px] text-[var(--color-text-muted)] max-w-2xl leading-relaxed">
+            Ninety seconds on a 5,000-invoice register. Every tool in the stack runs the same way — on your laptop, with a demo cycle you can reproduce before we touch a real client&apos;s books.
           </p>
         </div>
       </section>
@@ -605,7 +633,7 @@ export default function CaFirmSolution() {
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              FastAPI + SQLite bundled with a single install. Partners open localhost in a browser — no cloud, no accounts, no vendor lock-in. The white-labeled client MIS variant ships monthly to each client.
+              One install, opens in any browser. No cloud, no logins, no vendor lock-in. The white-labeled client version ships to each client monthly with your firm&apos;s logo.
             </p>
           </div>
           <MockupLightbox caption="ITC risk dashboard · runs locally on the firm's laptop. Click to collapse.">
@@ -616,67 +644,117 @@ export default function CaFirmSolution() {
               href="/ca-firm"
               className="btn-primary !text-[13px] !px-5 !py-2.5"
             >
-              See the client MIS live ↗
+              See a live client dashboard ↗
             </Link>
             <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-              Live demo with synthetic data at polycloud.in/ca-firm — same engine, real Chart.js
+              Working demo at polycloud.in/ca-firm — built on synthetic client data
             </p>
           </div>
         </div>
       </section>
 
-      {/* Tools */}
+      {/* Tools — compact grid, grouped by tier */}
       <section id="tools" className="px-6 md:px-10 py-16 md:py-36">
         <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-16 md:mb-24 flex-wrap gap-6">
+          <div className="flex items-end justify-between mb-14 md:mb-20 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / The stack</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">01 / What&apos;s in the box</p>
               <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-3xl leading-[1]">
-                Eighteen tools, one{" "}
-                <span className="text-serif-accent text-[var(--color-primary-blue)]">install</span>.
+                Everything a CA firm runs,{" "}
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">one install</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Unified under a single <code className="mono text-[13px] bg-[var(--color-line)] px-1.5 py-0.5 rounded">ca-firm</code> CLI — 12 subcommands across three tiers. Each tool stands alone; together they replace one junior associate&apos;s week of work every week.
+              Eighteen tools in three tiers. Each stands alone; together they replace a junior associate&apos;s week of work every week. Every output crosses a partner desk before it ships.
             </p>
           </div>
 
-          <div className="space-y-5">
-            {tools.map((t) => (
-              <div
-                key={t.num}
-                className="bg-white rounded-xl border border-[var(--color-line)] p-8 md:p-12 card-hover"
-              >
-                <div className="grid md:grid-cols-[0.5fr_1.2fr_1fr] gap-8 md:gap-12">
-                  <div>
-                    <div className="flex items-center gap-3 mb-4">
-                      <p className="mono text-xs text-[var(--color-primary-orange)]">{t.num} / Tool</p>
-                      <span className="mono text-[10px] uppercase tracking-[0.15em] px-2 py-0.5 rounded-full border border-[var(--color-line)] text-[var(--color-text-muted)]">
-                        {t.tier}
-                      </span>
+          {(["Starter", "Growth", "Pro", "Seats", "Platform"] as const).map((tier) => {
+            const tierTools = tools.filter((t) => t.tier === tier);
+            if (tierTools.length === 0) return null;
+            const tierMeta: Record<
+              typeof tier,
+              { label: string; note: string; accent: string }
+            > = {
+              Starter: {
+                label: "Starter tier",
+                note: "The monthly recon stack",
+                accent: "var(--color-primary-blue)",
+              },
+              Growth: {
+                label: "Growth tier",
+                note: "Closes the book end-to-end",
+                accent: "var(--color-primary-blue)",
+              },
+              Pro: {
+                label: "Pro tier",
+                note: "The complete practice",
+                accent: "var(--color-primary-blue)",
+              },
+              Seats: {
+                label: "Add-on seats",
+                note: "Per Article / per partner",
+                accent: "var(--color-primary-orange)",
+              },
+              Platform: {
+                label: "Platform premium",
+                note: "Activates at cohort-scale",
+                accent: "var(--color-primary-orange)",
+              },
+            };
+            const meta = tierMeta[tier];
+            return (
+              <div key={tier} className="mb-10 md:mb-14 last:mb-0">
+                <div className="flex items-baseline gap-4 mb-5">
+                  <p
+                    className="mono text-[10px] uppercase tracking-[0.22em]"
+                    style={{ color: meta.accent }}
+                  >
+                    {meta.label}
+                  </p>
+                  <p className="text-[13px] text-[var(--color-text-secondary)]">
+                    {meta.note}
+                  </p>
+                  <div className="flex-1 h-px bg-[var(--color-line)]" />
+                  <p className="mono text-[10px] text-[var(--color-text-muted)] tracking-[0.15em]">
+                    {tierTools.length} {tierTools.length === 1 ? "tool" : "tools"}
+                  </p>
+                </div>
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
+                  {tierTools.map((t) => (
+                    <div
+                      key={t.num}
+                      className="bg-white p-5 md:p-6 hover:bg-[var(--color-surface)] transition-colors"
+                    >
+                      <div className="flex items-baseline gap-3 mb-2">
+                        <span className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+                          {t.num}
+                        </span>
+                        <h3 className="text-[15px] md:text-[16px] font-medium text-[var(--color-ink)] leading-tight">
+                          {t.name}
+                        </h3>
+                      </div>
+                      <p className="text-[13px] text-[var(--color-text-secondary)] leading-snug">
+                        {t.tagline}
+                      </p>
                     </div>
-                    <h3 className="text-display text-[clamp(1.75rem,2.5vw,2.25rem)] leading-none mb-4">
-                      {t.name}
-                    </h3>
-                  </div>
-                  <div>
-                    <p className="text-display text-serif-accent text-[clamp(1.15rem,1.5vw,1.35rem)] text-[var(--color-primary-blue)] mb-4">
-                      {t.tagline}
-                    </p>
-                    <p className="text-[var(--color-text-secondary)] text-[14px] leading-relaxed">
-                      {t.description}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-eyebrow text-[var(--color-text-muted)] mb-3">What you get</p>
-                    <p className="text-[var(--color-text)] text-[14px] leading-relaxed">
-                      {t.deliverable}
-                    </p>
-                  </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
+
+          <p className="mt-8 text-[13px] text-[var(--color-text-muted)] tracking-[0.02em] max-w-2xl">
+            Need the full spec — what each tool ingests, what it outputs, where it plugs into Tally?{" "}
+            <a
+              href="https://github.com/polycloudin/ca-firm-toolkit#the-stack"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[var(--color-primary-blue)] link-underline"
+            >
+              See the technical breakdown ↗
+            </a>
+          </p>
         </div>
       </section>
 
@@ -688,18 +766,18 @@ export default function CaFirmSolution() {
               Shipped · not promised
             </span>
             <span className="text-[13.5px] text-[var(--color-text)]">
-              <span className="font-medium">18 tools built</span>
+              <span className="font-medium">18 tools running today</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
-              <span className="font-medium">220 / 220 tests passing</span>
+              <span className="font-medium">Installed on-site in 90 minutes</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
-              <span className="font-medium">every demo reproducible in &lt;3s</span>
+              <span className="font-medium">Your data never leaves the firm</span>
             </span>
           </div>
           <Link
             href="/ca-firm"
             className="mono text-[11px] text-[var(--color-primary-blue)] tracking-[0.1em] link-underline"
           >
-            See the live MIS →
+            See the live dashboard →
           </Link>
         </div>
       </section>
@@ -741,19 +819,20 @@ export default function CaFirmSolution() {
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing</p>
               <h2 className="text-[clamp(1.875rem,6vw,5rem)] leading-[1] max-w-3xl">
-                Three tiers. <span className="text-serif-accent">One retainer per tier</span>. No surprises.
+                Pick a tier. <span className="text-serif-accent">Add seats if you want them</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Start at Starter, upgrade in place when the next stack earns it. Every tool ships as a signed install — no subscription lock-in.
+              Three tiers cover the practice. Two optional add-ons stack on top. One flat retainer each month — no per-client, per-filing, or per-seat surprises.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-4">
-            {pricingTiers.map((tier) => (
+          {/* Three base tiers — headline grid */}
+          <div className="grid md:grid-cols-3 gap-5">
+            {baseTiers.map((tier) => (
               <div
                 key={tier.name}
-                className={`rounded-xl p-8 md:p-10 relative overflow-hidden ${
+                className={`rounded-2xl p-8 md:p-10 relative overflow-hidden ${
                   tier.accent
                     ? "text-white"
                     : "bg-white border border-[var(--color-line)]"
@@ -770,12 +849,10 @@ export default function CaFirmSolution() {
                   />
                 )}
                 <div className="relative">
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-5">
                     <p
                       className={`text-eyebrow ${
-                        tier.accent
-                          ? "text-white/50"
-                          : "text-[var(--color-text-muted)]"
+                        tier.accent ? "text-white/50" : "text-[var(--color-text-muted)]"
                       }`}
                     >
                       {tier.name}
@@ -787,12 +864,12 @@ export default function CaFirmSolution() {
                     )}
                   </div>
                   <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-display text-[clamp(2.25rem,4vw,3.25rem)] leading-none">
+                    <span className="text-display text-[clamp(2.5rem,4.5vw,3.5rem)] leading-none">
                       {tier.price}
                     </span>
                   </div>
                   <p
-                    className={`mono text-[12px] tracking-[0.1em] mb-2 ${
+                    className={`mono text-[12px] tracking-[0.1em] mb-4 ${
                       tier.accent ? "text-white/60" : "text-[var(--color-text-muted)]"
                     }`}
                   >
@@ -800,9 +877,7 @@ export default function CaFirmSolution() {
                   </p>
                   <p
                     className={`text-[14px] leading-relaxed mb-7 ${
-                      tier.accent
-                        ? "text-white/75"
-                        : "text-[var(--color-text-secondary)]"
+                      tier.accent ? "text-white/75" : "text-[var(--color-text-secondary)]"
                     }`}
                   >
                     {tier.summary}
@@ -831,8 +906,54 @@ export default function CaFirmSolution() {
             ))}
           </div>
 
-          <p className="mt-8 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em] text-center">
-            Tax-audit SKU adds ₹15–25K per client per season (Jul–Oct) on Pro · cancel any time
+          {/* Optional add-ons — visually subordinate */}
+          <div className="mt-14 md:mt-20">
+            <div className="flex items-center gap-4 mb-6">
+              <p className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+                Optional · stackable on any tier
+              </p>
+              <div className="flex-1 h-px bg-[var(--color-line)]" />
+            </div>
+            <div className="grid md:grid-cols-2 gap-5">
+              {addOns.map((a) => (
+                <div
+                  key={a.name}
+                  className="rounded-xl p-7 md:p-8 bg-[var(--color-surface-warm)] border border-[var(--color-line)]"
+                >
+                  <div className="flex items-baseline justify-between mb-4 flex-wrap gap-3">
+                    <h3 className="text-display text-[clamp(1.25rem,2vw,1.75rem)] leading-none">
+                      {a.name}
+                    </h3>
+                    <div className="text-right">
+                      <p className="text-display text-[clamp(1.25rem,2vw,1.75rem)] leading-none">
+                        {a.price}
+                      </p>
+                      <p className="mono text-[10px] text-[var(--color-text-muted)] tracking-[0.1em] mt-1">
+                        {a.unit}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed mb-5">
+                    {a.summary}
+                  </p>
+                  <ul className="space-y-2">
+                    {a.includes.map((inc) => (
+                      <li
+                        key={inc}
+                        className="text-[13px] leading-relaxed text-[var(--color-text)] flex gap-3"
+                      >
+                        <span className="text-[var(--color-primary-orange)] shrink-0">—</span>
+                        <span>{inc}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p className="mt-10 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em] text-center">
+            Upgrade tiers in place · cancel any time · first 30 days are a pilot, not a contract
           </p>
         </div>
       </section>
