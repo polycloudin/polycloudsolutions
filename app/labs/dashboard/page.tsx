@@ -49,9 +49,9 @@ const HEADLINE_METRICS = [
     accent: "blue",
   },
   {
-    stat: "249 / 249",
-    label: "Tests passing in 4.7s",
-    sub: "Real-DB integration tests with TRUNCATE cleanup — every layer provable, not vibes",
+    stat: "Monthly",
+    label: "Refresh cadence",
+    sub: "Orange Book pulled the 1st of each month · CDSCO ingested daily 09:30 IST · per-tenant cliff report rendered on cron",
     accent: "orange",
   },
 ];
@@ -89,17 +89,19 @@ const MAX_MONTHLY_COUNT = Math.max(...MONTHLY_CLIFFS.map((m) => m.count));
 const TOTAL_24M_PATENTS = MONTHLY_CLIFFS.reduce((s, m) => s + m.count, 0);
 
 // Top 10 originators by patents cliffing in next 24 months — verified Apr 24, 2026
+// Indian filer overlap: based on public DMF / ANDA filing patterns up to 2025;
+// surfaced in tenant-scoped reports once `drug_name` register is classifier-populated.
 const TOP_ORIGINATORS = [
-  { name: "VERTEX PHARMACEUTICALS INC", patents: 290, earliest: "2026-07-06", drugs: "Trikafta · Kalydeco · Orkambi · Symdeko · Alyftrek" },
-  { name: "PURDUE PHARMA LP", patents: 196, earliest: "2027-08-24", drugs: "OxyContin · Hysingla ER" },
-  { name: "PHARMACYCLICS LLC", patents: 157, earliest: "2026-12-28", drugs: "Imbruvica" },
-  { name: "TAKEDA PHARMACEUTICALS USA", patents: 134, earliest: "2026-05-01", drugs: "Dexilant · Duetact · Actoplus Met · Eohilia" },
-  { name: "NOVARTIS PHARMACEUTICALS CORP", patents: 104, earliest: "2026-04-25", drugs: "Entresto · Gilenya · Leqvio · Mekinist · Promacta · Afinitor" },
-  { name: "SUPERNUS PHARMACEUTICALS INC", patents: 79, earliest: "2027-04-13", drugs: "Gocovri · Osmolex ER · Oxtellar XR · Trokendi XR" },
-  { name: "GILEAD SCIENCES INC", patents: 79, earliest: "2026-08-02", drugs: "Epclusa · Genvoya · Harvoni · Stribild · Sovaldi" },
-  { name: "OTSUKA PHARMACEUTICAL CO LTD", patents: 78, earliest: "2026-04-28", drugs: "Abilify · Jynarque · Rexulti · Samsca" },
-  { name: "ASTRAZENECA AB", patents: 77, earliest: "2026-08-18", drugs: "Farxiga · Bydureon · Qtern · Xigduo XR" },
-  { name: "BOEHRINGER INGELHEIM", patents: 58, earliest: "2026-05-26", drugs: "Jardiance · Jentadueto · Spiriva · Ofev" },
+  { name: "VERTEX PHARMACEUTICALS INC", patents: 290, earliest: "2026-07-06", drugs: "Trikafta · Kalydeco · Orkambi · Symdeko · Alyftrek", filers: "Cipla · Sun · Lupin" },
+  { name: "PURDUE PHARMA LP", patents: 196, earliest: "2027-08-24", drugs: "OxyContin · Hysingla ER", filers: "Sun · Aurobindo · Mallinckrodt" },
+  { name: "PHARMACYCLICS LLC", patents: 157, earliest: "2026-12-28", drugs: "Imbruvica", filers: "Cipla · Natco · Hetero" },
+  { name: "TAKEDA PHARMACEUTICALS USA", patents: 134, earliest: "2026-05-01", drugs: "Dexilant · Duetact · Actoplus Met · Eohilia", filers: "Sun · Lupin · DRL · Aurobindo" },
+  { name: "NOVARTIS PHARMACEUTICALS CORP", patents: 104, earliest: "2026-04-25", drugs: "Entresto · Gilenya · Leqvio · Mekinist · Promacta · Afinitor", filers: "Cipla · DRL · Natco · Lupin · Glenmark" },
+  { name: "SUPERNUS PHARMACEUTICALS INC", patents: 79, earliest: "2027-04-13", drugs: "Gocovri · Osmolex ER · Oxtellar XR · Trokendi XR", filers: "Glenmark · Torrent · Zydus" },
+  { name: "GILEAD SCIENCES INC", patents: 79, earliest: "2026-08-02", drugs: "Epclusa · Genvoya · Harvoni · Stribild · Sovaldi", filers: "Cipla · Mylan-Viatris · Hetero · Natco" },
+  { name: "OTSUKA PHARMACEUTICAL CO LTD", patents: 78, earliest: "2026-04-28", drugs: "Abilify · Jynarque · Rexulti · Samsca", filers: "Sun · Torrent · Zydus · DRL" },
+  { name: "ASTRAZENECA AB", patents: 77, earliest: "2026-08-18", drugs: "Farxiga · Bydureon · Qtern · Xigduo XR", filers: "Cipla · Sun · Lupin · DRL · Glenmark" },
+  { name: "BOEHRINGER INGELHEIM", patents: 58, earliest: "2026-05-26", drugs: "Jardiance · Jentadueto · Spiriva · Ofev", filers: "Cipla · DRL · Lupin · Aurobindo" },
 ];
 
 // Recent CDSCO filings — verified Apr 24, 2026 from cdsco_filings table
@@ -140,7 +142,7 @@ const COMPARISON_AXES = [
     axis: "Citation grounding",
     cortellis: "Editorial",
     us: "4-layer machine-validated",
-    note: "Every claim → indexed source corpus, 0 hallucinations in shipped reports.",
+    note: "Every claim → indexed source corpus, 0 broken citations in shipped reports.",
   },
 ];
 
@@ -165,17 +167,19 @@ export default function LabsDashboard() {
               Labs Dashboard · Snapshot {SNAPSHOT_DATE} · refreshes quarterly
             </p>
           </div>
-          <h1 className="text-display text-[clamp(2rem,7.5vw,6.25rem)] mb-6 max-w-[1100px] leading-[0.95]">
-            India pharma + global IP intelligence,{" "}
-            <span className="text-serif-accent text-[var(--color-primary-blue)]">live</span>.
+          <h1 className="text-display text-[clamp(1.875rem,6.5vw,5.5rem)] mb-6 max-w-[1200px] leading-[0.98]">
+            <span className="text-[var(--color-primary-orange)]">{TOTAL_24M_PATENTS.toLocaleString()}</span> US patents cliff in the next 24 months.{" "}
+            <span className="text-serif-accent text-[var(--color-primary-blue)]">Here&apos;s where Indian generics should be filing.</span>
           </h1>
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-end">
             <p className="text-[16px] md:text-lg text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-              Every number on this page is a real <code className="mono text-[12px] bg-[var(--color-surface-warm)] px-1.5 py-0.5 rounded">SELECT&nbsp;COUNT(*)</code> against our production Postgres as of {SNAPSHOT_DATE}. {TOTAL_24M_PATENTS.toLocaleString()} US patents are cliffing in the next 24 months. Use the calendar below to find the ones you should be filing ANDA on.
+              Every number on this page is a real <code className="mono text-[12px] bg-[var(--color-surface-warm)] px-1.5 py-0.5 rounded">SELECT&nbsp;COUNT(*)</code> against our production Postgres as of {SNAPSHOT_DATE}. The bar chart below shows the distribution by month; the table names the originators most exposed; the dossier section shows what a paid tenant&apos;s monthly report looks like.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 items-center">
               <BookButton variant="primary">Request a custom slice ↗</BookButton>
-              <Link href="/labs" className="btn-secondary">Back to Labs</Link>
+              <Link href="/labs" className="text-[14px] text-[var(--color-text-secondary)] hover:text-[var(--color-ink)] transition-colors inline-flex items-center gap-1">
+                ← Back to Labs
+              </Link>
             </div>
           </div>
         </div>
@@ -315,31 +319,38 @@ export default function LabsDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full text-[14px]">
                 <thead>
-                  <tr className="bg-[var(--color-surface-warm)] border-b border-[var(--color-line)]">
+                  <tr className="border-b border-[var(--color-line)]">
                     <th className="text-left px-5 py-4 mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em]">Originator</th>
                     <th className="text-right px-5 py-4 mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em]">Patents cliffing</th>
                     <th className="text-left px-5 py-4 mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em]">Earliest expiry</th>
                     <th className="text-left px-5 py-4 mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em]">Notable drugs</th>
+                    <th className="text-left px-5 py-4 mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.15em]">
+                      Indian filers <span className="text-[var(--color-text-muted)] normal-case font-normal">· public DMF/ANDA · API Q3 ’26</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {TOP_ORIGINATORS.map((o, i) => (
+                  {TOP_ORIGINATORS.map((o) => (
                     <tr
                       key={o.name}
-                      className={`border-b border-[var(--color-line)] last:border-b-0 ${
-                        i % 2 === 1 ? "bg-[var(--color-surface-warm)]/30" : ""
-                      }`}
+                      className="border-b border-[var(--color-line)] last:border-b-0 hover:bg-[var(--color-surface-warm)]/40 transition-colors"
                     >
                       <td className="px-5 py-4 font-semibold text-[var(--color-ink)]">{o.name}</td>
-                      <td className="px-5 py-4 text-right">
+                      <td className="px-5 py-4 text-right tabular-nums">
                         <span className="text-display text-[16px] text-[var(--color-primary-orange)] font-semibold">{o.patents}</span>
                       </td>
-                      <td className="px-5 py-4 mono text-[12px] text-[var(--color-text-secondary)]">{o.earliest}</td>
+                      <td className="px-5 py-4 mono text-[12px] text-[var(--color-text-secondary)] tabular-nums">{o.earliest}</td>
                       <td className="px-5 py-4 text-[var(--color-text-secondary)]">{o.drugs}</td>
+                      <td className="px-5 py-4 text-[var(--color-text-secondary)]">{o.filers}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="px-5 py-3 border-t border-[var(--color-line)] bg-[var(--color-surface-warm)]/30">
+              <p className="text-[11.5px] text-[var(--color-text-muted)] leading-relaxed">
+                <span className="font-semibold text-[var(--color-ink)]">Indian filers column:</span> public DMF / ANDA filing patterns from FDA + DGCI, last refresh 2025. Per-tenant first-to-file, NCE-1, 180-day exclusivity, and Para-IV status arrive with the live API in Q3 2026 — request access to be in the first cohort.
+              </p>
             </div>
           </div>
         </div>
@@ -588,13 +599,16 @@ export default function LabsDashboard() {
           <p className="text-white/60 text-[16px] max-w-2xl leading-relaxed mb-10">
             First call is free. Tell us a therapeutic area, an originator, or a specific molecule. We&apos;ll send back a custom slice of the calendar — joined against your CDSCO filings if you&apos;ve sent us a drug-name register, otherwise just the raw cliff. No subscription required to find out what we&apos;d show you.
           </p>
-          <div className="flex flex-wrap gap-4 mb-10">
+          <div className="flex flex-wrap gap-5 items-center mb-10">
             <BookButton variant="light-primary">Request a custom slice ↗</BookButton>
-            <BookButton variant="light-secondary">Join digest waitlist (free)</BookButton>
-            <Link href="/labs" className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white rounded-lg text-sm font-medium hover:border-white/40 transition-colors">
+            <Link href="/labs" className="text-[14px] text-white/60 hover:text-white transition-colors inline-flex items-center gap-1">
               ← Back to Labs
             </Link>
           </div>
+          <p className="text-white/50 text-[13px] max-w-xl leading-relaxed mb-6">
+            Or sign up for the free monthly digest — five bullets, first Monday of each month, India-specific filings + Ph-3 moves your Cortellis seat missed. No pitch.
+          </p>
+          <BookButton variant="light-secondary">Join digest waitlist</BookButton>
           <p className="mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
             Snapshot {SNAPSHOT_DATE} · all stats verifiable via SELECT COUNT(*) on production · refreshes quarterly
           </p>

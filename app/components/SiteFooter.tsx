@@ -10,7 +10,7 @@ export default function SiteFooter() {
               Polycloud<span className="text-[var(--color-primary-orange)]">.</span>
             </span>
             <p className="mt-5 text-[14px] text-white/60 max-w-md leading-relaxed">
-              AI-native automation firm. We sit with operators, find where time and money leak, then design, build, and run the fix end-to-end.
+              An AI-native operating company from Hyderabad. Three verticals: Digital ships SMB automations, Consulting builds intelligence systems for mid-market teams, Labs runs deep-tech and pharma research at primary-source depth.
             </p>
             <a
               href="mailto:hello@polycloud.in"
