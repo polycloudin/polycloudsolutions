@@ -5,6 +5,7 @@ import SiteNav from "../../components/SiteNav";
 import SiteFooter from "../../components/SiteFooter";
 import {
   INDIAN_PHARMA,
+  INDIAN_PHARMA_UNLISTED,
   COMPANY_NAME_TO_SLUG,
   sectorHealthSummary,
 } from "../../../lib/labs/indian-pharma";
@@ -441,20 +442,28 @@ export default function LabsDashboard() {
         </div>
       </section>
 
-      {/* Indian pharma sector health — A3 (MCA-joined) */}
+      {/* Indian pharma sector — A3 (listed cos, one-stop joined view) */}
       <section className="px-6 md:px-10 py-16 md:py-28 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-12 md:mb-14 flex-wrap gap-6">
+          <div className="flex items-end justify-between mb-8 md:mb-10 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">02b / Indian pharma sector · MCA-joined corporate health</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">02b / Indian pharma · {INDIAN_PHARMA.length} listed cos, joined view</p>
               <h2 className="text-[clamp(1.625rem,4vw,3.25rem)] max-w-2xl leading-[1.05]">
-                {INDIAN_PHARMA.length} Indian pharma cos indexed.{" "}
-                <span className="text-serif-accent text-[var(--color-primary-blue)]">Click any name to drill in.</span>
+                Not a new dataset.{" "}
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">A one-click join across five.</span>
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[14px] leading-relaxed">
-              Sourced via BizAPI MCA21 connector — sibling data product to the Labs regulatory feeds. Each company page joins MCA corporate data to CDSCO filings, Orange Book cliffs, and CTRI trials.
+              Listed pharma basics are already public (Screener, BSE, annual reports). What this view adds on top: CDSCO filings + Orange Book cliff exposure + CTRI trials + MCA charge ledger + subsidiary network — joined per company. The <em>uniquely-MCA</em> sector is unlisted pharma; that cohort is next.
             </p>
+          </div>
+
+          {/* Honest-framing band */}
+          <div className="mb-10 px-5 py-4 rounded-xl border border-[var(--color-line)] bg-white/60 text-[13px] text-[var(--color-text-secondary)] leading-relaxed">
+            <span className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mr-2">Candid</span>
+            <span>
+              For listed pharma, <span className="font-semibold text-[var(--color-ink)]">~70% of MCA data overlaps with BSE/Screener</span>. The MCA-unique fields here are charge ledger (leverage signals) + subsidiary filings + director-DIN cross-linkage. The real moat is in unlisted cos (Intas, Macleods, MSN, Aurigene, Cipla Health) — see the section below.
+            </span>
           </div>
 
           {/* Sector-level aggregate cards */}
@@ -476,6 +485,57 @@ export default function LabsDashboard() {
                 </div>
                 <p className="text-[11px] text-[var(--color-text-muted)] mb-3">{c.state}</p>
                 <div className="flex items-center gap-2.5 text-[11px] text-[var(--color-text-secondary)]">
+                  <span className="tabular-nums">₹{c.paidUpCapitalCr.toFixed(0)} Cr</span>
+                  <span>·</span>
+                  <span>{c.cliffExposures.length} cliffs</span>
+                  <span>·</span>
+                  <span>{c.cdscoFilings90d.length} CDSCO/90d</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 02c — Unlisted / MCA-exclusive Indian pharma (where MCA genuinely isn't replaceable) */}
+      <section className="px-6 md:px-10 py-16 md:py-28">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-8 md:mb-10 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-4">02c / Unlisted + subsidiary · {INDIAN_PHARMA_UNLISTED.length} MCA-exclusive cos</p>
+              <h2 className="text-[clamp(1.625rem,4vw,3.25rem)] max-w-2xl leading-[1.05]">
+                Where MCA is the <span className="text-serif-accent text-[var(--color-primary-orange)]">only</span> public source.
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[14px] leading-relaxed">
+              Intas, Macleods, MSN — unlisted private pharma cos with no SEBI disclosure. Aurigene, Cipla Health, Biocon Biologics — subsidiaries dark on their listed parents&apos; Screener pages. MCA21 is the only window into their financials, board, charges, and filings.
+            </p>
+          </div>
+
+          {/* Why-this-matters band */}
+          <div className="mb-10 px-5 py-4 rounded-xl border border-[var(--color-primary-orange)]/30 bg-[var(--color-primary-orange)]/5 text-[13px] text-[var(--color-text-secondary)] leading-relaxed">
+            <span className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mr-2">Not on Screener</span>
+            <span>
+              These {INDIAN_PHARMA_UNLISTED.length} cos aggregate ~<span className="font-semibold text-[var(--color-ink)]">₹{Math.round(INDIAN_PHARMA_UNLISTED.reduce((s, c) => s + c.paidUpCapitalCr, 0)).toLocaleString("en-IN")} Cr</span> in paid-up capital, file monthly with MCA21, and are invisible to any public-equity analyst tool. Intas alone (est. ₹18K+ Cr revenue) is the largest Indian pharma not on a stock exchange. This is where the MCA moat actually lives.
+            </span>
+          </div>
+
+          {/* Company grid — unlisted */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            {INDIAN_PHARMA_UNLISTED.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/labs/dashboard/company/${c.slug}`}
+                className="group bg-white rounded-xl border border-[var(--color-line)] hover:border-[var(--color-primary-orange)]/50 p-4 transition-colors"
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <p className="text-display text-[15px] leading-tight group-hover:text-[var(--color-primary-orange)] transition-colors">{c.name}</p>
+                  <span className={`mono text-[9px] uppercase tracking-[0.1em] px-1.5 py-0.5 rounded border ${gradeBadgeStyleInline(c.ddGrade)}`}>
+                    {c.ddGrade}
+                  </span>
+                </div>
+                <p className="text-[11px] text-[var(--color-text-muted)] mb-3">{c.state} · private</p>
+                <div className="flex items-center gap-2.5 text-[11px] text-[var(--color-text-secondary)] flex-wrap">
                   <span className="tabular-nums">₹{c.paidUpCapitalCr.toFixed(0)} Cr</span>
                   <span>·</span>
                   <span>{c.cliffExposures.length} cliffs</span>

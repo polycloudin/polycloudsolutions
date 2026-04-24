@@ -1,0 +1,336 @@
+[
+  {
+    "slug": "intas",
+    "name": "Intas Pharmaceuticals",
+    "legalName": "Intas Pharmaceuticals Limited",
+    "cin": "U24231GJ1984PLC006842",
+    "incorporatedYear": 1984,
+    "registeredOffice": "Chinubhai Centre, Off Nehru Bridge, Ahmedabad",
+    "state": "Gujarat",
+    "paidUpCapitalCr": 34.2,
+    "marketCapEstimateCr": null,
+    "directorsCount": 9,
+    "notableDirectors": [
+      { "role": "Chairman", "name": "Hasmukh Chudgar" },
+      { "role": "MD", "name": "Binish Chudgar" },
+      { "role": "MD", "name": "Nimish Chudgar" }
+    ],
+    "ddGrade": "A-",
+    "ddScore": 79,
+    "recentCharges90d": 2,
+    "governanceFlags": [
+      "Largest unlisted Indian pharma · chose not to IPO",
+      "Accord Healthcare (UK subsidiary) is the oncology + biosimilars arm",
+      "Chudgar family · 100% promoter-held · zero external equity"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-17", "source": "approved_new_drugs", "title": "Trastuzumab-intas biosimilar: post-approval amendment" },
+      { "date": "2026-03-21", "source": "biologicals", "title": "Manufacturing site extension for biosimilar cohort" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "TRASTUZUMAB", "tradeName": "Herceptin", "originator": "Genentech (Roche)", "cliffDate": "2027-06", "indianStatus": "Biosimilar Intamab marketed India since 2014", "action": "hot" },
+      { "activeIngredient": "RITUXIMAB", "tradeName": "MabThera", "originator": "Genentech (Roche)", "cliffDate": "2026-07", "indianStatus": "Biosimilar marketed", "action": "hot" },
+      { "activeIngredient": "BEVACIZUMAB", "tradeName": "Avastin", "originator": "Genentech (Roche)", "cliffDate": "2026-06", "indianStatus": "Biosimilar launched India 2022", "action": "hot" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/02/079544", "phase": "Phase 3", "indication": "Biosimilar aflibercept · ophthalmology", "status": "Recruiting" }
+    ],
+    "strategicNote": "The largest unlisted Indian pharma you've never been able to price. ₹18K+ Cr estimated revenue. Biosimilars + oncology depth via Accord Healthcare. Decided against listing — which means Screener has nothing. MCA21 is the only way to see their financials, board, and filings."
+  },
+  {
+    "slug": "macleods",
+    "name": "Macleods Pharmaceuticals",
+    "legalName": "Macleods Pharmaceuticals Limited",
+    "cin": "U99999MH1989PLC054045",
+    "incorporatedYear": 1989,
+    "registeredOffice": "Atlanta Arcade, Andheri East, Mumbai",
+    "state": "Maharashtra",
+    "paidUpCapitalCr": 12.5,
+    "marketCapEstimateCr": null,
+    "directorsCount": 8,
+    "notableDirectors": [
+      { "role": "Chairman & MD", "name": "Rajendra Agarwal" },
+      { "role": "Jt. MD", "name": "Girdhari Lal Agarwal" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 74,
+    "recentCharges90d": 3,
+    "governanceFlags": [
+      "Global leader in TB and HIV generics (WHO prequalified)",
+      "Anti-infective + cardiac + dermatology depth",
+      "Agarwal family · private · IPO attempted 2022, withdrawn"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-10", "source": "approved_new_drugs", "title": "Tenofovir-emtricitabine-dolutegravir: approval" },
+      { "date": "2026-03-19", "source": "notifications", "title": "API master file update · TB portfolio" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "DOLUTEGRAVIR", "tradeName": "Tivicay", "originator": "ViiV Healthcare", "cliffDate": "2027-11", "indianStatus": "HIV generic · WHO prequalified · PEPFAR supply", "action": "warm" },
+      { "activeIngredient": "BEDAQUILINE FUMARATE", "tradeName": "Sirturo", "originator": "Janssen", "cliffDate": "2027-12", "indianStatus": "TB generic license from Janssen 2023", "action": "warm" }
+    ],
+    "activeCTRITrials": [],
+    "strategicNote": "India's quiet global-health giant. 120+ countries, TB + HIV + antibiotics specialty. Attempted IPO 2022 · withdrew citing market conditions. Still private. MCA is the only window — and the charge filings reveal the leverage their withdrawn IPO prospectus hinted at."
+  },
+  {
+    "slug": "msn-labs",
+    "name": "MSN Laboratories",
+    "legalName": "MSN Laboratories Private Limited",
+    "cin": "U74210TG2003PTC041317",
+    "incorporatedYear": 2003,
+    "registeredOffice": "Kondapur, Hyderabad",
+    "state": "Telangana",
+    "paidUpCapitalCr": 8.8,
+    "marketCapEstimateCr": null,
+    "directorsCount": 6,
+    "notableDirectors": [
+      { "role": "Chairman & MD", "name": "M. S. N. Reddy" },
+      { "role": "Jt. MD", "name": "Saranya Reddy" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 72,
+    "recentCharges90d": 4,
+    "governanceFlags": [
+      "Oncology API + formulations · CDMO for multinationals",
+      "Private ltd — no SEBI disclosure · MCA21 only",
+      "IPO rumored 2025-26 · no filing yet"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-08", "source": "approved_new_drugs", "title": "Imatinib mesylate 400mg: manufacturing site addition" },
+      { "date": "2026-03-20", "source": "biologicals", "title": "API filing: bortezomib" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "IBRUTINIB", "tradeName": "Imbruvica", "originator": "Pharmacyclics", "cliffDate": "2026-12", "indianStatus": "API registered · formulation pending", "action": "hot" },
+      { "activeIngredient": "BOSUTINIB MONOHYDRATE", "tradeName": "Bosulif", "originator": "PF Prism CV (Pfizer)", "cliffDate": "2026-06", "indianStatus": "API submitted", "action": "warm" }
+    ],
+    "activeCTRITrials": [],
+    "strategicNote": "Hyderabad-based oncology API leader. Aggressive capacity growth. IPO whispered but not filed. Without MCA you'd see nothing — no Screener coverage, no analyst notes."
+  },
+  {
+    "slug": "aurigene",
+    "name": "Aurigene Oncology",
+    "legalName": "Aurigene Oncology Limited",
+    "cin": "U24233TG2020PLC139567",
+    "incorporatedYear": 2020,
+    "registeredOffice": "Bollaram, Hyderabad",
+    "state": "Telangana",
+    "paidUpCapitalCr": 0.1,
+    "marketCapEstimateCr": null,
+    "directorsCount": 5,
+    "notableDirectors": [
+      { "role": "Director (nominee DRL)", "name": "G. V. Prasad" },
+      { "role": "CEO", "name": "Murali Ramachandra" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 73,
+    "recentCharges90d": 0,
+    "governanceFlags": [
+      "Wholly-owned subsidiary of Dr Reddy's Laboratories",
+      "NCE discovery platform · PD-L1, CBL-B, IRAK4 programs",
+      "DRL's bet on moving from generics to originator IP"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-05", "source": "clinical_trials", "title": "CT permission · RP-3500 Phase 1 India sites" }
+    ],
+    "cliffExposures": [],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/03/081899", "phase": "Phase 1", "indication": "RP-3500 · ATR inhibitor · solid tumors", "status": "Recruiting" }
+    ],
+    "strategicNote": "DRL's private biotech arm. NCE-focused — no generic pipeline. None of this appears on DRL's parent Screener page. MCA21 is how you see Aurigene's financials, Board DIN overlap with DRL parent, and CT permissions. Stealth unit with platform potential."
+  },
+  {
+    "slug": "cipla-health",
+    "name": "Cipla Health",
+    "legalName": "Cipla Health Limited",
+    "cin": "U24239MH2015PLC270647",
+    "incorporatedYear": 2015,
+    "registeredOffice": "Mumbai Central, Mumbai",
+    "state": "Maharashtra",
+    "paidUpCapitalCr": 45.0,
+    "marketCapEstimateCr": null,
+    "directorsCount": 6,
+    "notableDirectors": [
+      { "role": "Chairman", "name": "Umang Vohra" },
+      { "role": "MD", "name": "Shivam Puri" }
+    ],
+    "ddGrade": "A-",
+    "ddScore": 77,
+    "recentCharges90d": 0,
+    "governanceFlags": [
+      "Cipla Ltd's OTC + nutraceutical subsidiary",
+      "Brands: Nicotex, Omnigel, Maxirich, Prolyte, Cipladine",
+      "Separate financial trail from parent — invisible on Cipla's Screener page"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-04", "source": "notifications", "title": "OTC nutraceutical labeling update notification" }
+    ],
+    "cliffExposures": [],
+    "activeCTRITrials": [],
+    "strategicNote": "Cipla's consumer-health subsidiary. ₹1,000+ Cr revenue from Nicotex alone. Completely dark on parent Cipla's Screener page — MCA21 surfaces it. Useful when modeling Cipla's OTC trajectory separately from prescription generics."
+  },
+  {
+    "slug": "biocon-biologics",
+    "name": "Biocon Biologics",
+    "legalName": "Biocon Biologics Limited",
+    "cin": "U73100KA2016PLC090143",
+    "incorporatedYear": 2016,
+    "registeredOffice": "Biocon Campus, Bommasandra, Bengaluru",
+    "state": "Karnataka",
+    "paidUpCapitalCr": 1208.5,
+    "marketCapEstimateCr": null,
+    "directorsCount": 10,
+    "notableDirectors": [
+      { "role": "Exec Chairperson", "name": "Kiran Mazumdar-Shaw" },
+      { "role": "MD & CEO", "name": "Shreehas Tambe" },
+      { "role": "CFO", "name": "Kedar Upadhye" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 75,
+    "recentCharges90d": 5,
+    "governanceFlags": [
+      "Biocon Ltd's biosimilars subsidiary (pre-IPO)",
+      "Acquired Viatris bio-assets 2023 (~$3.3B debt-funded deal)",
+      "High leverage · charge filings show the acquisition structure"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-12", "source": "biologicals", "title": "Trastuzumab biosimilar: manufacturing amendment" },
+      { "date": "2026-03-28", "source": "biologicals", "title": "Insulin glargine: post-approval change" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "TRASTUZUMAB", "tradeName": "Herceptin", "originator": "Genentech (Roche)", "cliffDate": "2027-06", "indianStatus": "Biosimilar Ogivri · US + global", "action": "hot" },
+      { "activeIngredient": "PEGFILGRASTIM", "tradeName": "Neulasta", "originator": "Amgen", "cliffDate": "2027-02", "indianStatus": "Biosimilar Fulphila · global", "action": "warm" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/05/086712", "phase": "Phase 3", "indication": "Aflibercept biosimilar · ophthalmology", "status": "Recruiting" }
+    ],
+    "strategicNote": "Biocon's biosimilars vehicle. Post-Viatris acquisition (2023), it carries material debt — visible via MCA charge filings but obscured on Biocon parent's Screener. The best reason to care about MCA on a listed-parent co."
+  },
+  {
+    "slug": "sandoz-india",
+    "name": "Sandoz India",
+    "legalName": "Sandoz Private Limited",
+    "cin": "U24110MH1965PTC013122",
+    "incorporatedYear": 1965,
+    "registeredOffice": "Dr Annie Besant Road, Worli, Mumbai",
+    "state": "Maharashtra",
+    "paidUpCapitalCr": 8.9,
+    "marketCapEstimateCr": null,
+    "directorsCount": 5,
+    "notableDirectors": [
+      { "role": "MD", "name": "Richard Saynor (Sandoz Group)" },
+      { "role": "Director", "name": "Darshan Patel" }
+    ],
+    "ddGrade": "B",
+    "ddScore": 70,
+    "recentCharges90d": 1,
+    "governanceFlags": [
+      "Novartis/Sandoz Group's India private arm",
+      "Distinct from listed Novartis India Ltd (BSE)",
+      "Generic + biosimilar supply to domestic market"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-06", "source": "approved_new_drugs", "title": "Glimepiride metformin FDC: approval" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "GILENYA", "tradeName": "Gilenya", "originator": "Novartis", "cliffDate": "2027-11", "indianStatus": "Internal Novartis group supply · observe", "action": "scout" }
+    ],
+    "activeCTRITrials": [],
+    "strategicNote": "Novartis's Indian generic-arm entity. Separate from listed Novartis India Ltd — which confuses a lot of analysts. The private entity handles the generic portfolio Novartis spun into Sandoz globally in 2023."
+  },
+  {
+    "slug": "piramal-pharma",
+    "name": "Piramal Pharma",
+    "legalName": "Piramal Pharma Limited",
+    "cin": "L24290MH2022PLC382891",
+    "incorporatedYear": 2022,
+    "registeredOffice": "Ganpatrao Kadam Marg, Lower Parel, Mumbai",
+    "state": "Maharashtra",
+    "paidUpCapitalCr": 1194.5,
+    "marketCapEstimateCr": 32000,
+    "directorsCount": 10,
+    "notableDirectors": [
+      { "role": "Chairperson", "name": "Nandini Piramal" },
+      { "role": "Director", "name": "Ajay Piramal" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 74,
+    "recentCharges90d": 4,
+    "governanceFlags": [
+      "Spun from Piramal Enterprises (2022 demerger) · now separately listed",
+      "CDMO + complex hospital generics + consumer health segments",
+      "Three distinct businesses rolled up — structurally complex · many subsidiary filings"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-11", "source": "biologicals", "title": "Antibody-drug conjugate: manufacturing licence amendment" }
+    ],
+    "cliffExposures": [],
+    "activeCTRITrials": [],
+    "strategicNote": "Recently-demerged pharma arm of the Piramal group. Separately listed but so sub-heavy that MCA-level visibility into each operating subsidiary matters more than for single-entity listed cos. ADC + CDMO play."
+  },
+  {
+    "slug": "mankind-pharma",
+    "name": "Mankind Pharma",
+    "legalName": "Mankind Pharma Limited",
+    "cin": "L24239DL1995PLC066433",
+    "incorporatedYear": 1995,
+    "registeredOffice": "Okhla Industrial Area, New Delhi",
+    "state": "Delhi",
+    "paidUpCapitalCr": 401.1,
+    "marketCapEstimateCr": 108000,
+    "directorsCount": 10,
+    "notableDirectors": [
+      { "role": "Chairman & MD", "name": "Ramesh Juneja" },
+      { "role": "Jt. MD", "name": "Rajeev Juneja" },
+      { "role": "Vice Chairman", "name": "Sheetal Arora" }
+    ],
+    "ddGrade": "A-",
+    "ddScore": 78,
+    "recentCharges90d": 2,
+    "governanceFlags": [
+      "Private for 28 years (1995-2023) · IPO'd May 2023",
+      "Bharat Serums & Vaccines acquired for ₹13,630 Cr (2024)",
+      "Domestic India retail brand depth (Manforce, Prega News, Unwanted 72)"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-15", "source": "approved_new_drugs", "title": "Dapagliflozin fixed dose combination: approval" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "DAPAGLIFLOZIN", "tradeName": "Forxiga", "originator": "AstraZeneca AB", "cliffDate": "2026-08", "indianStatus": "FDC approval April 2026 · launch imminent", "action": "urgent" }
+    ],
+    "activeCTRITrials": [],
+    "strategicNote": "India's largest consumer-facing pharma brand. Domestic-retail powerhouse. Now listed but MCA trail reveals the 28-year private build that Screener can't show. Bharat Serums acquisition structure (₹13,630 Cr) is visible in recent charge filings."
+  },
+  {
+    "slug": "emcure",
+    "name": "Emcure Pharmaceuticals",
+    "legalName": "Emcure Pharmaceuticals Limited",
+    "cin": "L24239PN1981PLC081200",
+    "incorporatedYear": 1981,
+    "registeredOffice": "Hinjewadi, Pune",
+    "state": "Maharashtra",
+    "paidUpCapitalCr": 19.3,
+    "marketCapEstimateCr": 28000,
+    "directorsCount": 11,
+    "notableDirectors": [
+      { "role": "Executive Chairperson", "name": "Namita Thapar" },
+      { "role": "MD", "name": "Satish Mehta" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 76,
+    "recentCharges90d": 3,
+    "governanceFlags": [
+      "Private for 43 years (1981-2024) · IPO'd July 2024",
+      "HIV + women's-health + oncology depth",
+      "Zuventus Healthcare (domestic retail arm) is a subsidiary"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-09", "source": "clinical_trials", "title": "CT permission: oncology Phase-3 India sites" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "DOLUTEGRAVIR", "tradeName": "Tivicay", "originator": "ViiV Healthcare", "cliffDate": "2027-11", "indianStatus": "HIV generic · Africa supply", "action": "warm" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/04/083222", "phase": "Phase 3", "indication": "Oncology · proprietary combination", "status": "Recruiting" }
+    ],
+    "strategicNote": "Pune-based generic + specialty. Private until July 2024 IPO. MCA filings across 43 years = real historical texture. Acquired multiple smaller pharma cos via MCA-filed amalgamations — those charge filings tell the real consolidation story."
+  }
+]

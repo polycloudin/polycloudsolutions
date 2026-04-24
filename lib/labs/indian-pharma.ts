@@ -14,6 +14,7 @@
 // https://www.mca.gov.in/mcafoportal/viewCompanyMasterData.do
 
 import pharmaData from "./indian-pharma.json";
+import unlistedData from "./indian-pharma-unlisted.json";
 
 export type DDGrade = "A+" | "A" | "A-" | "B+" | "B" | "B-" | "C+" | "C" | "D";
 
@@ -62,17 +63,22 @@ export interface IndianPharmaCompany {
 }
 
 export const INDIAN_PHARMA = pharmaData as IndianPharmaCompany[];
+export const INDIAN_PHARMA_UNLISTED = unlistedData as IndianPharmaCompany[];
+export const INDIAN_PHARMA_ALL: IndianPharmaCompany[] = [
+  ...INDIAN_PHARMA,
+  ...INDIAN_PHARMA_UNLISTED,
+];
 
 // --------------------------------------------------------
 // Helpers
 // --------------------------------------------------------
 
 export function getCompanyBySlug(slug: string): IndianPharmaCompany | undefined {
-  return INDIAN_PHARMA.find((c) => c.slug === slug);
+  return INDIAN_PHARMA_ALL.find((c) => c.slug === slug);
 }
 
 export function allCompanySlugs(): string[] {
-  return INDIAN_PHARMA.map((c) => c.slug);
+  return INDIAN_PHARMA_ALL.map((c) => c.slug);
 }
 
 // Maps display names (as they appear in the originator table filer column)
