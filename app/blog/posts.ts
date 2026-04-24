@@ -937,6 +937,311 @@ export const posts: BlogPost[] = [
       { slug: "ai-employee-ca-firm", label: "AI employees for professional-services firms" },
     ],
   },
+  // -----------------------------------------------------------------
+  // NEW · Apr 2026 · covers surfaces shipped in the last two weeks
+  // -----------------------------------------------------------------
+  {
+    slug: "ca-firm-toolkit-gstr2b-recon",
+    title:
+      "We built a GSTR-2B reconciliation toolkit for Indian CA firms",
+    description:
+      "A unified CLI that bundles four tools Indian CA practices run every month — GSTR-2B ↔ Tally recon, WhatsApp vendor follow-up, invoice OCR into Tally, ITC risk dashboard. One command. Local install. Audit trail included.",
+    readTime: "9 min read",
+    searchVolume: "450/month",
+    difficulty: "Medium",
+    category: "CA Firm Automation",
+    sections: [
+      {
+        heading: "What ships in the toolkit",
+        bullets: [
+          "recon — GSTR-2B ↔ Tally purchase register matcher with amount tolerance and fuzzy invoice-number matching (rapidfuzz, 85+ score threshold)",
+          "followup — reads the recon output, generates Meta-approved WhatsApp templates for vendors with missing/amended invoices",
+          "ocr — WhatsApp photo → structured extraction → Tally XML voucher draft. Local dots.ocr or Claude Vision backends",
+          "dashboard — FastAPI + Next.js, runs on the firm's laptop; shows ITC-at-risk by vendor, top leaks, monthly trend",
+          "Unified ca-firm CLI with shared config file + append-only audit.jsonl",
+        ],
+      },
+      {
+        heading: "The 5-sheet Excel output every partner reviews in under 20 minutes",
+        bullets: [
+          "Summary — total in-2B vs in-books, match rate, ITC at risk in rupees",
+          "Matched — clean green rows, nothing to review",
+          "Mismatches — amount-diff / date-diff / partial matches with reason codes",
+          "Only in Books — supplier hasn't filed yet, chase them (auto-generates follow-up CSV)",
+          "Only in 2B — not booked yet, investigate or book",
+        ],
+      },
+      {
+        heading: "Verified via --demo mode — reproducible on your laptop",
+        bullets: [
+          "Demo generates 16 synthetic invoices across 8 suppliers; matches 13, mismatches 2, one each only-in-books and only-in-2B",
+          "Computes ITC at risk correctly at ₹2,685.57 on demo data — reason-tagged by row",
+          "Runtime under 30 seconds on 5,000-invoice registers; `python3 recon.py --demo` works fully offline",
+          "Local install (`bash install.sh`) sets up ~/.ca-firm/ with config + audit log; 90 seconds from clone to first report",
+        ],
+      },
+      {
+        heading: "Why the architecture is local-first",
+        bullets: [
+          "Tally + GSTR-2B data never leaves the firm's laptop — no cloud inference, no third-party SaaS",
+          "WhatsApp API keys and recon outputs stored in ~/.ca-firm/, writable only by firm operator",
+          "Audit log appended per tool invocation — every match, flag, send is reviewable and reversible",
+          "Swap OCR backend between local dots.ocr and cloud vision API per-firm policy — no code change",
+        ],
+      },
+      {
+        heading: "What's behind the 8h → 45min number",
+        bullets: [
+          "Baseline from real 4-partner Hyderabad firm time-tracking — 8 hours/client/month across junior + partner",
+          "3.5h of manual VLOOKUP in Excel → 30 seconds of rapidfuzz matching",
+          "2.5h of vendor phone chase → queued WhatsApp templates, auto-sent after approval",
+          "0.5h of junior summary drafting → the 5-sheet Excel IS the summary",
+          "0.5h partner review → 12min on flagged rows only (ITC-at-risk > ₹10K, OCR confidence < 90%)",
+        ],
+      },
+      {
+        heading: "Who this is for — and who it isn't",
+        bullets: [
+          "For: 2-10 partner CA firms with 20-60 clients, Tally-standard workflow, WhatsApp-first vendor comms",
+          "Not yet: global tax + transfer pricing specialty firms (different recon logic)",
+          "Available to pilot under NDA · ₹18K/mo retainer · break-even in week one on a 40-client firm",
+          "GitHub repo is private during pilot phase; code-review access granted on pilot signing",
+        ],
+      },
+    ],
+    cta: "Run the --demo mode on your laptop, or pilot it on this month's real data. First two reconciliations on us.",
+    internalLinks: [
+      { slug: "gst-filing-automation", label: "Automate compliance filing — reclaim 15 hours a month" },
+      { slug: "ai-employee-ca-firm", label: "AI employees for professional-services firms" },
+    ],
+  },
+  {
+    slug: "smb-dashboard-anatomy",
+    title:
+      "Anatomy of an SMB client dashboard: what Kumar Textiles sees every Monday",
+    description:
+      "A walkthrough of a real Growth-bundle dashboard — the transformation hero, the money strip, the narrative Autopilot log, the owner-approval queue. Built so a 48-year-old retail owner can read it in 90 seconds.",
+    readTime: "8 min read",
+    searchVolume: "300/month",
+    difficulty: "Low",
+    category: "SMB Dashboards",
+    sections: [
+      {
+        heading: "The four blocks that decide if the dashboard gets read",
+        bullets: [
+          "Transformation hero — before/after band with 76-day numbers (104 → 342 leads/week, CPL ₹380 → ₹184, 4hrs/day → 28min/day)",
+          "Money strip — rupees, not ratios: ad spend → attributed revenue → margin. ROAS shown with industry benchmark underneath",
+          "Narrative Autopilot log — each event is Signal → Action → Outcome, not one-line status codes",
+          "Owner-approval queue — visually separated cards, distinct colour from Autopilot-auto cards so control is loud",
+        ],
+      },
+      {
+        heading: "Why we stopped writing 'Paused campaign X'",
+        bullets: [
+          "One-line activity logs don't earn trust — owner can't see why a ₹8K/day ad set got paused",
+          "Signal row: 'CPL on Cold-IG-Carousel hit ₹640 over 3 days — 2.9× target'",
+          "Action row: 'Paused Cold-IG · shifted ₹8K/day to LAL-1%-Bridal · added UTM guard to prevent re-enable'",
+          "Outcome row: 'Saved ~₹9,600/day in dead spend. LAL CPL dropped ₹214 → ₹199 with added budget'",
+          "Result: 2-minute Monday skim replaces the Tuesday-afternoon 'what did you do this week' email thread",
+        ],
+      },
+      {
+        heading: "Nine modules, one dashboard",
+        bullets: [
+          "Overview — 5 KPIs, blended weekly trend, channel mix",
+          "Outreach — drafts queued and an outbound log where every touch is click-to-advance (draft → queued → sent → replied → booked)",
+          "Leads — CSV-like view of every inbound, temperature, next action",
+          "Ads · Organic · Social · WhatsApp · Reviews — channel-specific deep tabs",
+          "Pipeline — React Flow funnel view with conversion-% between stages",
+          "Ops — unified activity ledger; Sources — connector status table",
+        ],
+      },
+      {
+        heading: "Live-data overlay, baseline fallback",
+        bullets: [
+          "GA4 property + Vercel Analytics pulled server-side via /api/live/<slug>, merged over the baseline",
+          "One shared service-account key in Vercel env; each client declares their propertyId + projectId in their slug file",
+          "Dashboard shows a live-status pill: live (numbers from API) / fetching / fallback (if connector errors)",
+          "Never breaks when a connector goes down — baseline hand-curated numbers stay visible",
+        ],
+      },
+      {
+        heading: "Private by default, public by invitation",
+        bullets: [
+          "Tenant dashboards at /client/<slug> — public demos (kumar-textiles) vs private real-client (cookie-gated via Next proxy)",
+          "Operator-wide cockpit at /dashboard — all tenants on one screen with cross-tenant MRR, urgent queue, unified Autopilot feed",
+          "Cookie session (JWT HS256, HttpOnly/Secure/SameSite Lax, 14-day TTL) + Basic Auth fallback for CLI and bookmarks",
+          "Tenants added by copying app/client/data/_template.ts → fill meta + sections → register in CLIENT_REGISTRY. ~3 minutes onboarding",
+        ],
+      },
+      {
+        heading: "What we tell clients on the install call",
+        bullets: [
+          "The dashboard is the product — not a weekly PDF, not a deck, not a Notion share",
+          "If you open it once a week, Monday 9am, we're doing our job",
+          "If you open it three times a day, something is broken — tell us and we'll fix the rhythm",
+          "Numbers are audit-ready — every Autopilot action has a signal/action/outcome row and a timestamp",
+        ],
+      },
+    ],
+    cta: "See the live Kumar Textiles dashboard. Then tell us what you'd want yours to show.",
+    internalLinks: [
+      { slug: "small-business-ai-automation", label: "The automation stack for growth-stage operators" },
+      { slug: "email-marketing-automation-smb", label: "Email automation — a nurture engine for ₹3K a month" },
+    ],
+  },
+  {
+    slug: "month-end-close-8h-to-45min",
+    title:
+      "The month-end close, line by line: 8 hours collapsed to 45 minutes per client",
+    description:
+      "Every step of a 4-partner Hyderabad CA firm's monthly reconciliation workflow, mapped side-by-side against the same firm after the ca-firm-toolkit is installed. Real hours from real time-tracking.",
+    readTime: "7 min read",
+    searchVolume: "500/month",
+    difficulty: "Low",
+    category: "CA Firm Automation",
+    sections: [
+      {
+        heading: "The before — 7 sequential manual steps",
+        bullets: [
+          "0.5h · Client emails Excel + GSTR-2B JSON; junior opens inbox and reformats columns",
+          "3.5h · Manual VLOOKUP on GSTIN + invoice number — breaks on amended invoices",
+          "1.0h · Flag mismatches, classify reason (amount / invoice / amended / vendor-not-filed)",
+          "2.5h · Phone + email chase to vendors for missing GSTR-1 — 3-8 calls per client, weekly until filing",
+          "0.5h · Consolidate findings into Excel for partner review",
+          "0.5h · Partner reads through, edits, signs",
+          "0.5h · File return + invoice the client",
+          "Total — 8h per client per month. ₹12,000 labour cost per client at ₹1,500/hr loaded rate",
+        ],
+      },
+      {
+        heading: "The after — 4 parallel lanes",
+        bullets: [
+          "0h · Client WhatsApps the files; automatic intake writes into ~/.ca-firm/",
+          "<30s · Recon engine matches GSTIN × invoice × amount with tolerance + rapidfuzz on invoice number",
+          "Parallel: <5s/invoice · OCR scans any photo'd invoice, produces Tally XML draft",
+          "Automatic · 5-sheet Excel ready; WhatsApp sent to missing-invoice vendors via Meta-approved templates",
+          "20 min · Partner reviews flagged items only (ITC-at-risk > ₹10K, OCR confidence < 90%)",
+          "33 min · Partner files return + invoices the client — the one step we deliberately don't touch",
+          "Total — 45 min per client per month. ₹1,125 labour cost per client at the same rate",
+        ],
+      },
+      {
+        heading: "Where the 7+ hours went",
+        bullets: [
+          "Manual VLOOKUP (3.5h) collapses to 30 seconds — 99.9% time saved on the single biggest bucket",
+          "Vendor phone chase (2.5h) collapses to 0h — WhatsApp templates queued, fired after one-tap operator approval",
+          "Summary drafting (0.5h) eliminated — 5-sheet Excel IS the summary",
+          "Classification (1h) automated — every flagged row carries its own reason code from the recon engine",
+          "Partner review (0.5h) stays but shifts from read-through to exception handling (12 min vs 30 min)",
+        ],
+      },
+      {
+        heading: "What the break-even math looks like",
+        bullets: [
+          "Margin recovered per client per month: 7h 15min × ₹1,500/hr = ~₹10,900",
+          "For a 40-client firm: ₹10,900 × 40 = ₹4,36,000/month of billable capacity back",
+          "Toolkit retainer: ₹18,000/month — covers maintenance + OCR API cost + support",
+          "Break-even: first two clients in the first week. Net: ₹4,18,000/month from month two onward",
+          "Option A: bank the margin. Option B: sell the recovered capacity as 8-12 more clients with the same team",
+        ],
+      },
+      {
+        heading: "Where humans stay in the loop",
+        bullets: [
+          "Partner sign-off on every return — automation never files without a green light",
+          "WhatsApp vendor sends gated behind dry-run view — operator scans the list, clicks Send",
+          "OCR below 90% confidence never auto-posts to Tally — ends up in a Needs Review queue",
+          "Every Autopilot action in ~/.ca-firm/audit.jsonl with timestamp + operator + outcome — reversible",
+        ],
+      },
+      {
+        heading: "Why this collapses in the specific ways it does",
+        bullets: [
+          "GSTR-2B is structured JSON, Tally exports are quasi-structured — the bottleneck was humans bridging the schema gap",
+          "WhatsApp API changed the economics of vendor chase from 'one call at a time' to 'templated broadcast, tracked'",
+          "Tally ODBC + XML import means journal entries go in via an API, not someone retyping them",
+          "OCR is only now production-viable on invoice layouts because vision models finally match Indian paper and font variations",
+        ],
+      },
+    ],
+    cta: "We'll run this on your most recent month's data — free of charge — before any commitment.",
+    internalLinks: [
+      { slug: "ca-firm-toolkit-gstr2b-recon", label: "We built a GSTR-2B reconciliation toolkit for Indian CA firms" },
+      { slug: "daily-accounting-automation", label: "Daily accounting automation — close month-end in 2 hours" },
+    ],
+  },
+  {
+    slug: "3-min-intake-vs-discovery-call",
+    title:
+      "Why our onboarding is a 3-minute form, not a 30-minute discovery call",
+    description:
+      "What a working SMB wants on the other side of a sales page, and why we replaced the discovery-call pattern with a 3-screen intake that commits to a signed scope in 24 hours.",
+    readTime: "5 min read",
+    searchVolume: "280/month",
+    difficulty: "Low",
+    category: "Sales Process",
+    sections: [
+      {
+        heading: "The discovery-call failure mode",
+        bullets: [
+          "A 45-year-old textile owner in Hyderabad doesn't have 30 free minutes for a discovery call — they're on the shop floor",
+          "The call ends with 'I'll send a proposal' — which is actually 'I'll now guess at what you need and quote 20% higher to be safe'",
+          "Information captured is lossy; the seller writes notes, misremembers the industry, anchors on their last customer",
+          "Buyer has zero commitment device — 60% ghost, 30% negotiate price, 10% sign late",
+        ],
+      },
+      {
+        heading: "What the 3-screen intake actually asks",
+        bullets: [
+          "Screen 1 — About you: business name, contact, email, WhatsApp, city, industry (dropdown of 10 verticals we serve)",
+          "Screen 2 — Pick a bundle: Local Starter ₹70K+₹12K · Growth ₹1.5L+₹32K · Total Growth ₹3L+₹65K, with a one-line 'for' each",
+          "Screen 3 — Current state: tool-stack chips (Meta, Google, Tally, WhatsApp, Shopify…), monthly leads now, monthly ad spend, pain point in 2 sentences",
+        ],
+      },
+      {
+        heading: "What the prospect gets in return",
+        bullets: [
+          "Signed scope within 24 hours — no 'proposal', no 'let's set up a follow-up'",
+          "Dashboard live within 5 working days of signature",
+          "Week 1: GMB + local SEO + WhatsApp catalog set up + kickoff WhatsApp delivered",
+          "Week 2: first weekly report in the inbox, showing the first KPI deltas",
+        ],
+      },
+      {
+        heading: "What we get that a call wouldn't have captured",
+        bullets: [
+          "Structured data we can programmatically route into the right bundle template",
+          "A durable record — intake appends to structured logs (next: libsql intakes table), surveyable across the pipeline",
+          "A real commitment device — the prospect picked a bundle; we've anchored the conversation at a price point",
+          "A pain-point in the prospect's own words — quoted back in the signed scope's opening paragraph",
+        ],
+      },
+      {
+        heading: "Why the 24-hour SLA is doable",
+        bullets: [
+          "Every bundle is a template — Local Starter has a fixed deliverable list, not a bespoke scope",
+          "The 'custom work' question never comes up; if a prospect needs custom, we route them to Consulting (₹3L+ engagements)",
+          "Signed scope is produced by filling a scope template with intake answers, reviewed by one human in 10 minutes",
+          "Auto-attached: pricing schedule, deliverable checklist, installation timeline, the one piece of access we need next",
+        ],
+      },
+      {
+        heading: "What we still don't automate",
+        bullets: [
+          "The actual scope sign-off — a human partner reviews intake, sanity-checks the match, sometimes picks up the phone if red flags",
+          "Payment collection — manual invoice via Razorpay with a human review on the receivable side",
+          "Kickoff call with the client's team (20 min, not 30) — sets up access, answers the 'will my team lose control' question",
+          "Weekly retro after week 2 — voice-to-voice, because the data shows things the dashboard doesn't",
+        ],
+      },
+    ],
+    cta: "Fill the 3-minute intake. Get a signed scope by tomorrow evening.",
+    internalLinks: [
+      { slug: "small-business-ai-automation", label: "The automation stack for growth-stage operators" },
+      { slug: "ai-vs-hiring", label: "When to build automation vs. hire humans" },
+    ],
+  },
 ];
 
 export function getPost(slug: string): BlogPost | undefined {
