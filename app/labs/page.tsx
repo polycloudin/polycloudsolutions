@@ -62,7 +62,7 @@ const capabilities = [
   { stat: "66,777", label: "Records under monitoring", sub: "48,083 FDA Orange Book products · 16,724 active US patents · 1,980 exclusivities · 10 live CDSCO filings — refreshed monthly, dedup-safe, tenant-scoped" },
   { stat: "3", label: "Case studies shipped", sub: "LENR (contested physics, 37yr open) · LK-99 (closed case, 6-week resolution) · Indian biosimilars (live biotech pipeline) — 4th case (Alzheimer's amyloid) queued" },
   { stat: "249", label: "Tests passing in 4.7s", sub: "Real-DB integration tests · async conftest with TRUNCATE cleanup · scraper + service + route + agent layers — the pipeline is provable, not vibes" },
-  { stat: "4-layer", label: "Citation grounding", sub: "strict prompt + indexed source corpus [S#] + citation validator + honest insufficient-data flags — 0 hallucinated claims in shipped reports" },
+  { stat: "4-layer", label: "Citation grounding", sub: "strict prompt + indexed source corpus [S#] + citation validator + honest insufficient-data flags — 0 broken citations in shipped reports" },
   { stat: "3-tier", label: "LLM routing", sub: "Gemma 4 local ($0) for classification, Claude for synthesis, NVIDIA Qwen3-480B ($0) as production fallback — no OpenAI dependency" },
   { stat: "~$5", label: "Compute per report", sub: "Versus ₹12-15 Cr/year for Cortellis + Citeline + Clarivate India seats. We complement, we don't replace — we fill their India gap." },
 ];
@@ -102,31 +102,32 @@ export default function Labs() {
             <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
               Cortellis and Citeline cover the world. They lag 2-4 weeks on Indian regulatory. We fill that gap — CDSCO filings, DCGI letters, Indian Ph-3 trials, patent cliffs — plus contested-science DD on the edge cases your internal team doesn&apos;t have the time or specialist depth to run. Three case studies shipped. Every finding citation-grounded. Built to complement your Cortellis seat, not replace it.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-4 items-center">
               <BookButton variant="primary">Scope a DD ↗</BookButton>
-              <Link href="/labs/dashboard" className="btn-secondary">View live dashboard →</Link>
-              <Link href="#cases" className="btn-secondary">See the work</Link>
+              <Link href="/labs/dashboard" className="text-[14px] text-[var(--color-text-secondary)] hover:text-[var(--color-ink)] transition-colors inline-flex items-center gap-1">
+                View live dashboard →
+              </Link>
             </div>
           </div>
 
-          {/* Trust strip */}
+          {/* Trust strip — Biotech (live commercial) first; physics cases as methodology proofs */}
           <div className="mt-16 md:mt-24 pt-10 border-t border-[var(--color-line)] grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <p className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mb-2">Case 01 · contested physics</p>
+              <p className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mb-2">Case 01 · live commercial</p>
               <p className="text-[15px] text-[var(--color-ink)] leading-snug">
-                <span className="font-semibold">LENR / cold fusion.</span> 9,795 papers analyzed. 37-year open case. Contested-science pattern match. Full PDF below.
+                <span className="font-semibold">Indian oncology biosimilars.</span> 80 PubMed papers · 66 Ph-3 trials · 22 biotech VCs indexed · 4-layer citation grounding.
               </p>
             </div>
             <div>
-              <p className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mb-2">Case 02 · closed case</p>
+              <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em] mb-2">Case 02 · methodology proof</p>
               <p className="text-[15px] text-[var(--color-ink)] leading-snug">
-                <span className="font-semibold">LK-99 superconductor.</span> 48 papers classified. 6-week resolution. Cu₂S artifact identified. PDF downloadable.
+                <span className="font-semibold">LENR / cold fusion.</span> 9,795 papers analyzed. 37-year open contested-science case. Same pipeline, different domain. Full PDF below.
               </p>
             </div>
             <div>
-              <p className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mb-2">Case 03 · live commercial</p>
+              <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em] mb-2">Case 03 · methodology proof</p>
               <p className="text-[15px] text-[var(--color-ink)] leading-snug">
-                <span className="font-semibold">Indian oncology biosimilars.</span> 80 PubMed papers · 66 Ph-3 trials · 22 biotech VCs indexed · citation-grounded.
+                <span className="font-semibold">LK-99 superconductor.</span> 48 papers classified. 6-week resolution. Cu₂S artifact identified. Closed-case counterpart to LENR.
               </p>
             </div>
           </div>
@@ -211,8 +212,68 @@ export default function Labs() {
         </div>
       </section>
 
-      {/* Case study — LENR */}
-      <section id="cases" className="px-6 md:px-10 py-16 md:py-36 bg-[#0A0A0A] text-white relative overflow-hidden">
+      {/* Case study 01 — Biotech (LIVE COMMERCIAL — leads the pharma narrative) */}
+      <section id="cases" className="px-6 md:px-10 py-16 md:py-36 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto">
+          <p className="text-eyebrow text-[var(--color-primary-orange)] mb-5">Case study 01 / Live commercial · Indian pharma</p>
+          <h2 className="text-[clamp(1.875rem,6vw,5rem)] mb-6 leading-[1]">
+            Biotech — the commercial <span className="text-serif-accent text-[var(--color-primary-blue)]">case</span>.
+          </h2>
+          <p className="text-[var(--color-text-secondary)] text-[17px] max-w-3xl leading-relaxed mb-12">
+            A pitch-ready oncology gap analysis built on the same pipeline adapted for biotech. PubMed + ClinicalTrials.gov + Indian pharma entity universe + biotech VC index. 4-layer citation grounding — every factual claim traceable to an indexed source. This is the template for the pharma CI wedge: India-specific, cite-defensible, 10-day turnaround.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-10 mb-12">
+            {[
+              { stat: "80", label: "PubMed papers" },
+              { stat: "66", label: "Indian Ph-3 trials" },
+              { stat: "22", label: "Biotech VCs indexed" },
+              { stat: "20", label: "Pharma companies" },
+              { stat: "11", label: "In-text citations · 0 broken" },
+              { stat: "33 s", label: "NVIDIA Qwen gen time" },
+            ].map((c) => (
+              <div key={c.label}>
+                <p className="text-display text-[clamp(1.5rem,3vw,2.25rem)] leading-none mb-1">{c.stat}</p>
+                <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em]">{c.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 mb-10">
+            <div className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover">
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">4-layer citation grounding</p>
+              <p className="text-[var(--color-text-secondary)] text-[14px] leading-relaxed">
+                Grounding prompt + indexed source corpus with <span className="mono text-[12px]">[S#]</span> references + citation validator + honest <span className="mono text-[12px]">insufficient_data</span> flags where the corpus is thin. Caught an LLM hallucination (&quot;10,000+ China oncology patents&quot; when the DB had zero) and re-engineered. Reports ship with 0 broken citations.
+              </p>
+            </div>
+            <div className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover">
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">The CDSCO wedge</p>
+              <p className="text-[var(--color-text-secondary)] text-[14px] leading-relaxed">
+                Cortellis and Citeline have global coverage but lag Indian regulatory granularity by 2-4 weeks. CDSCO filings, DCGI approval letters, state-FDA inspection reports. That gap is the moat — foreign tools don&apos;t do it, generic Indian tools don&apos;t have the AI pipeline. We build into that gap.
+              </p>
+            </div>
+            <div className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover">
+              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Live patent-cliff feed</p>
+              <p className="text-[var(--color-text-secondary)] text-[14px] leading-relaxed">
+                48,083 FDA Orange Book products + 16,724 active US patents indexed and joined to expiry dates. Per-tenant cliff calendar matched to your CDSCO drug-name register. <Link href="/labs/dashboard" className="text-[var(--color-primary-blue)] underline underline-offset-2 hover:no-underline">View live dashboard →</Link>
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-4 items-center">
+            <BookButton variant="primary">Request a biotech sample ↗</BookButton>
+            <span className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em]">
+              sample available on request · pitch-ready PDF · 10 days to a custom commission
+            </span>
+          </div>
+          <div className="mt-14 pt-10 border-t border-[var(--color-line)]">
+            <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em] mb-4">Two methodology proofs follow — same pipeline, different domain</p>
+            <p className="text-[var(--color-text-secondary)] text-[13px] leading-relaxed max-w-2xl">
+              LENR (open contested-physics, 37 years unresolved) and LK-99 (closed in 6 weeks, Cu₂S artifact identified). Demonstrating the source→classify→synthesize→deliver stack on harder corpora than biotech. Not the commercial play — the craft proof.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Case study 02 — LENR (METHODOLOGY PROOF — contested physics, open case) */}
+      <section className="px-6 md:px-10 py-16 md:py-36 bg-[#0A0A0A] text-white relative overflow-hidden">
         <div
           className="absolute inset-0 opacity-30 pointer-events-none"
           style={{
@@ -221,7 +282,7 @@ export default function Labs() {
           }}
         />
         <div className="max-w-[1440px] mx-auto relative">
-          <p className="text-eyebrow text-white/40 mb-5">Case study 01 / Contested physics · open case</p>
+          <p className="text-eyebrow text-white/40 mb-5">Case study 02 / Methodology proof · contested physics, open</p>
           <h2 className="text-[clamp(1.875rem,6vw,5rem)] mb-6 leading-[1]">
             LENR field <span className="text-serif-accent text-[var(--color-primary-blue)]">intelligence</span>.
           </h2>
@@ -303,18 +364,18 @@ export default function Labs() {
             </span>
           </div>
           <div className="mt-14 pt-10 border-t border-white/10">
-            <p className="mono text-[10px] text-white/40 uppercase tracking-[0.18em] mb-4">Two more case studies, same pipeline — keep scrolling</p>
+            <p className="mono text-[10px] text-white/40 uppercase tracking-[0.18em] mb-4">Closed-case counterpart below</p>
             <p className="text-white/50 text-[13px] leading-relaxed max-w-2xl">
-              LK-99 (closed in 6 weeks, Cu₂S artifact) and Indian oncology biosimilars (live biotech pipeline, 66 Ph-3 trials, citation-grounded). Same source→classify→synthesize→deliver stack, different domains.
+              LK-99 — same pipeline applied to a resolved-in-six-weeks claim. Different regime, same source→classify→synthesize→deliver stack. The pair (open + closed) demonstrates the full range.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Case study — LK-99 (closed case, fast resolution) */}
+      {/* Case study 03 — LK-99 (METHODOLOGY PROOF — superconductivity, closed case) */}
       <section className="px-6 md:px-10 py-16 md:py-28">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">Case study 02 / Superconductivity · closed case</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">Case study 03 / Methodology proof · superconductivity, closed</p>
           <h2 className="text-[clamp(1.875rem,6vw,5rem)] mb-6 leading-[1]">
             LK-99 — resolved in <span className="text-serif-accent text-[var(--color-primary-blue)]">six weeks</span>.
           </h2>
@@ -367,60 +428,6 @@ export default function Labs() {
             </a>
             <span className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em]">
               48 papers · citation-grounded · 10 pages · reusable pipeline
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Case study — Biotech (DeepSight) */}
-      <section className="px-6 md:px-10 py-16 md:py-28 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
-        <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">Case study 03 / Indian biotech · live pipeline</p>
-          <h2 className="text-[clamp(1.875rem,6vw,5rem)] mb-6 leading-[1]">
-            Biotech — the commercial <span className="text-serif-accent text-[var(--color-primary-blue)]">case</span>.
-          </h2>
-          <p className="text-[var(--color-text-secondary)] text-[17px] max-w-3xl leading-relaxed mb-12">
-            A pitch-ready oncology gap analysis built on the same pipeline adapted for biotech. PubMed + ClinicalTrials.gov + Indian pharma entity universe + biotech VC index. 4-layer citation grounding — every factual claim traceable to an indexed source. This is the template for the pharma CI wedge: India-specific, cite-defensible, 10-day turnaround.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-10 mb-12">
-            {[
-              { stat: "80", label: "PubMed papers" },
-              { stat: "66", label: "Indian Ph-3 trials" },
-              { stat: "22", label: "Biotech VCs indexed" },
-              { stat: "20", label: "Pharma companies" },
-              { stat: "11", label: "In-text citations · 0 broken" },
-              { stat: "33 s", label: "NVIDIA Qwen gen time" },
-            ].map((c) => (
-              <div key={c.label}>
-                <p className="text-display text-[clamp(1.5rem,3vw,2.25rem)] leading-none mb-1">{c.stat}</p>
-                <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em]">{c.label}</p>
-              </div>
-            ))}
-          </div>
-          <div className="grid md:grid-cols-3 gap-5 mb-10">
-            <div className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover">
-              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">4-layer citation grounding</p>
-              <p className="text-[var(--color-text-secondary)] text-[14px] leading-relaxed">
-                Grounding prompt + indexed source corpus with <span className="mono text-[12px]">[S#]</span> references + citation validator + honest <span className="mono text-[12px]">insufficient_data</span> flags where the corpus is thin. Caught an LLM hallucination (&quot;10,000+ China oncology patents&quot; when the DB had zero) and re-engineered. Reports ship with 0 broken citations.
-              </p>
-            </div>
-            <div className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover">
-              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">The CDSCO wedge</p>
-              <p className="text-[var(--color-text-secondary)] text-[14px] leading-relaxed">
-                Cortellis and Citeline have global coverage but lag Indian regulatory granularity by 2-4 weeks. CDSCO filings, DCGI approval letters, state-FDA inspection reports. That gap is the moat — foreign tools don&apos;t do it, generic Indian tools don&apos;t have the AI pipeline. We build into that gap.
-              </p>
-            </div>
-            <div className="bg-white rounded-xl border border-[var(--color-line)] p-8 card-hover">
-              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-3">Production economics</p>
-              <p className="text-[var(--color-text-secondary)] text-[14px] leading-relaxed">
-                NVIDIA Qwen3-Coder-480B as production fallback when the Anthropic key rate-limits. ₹0 marginal compute cost per report. 33-second generation time on the 10-page gap analysis. No OpenAI dependency. Pipeline tests: 25 passing. Dashboard: zero-dep static HTML over a Postgres-backed FastAPI.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-4 items-center">
-            <BookButton variant="primary">Request a biotech sample ↗</BookButton>
-            <span className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em]">
-              sample available on request · pitch-ready PDF · 10 days to a custom commission
             </span>
           </div>
         </div>
