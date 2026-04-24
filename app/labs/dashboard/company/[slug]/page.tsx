@@ -107,6 +107,23 @@ export default async function CompanyPage({
           <p className="text-[15px] text-[var(--color-ink)] max-w-3xl leading-relaxed mt-6">
             {company.strategicNote}
           </p>
+
+          {/* Candid framing — honest about overlap with Screener/BSE */}
+          {company.marketCapEstimateCr ? (
+            <div className="mt-6 max-w-3xl px-5 py-3 rounded-xl border border-[var(--color-line)] bg-white/70 text-[13px] text-[var(--color-text-secondary)] leading-relaxed">
+              <span className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mr-2">Listed co · candid</span>
+              <span>
+                Most of the corporate data below is also on Screener/BSE. This page exists for the <span className="font-semibold text-[var(--color-ink)]">join</span> — CDSCO filings · Orange Book cliffs · CTRI trials · MCA charges — in one place, scoped to this CIN.
+              </span>
+            </div>
+          ) : (
+            <div className="mt-6 max-w-3xl px-5 py-3 rounded-xl border border-[var(--color-primary-orange)]/30 bg-[var(--color-primary-orange)]/5 text-[13px] text-[var(--color-text-secondary)] leading-relaxed">
+              <span className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mr-2">Unlisted · MCA-exclusive</span>
+              <span>
+                This is an unlisted private company. Its financials, board, and filings are <span className="font-semibold text-[var(--color-ink)]">not on Screener or BSE</span>. MCA21 is the only public source — and the only way to track what they&apos;re up to.
+              </span>
+            </div>
+          )}
         </div>
       </section>
 
@@ -150,7 +167,7 @@ export default async function CompanyPage({
       {/* § 1 Corporate profile */}
       <section className="px-6 md:px-10 py-12 md:py-20 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
-          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">§ 1 / Corporate profile · MCA21</p>
+          <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">§ 1 / Corporate profile · MCA + public filings</p>
           <h2 className="text-[clamp(1.5rem,3.25vw,2.5rem)] mb-10 leading-[1.05]">
             Who runs it. What filings look clean.
           </h2>
@@ -367,7 +384,9 @@ export default async function CompanyPage({
             </Link>
           </div>
           <p className="mt-8 mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
-            Sourced via BizAPI MCA connector · snapshot Apr 24 2026 · refreshed monthly
+            {company.marketCapEstimateCr
+              ? `Listed co · public basics via BSE/Screener · joined with Labs regulatory + IP + clinical feeds · snapshot Apr 24 2026`
+              : `Unlisted private co · MCA21 is the only public source · joined with Labs regulatory + IP + clinical feeds · snapshot Apr 24 2026`}
           </p>
         </div>
       </section>
