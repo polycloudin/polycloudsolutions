@@ -12,9 +12,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/solutions/ca-firm`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${base}/solutions/d2c`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${base}/solutions/local-business`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${base}/solutions/real-estate`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${base}/labs`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    // Conversion surface + public proof
+    { url: `${base}/onboard`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/client/kumar-textiles`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
   ];
 
   const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
