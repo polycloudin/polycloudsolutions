@@ -7,13 +7,15 @@ import SiteFooter from "../components/SiteFooter";
 export const metadata: Metadata = {
   title: "Labs — Scientific + regulatory intelligence for pharma, biotech, and the capital that backs them",
   description:
-    "India-specific scientific due diligence and regulatory intelligence. We fill the 2-4 week gaps global tools miss — CDSCO filings, Indian patent cliffs, contested-science analysis. Three case studies shipped: LENR, LK-99 superconductor, Indian biosimilars.",
+    "India-specific scientific due diligence and regulatory intelligence. 48,083 FDA Orange Book products and 16,724 active US patents under monitoring; live CDSCO India filings ingestion. We fill the 2-4 week gaps Cortellis and Citeline miss — patent cliff calendars, biosimilar landscapes, contested-science analysis. Three case studies shipped.",
   alternates: { canonical: "/labs" },
   keywords: [
     "pharma competitive intelligence India",
     "biotech due diligence India",
     "CDSCO regulatory intelligence",
     "Indian patent cliff analysis",
+    "FDA Orange Book monitoring",
+    "ANDA filing intelligence",
     "biosimilar competitive landscape",
     "clinical trial monitoring India",
     "contested science due diligence",
@@ -32,19 +34,19 @@ const outputs = [
   },
   {
     num: "02",
-    name: "CDSCO + regulatory intelligence",
+    name: "CDSCO + regulatory intelligence feed",
     tagline: "India-specific where the global tools lag 2-4 weeks.",
     body:
-      "Cortellis, Citeline, and the other global feeds miss Indian regulatory granularity — CDSCO filings, DCGI approval letters, state FDA inspections, import licence grants for biologics. We index and monitor the ones your internal team pulls manually, and deliver them 48+ hours earlier.",
-    deliverable: "Daily alerts + weekly digest + monthly competitive summary — CSV / JSON / dashboard.",
+      "Cortellis and Citeline miss Indian regulatory granularity — CDSCO filings, DCGI approval letters, biosimilar import licences. We scrape, classify, and monitor four CDSCO surfaces (notifications, approved drugs, biologicals, clinical-trial permissions). Live ingestion is running for design-partner tenants — first April 2026 CT-05 / CT-10 / CT-12 circulars are already in the database.",
+    deliverable: "Daily alerts + monthly digest + on-demand competitive summary — JSON, markdown, or PDF, your choice.",
   },
   {
     num: "03",
-    name: "Competitive landscape + IP",
-    tagline: "Indian patent cliffs, pipeline monitoring, prior-art mapping.",
+    name: "Patent cliff calendar",
+    tagline: "FDA Orange Book × your portfolio. 24-month window, monthly refresh.",
     body:
-      "Who files what, when they lose exclusivity, which Indian Ph-3 trials threaten your franchise, where the defensible white space lives. Built on CT.gov + PubMed + Indian patent office + CDSCO — cross-referenced with 22 biotech VCs and 50+ Indian pharma entities indexed.",
-    deliverable: "Patent cliff calendar + Ph-3 trial monitor + IP conflict list + defensibility scoring.",
+      "48,083 FDA Orange Book products and 16,724 active US patents indexed and joined to the cliff date. Filter by therapeutic area or originator (Otsuka 45 patents cliffing, Takeda 37, Bausch 24). Substring-match against your CDSCO drug-name register — surface every patent expiring in your filing window. Built for Indian generic formulators timing ANDA submissions for Day-1 entry.",
+    deliverable: "Monthly markdown / PDF report + JSON feed + tenant-scoped match list against your filings.",
   },
   {
     num: "04",
@@ -57,10 +59,10 @@ const outputs = [
 ];
 
 const capabilities = [
-  { stat: "3", label: "Case studies shipped", sub: "LENR (contested physics, 37yr open case) · LK-99 (closed case, 6-week resolution) · Indian biosimilars (live biotech pipeline)" },
-  { stat: "10,400+", label: "Papers + trials indexed", sub: "9,795 LENR papers, 48 LK-99 papers classified, 80 PubMed biosimilar papers, 66 Indian Ph-3 oncology trials, 487 mainstream Pd-H physics" },
+  { stat: "66,777", label: "Records under monitoring", sub: "48,083 FDA Orange Book products · 16,724 active US patents · 1,980 exclusivities · 10 live CDSCO filings — refreshed monthly, dedup-safe, tenant-scoped" },
+  { stat: "3", label: "Case studies shipped", sub: "LENR (contested physics, 37yr open) · LK-99 (closed case, 6-week resolution) · Indian biosimilars (live biotech pipeline) — 4th case (Alzheimer's amyloid) queued" },
+  { stat: "249", label: "Tests passing in 4.7s", sub: "Real-DB integration tests · async conftest with TRUNCATE cleanup · scraper + service + route + agent layers — the pipeline is provable, not vibes" },
   { stat: "4-layer", label: "Citation grounding", sub: "strict prompt + indexed source corpus [S#] + citation validator + honest insufficient-data flags — 0 hallucinated claims in shipped reports" },
-  { stat: "4-panel", label: "Adversarial review", sub: "steelman + attack + blind-spot + proponent agent, anonymised before synthesis — convergent findings only" },
   { stat: "3-tier", label: "LLM routing", sub: "Gemma 4 local ($0) for classification, Claude for synthesis, NVIDIA Qwen3-480B ($0) as production fallback — no OpenAI dependency" },
   { stat: "~$5", label: "Compute per report", sub: "Versus ₹12-15 Cr/year for Cortellis + Citeline + Clarivate India seats. We complement, we don't replace — we fill their India gap." },
 ];
@@ -126,6 +128,15 @@ export default function Labs() {
                 <span className="font-semibold">Indian oncology biosimilars.</span> 80 PubMed papers · 66 Ph-3 trials · 22 biotech VCs indexed · citation-grounded.
               </p>
             </div>
+          </div>
+
+          {/* Live production strip — added Apr 24 with Patent Cliff v10 ship */}
+          <div className="mt-8 md:mt-10 px-5 py-4 rounded-xl border border-[var(--color-primary-orange)]/30 bg-[var(--color-primary-orange)]/5">
+            <p className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mb-2">Live this week — verified Apr 24 2026</p>
+            <p className="text-[14px] text-[var(--color-ink)] leading-relaxed">
+              <span className="font-semibold">48,083 FDA Orange Book products</span> · <span className="font-semibold">16,724 active US patents</span> · <span className="font-semibold">1,980 drug-product exclusivities</span> indexed and joined to expiry dates — refreshed monthly.{" "}
+              <span className="font-semibold">10 CDSCO India circulars</span> ingested live for the first design-partner tenant. <span className="font-semibold">249 / 249 tests</span> green in 4.7s. Three production agents on cron — daily 09:30 IST for India regulatory, monthly for the patent cliff.
+            </p>
           </div>
         </div>
       </section>
@@ -510,14 +521,24 @@ export default function Labs() {
               LENR report (17 pp, PDF)
             </a>
           </div>
-          <div className="pt-8 border-t border-white/10">
-            <p className="text-white/50 text-[14px] leading-relaxed max-w-2xl mb-4">
-              <span className="font-semibold text-white/80">Monthly CDSCO + Indian biotech digest — launching June 2026.</span> Free. Five bullets on the India-specific filings, Ph-3 trial moves, and competitive intel your Cortellis seat missed that week. No pitch, no pricing page, just the intel.
-            </p>
-            <BookButton variant="light-secondary">Join the digest waitlist</BookButton>
+          <div className="pt-8 border-t border-white/10 grid md:grid-cols-2 gap-8">
+            <div>
+              <p className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mb-2">Free · monthly · lead-gen</p>
+              <p className="text-white/70 text-[14px] leading-relaxed mb-4">
+                <span className="font-semibold text-white/90">CDSCO + Indian biotech digest.</span> Five bullets, first Monday of each month. India-specific filings, Ph-3 moves, competitive intel your Cortellis seat missed. No pitch, no pricing page, just the intel.
+              </p>
+              <BookButton variant="light-secondary">Join the digest waitlist</BookButton>
+            </div>
+            <div>
+              <p className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mb-2">Paid · monthly · live this week</p>
+              <p className="text-white/70 text-[14px] leading-relaxed mb-4">
+                <span className="font-semibold text-white/90">Patent cliff calendar feed.</span> 48K FDA Orange Book products, 16,724 active patents joined to your CDSCO drug-name register. 24-month forward window. Built for Indian generic formulators timing ANDA filings for Day-1 entry.
+              </p>
+              <BookButton variant="light-secondary">Request a sample feed</BookButton>
+            </div>
           </div>
           <p className="mt-10 mono text-[10px] text-white/40 uppercase tracking-[0.22em]">
-            Three cases shipped · LENR · LK-99 · Biotech · domain pickable on commissioned engagements
+            Three cases shipped · LENR · LK-99 · Biotech · plus the live Patent Cliff Calendar feed · domain pickable on commissioned DDs
           </p>
         </div>
       </section>
