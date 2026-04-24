@@ -3,12 +3,7 @@ import Link from "next/link";
 import BookButton from "../../components/BookButton";
 import SiteNav from "../../components/SiteNav";
 import SiteFooter from "../../components/SiteFooter";
-import {
-  INDIAN_PHARMA,
-  INDIAN_PHARMA_UNLISTED,
-  COMPANY_NAME_TO_SLUG,
-  sectorHealthSummary,
-} from "../../../lib/labs/indian-pharma";
+import { COMPANY_NAME_TO_SLUG } from "../../../lib/labs/indian-pharma";
 
 // Render a "· "-separated filer list with Links to company pages when we know the slug
 function renderFilerList(filers: string): React.ReactNode {
@@ -32,68 +27,6 @@ function renderFilerList(filers: string): React.ReactNode {
       </span>
     );
   });
-}
-
-// DD-grade badge color — consistent across company cards + detail pages
-function gradeBadgeStyleInline(grade: string): string {
-  if (grade.startsWith("A")) return "bg-emerald-500/10 text-emerald-700 border-emerald-500/30";
-  if (grade.startsWith("B")) return "bg-[var(--color-primary-blue)]/10 text-[var(--color-primary-blue)] border-[var(--color-primary-blue)]/30";
-  if (grade.startsWith("C")) return "bg-[var(--color-primary-orange)]/10 text-[var(--color-primary-orange)] border-[var(--color-primary-orange)]/30";
-  return "bg-gray-500/10 text-gray-600 border-gray-500/30";
-}
-
-// Aggregate sector stats row for the MCA-sector section
-function SectorHealthStrip() {
-  const s = sectorHealthSummary();
-  // Render big market caps in Indian Lakh Cr (1 L Cr = 100,000 Cr) convention
-  const mcLakhCr = s.marketCapListedCr / 100000;
-  const mcStat =
-    mcLakhCr >= 1
-      ? `₹${mcLakhCr.toFixed(2)} L Cr`
-      : `₹${s.marketCapListedCr.toLocaleString("en-IN")} Cr`;
-  const cards = [
-    {
-      stat: `₹${s.paidUpTotalCr.toLocaleString("en-IN")} Cr`,
-      label: "Aggregate paid-up capital",
-      sub:
-        s.listedCount === s.total
-          ? `Sum across ${s.total} listed cos`
-          : `Sum across ${s.total} cos · ${s.listedCount} listed`,
-    },
-    {
-      stat: mcStat,
-      label: "Listed-cos market cap",
-      sub: `₹${s.marketCapListedCr.toLocaleString("en-IN")} Cr · est · Apr 2026`,
-    },
-    {
-      stat: String(s.uniqueStates),
-      label: "States represented",
-      sub: s.topStates.map((t) => `${t.state} ${t.count}`).join(" · "),
-    },
-    {
-      stat: String(s.avgDDScore),
-      label: "Avg DD score · 100",
-      sub: `Oldest: founded ${s.oldestYear} · Avg age: ${s.avgAge} yrs`,
-    },
-    {
-      stat: String(s.chargeTotal),
-      label: "Charges filed · last 90 days",
-      sub: "Leverage signal across the cohort",
-    },
-  ];
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-      {cards.map((c) => (
-        <div key={c.label} className="bg-white rounded-xl border border-[var(--color-line)] p-5">
-          <p className="text-display text-[clamp(1.25rem,2vw,1.75rem)] leading-none mb-2">{c.stat}</p>
-          <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em] mb-2">
-            {c.label}
-          </p>
-          <p className="text-[11px] text-[var(--color-text-secondary)] leading-snug">{c.sub}</p>
-        </div>
-      ))}
-    </div>
-  );
 }
 
 export const metadata: Metadata = {
@@ -447,112 +380,6 @@ export default function LabsDashboard() {
                 <span className="font-semibold text-[var(--color-ink)]">Indian filers column:</span> public DMF / ANDA filing patterns from FDA + DGCI, last refresh 2025. Per-tenant first-to-file, NCE-1, 180-day exclusivity, and Para-IV status arrive with the live API in Q3 2026 — request access to be in the first cohort.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Indian pharma sector — A3 (listed cos, one-stop joined view) */}
-      <section className="px-6 md:px-10 py-16 md:py-28 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-8 md:mb-10 flex-wrap gap-6">
-            <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">02b / Listed Indian pharma · {INDIAN_PHARMA.length} cos, one-view join</p>
-              <h2 className="text-[clamp(1.625rem,4vw,3.25rem)] max-w-2xl leading-[1.05]">
-                No new data here.{" "}
-                <span className="text-serif-accent text-[var(--color-primary-blue)]">Five feeds, joined per company.</span>
-              </h2>
-            </div>
-            <p className="text-[var(--color-text-secondary)] max-w-md text-[14px] leading-relaxed">
-              Listed pharma basics are already public (Screener, BSE, annual reports). What this section adds is the <em>join</em>: CDSCO filings + Orange Book cliff exposure + CTRI trials + MCA charge ledger + subsidiary network, scoped per CIN. The genuinely-MCA-exclusive cohort — unlisted private pharma — is the section below.
-            </p>
-          </div>
-
-          {/* Honest-framing band */}
-          <div className="mb-10 px-5 py-4 rounded-xl border border-[var(--color-line)] bg-white/60 text-[13px] text-[var(--color-text-secondary)] leading-relaxed">
-            <span className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mr-2">Candid</span>
-            <span>
-              For listed pharma, <span className="font-semibold text-[var(--color-ink)]">~70% of MCA data overlaps with BSE/Screener</span>. The MCA-unique fields on these pages are charge ledger (leverage signals) + subsidiary filings + director-DIN cross-linkage. The real moat is in unlisted cos (Intas, Macleods, MSN, Aurigene, Cipla Health) — see the section below.
-            </span>
-          </div>
-
-          {/* Sector-level aggregate cards */}
-          <SectorHealthStrip />
-
-          {/* Company grid */}
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {INDIAN_PHARMA.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/labs/dashboard/company/${c.slug}`}
-                className="group bg-white rounded-xl border border-[var(--color-line)] hover:border-[var(--color-primary-blue)]/40 p-4 transition-colors"
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <p className="text-display text-[16px] leading-tight group-hover:text-[var(--color-primary-blue)] transition-colors">{c.name}</p>
-                  <span className={`mono text-[9px] uppercase tracking-[0.1em] px-1.5 py-0.5 rounded border ${gradeBadgeStyleInline(c.ddGrade)}`}>
-                    {c.ddGrade}
-                  </span>
-                </div>
-                <p className="text-[11px] text-[var(--color-text-muted)] mb-3">{c.state}</p>
-                <div className="flex items-center gap-2.5 text-[11px] text-[var(--color-text-secondary)]">
-                  <span className="tabular-nums">₹{c.paidUpCapitalCr.toFixed(0)} Cr</span>
-                  <span>·</span>
-                  <span>{c.cliffExposures.length} cliffs</span>
-                  <span>·</span>
-                  <span>{c.cdscoFilings90d.length} CDSCO/90d</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 02c — Unlisted / MCA-exclusive Indian pharma (where MCA genuinely isn't replaceable) */}
-      <section className="px-6 md:px-10 py-16 md:py-28">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-8 md:mb-10 flex-wrap gap-6">
-            <div>
-              <p className="text-eyebrow text-[var(--color-primary-orange)] mb-4">02c / Unlisted + subsidiary · {INDIAN_PHARMA_UNLISTED.length} MCA-exclusive cos</p>
-              <h2 className="text-[clamp(1.625rem,4vw,3.25rem)] max-w-2xl leading-[1.05]">
-                Where MCA is the <span className="text-serif-accent text-[var(--color-primary-orange)]">only</span> public source.
-              </h2>
-            </div>
-            <p className="text-[var(--color-text-secondary)] max-w-md text-[14px] leading-relaxed">
-              Intas, Macleods, MSN — unlisted private pharma cos with no SEBI disclosure. Aurigene, Cipla Health, Biocon Biologics — subsidiaries dark on their listed parents&apos; Screener pages. MCA21 is the only window into their financials, board, charges, and filings.
-            </p>
-          </div>
-
-          {/* Why-this-matters band */}
-          <div className="mb-10 px-5 py-4 rounded-xl border border-[var(--color-primary-orange)]/30 bg-[var(--color-primary-orange)]/5 text-[13px] text-[var(--color-text-secondary)] leading-relaxed">
-            <span className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mr-2">Not on Screener</span>
-            <span>
-              These {INDIAN_PHARMA_UNLISTED.length} cos aggregate ~<span className="font-semibold text-[var(--color-ink)]">₹{Math.round(INDIAN_PHARMA_UNLISTED.reduce((s, c) => s + c.paidUpCapitalCr, 0)).toLocaleString("en-IN")} Cr</span> in paid-up capital, file monthly with MCA21, and are invisible to any public-equity analyst tool. Intas alone (est. ₹18K+ Cr revenue) is the largest Indian pharma not on a stock exchange. This is where the MCA moat actually lives.
-            </span>
-          </div>
-
-          {/* Company grid — unlisted */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-            {INDIAN_PHARMA_UNLISTED.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/labs/dashboard/company/${c.slug}`}
-                className="group bg-white rounded-xl border border-[var(--color-line)] hover:border-[var(--color-primary-orange)]/50 p-4 transition-colors"
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <p className="text-display text-[15px] leading-tight group-hover:text-[var(--color-primary-orange)] transition-colors">{c.name}</p>
-                  <span className={`mono text-[9px] uppercase tracking-[0.1em] px-1.5 py-0.5 rounded border ${gradeBadgeStyleInline(c.ddGrade)}`}>
-                    {c.ddGrade}
-                  </span>
-                </div>
-                <p className="text-[11px] text-[var(--color-text-muted)] mb-3">{c.state} · private</p>
-                <div className="flex items-center gap-2.5 text-[11px] text-[var(--color-text-secondary)] flex-wrap">
-                  <span className="tabular-nums">₹{c.paidUpCapitalCr.toFixed(0)} Cr</span>
-                  <span>·</span>
-                  <span>{c.cliffExposures.length} cliffs</span>
-                  <span>·</span>
-                  <span>{c.cdscoFilings90d.length} CDSCO/90d</span>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </section>
