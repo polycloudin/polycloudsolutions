@@ -221,9 +221,7 @@ export default function LabsDashboard() {
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">01 / Patent cliff calendar · 24-month window</p>
               <h2 className="text-[clamp(1.625rem,4vw,3.25rem)] max-w-2xl leading-[1.05]">
-                {TOTAL_24M_PATENTS.toLocaleString()} US patents lose protection between{" "}
-                <span className="text-serif-accent text-[var(--color-primary-blue)]">Apr 2026</span> and{" "}
-                <span className="text-serif-accent text-[var(--color-primary-blue)]">Apr 2028</span>.
+                Peak: <span className="text-serif-accent text-[var(--color-primary-orange)]">Aug 2027 — 317 patents</span>. The shape, month by month.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[14px] leading-relaxed">
@@ -231,10 +229,10 @@ export default function LabsDashboard() {
             </p>
           </div>
 
-          {/* Bar chart */}
+          {/* Bar chart — fixed-height bar area so % heights compute against 240px, not column content height */}
           <div className="bg-white rounded-xl border border-[var(--color-line)] p-6 md:p-10">
             <div className="overflow-x-auto pb-4">
-              <div className="flex items-end gap-1.5 md:gap-2 min-w-[860px]" style={{ height: "280px" }}>
+              <div className="flex items-end gap-1.5 md:gap-2 min-w-[860px]">
                 {MONTHLY_CLIFFS.map((m, i) => {
                   const heightPct = (m.count / MAX_MONTHLY_COUNT) * 100;
                   const isYearStart = m.mShort === "Jan" || i === 0;
@@ -248,28 +246,33 @@ export default function LabsDashboard() {
                   return (
                     <div
                       key={m.month}
-                      className="flex-1 flex flex-col items-center justify-end gap-1.5"
+                      className="flex-1 flex flex-col items-center"
                       style={{ minWidth: "28px" }}
                       title={`${m.mShort} ${m.year}: ${m.count} patents`}
                     >
+                      {/* Count label */}
                       <span
-                        className={`mono text-[10px] tabular-nums ${
+                        className={`mono text-[10px] tabular-nums mb-1.5 ${
                           isPeak ? "text-[var(--color-primary-orange)] font-bold" : "text-[var(--color-text-secondary)]"
                         }`}
                       >
                         {m.count}
                       </span>
-                      <div
-                        className="w-full rounded-t-sm"
-                        style={{
-                          height: `${heightPct}%`,
-                          backgroundColor: barColor,
-                          minHeight: "4px",
-                          boxShadow: isPeak ? "0 0 0 1px var(--color-primary-orange)" : undefined,
-                        }}
-                      />
+                      {/* Fixed 240px bar area so percent heights are reliable */}
+                      <div className="w-full flex items-end" style={{ height: "240px" }}>
+                        <div
+                          className="w-full rounded-t-sm"
+                          style={{
+                            height: `${heightPct}%`,
+                            backgroundColor: barColor,
+                            minHeight: "4px",
+                            boxShadow: isPeak ? "0 0 0 1px var(--color-primary-orange)" : undefined,
+                          }}
+                        />
+                      </div>
+                      {/* Month label */}
                       <span
-                        className={`mono text-[9px] tracking-tight ${
+                        className={`mono text-[9px] tracking-tight mt-1.5 ${
                           isYearStart ? "text-[var(--color-ink)] font-semibold" : "text-[var(--color-text-muted)]"
                         }`}
                       >
