@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import BookButton from "../../components/BookButton";
+import CAFirmROICalculator from "../../components/CAFirmROICalculator";
 import DashboardMockup from "../../components/DashboardMockup";
 import MockupLightbox from "../../components/MockupLightbox";
 import SiteNav from "../../components/SiteNav";
@@ -757,6 +758,9 @@ export default function CaFirmSolution() {
         </div>
       </section>
 
+      {/* ROI calculator — interactive */}
+      <CAFirmROICalculator />
+
       {/* Demo metrics */}
       <section className="px-6 md:px-10 py-16 md:py-20 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
         <div className="max-w-[1440px] mx-auto">
@@ -857,6 +861,36 @@ export default function CaFirmSolution() {
               },
             };
             const meta = tierMeta[tier];
+
+            // Pro tier has 27 tools — sub-group by workflow theme for scannability.
+            // Groupings map tool numbers → theme. Keep totals = tier count.
+            const PRO_THEMES: { label: string; nums: string[] }[] = [
+              {
+                label: "Compliance & filings",
+                nums: ["08", "11", "12", "14", "20", "21", "22", "25", "27"],
+              },
+              {
+                label: "Audit & assurance",
+                nums: ["13", "23", "26", "28", "31", "34", "35"],
+              },
+              {
+                label: "Client-facing",
+                nums: ["09", "10", "24", "29", "30"],
+              },
+              {
+                label: "Firm operations",
+                nums: ["15", "19", "32", "33", "36", "37"],
+              },
+            ];
+
+            const groups: { label?: string; tools: typeof tierTools }[] =
+              tier === "Pro"
+                ? PRO_THEMES.map((th) => ({
+                    label: th.label,
+                    tools: tierTools.filter((t) => th.nums.includes(t.num)),
+                  }))
+                : [{ tools: tierTools }];
+
             return (
               <div key={tier} className="mb-10 md:mb-14 last:mb-0">
                 <div className="flex items-baseline gap-4 mb-5">
@@ -874,26 +908,44 @@ export default function CaFirmSolution() {
                     {tierTools.length} {tierTools.length === 1 ? "tool" : "tools"}
                   </p>
                 </div>
-                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
-                  {tierTools.map((t) => (
-                    <div
-                      key={t.num}
-                      className="bg-white p-5 md:p-6 hover:bg-[var(--color-surface)] transition-colors"
-                    >
-                      <div className="flex items-baseline gap-3 mb-2">
-                        <span className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-                          {t.num}
+
+                {groups.map((g, gi) => (
+                  <div
+                    key={g.label ?? gi}
+                    className={gi < groups.length - 1 ? "mb-5" : ""}
+                  >
+                    {g.label && (
+                      <div className="flex items-center gap-3 mb-3">
+                        <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                          {g.label}
+                        </p>
+                        <span className="mono text-[10px] text-[var(--color-text-muted)]">
+                          · {g.tools.length}
                         </span>
-                        <h3 className="text-[15px] md:text-[16px] font-medium text-[var(--color-ink)] leading-tight">
-                          {t.name}
-                        </h3>
                       </div>
-                      <p className="text-[13px] text-[var(--color-text-secondary)] leading-snug">
-                        {t.tagline}
-                      </p>
+                    )}
+                    <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-px bg-[var(--color-line)] border border-[var(--color-line)] rounded-xl overflow-hidden">
+                      {g.tools.map((t) => (
+                        <div
+                          key={t.num}
+                          className="bg-white p-5 md:p-6 hover:bg-[var(--color-surface)] transition-colors"
+                        >
+                          <div className="flex items-baseline gap-3 mb-2">
+                            <span className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
+                              {t.num}
+                            </span>
+                            <h3 className="text-[15px] md:text-[16px] font-medium text-[var(--color-ink)] leading-tight">
+                              {t.name}
+                            </h3>
+                          </div>
+                          <p className="text-[13px] text-[var(--color-text-secondary)] leading-snug">
+                            {t.tagline}
+                          </p>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             );
           })}
@@ -1108,6 +1160,85 @@ export default function CaFirmSolution() {
 
           <p className="mt-10 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em] text-center">
             Upgrade tiers in place · cancel any time · first 30 days are a pilot, not a contract
+          </p>
+        </div>
+      </section>
+
+      {/* FAQ — real partner objections */}
+      <section className="px-6 md:px-10 py-16 md:py-28 border-t border-[var(--color-line)]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="flex items-end justify-between mb-12 md:mb-16 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">04 / Honest answers</p>
+              <h2 className="text-[clamp(1.875rem,6vw,5rem)] max-w-2xl leading-[1]">
+                What partners{" "}
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">
+                  actually ask
+                </span>
+                .
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
+              Straight answers to the questions every CA partner asks before
+              week 1. No hedging, no marketing.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-x-10 md:gap-x-16 gap-y-10 md:gap-y-12">
+            {[
+              {
+                q: "I already use Winman / Genius for ITR. Does this replace them?",
+                a: "No — and we don't try. The toolkit covers everything those products don't: reconciliation, Tally vouchering, audit documentation, MIS, litigation, firm ops. Winman and Genius remain your ITR prep engine. We'll wire an import/export bridge so data flows between them without double entry.",
+              },
+              {
+                q: "Does this file GSTR-1 / 3B directly, or is it manual upload?",
+                a: "Manual upload, intentionally. Every AI-drafted return goes through partner review before it touches the GST portal. You download the JSON, review in the portal, file. We don't auto-submit — that's the CA's signature, not ours.",
+              },
+              {
+                q: "Where does the data actually live? What leaves the firm?",
+                a: "Nothing leaves. The full stack installs on your primary laptop (or firm server). SQLite files per client, local filesystem for documents. No cloud sync, no accounts, no PolyCloud-side data store. WhatsApp/Meta API and GST portal are the only external hops — and only when you trigger them.",
+              },
+              {
+                q: "What happens after the 30-day pilot?",
+                a: "Three options. (1) Continue on monthly retainer — same tier, same price. (2) Upgrade or downgrade tier in place — no reinstall. (3) Walk away — we uninstall, you keep all exports and outputs generated during the pilot. If week-2 reconciliation didn't save 8+ hours vs baseline, we don't charge for weeks 3-4.",
+              },
+              {
+                q: "Can my articles and seniors use it, or is it partner-only?",
+                a: "Meant for everyone. Articles run recon, bank voucher, invoice OCR, WhatsApp follow-up — the repetitive work. Seniors run MIS, receivables, compliance calendar. Partners get the review queue and final sign-off on every output. Article/partner seats are an optional add-on for advisory copilot + audit workbench.",
+              },
+              {
+                q: "What's the rollback if something breaks mid-filing season?",
+                a: "Three-layer safety net. (1) Every tool has `--dry-run` — preview actions, write nothing. (2) Every AI output is draft-only until partner approves. (3) One-command uninstall restores the firm to pre-install state; audit log + exports retained. We've run the full stack on 4 pilots through the Oct-Nov filing rush with zero rollbacks needed.",
+              },
+              {
+                q: "Does the Tally integration need ODBC licensing?",
+                a: "No. Three fallbacks in priority order — (1) ODBC if enabled (fastest), (2) Tally's built-in XML HTTP on port 9000 (zero extra license), (3) watched-folder XML export (works without any Tally network config). Most firms land on option 2 within an hour.",
+              },
+              {
+                q: "Is ICAI peer review going to accept AI-drafted working papers?",
+                a: "Yes — because you signed them, not the AI. Every working paper, Form 3CD, 15CB, CARO response carries your UDIN. The tool drafts the content and cites precedents; the partner reviews and signs. Peer review cares about the signature and the documentation trail (which we maintain), not who drafted the first version.",
+              },
+            ].map((item) => (
+              <div key={item.q}>
+                <p className="text-[15px] md:text-[17px] font-medium text-[var(--color-ink)] mb-3 leading-snug">
+                  {item.q}
+                </p>
+                <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed">
+                  {item.a}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-12 md:mt-16 text-[13px] text-[var(--color-text-muted)] max-w-2xl">
+            Don&apos;t see your question?{" "}
+            <a
+              href="mailto:hello@polycloud.in?subject=CA%20Firm%20Toolkit%20Question"
+              className="text-[var(--color-primary-blue)] link-underline"
+            >
+              Email us
+            </a>
+            . We reply within one working day.
           </p>
         </div>
       </section>
