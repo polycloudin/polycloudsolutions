@@ -230,26 +230,38 @@ export default function LabsDashboard() {
           {/* Bar chart */}
           <div className="bg-white rounded-xl border border-[var(--color-line)] p-6 md:p-10">
             <div className="overflow-x-auto pb-4">
-              <div className="flex items-end gap-1.5 md:gap-2 min-w-[700px]" style={{ height: "240px" }}>
+              <div className="flex items-end gap-1.5 md:gap-2 min-w-[860px]" style={{ height: "280px" }}>
                 {MONTHLY_CLIFFS.map((m, i) => {
                   const heightPct = (m.count / MAX_MONTHLY_COUNT) * 100;
                   const isYearStart = m.mShort === "Jan" || i === 0;
+                  const isPeak = m.count === MAX_MONTHLY_COUNT;
+                  const barColor =
+                    m.year === "2026"
+                      ? "var(--color-primary-orange)"
+                      : m.year === "2027"
+                      ? "var(--color-primary-blue)"
+                      : "var(--color-text-secondary)";
                   return (
-                    <div key={m.month} className="flex-1 flex flex-col items-center justify-end gap-1.5 group" style={{ minWidth: "26px" }}>
-                      <span className="mono text-[9px] text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div
+                      key={m.month}
+                      className="flex-1 flex flex-col items-center justify-end gap-1.5"
+                      style={{ minWidth: "28px" }}
+                      title={`${m.mShort} ${m.year}: ${m.count} patents`}
+                    >
+                      <span
+                        className={`mono text-[10px] tabular-nums ${
+                          isPeak ? "text-[var(--color-primary-orange)] font-bold" : "text-[var(--color-text-secondary)]"
+                        }`}
+                      >
                         {m.count}
                       </span>
                       <div
-                        className="w-full rounded-t-sm transition-colors group-hover:opacity-90"
+                        className="w-full rounded-t-sm"
                         style={{
                           height: `${heightPct}%`,
-                          backgroundColor:
-                            m.year === "2026"
-                              ? "var(--color-primary-orange)"
-                              : m.year === "2027"
-                              ? "var(--color-primary-blue)"
-                              : "var(--color-text-secondary)",
+                          backgroundColor: barColor,
                           minHeight: "4px",
+                          boxShadow: isPeak ? "0 0 0 1px var(--color-primary-orange)" : undefined,
                         }}
                       />
                       <span
@@ -267,7 +279,7 @@ export default function LabsDashboard() {
             <div className="flex flex-wrap items-center gap-5 mt-6 pt-5 border-t border-[var(--color-line)] text-[12px] text-[var(--color-text-secondary)]">
               <span className="inline-flex items-center gap-2">
                 <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: "var(--color-primary-orange)" }} />
-                2026 ({MONTHLY_CLIFFS.filter((m) => m.year === "2026").reduce((s, m) => s + m.count, 0)} patents)
+                2026 ({MONTHLY_CLIFFS.filter((m) => m.year === "2026").reduce((s, m) => s + m.count, 0)} patents · partial)
               </span>
               <span className="inline-flex items-center gap-2">
                 <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: "var(--color-primary-blue)" }} />
@@ -278,7 +290,7 @@ export default function LabsDashboard() {
                 2028 ({MONTHLY_CLIFFS.filter((m) => m.year === "2028").reduce((s, m) => s + m.count, 0)} patents · partial)
               </span>
               <span className="ml-auto mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em]">
-                Hover bars for exact counts
+                Peak: <span className="text-[var(--color-primary-orange)]">Aug 2027 · 317 patents</span>
               </span>
             </div>
           </div>
@@ -427,54 +439,130 @@ export default function LabsDashboard() {
         </div>
       </section>
 
-      {/* Sample report block */}
+      {/* Sample report block — styled to look like an actual report, not code */}
       <section className="px-6 md:px-10 py-16 md:py-28 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1100px] mx-auto">
           <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">05 / What a paid Patent Cliff Calendar subscriber gets</p>
           <h2 className="text-[clamp(1.625rem,4vw,3.25rem)] mb-8 leading-[1.05]">
-            Monthly markdown report, <span className="text-serif-accent">per&nbsp;tenant</span>.
+            Monthly cliff report, <span className="text-serif-accent">per&nbsp;tenant</span>.
           </h2>
-          <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed mb-8 max-w-2xl">
-            Every paid tenant gets a per-org cliff report on the first Monday of each month. Joined to your CDSCO drug-name register so the matches are scoped to drugs you actually file. Below is the rendered preview from our internal design-partner run.
+          <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed mb-10 max-w-2xl">
+            Every paid tenant gets a per-org cliff report on the first Monday of each month. Joined to your CDSCO drug-name register so the matches are scoped to drugs you actually file. Preview below is from our internal design-partner run.
           </p>
-          <div className="bg-[#0A0A0A] text-white/85 rounded-xl p-6 md:p-8 mono text-[12.5px] leading-relaxed overflow-x-auto">
-            <pre className="whitespace-pre-wrap">
-{`# Patent cliff calendar · neurastem
-Window: next 24 months · refreshed Apr 24 2026
 
-## Headline numbers
-- 2,407 active US patents cliff between Apr 2026 → Apr 2028
-- 287 distinct active ingredients in the window
-- 142 originators with patents cliffing
-- Peak month: Aug 2027 (317 patents)
+          {/* Mock report — white paper look */}
+          <div className="bg-white rounded-xl border border-[var(--color-line)] shadow-sm overflow-hidden">
+            {/* Report header */}
+            <div className="px-8 md:px-10 py-8 md:py-10 border-b border-[var(--color-line)] bg-gradient-to-br from-white to-[var(--color-surface-warm)]/40">
+              <div className="flex items-start justify-between flex-wrap gap-6 mb-6">
+                <div>
+                  <p className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.22em] mb-3">
+                    PolyCloud Labs · Patent Cliff Calendar
+                  </p>
+                  <h3 className="text-display text-[clamp(1.5rem,3vw,2.25rem)] leading-tight">
+                    Tenant: <span className="text-serif-accent text-[var(--color-primary-blue)]">neurastem</span>
+                  </h3>
+                  <p className="text-[13px] text-[var(--color-text-secondary)] mt-2">
+                    Issued Apr 24, 2026 · Window: next 24 months · Next refresh: May 2026
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.18em] mb-2">Report no.</p>
+                  <p className="mono text-[14px] text-[var(--color-ink)]">PCC-04-2026</p>
+                </div>
+              </div>
 
-## Top drugs by patents cliffing
-| Active ingredient        | Patents | Earliest | Originators
-| ARIPIPRAZOLE             | 26      | Apr 2026 | OTSUKA
-| TESTOSTERONE             | 26      | Jun 2026 | BESINS, ELI LILLY
-| BUPROPION HYDROBROMIDE   | 24      | Jun 2026 | BAUSCH HEALTH
-| LURASIDONE               | 20      | May 2026 | SUNOVION
+              {/* Headline numbers pill row */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <div>
+                  <p className="text-display text-[clamp(1.5rem,2.5vw,2rem)] text-[var(--color-ink)] leading-none mb-1">2,933</p>
+                  <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em]">patents cliffing</p>
+                </div>
+                <div>
+                  <p className="text-display text-[clamp(1.5rem,2.5vw,2rem)] text-[var(--color-ink)] leading-none mb-1">287</p>
+                  <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em]">active ingredients</p>
+                </div>
+                <div>
+                  <p className="text-display text-[clamp(1.5rem,2.5vw,2rem)] text-[var(--color-ink)] leading-none mb-1">142</p>
+                  <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em]">originators exposed</p>
+                </div>
+                <div>
+                  <p className="text-display text-[clamp(1.5rem,2.5vw,2rem)] text-[var(--color-primary-orange)] leading-none mb-1">Aug 2027</p>
+                  <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em]">peak month · 317 patents</p>
+                </div>
+              </div>
+            </div>
 
-## Most-affected originators
-- OTSUKA PHARMACEUTICAL CO LTD — 45 patents
-- TAKEDA PHARMACEUTICALS USA INC — 37 patents
-- BAUSCH HEALTH US LLC — 24 patents
-- NOVARTIS PHARMACEUTICALS CORP — 17 patents
+            {/* Top drugs section */}
+            <div className="px-8 md:px-10 py-8 md:py-10 border-b border-[var(--color-line)]">
+              <p className="mono text-[10px] text-[var(--color-primary-blue)] uppercase tracking-[0.18em] mb-4">§ 1 · Top drugs by patents cliffing</p>
+              <table className="w-full text-[13px] border-collapse">
+                <thead>
+                  <tr className="border-b border-[var(--color-line)]">
+                    <th className="text-left py-2.5 pr-4 text-[var(--color-text-muted)] font-medium mono text-[10px] uppercase tracking-[0.12em]">Active ingredient</th>
+                    <th className="text-right py-2.5 px-4 text-[var(--color-text-muted)] font-medium mono text-[10px] uppercase tracking-[0.12em]">Patents</th>
+                    <th className="text-left py-2.5 px-4 text-[var(--color-text-muted)] font-medium mono text-[10px] uppercase tracking-[0.12em]">Earliest</th>
+                    <th className="text-left py-2.5 pl-4 text-[var(--color-text-muted)] font-medium mono text-[10px] uppercase tracking-[0.12em]">Originators</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { ai: "ARIPIPRAZOLE", p: 26, ex: "Apr 2026", or: "Otsuka" },
+                    { ai: "TESTOSTERONE", p: 26, ex: "Jun 2026", or: "Besins, Eli Lilly" },
+                    { ai: "BUPROPION HYDROBROMIDE", p: 24, ex: "Jun 2026", or: "Bausch Health" },
+                    { ai: "LURASIDONE HYDROCHLORIDE", p: 20, ex: "May 2026", or: "Sunovion" },
+                    { ai: "PEGINESATIDE ACETATE", p: 16, ex: "Jun 2026", or: "Takeda" },
+                  ].map((row, i) => (
+                    <tr key={row.ai} className={`border-b border-[var(--color-line)] last:border-b-0 ${i % 2 === 1 ? "bg-[var(--color-surface-warm)]/40" : ""}`}>
+                      <td className="py-3 pr-4 font-semibold text-[var(--color-ink)]">{row.ai}</td>
+                      <td className="py-3 px-4 text-right mono text-[var(--color-primary-orange)] font-semibold">{row.p}</td>
+                      <td className="py-3 px-4 text-[var(--color-text-secondary)]">{row.ex}</td>
+                      <td className="py-3 pl-4 text-[var(--color-text-secondary)]">{row.or}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-## Your Indian generic filings vs the cliff
-> No matches in this window — your CDSCO drug-name register is empty
-> or unclassified. Run \`POST /api/cdsco/classify\` to populate \`drug_name\`
-> on existing rows, then this section will surface your direct overlaps.
+            {/* Your filings block — callout */}
+            <div className="px-8 md:px-10 py-6 md:py-8 border-b border-[var(--color-line)]">
+              <p className="mono text-[10px] text-[var(--color-primary-blue)] uppercase tracking-[0.18em] mb-3">§ 2 · Your Indian generic filings vs the cliff</p>
+              <div className="bg-[var(--color-primary-orange)]/5 border-l-2 border-[var(--color-primary-orange)] pl-4 py-3 rounded-r">
+                <p className="text-[13px] text-[var(--color-text-secondary)] leading-relaxed">
+                  <span className="font-semibold text-[var(--color-ink)]">No matches in this window.</span> Your CDSCO drug-name register is empty or unclassified. Run <code className="mono text-[11.5px] bg-white border border-[var(--color-line)] px-1.5 py-0.5 rounded">POST /api/cdsco/classify</code> to populate <code className="mono text-[11.5px] bg-white border border-[var(--color-line)] px-1.5 py-0.5 rounded">drug_name</code> on existing rows, then this section will surface your direct overlaps.
+                </p>
+              </div>
+            </div>
 
-## Next 10 cliffs (soonest first)
-1. LENVATINIB MESYLATE (LENVIMA) · US 7253286*PED · Apr 2026 · EISAI INC
-2. CERITINIB (ZYKADIA) · US 7893074 · Apr 2026 · NOVARTIS
-3. CHLORHEXIDINE GLUCONATE · US 7427574 · Apr 2026 · SAGE PRODUCTS
-... (truncated — full report 2,841 chars)`}
-            </pre>
+            {/* Next 3 cliffs */}
+            <div className="px-8 md:px-10 py-6 md:py-8">
+              <p className="mono text-[10px] text-[var(--color-primary-blue)] uppercase tracking-[0.18em] mb-4">§ 3 · Next 3 cliffs · soonest first</p>
+              <div className="space-y-2.5">
+                {[
+                  { drug: "LENVATINIB MESYLATE", trade: "Lenvima", patent: "US 7253286*PED", date: "Apr 2026", originator: "Eisai Inc" },
+                  { drug: "CERITINIB", trade: "Zykadia", patent: "US 7893074", date: "Apr 2026", originator: "Novartis" },
+                  { drug: "CHLORHEXIDINE GLUCONATE", trade: "Chlorhexidine Gluconate", patent: "US 7427574", date: "Apr 2026", originator: "Sage Products Inc" },
+                ].map((c, i) => (
+                  <div key={i} className="flex items-start gap-4 py-2.5 border-b border-[var(--color-line)] last:border-b-0">
+                    <span className="mono text-[11px] text-[var(--color-text-muted)] w-5 flex-shrink-0">{String(i + 1).padStart(2, "0")}</span>
+                    <div className="flex-1 grid md:grid-cols-[2fr_1fr_1fr] gap-3 items-baseline">
+                      <p className="text-[13.5px]">
+                        <span className="font-semibold text-[var(--color-ink)]">{c.drug}</span>
+                        <span className="text-[var(--color-text-secondary)]"> · {c.trade}</span>
+                      </p>
+                      <p className="mono text-[11.5px] text-[var(--color-text-secondary)]">{c.patent} · {c.date}</p>
+                      <p className="text-[12px] text-[var(--color-text-muted)] text-right">{c.originator}</p>
+                    </div>
+                  </div>
+                ))}
+                <p className="mono text-[10.5px] text-[var(--color-text-muted)] uppercase tracking-[0.15em] pt-3">
+                  Full report continues · 7 more cliffs in the top-10 section · plus originator breakdowns + your watchlist
+                </p>
+              </div>
+            </div>
           </div>
-          <p className="mt-6 text-[12px] text-[var(--color-text-muted)] mono uppercase tracking-[0.15em]">
-            Output also available as PDF · CSV · JSON · webhook
+          <p className="mt-6 text-[11.5px] text-[var(--color-text-muted)] mono uppercase tracking-[0.15em]">
+            Delivered as Markdown · PDF · CSV · JSON · or webhook to your internal CI stack
           </p>
         </div>
       </section>
