@@ -104,6 +104,7 @@ export default function Labs() {
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary">Scope a DD ↗</BookButton>
+              <Link href="/labs/dashboard" className="btn-secondary">View live dashboard →</Link>
               <Link href="#cases" className="btn-secondary">See the work</Link>
             </div>
           </div>
