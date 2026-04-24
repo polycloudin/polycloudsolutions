@@ -3,6 +3,88 @@ import Link from "next/link";
 import BookButton from "../../components/BookButton";
 import SiteNav from "../../components/SiteNav";
 import SiteFooter from "../../components/SiteFooter";
+import {
+  INDIAN_PHARMA,
+  COMPANY_NAME_TO_SLUG,
+  sectorHealthSummary,
+} from "../../../lib/labs/indian-pharma";
+
+// Render a "· "-separated filer list with Links to company pages when we know the slug
+function renderFilerList(filers: string): React.ReactNode {
+  const names = filers.split(" · ").map((n) => n.trim());
+  return names.map((name, i) => {
+    const slug = COMPANY_NAME_TO_SLUG[name];
+    const node = slug ? (
+      <Link
+        href={`/labs/dashboard/company/${slug}`}
+        className="underline underline-offset-2 decoration-[var(--color-primary-blue)]/40 hover:decoration-[var(--color-primary-blue)] hover:text-[var(--color-ink)] transition-colors"
+      >
+        {name}
+      </Link>
+    ) : (
+      <span>{name}</span>
+    );
+    return (
+      <span key={i}>
+        {i > 0 && " · "}
+        {node}
+      </span>
+    );
+  });
+}
+
+// DD-grade badge color — consistent across company cards + detail pages
+function gradeBadgeStyleInline(grade: string): string {
+  if (grade.startsWith("A")) return "bg-emerald-500/10 text-emerald-700 border-emerald-500/30";
+  if (grade.startsWith("B")) return "bg-[var(--color-primary-blue)]/10 text-[var(--color-primary-blue)] border-[var(--color-primary-blue)]/30";
+  if (grade.startsWith("C")) return "bg-[var(--color-primary-orange)]/10 text-[var(--color-primary-orange)] border-[var(--color-primary-orange)]/30";
+  return "bg-gray-500/10 text-gray-600 border-gray-500/30";
+}
+
+// Aggregate sector stats row for the MCA-sector section
+function SectorHealthStrip() {
+  const s = sectorHealthSummary();
+  const cards = [
+    {
+      stat: `₹${s.paidUpTotalCr.toLocaleString("en-IN")} Cr`,
+      label: "Aggregate paid-up capital",
+      sub: `Sum across ${s.total} cos · ${s.listedCount} listed`,
+    },
+    {
+      stat: `₹${(s.marketCapListedCr / 1000).toFixed(0)}K Cr`,
+      label: "Listed-cos market cap",
+      sub: "Estimate · as of Apr 2026 snapshot",
+    },
+    {
+      stat: String(s.uniqueStates),
+      label: "States represented",
+      sub: s.topStates.map((t) => `${t.state} ${t.count}`).join(" · "),
+    },
+    {
+      stat: String(s.avgDDScore),
+      label: "Avg DD score · 100",
+      sub: `Oldest: founded ${s.oldestYear} · Avg age: ${s.avgAge} yrs`,
+    },
+    {
+      stat: String(s.chargeTotal),
+      label: "Charges filed · last 90 days",
+      sub: "Leverage signal across the cohort",
+    },
+  ];
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+      {cards.map((c) => (
+        <div key={c.label} className="bg-white rounded-xl border border-[var(--color-line)] p-5">
+          <p className="text-display text-[clamp(1.25rem,2vw,1.75rem)] leading-none mb-2">{c.stat}</p>
+          <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.15em] mb-2">
+            {c.label}
+          </p>
+          <p className="text-[11px] text-[var(--color-text-secondary)] leading-snug">{c.sub}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export const metadata: Metadata = {
   title: "Labs Dashboard — Live India pharma + global IP intelligence",
@@ -344,7 +426,7 @@ export default function LabsDashboard() {
                       </td>
                       <td className="px-5 py-4 mono text-[12px] text-[var(--color-text-secondary)] tabular-nums">{o.earliest}</td>
                       <td className="px-5 py-4 text-[var(--color-text-secondary)]">{o.drugs}</td>
-                      <td className="px-5 py-4 text-[var(--color-text-secondary)]">{o.filers}</td>
+                      <td className="px-5 py-4 text-[var(--color-text-secondary)]">{renderFilerList(o.filers)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -355,6 +437,53 @@ export default function LabsDashboard() {
                 <span className="font-semibold text-[var(--color-ink)]">Indian filers column:</span> public DMF / ANDA filing patterns from FDA + DGCI, last refresh 2025. Per-tenant first-to-file, NCE-1, 180-day exclusivity, and Para-IV status arrive with the live API in Q3 2026 — request access to be in the first cohort.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Indian pharma sector health — A3 (MCA-joined) */}
+      <section className="px-6 md:px-10 py-16 md:py-28 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
+        <div className="max-w-[1440px] mx-auto">
+          <div className="flex items-end justify-between mb-12 md:mb-14 flex-wrap gap-6">
+            <div>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">02b / Indian pharma sector · MCA-joined corporate health</p>
+              <h2 className="text-[clamp(1.625rem,4vw,3.25rem)] max-w-2xl leading-[1.05]">
+                {INDIAN_PHARMA.length} Indian pharma cos indexed.{" "}
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">Click any name to drill in.</span>
+              </h2>
+            </div>
+            <p className="text-[var(--color-text-secondary)] max-w-md text-[14px] leading-relaxed">
+              Sourced via BizAPI MCA21 connector — sibling data product to the Labs regulatory feeds. Each company page joins MCA corporate data to CDSCO filings, Orange Book cliffs, and CTRI trials.
+            </p>
+          </div>
+
+          {/* Sector-level aggregate cards */}
+          <SectorHealthStrip />
+
+          {/* Company grid */}
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {INDIAN_PHARMA.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/labs/dashboard/company/${c.slug}`}
+                className="group bg-white rounded-xl border border-[var(--color-line)] hover:border-[var(--color-primary-blue)]/40 p-4 transition-colors"
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <p className="text-display text-[16px] leading-tight group-hover:text-[var(--color-primary-blue)] transition-colors">{c.name}</p>
+                  <span className={`mono text-[9px] uppercase tracking-[0.1em] px-1.5 py-0.5 rounded border ${gradeBadgeStyleInline(c.ddGrade)}`}>
+                    {c.ddGrade}
+                  </span>
+                </div>
+                <p className="text-[11px] text-[var(--color-text-muted)] mb-3">{c.state}</p>
+                <div className="flex items-center gap-2.5 text-[11px] text-[var(--color-text-secondary)]">
+                  <span className="tabular-nums">₹{c.paidUpCapitalCr.toFixed(0)} Cr</span>
+                  <span>·</span>
+                  <span>{c.cliffExposures.length} cliffs</span>
+                  <span>·</span>
+                  <span>{c.cdscoFilings90d.length} CDSCO/90d</span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

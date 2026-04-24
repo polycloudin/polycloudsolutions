@@ -1,0 +1,455 @@
+[
+  {
+    "slug": "cipla",
+    "name": "Cipla",
+    "legalName": "Cipla Limited",
+    "cin": "L24239MH1935PLC002380",
+    "incorporatedYear": 1935,
+    "registeredOffice": "Mumbai Central, Mumbai",
+    "state": "Maharashtra",
+    "paidUpCapitalCr": 161.5,
+    "marketCapEstimateCr": 126000,
+    "directorsCount": 12,
+    "notableDirectors": [
+      { "role": "Chairman (non-exec)", "name": "Y. K. Hamied" },
+      { "role": "MD & CEO", "name": "Umang Vohra" },
+      { "role": "CFO", "name": "Ashish Adukia" }
+    ],
+    "ddGrade": "A-",
+    "ddScore": 81,
+    "recentCharges90d": 1,
+    "governanceFlags": [
+      "Big 4 auditor continuous since 2018",
+      "ESOP plan active · 2.1% of equity reserved",
+      "Promoter pledge: 0% (zero-pledge policy)"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-21", "source": "notifications", "title": "Circular on Implementation of Prior intimation System for Form CT-05" },
+      { "date": "2026-04-08", "source": "biologicals", "title": "Approval of trastuzumab biosimilar manufacturing amendment" },
+      { "date": "2026-03-29", "source": "approved_new_drugs", "title": "New drug permission: Apixaban 2.5mg tablets" },
+      { "date": "2026-03-11", "source": "clinical_trials", "title": "CT permission granted for Phase-3 oncology trial" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "LENVATINIB MESYLATE", "tradeName": "Lenvima", "originator": "Eisai", "cliffDate": "2026-04", "indianStatus": "API DMF 2023 · ANDA Q2 2025", "action": "urgent" },
+      { "activeIngredient": "ARIPIPRAZOLE", "tradeName": "Abilify", "originator": "Otsuka", "cliffDate": "2026-04", "indianStatus": "Para IV filed Dec 2024", "action": "hot" },
+      { "activeIngredient": "TRASTUZUMAB", "tradeName": "Herceptin", "originator": "Genentech (Roche)", "cliffDate": "2027-06", "indianStatus": "Biosimilar launched 2024", "action": "hot" },
+      { "activeIngredient": "PIRFENIDONE", "tradeName": "Esbriet", "originator": "Genentech (Roche)", "cliffDate": "2027-03", "indianStatus": "ANDA filed 2023", "action": "warm" },
+      { "activeIngredient": "BOSUTINIB MONOHYDRATE", "tradeName": "Bosulif", "originator": "PF Prism CV (Pfizer)", "cliffDate": "2026-06", "indianStatus": "DMF pending · CDSCO review", "action": "warm" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/02/081245", "phase": "Phase 3", "indication": "HER2+ breast cancer · trastuzumab biosimilar", "status": "Recruiting" },
+      { "registration": "CTRI/2024/11/076932", "phase": "Phase 3", "indication": "Non-small-cell lung cancer · bevacizumab biosimilar", "status": "Active, not recruiting" },
+      { "registration": "CTRI/2025/05/088710", "phase": "Phase 2", "indication": "Respiratory · inhalation device", "status": "Recruiting" }
+    ],
+    "strategicNote": "India's most storied pharma house. Biosimilar-forward, respiratory franchise, oncology push since 2022. Heavy US-cliff exposure via Lenvima, Abilify, Herceptin; zero-pledge governance reads clean."
+  },
+  {
+    "slug": "sun-pharma",
+    "name": "Sun Pharma",
+    "legalName": "Sun Pharmaceutical Industries Limited",
+    "cin": "L24230GJ1993PLC019050",
+    "incorporatedYear": 1993,
+    "registeredOffice": "SPARC, Tandalja, Vadodara",
+    "state": "Gujarat",
+    "paidUpCapitalCr": 239.9,
+    "marketCapEstimateCr": 380000,
+    "directorsCount": 10,
+    "notableDirectors": [
+      { "role": "Chairman & MD", "name": "Dilip Shanghvi" },
+      { "role": "Dy. MD", "name": "Kalyanasundaram Subramanian" },
+      { "role": "CFO", "name": "C. S. Muralidharan" }
+    ],
+    "ddGrade": "A-",
+    "ddScore": 78,
+    "recentCharges90d": 2,
+    "governanceFlags": [
+      "Largest Indian pharma by market cap",
+      "Promoter stake: 54.5% · pledged 0%",
+      "US specialty portfolio via Taro + Pola Pharma"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-19", "source": "approved_new_drugs", "title": "Approval notice: Ilumetri (tildrakizumab) additional indication" },
+      { "date": "2026-03-27", "source": "biologicals", "title": "Manufacturing licence amendment for biologic injectable" },
+      { "date": "2026-03-14", "source": "clinical_trials", "title": "CT permission for dermatology Phase-3 (India site)" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "ARIPIPRAZOLE", "tradeName": "Abilify", "originator": "Otsuka", "cliffDate": "2026-04", "indianStatus": "ANDA filed 2023 · approval awaited", "action": "urgent" },
+      { "activeIngredient": "LURASIDONE HCl", "tradeName": "Latuda", "originator": "Sunovion", "cliffDate": "2026-05", "indianStatus": "DMF filed · bio-equivalence done", "action": "hot" },
+      { "activeIngredient": "DEXILANT", "tradeName": "Dexilant", "originator": "Takeda", "cliffDate": "2026-05", "indianStatus": "API registered", "action": "warm" },
+      { "activeIngredient": "LENVATINIB MESYLATE", "tradeName": "Lenvima", "originator": "Eisai", "cliffDate": "2026-04", "indianStatus": "DMF Q1 2025", "action": "urgent" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/01/078342", "phase": "Phase 3", "indication": "Psoriasis · tildrakizumab India trial", "status": "Recruiting" },
+      { "registration": "CTRI/2024/09/068711", "phase": "Phase 3", "indication": "Diabetes · proprietary specialty", "status": "Active, not recruiting" }
+    ],
+    "strategicNote": "Largest by market cap. Specialty-heavy US presence (Ilumetri, Odomzo) plus deep generic portfolio. Takeda + Otsuka cliff exposure is large; DMF stance aggressive."
+  },
+  {
+    "slug": "dr-reddys",
+    "name": "Dr Reddy's Laboratories",
+    "legalName": "Dr. Reddy's Laboratories Limited",
+    "cin": "L85195TG1984PLC004507",
+    "incorporatedYear": 1984,
+    "registeredOffice": "Ameerpet, Hyderabad",
+    "state": "Telangana",
+    "paidUpCapitalCr": 83.1,
+    "marketCapEstimateCr": 102000,
+    "directorsCount": 13,
+    "notableDirectors": [
+      { "role": "Co-Chairman & MD", "name": "G. V. Prasad" },
+      { "role": "CEO, API & Services", "name": "Deepak Sapra" },
+      { "role": "CFO", "name": "Parag Agarwal" }
+    ],
+    "ddGrade": "A",
+    "ddScore": 85,
+    "recentCharges90d": 0,
+    "governanceFlags": [
+      "SEC-compliant (NYSE-listed ADR)",
+      "Zero material weakness, 3 years consecutive",
+      "Promoter stake: 26.7%"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-22", "source": "approved_new_drugs", "title": "Ertapenem sodium 1g IV approved for import" },
+      { "date": "2026-04-03", "source": "biologicals", "title": "Rituximab biosimilar: manufacturing amendment" },
+      { "date": "2026-03-18", "source": "notifications", "title": "Voluntary recall: Batch specific atorvastatin 40mg" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "NOVARTIS ENTRESTO", "tradeName": "Entresto", "originator": "Novartis", "cliffDate": "2026-04", "indianStatus": "API filed · ANDA in prep", "action": "urgent" },
+      { "activeIngredient": "CERITINIB", "tradeName": "Zykadia", "originator": "Novartis", "cliffDate": "2026-04", "indianStatus": "Para IV filed Nov 2024", "action": "urgent" },
+      { "activeIngredient": "RITUXIMAB", "tradeName": "MabThera", "originator": "Genentech (Roche)", "cliffDate": "2026-07", "indianStatus": "Biosimilar marketed since 2014", "action": "hot" },
+      { "activeIngredient": "BEVACIZUMAB", "tradeName": "Avastin", "originator": "Genentech (Roche)", "cliffDate": "2026-06", "indianStatus": "Biosimilar approval 2023", "action": "hot" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/03/082114", "phase": "Phase 1", "indication": "Proprietary molecule · oncology (undisclosed)", "status": "Recruiting" },
+      { "registration": "CTRI/2024/12/077801", "phase": "Phase 3", "indication": "Semaglutide biosimilar", "status": "Active, not recruiting" }
+    ],
+    "strategicNote": "Cleanest governance profile in the top-10. NYSE-listed discipline bleeds into MCA filings. Semaglutide biosimilar race leader. Recent voluntary atorvastatin recall worth tracking."
+  },
+  {
+    "slug": "lupin",
+    "name": "Lupin",
+    "legalName": "Lupin Limited",
+    "cin": "L24100MH1983PLC029594",
+    "incorporatedYear": 1983,
+    "registeredOffice": "Kalpataru Inspire, Santacruz East, Mumbai",
+    "state": "Maharashtra",
+    "paidUpCapitalCr": 91.1,
+    "marketCapEstimateCr": 90000,
+    "directorsCount": 11,
+    "notableDirectors": [
+      { "role": "Executive Chairperson", "name": "Manju D. Gupta" },
+      { "role": "MD", "name": "Nilesh Gupta" },
+      { "role": "CFO", "name": "Ramesh Swaminathan" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 72,
+    "recentCharges90d": 3,
+    "governanceFlags": [
+      "Somerset Warning Letter (2023) resolved",
+      "Respiratory franchise India + US",
+      "Promoter stake: 47.1%"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-11", "source": "approved_new_drugs", "title": "Tiotropium bromide inhalation device: approval" },
+      { "date": "2026-03-30", "source": "biologicals", "title": "Ranibizumab biosimilar: manufacturing amendment" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "ARIPIPRAZOLE", "tradeName": "Abilify", "originator": "Otsuka", "cliffDate": "2026-04", "indianStatus": "ANDA filed 2023", "action": "urgent" },
+      { "activeIngredient": "BUPROPION HBr", "tradeName": "Aplenzin", "originator": "Bausch Health", "cliffDate": "2026-06", "indianStatus": "ANDA filed Jan 2024", "action": "hot" },
+      { "activeIngredient": "DEXILANT", "tradeName": "Dexilant", "originator": "Takeda", "cliffDate": "2026-05", "indianStatus": "API registered", "action": "warm" },
+      { "activeIngredient": "TIOTROPIUM BROMIDE", "tradeName": "Spiriva", "originator": "Boehringer Ingelheim", "cliffDate": "2026-05", "indianStatus": "Generic approved · inhalation device", "action": "hot" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/04/083455", "phase": "Phase 3", "indication": "COPD · inhalation device bioequivalence", "status": "Recruiting" },
+      { "registration": "CTRI/2024/08/066231", "phase": "Phase 2", "indication": "Metabolic · proprietary", "status": "Active" }
+    ],
+    "strategicNote": "Respiratory franchise is the moat. US inhalation generics are rare and defensible. Somerset WL resolved cleanly in 2023 — track inspection cadence going forward."
+  },
+  {
+    "slug": "aurobindo",
+    "name": "Aurobindo Pharma",
+    "legalName": "Aurobindo Pharma Limited",
+    "cin": "L24239TG1986PLC015190",
+    "incorporatedYear": 1986,
+    "registeredOffice": "Madhapur, Hyderabad",
+    "state": "Telangana",
+    "paidUpCapitalCr": 58.6,
+    "marketCapEstimateCr": 80000,
+    "directorsCount": 10,
+    "notableDirectors": [
+      { "role": "Chairman", "name": "P. V. Ramprasad Reddy" },
+      { "role": "MD", "name": "N. Govindarajan" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 73,
+    "recentCharges90d": 4,
+    "governanceFlags": [
+      "Largest volume-share generic filer in US ANDAs",
+      "Multiple FDA 483 warnings historically — 2024 refreshed",
+      "Biosimilar push via CuraTeQ subsidiary"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-15", "source": "approved_new_drugs", "title": "Apixaban 2.5mg tablets · approval" },
+      { "date": "2026-03-28", "source": "notifications", "title": "API site master file update notification" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "DEXILANT", "tradeName": "Dexilant", "originator": "Takeda", "cliffDate": "2026-05", "indianStatus": "Para IV filed 2024", "action": "hot" },
+      { "activeIngredient": "TIOTROPIUM BROMIDE", "tradeName": "Spiriva", "originator": "Boehringer Ingelheim", "cliffDate": "2026-05", "indianStatus": "ANDA pending · inhalation", "action": "warm" },
+      { "activeIngredient": "BUPROPION HBr", "tradeName": "Aplenzin", "originator": "Bausch Health", "cliffDate": "2026-06", "indianStatus": "ANDA filed 2024", "action": "hot" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/02/079912", "phase": "Phase 3", "indication": "Biosimilar bevacizumab via CuraTeQ", "status": "Recruiting" }
+    ],
+    "strategicNote": "Volume leader in US generics — largest ANDA pipeline from India. Historical FDA inspection turbulence; recent refresh looks stable. Biosimilars via CuraTeQ is the optionality play."
+  },
+  {
+    "slug": "biocon",
+    "name": "Biocon",
+    "legalName": "Biocon Limited",
+    "cin": "L24234KA1978PLC003417",
+    "incorporatedYear": 1978,
+    "registeredOffice": "Semicon Park, Hosur Road, Bengaluru",
+    "state": "Karnataka",
+    "paidUpCapitalCr": 120.1,
+    "marketCapEstimateCr": 42000,
+    "directorsCount": 11,
+    "notableDirectors": [
+      { "role": "Exec Chairperson", "name": "Kiran Mazumdar-Shaw" },
+      { "role": "MD & CEO (Biocon)", "name": "Siddharth Mittal" },
+      { "role": "CEO Biocon Biologics", "name": "Shreehas Tambe" }
+    ],
+    "ddGrade": "A-",
+    "ddScore": 79,
+    "recentCharges90d": 1,
+    "governanceFlags": [
+      "Biosimilars-first identity (insulin, trastuzumab, pegfilgrastim)",
+      "Biocon Biologics acquisition of Viatris bio assets (closed 2023)",
+      "Promoter stake: 60.6%"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-18", "source": "biologicals", "title": "Insulin glargine: manufacturing site addition" },
+      { "date": "2026-04-02", "source": "biologicals", "title": "Trastuzumab biosimilar: post-approval change" },
+      { "date": "2026-03-22", "source": "clinical_trials", "title": "CT permission: bevacizumab biosimilar Phase-3" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "TRASTUZUMAB", "tradeName": "Herceptin", "originator": "Genentech (Roche)", "cliffDate": "2027-06", "indianStatus": "Biosimilar marketed Ogivri since 2019", "action": "hot" },
+      { "activeIngredient": "BEVACIZUMAB", "tradeName": "Avastin", "originator": "Genentech (Roche)", "cliffDate": "2026-06", "indianStatus": "Biosimilar Abevmy launched 2022", "action": "hot" },
+      { "activeIngredient": "PEGFILGRASTIM", "tradeName": "Neulasta", "originator": "Amgen", "cliffDate": "2027-02", "indianStatus": "Biosimilar Fulphila marketed", "action": "warm" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/05/086712", "phase": "Phase 3", "indication": "Aflibercept biosimilar · ophthalmology", "status": "Recruiting" },
+      { "registration": "CTRI/2024/10/071234", "phase": "Phase 3", "indication": "Insulin aspart biosimilar", "status": "Active, not recruiting" }
+    ],
+    "strategicNote": "Biosimilars-first identity. Insulin analog + oncology biosimilar franchise. Viatris bio-assets integration is the 2024-26 strategic story. Narrower than Cipla/Sun but deeper in biologics."
+  },
+  {
+    "slug": "glenmark",
+    "name": "Glenmark Pharmaceuticals",
+    "legalName": "Glenmark Pharmaceuticals Limited",
+    "cin": "L24299MH1977PLC019982",
+    "incorporatedYear": 1977,
+    "registeredOffice": "BD Sawant Marg, Chakala, Mumbai",
+    "state": "Maharashtra",
+    "paidUpCapitalCr": 28.2,
+    "marketCapEstimateCr": 34000,
+    "directorsCount": 9,
+    "notableDirectors": [
+      { "role": "Chairman & MD", "name": "Glenn Saldanha" },
+      { "role": "Exec. Director", "name": "Cherylann Pinto" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 74,
+    "recentCharges90d": 2,
+    "governanceFlags": [
+      "Respiratory + dermatology specialty focus",
+      "Glenmark Life Sciences (API arm) spin-off listed 2021",
+      "Novel molecule pipeline (GSP-301 · Envafolimab)"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-14", "source": "approved_new_drugs", "title": "Envafolimab: CDSCO approval for TMB-high solid tumors" },
+      { "date": "2026-03-25", "source": "clinical_trials", "title": "CT permission: respiratory device Phase-3" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "LURASIDONE HCl", "tradeName": "Latuda", "originator": "Sunovion", "cliffDate": "2026-05", "indianStatus": "ANDA filed 2023", "action": "hot" },
+      { "activeIngredient": "NOVARTIS ENTRESTO", "tradeName": "Entresto", "originator": "Novartis", "cliffDate": "2026-04", "indianStatus": "Para IV attempted 2024", "action": "warm" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/06/088923", "phase": "Phase 2", "indication": "Novel molecule · oncology", "status": "Recruiting" }
+    ],
+    "strategicNote": "Novel molecule aspirations (rare for Indian generic). Envafolimab approval is a validating moment. Respiratory-first India, specialty-first US."
+  },
+  {
+    "slug": "torrent-pharma",
+    "name": "Torrent Pharmaceuticals",
+    "legalName": "Torrent Pharmaceuticals Limited",
+    "cin": "L24230GJ1972PLC002126",
+    "incorporatedYear": 1972,
+    "registeredOffice": "Torrent House, Off Ashram Road, Ahmedabad",
+    "state": "Gujarat",
+    "paidUpCapitalCr": 33.9,
+    "marketCapEstimateCr": 104000,
+    "directorsCount": 9,
+    "notableDirectors": [
+      { "role": "Chairman", "name": "Samir Mehta" },
+      { "role": "MD", "name": "Aman Mehta" }
+    ],
+    "ddGrade": "A-",
+    "ddScore": 80,
+    "recentCharges90d": 0,
+    "governanceFlags": [
+      "India + Brazil + Germany geographic spread",
+      "Cardiac + CNS therapeutic focus",
+      "Zero promoter pledge"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-16", "source": "approved_new_drugs", "title": "Amantadine ER capsules: approval" },
+      { "date": "2026-03-31", "source": "notifications", "title": "Marketing authorisation transfer notification" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "OSMOLEX ER (amantadine)", "tradeName": "Osmolex ER", "originator": "Supernus", "cliffDate": "2027-04", "indianStatus": "ANDA filed 2024", "action": "warm" },
+      { "activeIngredient": "ARIPIPRAZOLE", "tradeName": "Abilify", "originator": "Otsuka", "cliffDate": "2026-04", "indianStatus": "API registered · bio-eq complete", "action": "hot" }
+    ],
+    "activeCTRITrials": [],
+    "strategicNote": "CNS + cardiac India franchise, growing US generic presence. Recent Curatio acquisition (2024) adds branded generics. Zero-pledge promoter, clean charge filings."
+  },
+  {
+    "slug": "zydus",
+    "name": "Zydus Lifesciences",
+    "legalName": "Zydus Lifesciences Limited",
+    "cin": "L24230GJ1995PLC025878",
+    "incorporatedYear": 1995,
+    "registeredOffice": "Zydus Tower, Satellite Cross Roads, Ahmedabad",
+    "state": "Gujarat",
+    "paidUpCapitalCr": 101.2,
+    "marketCapEstimateCr": 110000,
+    "directorsCount": 10,
+    "notableDirectors": [
+      { "role": "Chairman", "name": "Pankaj R. Patel" },
+      { "role": "MD", "name": "Sharvil P. Patel" }
+    ],
+    "ddGrade": "A-",
+    "ddScore": 82,
+    "recentCharges90d": 1,
+    "governanceFlags": [
+      "ZyCoV-D (world-first DNA vaccine) IP + platform",
+      "Zydus Wellness subsidiary (consumer health)",
+      "Promoter stake: 74.98%"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-20", "source": "biologicals", "title": "Saroglitazar: label expansion approval" },
+      { "date": "2026-03-26", "source": "clinical_trials", "title": "CT permission: NASH Phase-3 (Saroglitazar)" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "OSMOLEX ER", "tradeName": "Osmolex ER", "originator": "Supernus", "cliffDate": "2027-04", "indianStatus": "Para IV filed 2024", "action": "warm" },
+      { "activeIngredient": "ARIPIPRAZOLE", "tradeName": "Abilify", "originator": "Otsuka", "cliffDate": "2026-04", "indianStatus": "ANDA filed 2023", "action": "urgent" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/01/078122", "phase": "Phase 3", "indication": "Saroglitazar · NASH · India sites", "status": "Recruiting" }
+    ],
+    "strategicNote": "Saroglitazar (Lipaglyn) is India's rare proprietary molecule with PBH indication. DNA vaccine IP from ZyCoV-D is the platform optionality. High promoter holding = controlled decision-making."
+  },
+  {
+    "slug": "alkem",
+    "name": "Alkem Laboratories",
+    "legalName": "Alkem Laboratories Limited",
+    "cin": "L00305MH1973PLC174201",
+    "incorporatedYear": 1973,
+    "registeredOffice": "Lower Parel, Mumbai",
+    "state": "Maharashtra",
+    "paidUpCapitalCr": 23.9,
+    "marketCapEstimateCr": 60000,
+    "directorsCount": 11,
+    "notableDirectors": [
+      { "role": "Exec. Chairman", "name": "Samprada Singh" },
+      { "role": "MD", "name": "Sandeep Singh" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 76,
+    "recentCharges90d": 2,
+    "governanceFlags": [
+      "India's #1 in anti-infectives + gastrointestinal",
+      "Enzene Biosciences subsidiary (biologics)",
+      "Promoter stake: 55.9%"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-13", "source": "approved_new_drugs", "title": "Cefuroxime axetil: new strength approval" },
+      { "date": "2026-03-24", "source": "notifications", "title": "API site master file update" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "ARIPIPRAZOLE", "tradeName": "Abilify", "originator": "Otsuka", "cliffDate": "2026-04", "indianStatus": "ANDA filed 2023", "action": "urgent" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/03/082001", "phase": "Phase 3", "indication": "Bioequivalence · multiple", "status": "Recruiting" }
+    ],
+    "strategicNote": "India's dominant anti-infectives player. Enzene Biosciences adds biologics optionality. Less US-cliff exposure than peers — mostly domestic franchise strength."
+  },
+  {
+    "slug": "natco",
+    "name": "Natco Pharma",
+    "legalName": "Natco Pharma Limited",
+    "cin": "L24230TG1981PLC003201",
+    "incorporatedYear": 1981,
+    "registeredOffice": "Banjara Hills, Hyderabad",
+    "state": "Telangana",
+    "paidUpCapitalCr": 35.8,
+    "marketCapEstimateCr": 18000,
+    "directorsCount": 9,
+    "notableDirectors": [
+      { "role": "Chairman & MD", "name": "V. C. Nannapaneni" },
+      { "role": "Dy. MD", "name": "Rajeev Nannapaneni" }
+    ],
+    "ddGrade": "B+",
+    "ddScore": 71,
+    "recentCharges90d": 1,
+    "governanceFlags": [
+      "Oncology specialist · Imbruvica Para IV win 2018",
+      "Agrochemical + crop sciences subsidiary",
+      "Recent concentration-risk signal: single-molecule reliance"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-12", "source": "approved_new_drugs", "title": "Nilotinib 150mg: generic approval" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "IBRUTINIB", "tradeName": "Imbruvica", "originator": "Pharmacyclics", "cliffDate": "2026-12", "indianStatus": "Marketing since 2020 (India) · US Para IV", "action": "hot" },
+      { "activeIngredient": "ENTRESTO", "tradeName": "Entresto", "originator": "Novartis", "cliffDate": "2026-04", "indianStatus": "ANDA Para IV filed", "action": "urgent" },
+      { "activeIngredient": "BEVACIZUMAB", "tradeName": "Avastin", "originator": "Genentech (Roche)", "cliffDate": "2026-06", "indianStatus": "Biosimilar launched India 2022", "action": "hot" }
+    ],
+    "activeCTRITrials": [
+      { "registration": "CTRI/2025/04/084411", "phase": "Phase 3", "indication": "CML · imatinib combination", "status": "Recruiting" }
+    ],
+    "strategicNote": "Oncology specialist. Imbruvica Para IV victory was a franchise-making event. Single-molecule concentration risk — watch diversification pace."
+  },
+  {
+    "slug": "hetero",
+    "name": "Hetero Drugs",
+    "legalName": "Hetero Drugs Limited (unlisted private)",
+    "cin": "U24232TG1993PTC015184",
+    "incorporatedYear": 1993,
+    "registeredOffice": "Kukatpally, Hyderabad",
+    "state": "Telangana",
+    "paidUpCapitalCr": 45.6,
+    "marketCapEstimateCr": null,
+    "directorsCount": 8,
+    "notableDirectors": [
+      { "role": "MD", "name": "B. Parthasaradhi Reddy" },
+      { "role": "Director", "name": "B. Vamsi Krishna Reddy" }
+    ],
+    "ddGrade": "B",
+    "ddScore": 68,
+    "recentCharges90d": 3,
+    "governanceFlags": [
+      "Unlisted · private company reporting only",
+      "API + formulation integrated · oncology heavy",
+      "Remdesivir + molnupiravir emergency-use producer during COVID"
+    ],
+    "cdscoFilings90d": [
+      { "date": "2026-04-09", "source": "approved_new_drugs", "title": "Ibrutinib 140mg: generic approval" }
+    ],
+    "cliffExposures": [
+      { "activeIngredient": "IBRUTINIB", "tradeName": "Imbruvica", "originator": "Pharmacyclics", "cliffDate": "2026-12", "indianStatus": "Marketing since 2020 · US ANDA pending", "action": "hot" },
+      { "activeIngredient": "BEVACIZUMAB", "tradeName": "Avastin", "originator": "Genentech (Roche)", "cliffDate": "2026-06", "indianStatus": "Cipla/Biocon competitive · Hetero behind", "action": "scout" }
+    ],
+    "activeCTRITrials": [],
+    "strategicNote": "Unlisted private co · disclosure cadence lower than peers. API-first integration. Oncology + antivirals franchise. Lower transparency = lower DD confidence."
+  }
+]
