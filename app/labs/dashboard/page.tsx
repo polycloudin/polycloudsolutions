@@ -45,16 +45,25 @@ function gradeBadgeStyleInline(grade: string): string {
 // Aggregate sector stats row for the MCA-sector section
 function SectorHealthStrip() {
   const s = sectorHealthSummary();
+  // Render big market caps in Indian Lakh Cr (1 L Cr = 100,000 Cr) convention
+  const mcLakhCr = s.marketCapListedCr / 100000;
+  const mcStat =
+    mcLakhCr >= 1
+      ? `₹${mcLakhCr.toFixed(2)} L Cr`
+      : `₹${s.marketCapListedCr.toLocaleString("en-IN")} Cr`;
   const cards = [
     {
       stat: `₹${s.paidUpTotalCr.toLocaleString("en-IN")} Cr`,
       label: "Aggregate paid-up capital",
-      sub: `Sum across ${s.total} cos · ${s.listedCount} listed`,
+      sub:
+        s.listedCount === s.total
+          ? `Sum across ${s.total} listed cos`
+          : `Sum across ${s.total} cos · ${s.listedCount} listed`,
     },
     {
-      stat: `₹${(s.marketCapListedCr / 1000).toFixed(0)}K Cr`,
+      stat: mcStat,
       label: "Listed-cos market cap",
-      sub: "Estimate · as of Apr 2026 snapshot",
+      sub: `₹${s.marketCapListedCr.toLocaleString("en-IN")} Cr · est · Apr 2026`,
     },
     {
       stat: String(s.uniqueStates),
@@ -447,14 +456,14 @@ export default function LabsDashboard() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-8 md:mb-10 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">02b / Indian pharma · {INDIAN_PHARMA.length} listed cos, joined view</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-4">02b / Listed Indian pharma · {INDIAN_PHARMA.length} cos, one-view join</p>
               <h2 className="text-[clamp(1.625rem,4vw,3.25rem)] max-w-2xl leading-[1.05]">
-                Not a new dataset.{" "}
-                <span className="text-serif-accent text-[var(--color-primary-blue)]">A one-click join across five.</span>
+                No new data here.{" "}
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">Five feeds, joined per company.</span>
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[14px] leading-relaxed">
-              Listed pharma basics are already public (Screener, BSE, annual reports). What this view adds on top: CDSCO filings + Orange Book cliff exposure + CTRI trials + MCA charge ledger + subsidiary network — joined per company. The <em>uniquely-MCA</em> sector is unlisted pharma; that cohort is next.
+              Listed pharma basics are already public (Screener, BSE, annual reports). What this section adds is the <em>join</em>: CDSCO filings + Orange Book cliff exposure + CTRI trials + MCA charge ledger + subsidiary network, scoped per CIN. The genuinely-MCA-exclusive cohort — unlisted private pharma — is the section below.
             </p>
           </div>
 
@@ -462,7 +471,7 @@ export default function LabsDashboard() {
           <div className="mb-10 px-5 py-4 rounded-xl border border-[var(--color-line)] bg-white/60 text-[13px] text-[var(--color-text-secondary)] leading-relaxed">
             <span className="mono text-[10px] text-[var(--color-primary-orange)] uppercase tracking-[0.18em] mr-2">Candid</span>
             <span>
-              For listed pharma, <span className="font-semibold text-[var(--color-ink)]">~70% of MCA data overlaps with BSE/Screener</span>. The MCA-unique fields here are charge ledger (leverage signals) + subsidiary filings + director-DIN cross-linkage. The real moat is in unlisted cos (Intas, Macleods, MSN, Aurigene, Cipla Health) — see the section below.
+              For listed pharma, <span className="font-semibold text-[var(--color-ink)]">~70% of MCA data overlaps with BSE/Screener</span>. The MCA-unique fields on these pages are charge ledger (leverage signals) + subsidiary filings + director-DIN cross-linkage. The real moat is in unlisted cos (Intas, Macleods, MSN, Aurigene, Cipla Health) — see the section below.
             </span>
           </div>
 
