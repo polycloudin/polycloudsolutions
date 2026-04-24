@@ -135,9 +135,15 @@ export default async function BlogPost({ params }: Props) {
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <BookButton variant="light-primary">Book a call ↗</BookButton>
+                  <Link
+                    href="/onboard"
+                    className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]"
+                  >
+                    Start a 3-min intake →
+                  </Link>
                   <a
                     href="mailto:hello@polycloud.in"
-                    className="btn-secondary !text-white !border-white/30 hover:!bg-white hover:!text-[var(--color-ink)]"
+                    className="mono text-[11px] uppercase tracking-[0.18em] text-white/50 hover:text-white transition-colors self-center"
                   >
                     hello@polycloud.in
                   </a>
@@ -145,8 +151,48 @@ export default async function BlogPost({ params }: Props) {
               </div>
             </div>
 
+            {/* Proof surfaces — new block: every blog post points readers
+                to a live artefact, not just another blog post */}
+            <div className="mt-14 md:mt-20 border-t border-[var(--color-line)] pt-14">
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5 md:mb-6">
+                See it live
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 md:gap-5">
+                <Link
+                  href="/client/kumar-textiles"
+                  className="group bg-white p-6 md:p-7 border border-[var(--color-line)] rounded-xl hover:border-[var(--color-ink)] transition-colors"
+                >
+                  <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] mb-3">
+                    Live client dashboard
+                  </p>
+                  <h3 className="text-[clamp(1.15rem,1.6vw,1.35rem)] leading-tight mb-3 group-hover:text-[var(--color-primary-blue)] transition-colors">
+                    Kumar Textiles — 76-day transformation, live numbers
+                  </h3>
+                  <span className="text-sm font-medium flex items-center gap-2">
+                    See the dashboard
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </span>
+                </Link>
+                <Link
+                  href="/solutions/ca-firm"
+                  className="group bg-white p-6 md:p-7 border border-[var(--color-line)] rounded-xl hover:border-[var(--color-ink)] transition-colors"
+                >
+                  <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] mb-3">
+                    Consulting output
+                  </p>
+                  <h3 className="text-[clamp(1.15rem,1.6vw,1.35rem)] leading-tight mb-3 group-hover:text-[var(--color-primary-blue)] transition-colors">
+                    CA firm month-end close — 8h → 45min per client
+                  </h3>
+                  <span className="text-sm font-medium flex items-center gap-2">
+                    See the case
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </span>
+                </Link>
+              </div>
+            </div>
+
             {/* Related */}
-            <div className="border-t border-[var(--color-line)] pt-14">
+            <div className="border-t border-[var(--color-line)] pt-14 mt-14 md:mt-20">
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-8">Keep reading</p>
               <div className="grid md:grid-cols-2 gap-5">
                 {post.internalLinks.map((l) => (
@@ -186,6 +232,7 @@ function Nav() {
         <div className="hidden md:flex items-center gap-10 text-sm">
           <Link href="/digital" className="link-underline">Digital</Link>
           <Link href="/consulting" className="link-underline">Consulting</Link>
+          <Link href="/labs" className="link-underline">Labs</Link>
           <Link href="/blog" className="link-underline text-[var(--color-ink)] font-medium">Insights</Link>
           <Link href="/about" className="link-underline">About</Link>
         </div>
