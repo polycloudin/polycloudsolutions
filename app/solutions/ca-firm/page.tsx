@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 
 type Tool = {
   num: string;
-  tier: "Starter" | "Growth" | "Pro" | "FullPractice" | "Seats" | "Platform";
+  tier: "Starter" | "Growth" | "Pro" | "Seats" | "Platform";
   name: string;
   tagline: string;
   description: string;
@@ -222,133 +222,133 @@ const tools: Tool[] = [
   },
   // Full practice — 19 more tools covering every workflow a mid-size firm runs.
   {
-    num: "19", tier: "FullPractice", name: "UDIN automation",
+    num: "19", tier: "Pro", name: "UDIN automation",
     tagline: "ICAI UDIN ledger + offline generator + revocation audit.",
     description:
       "Every signed document (tax audit, 3CD, 15CB, net worth, ITR) needs a UDIN from icai.org. This tool tracks every UDIN the firm has ever generated — per partner, per client, per document type — with revocation trail if a doc is amended. Offline generator mimics the 18-char ICAI format for demo + dry-run.",
     deliverable: "One searchable ledger for every UDIN the firm has issued. Partner-ready for peer review.",
   },
   {
-    num: "20", tier: "FullPractice", name: "Payroll + Form 16 + 24Q",
+    num: "20", tier: "Pro", name: "Payroll + Form 16 + 24Q",
     tagline: "Monthly payslips → annual Form 16 → quarterly NSDL-ready 24Q.",
     description:
       "Full Indian payroll — PF/ESI/PT (state-wise slabs, Maharashtra Feb quirk included), TDS per old/new regime with 87A rebate math, payslips, Form 16 Parts A+B, Form 24Q FVU file with the proper NSDL record structure. Covers everything a 5-50 employee SMB needs without Greytip or Zoho.",
     deliverable: "Monthly payslips. Annual Form 16 per employee. Quarterly 24Q FVU. Sub-₹5K/mo per client.",
   },
   {
-    num: "21", tier: "FullPractice", name: "Notice response engine",
+    num: "21", tier: "Pro", name: "Notice response engine",
     tagline: "IT + GST notices — triage + template + case-law citations.",
     description:
       "Covers the 12 most common notices: 139(9), 143(1), 143(2), 148, 142(1), 245, 154, GST ASMT-10, DRC-01/01A, REG-17, TDS 201. Each notice triggers a severity rating (CRITICAL → LOW), a pre-built response template with client placeholders, and citations from the ICAI/ITAT/SC corpus. Partner fills in client-specific facts.",
     deliverable: "Turnaround on routine notices: 30+ hours/notice → 2-3 hours. Fee recovery: ₹3K-75K/notice.",
   },
   {
-    num: "22", tier: "FullPractice", name: "Certifications library",
+    num: "22", tier: "Pro", name: "Certifications library",
     tagline: "15CA/CB · Net Worth · Turnover · DTAA rate engine.",
     description:
       "Produces every certification a CA firm hands out monthly — Form 15CB with automatic DTAA rate lookup (US/UK/SG/DE/NL/AE, with treaty article references), 15CA Part A/B/C/D determination, net-worth certificates (visa/bank), turnover certificates (MSME Udyam, tender). PAN + FX reconciliation validators prevent amateur mistakes.",
     deliverable: "Every cert follows a checklist. Partner fills facts + signs. Turnaround days → hours.",
   },
   {
-    num: "23", tier: "FullPractice", name: "Statutory audit pack",
+    num: "23", tier: "Pro", name: "Statutory audit pack",
     tagline: "CARO 2020 (21 clauses) + Schedule III auto-classification.",
     description:
       "For stat audits under Companies Act: auto-fills all 21 CARO 2020 clauses from management declarations (PPE records, inventory verification, MSMED, loan defaults, CSR, going concern), and classifies every Tally ledger into the 20+ Schedule III heads (Division I + II) — flagging only the unmapped ones for partner review.",
     deliverable: "CARO draft + classified BS/P&L in minutes. Unmapped ledgers flagged for partner override.",
   },
   {
-    num: "24", tier: "FullPractice", name: "Document management + client portal",
+    num: "24", tier: "Pro", name: "Document management + client portal",
     tagline: "Content-addressed DMS. Every doc versioned. Client sees what we share.",
     description:
       "Per-client filesystem with SHA-256 content addressing (no duplicate storage), automatic version history when a filename is re-uploaded, expiring share links (72h default), full access log. Generates a standalone HTML portal per client — client sees their docs, partner controls who sees what. No cloud, no lock-in.",
     deliverable: "Replace shared Google Drive + email-as-DMS. Every client gets a portal URL with their docs.",
   },
   {
-    num: "25", tier: "FullPractice", name: "GST litigation — DRC-03/06 + appeals",
+    num: "25", tier: "Pro", name: "GST litigation — DRC-03/06 + appeals",
     tagline: "Section 73/74 math + appeal pre-deposit calculator.",
     description:
       "Voluntary DRC-03 payments with Section 73/74 penalty schedule (15% pre-SCN / 25% on reply / 50% post-order / 100% default) and s.50 interest math (18% or 24% for wrong ITC). SCN reply drafter in Form DRC-06 with case-law citations. Appeal calculator handles FAA (10% pre-deposit) and GSTAT (additional 20%) with limitation tracking.",
     deliverable: "Every litigation matter gets a structured file — demand, strategy, pre-deposit calc, reply.",
   },
   {
-    num: "26", tier: "FullPractice", name: "Transfer pricing — Form 3CEB",
+    num: "26", tier: "Pro", name: "Transfer pricing — Form 3CEB",
     tagline: "International txns + ALP methods + Master File thresholds.",
     description:
       "Compiles Form 3CEB for clients with cross-border transactions. Supports all 5 ALP methods (CUP/RPM/CPM/PSM/TNMM) with arm's length assessment against benchmarks. Auto-flags TP Study (> ₹1 Cr), Master File (> ₹50 Cr), and CbC thresholds. Clause 9 (transactions) and Clause 20 (ALP determination) auto-populated from structured input.",
     deliverable: "Form 3CEB draft + threshold-check + clause-wise compilation for auditor review.",
   },
   {
-    num: "27", tier: "FullPractice", name: "FEMA compliance",
+    num: "27", tier: "Pro", name: "FEMA compliance",
     tagline: "FC-GPR / FC-TRS / APR / FLA / ECB-2 deadline engine.",
     description:
       "For clients with FDI, ODI, or ECBs: tracks FC-GPR (30d from allotment), FC-TRS (60d from transfer), APR (annual, Dec 31), FLA (Jul 15), ECB-2 (monthly, 7th). Per-client task list with overdue detection. Essential for PE-backed startups, exporters, and any entity with cross-border flows.",
     deliverable: "One-screen FEMA calendar for the firm. No more missed FC-GPR. RBI late-fee surprises gone.",
   },
   {
-    num: "28", tier: "FullPractice", name: "Internal audit workflows",
+    num: "28", tier: "Pro", name: "Internal audit workflows",
     tagline: "27 IFC controls across 9 areas. Sampling built in.",
     description:
       "Pre-built 27-control IFC test plan covering P2P, O2C, payroll, inventory, fixed assets, cash/bank, statutory, IT controls, revenue recognition. Statistical sampling (SRS attribute + Monetary Unit Sampling) with configurable confidence + tolerable error. Findings log with severity ladder (HIGH/MEDIUM/LOW) + management response tracking.",
     deliverable: "One IA plan per engagement. Control tests with proper sample sizes. Findings binder-ready.",
   },
   {
-    num: "29", tier: "FullPractice", name: "Registration services",
+    num: "29", tier: "Pro", name: "Registration services",
     tagline: "11 registrations — GST · MSME · IEC · Startup India · 80G · more.",
     description:
       "Catalog of every registration a new-client engagement might need: GST, MSME Udyam, IEC, Startup India (DPIIT), Section 80G/12A, Shops & Est, FSSAI, PF/ESI, Trademark. Each with eligibility check, document checklist, lead-time estimate, govt fee + CA fee range. Eligibility engine auto-suggests the right bundle for a new client.",
     deliverable: "New-client bundle in 2 hours of partner time. Every registration onboarded by the book.",
   },
   {
-    num: "30", tier: "FullPractice", name: "CMA reports for banks",
+    num: "30", tier: "Pro", name: "CMA reports for banks",
     tagline: "Bank-ready credit monitoring report — 7 sheets, MPBF math.",
     description:
       "Generates standard bank CMA in the Tandon Committee II format: existing+proposed limits, 3-yr historical + 2-yr projected operating statement, balance-sheet analysis, current assets & liabilities, working-capital gap, MPBF calc (75% of WCG less margin), fund flow, key ratios (GP%, NPM%, ICR, DE, TOL/TNW).",
     deliverable: "CMA for any bank (SBI, BoB, HDFC, ICICI…) in 3 hours from trial balance. ₹15-35K/report.",
   },
   {
-    num: "31", tier: "FullPractice", name: "Fixed asset register",
+    num: "31", tier: "Pro", name: "Fixed asset register",
     tagline: "Schedule II (SLM) + IT Act (WDV) with half-year rule.",
     description:
       "Complete FAR with dual depreciation — Companies Act Schedule II useful-life SLM and IT Act block-wise WDV with the <180-day half-year rule. Physical verification tracking (CARO (i)(b) clean vs qualified), disposal gain/loss, CWIP, intangibles. Asset classes mapped to both regimes with correct rates.",
     deliverable: "One FAR that satisfies both Companies Act and IT Act. CARO clean on PPE clauses.",
   },
   {
-    num: "32", tier: "FullPractice", name: "Time tracking + billing",
+    num: "32", tier: "Pro", name: "Time tracking + billing",
     tagline: "WIP by engagement. Fee notes — fixed, hourly, retainer.",
     description:
       "Per-staff time entries → per-engagement WIP at charge-out rates (Partner ₹8K/h, Manager ₹4K/h, Senior ₹2K/h, Article ₹800/h — firm-configurable). Partner utilization dashboard (billable vs non-billable vs target). Fee note generator for fixed-fee, hourly-rate, and retainer engagements with GST.",
     deliverable: "Every hour tracked. Every engagement has a WIP number. Monthly fee notes from one button.",
   },
   {
-    num: "33", tier: "FullPractice", name: "E-signature orchestration",
+    num: "33", tier: "Pro", name: "E-signature orchestration",
     tagline: "Aadhaar e-sign + DocuSign + DSC workflow.",
     description:
       "Partner-ready signature requests for engagement letters, Form 3CD, Form 16, ITRs, 15CB, peer review letters. Supports Aadhaar e-sign (₹8/sign), Digio (₹15), DocuSign, and partner's own DSC (₹0 marginal). Every status transition (PENDING → SENT → VIEWED → SIGNED) audit-logged against the DMS.",
     deliverable: "No more chasing paper signatures. Aadhaar e-sign costs nothing to try for small docs.",
   },
   {
-    num: "34", tier: "FullPractice", name: "Working paper trail (SA 230)",
+    num: "34", tier: "Pro", name: "Working paper trail (SA 230)",
     tagline: "23-WP index per engagement. Peer review pass-ready.",
     description:
       "Per-engagement-type working paper catalogue (Stat / Tax / Internal / GST / Limited Review) mapped to the full SA series (210/220/230/315/330/500/530/550/560/570/580/700). Tracks MISSING → DRAFT → COMPLETE → REVIEWED → APPROVED. Compliance score tells the partner how close the binder is to peer-review-ready.",
     deliverable: "ICAI Peer Review pass on the first attempt. No more binder panic the week before.",
   },
   {
-    num: "35", tier: "FullPractice", name: "Client acceptance (SA 220)",
+    num: "35", tier: "Pro", name: "Client acceptance (SA 220)",
     tagline: "Annual risk memo — every client, every year.",
     description:
       "Per-client risk rating across 20+ factors (integrity, independence, fee dependency, competence, engagement risk, economic factors). Auto-recommends ACCEPT / ACCEPT_WITH_SAFEGUARDS / DECLINE / RESIGN. Builds the acceptance/continuance memo that goes into working papers. Flags independence-killers (fee dep > 40%, financial interest).",
     deliverable: "One memo per client per year. SA 220 compliant. Bad-risk clients surface early.",
   },
   {
-    num: "36", tier: "FullPractice", name: "Partner review queue",
+    num: "36", tier: "Pro", name: "Partner review queue",
     tagline: "Nothing leaves the firm without partner sign-off.",
     description:
       "Every AI output (Tally voucher, 3CD, 15CB, DRC-06 reply) + every staff deliverable routes to a central queue with priority + deadline. Auto-routing rules — small items go Senior → Manager → Partner, but Form 3CD and 15CB always bypass to Partner. Low-confidence AI outputs also bypass to Partner. Every transition audit-logged.",
     deliverable: "Partner sees one queue instead of chasing 20 Slack channels. Firm SLA on review time.",
   },
   {
-    num: "37", tier: "FullPractice", name: "CPE + articleship tracking",
+    num: "37", tier: "Pro", name: "CPE + articleship tracking",
     tagline: "Partner CPE hours + article progress, all in one place.",
     description:
       "ICAI CPE: rolling 3-year block requirement (120h total, 60h structured for under-60 FCAs) with automatic deficit alerts. Articleship: per-student progress, leave balance (156d over 3 yrs), supervisor mapping, ICAI registration number — everything the firm needs for articleship renewals and CPE compliance.",
@@ -361,7 +361,7 @@ const timeline = [
     week: "Week 1",
     title: "Install + pick tier",
     body:
-      "On-site (or remote via AnyDesk). The full stack installs on your primary laptop in 90 minutes — Tally integration included. We walk you through all 37 tools, you pick Starter / Growth / Pro / Full-practice (and whether to add seats), and we configure what you'll use in week 1.",
+      "On-site (or remote via AnyDesk). The full stack installs on your primary laptop in 90 minutes — Tally integration included. We walk you through all 37 tools, you pick Starter / Growth / Pro (and whether to add seats), and we configure what you'll use in week 1.",
   },
   {
     week: "Week 2",
@@ -428,33 +428,16 @@ const baseTiers: BaseTier[] = [
   },
   {
     name: "Pro",
-    price: "₹35 – 45K",
+    price: "₹45 – 65K",
     unit: "per month",
-    toolCount: "15 tools + audit SKU",
+    toolCount: "34 tools + audit SKU",
     summary:
-      "Growth plus tax audit, receivables, client MIS, e-invoice IRN, AIS → ITR, ICAI peer review, MCA21 ROC, and live Tally queries. The FY-critical forms stack.",
+      "Every workflow a mid-size CA firm runs — tax audit, client MIS, receivables, e-invoice, payroll, UDIN, notice response, CARO, transfer pricing, FEMA, peer review, CPE. End-to-end.",
     includes: [
       "Everything in Growth",
-      "Form 3CD auto-documentation — 6 high-value clauses filled",
-      "White-labeled client MIS dashboard, shipped monthly",
-      "Receivables automation with escalation ladder",
-      "E-invoice IRN via NIC IRP (sandbox now, live on GSP)",
-      "AIS → ITR pre-fill with refuse-to-file mismatch guard",
-      "ICAI peer review pack (letters · SQC-1 · readiness score)",
-      "MCA21 ROC tracker (AOC-4 / MGT-7 / DIR-3 KYC / DPT-3)",
-      "Live Tally data queries (with fallback)",
-      "Tax-audit SKU: ₹15–25K per client per season (Jul–Oct)",
-    ],
-  },
-  {
-    name: "Full Practice",
-    price: "₹55 – 75K",
-    unit: "per month",
-    toolCount: "34 tools",
-    summary:
-      "Pro plus every other workflow a mid-size firm runs — payroll, UDIN, notice response, certifications, CARO, transfer pricing, FEMA, internal audit, CMA, FAR, time/billing, working papers, review queue, CPE. End-to-end.",
-    includes: [
-      "Everything in Pro",
+      "Form 3CD auto-documentation · white-labeled client MIS · receivables",
+      "E-invoice IRN (NIC IRP) · AIS → ITR pre-fill · ICAI peer review pack",
+      "MCA21 ROC tracker · live Tally data queries",
       "Payroll + Form 16 + 24Q FVU (full PF/ESI/PT/TDS math)",
       "UDIN ledger + notice response engine (12 notice types)",
       "Certifications (15CA/CB, Net Worth, Turnover) with DTAA rate engine",
@@ -466,6 +449,7 @@ const baseTiers: BaseTier[] = [
       "SA 220 client acceptance + SA 230 working paper trail",
       "Partner review queue + CPE hours + articleship tracking",
       "Document management + per-client portal (no cloud)",
+      "Tax-audit SKU: ₹15–25K per client per season (Jul–Oct)",
     ],
   },
 ];
@@ -839,7 +823,7 @@ export default function CaFirmSolution() {
             </p>
           </div>
 
-          {(["Starter", "Growth", "Pro", "FullPractice", "Seats", "Platform"] as const).map((tier) => {
+          {(["Starter", "Growth", "Pro", "Seats", "Platform"] as const).map((tier) => {
             const tierTools = tools.filter((t) => t.tier === tier);
             if (tierTools.length === 0) return null;
             const tierMeta: Record<
@@ -858,12 +842,7 @@ export default function CaFirmSolution() {
               },
               Pro: {
                 label: "Pro tier",
-                note: "FY-critical forms + client MIS",
-                accent: "var(--color-primary-blue)",
-              },
-              FullPractice: {
-                label: "Full-practice tier",
-                note: "Every other workflow a firm runs",
+                note: "Every workflow a firm runs",
                 accent: "var(--color-primary-blue)",
               },
               Seats: {
@@ -998,12 +977,12 @@ export default function CaFirmSolution() {
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Four tiers cover everything a CA firm runs. Two optional add-ons stack on top. One flat retainer each month — no per-client, per-filing, or per-seat surprises.
+              Three tiers cover everything a CA firm runs. Two optional add-ons stack on top. One flat retainer each month — no per-client, per-filing, or per-seat surprises.
             </p>
           </div>
 
-          {/* Four base tiers — headline grid */}
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+          {/* Three base tiers — headline grid */}
+          <div className="grid md:grid-cols-3 gap-5">
             {baseTiers.map((tier) => (
               <div
                 key={tier.name}
