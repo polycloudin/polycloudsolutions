@@ -107,6 +107,12 @@ export default function Labs() {
               <Link href="/labs/dashboard" className="text-[14px] text-[var(--color-text-secondary)] hover:text-[var(--color-ink)] transition-colors inline-flex items-center gap-1">
                 View live dashboard →
               </Link>
+              <Link href="/labs/decisions" className="text-[14px] text-[var(--color-text-secondary)] hover:text-[var(--color-ink)] transition-colors inline-flex items-center gap-1">
+                Decision memos →
+              </Link>
+              <Link href="/labs/dossier" className="text-[14px] text-[var(--color-text-secondary)] hover:text-[var(--color-ink)] transition-colors inline-flex items-center gap-1">
+                Pre-call dossier →
+              </Link>
             </div>
           </div>
 
