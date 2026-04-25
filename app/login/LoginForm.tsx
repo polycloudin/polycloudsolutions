@@ -48,13 +48,14 @@ export default function LoginForm() {
           htmlFor="email"
           className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] mb-1.5 block"
         >
-          Email
+          Email or username
         </label>
         <input
           id="email"
           name="email"
-          type="email"
-          autoComplete="email"
+          type="text"
+          inputMode="email"
+          autoComplete="username"
           required
           autoFocus
           placeholder="you@polycloud.in"
