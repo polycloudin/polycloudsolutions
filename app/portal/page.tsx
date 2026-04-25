@@ -74,6 +74,13 @@ const SECTIONS: Section[] = [
     intro: "One product · four tools that share config + audit log. Local-first; data never leaves the firm's laptop.",
     surfaces: [
       {
+        name: "Operator dashboard · /portal/ca-firm",
+        href: "/portal/ca-firm",
+        status: "live",
+        description: "Every firm, one screen. Cross-firm activity feed, approval queue, per-tenant deep-dive at /portal/ca-firm/<slug>. Reads from fixture today; swaps to /api/v1/events when shipped.",
+        badge: "new",
+      },
+      {
         name: "Live case · /solutions/ca-firm",
         href: "/solutions/ca-firm",
         status: "live",
@@ -87,11 +94,18 @@ const SECTIONS: Section[] = [
         badge: "₹32K/mo · 76 days",
       },
       {
+        name: "PolyCloud LLP (own dogfood) · /portal/ca-firm/polycloud-llp",
+        href: "/portal/ca-firm/polycloud-llp",
+        status: "live",
+        description: "Tenant 001 — our own LLP. TDS notice on TAN HYDP15059C in feed; first real notice the toolkit will fix on our own books.",
+        badge: "tenant 001",
+      },
+      {
         name: "polycloudin/ca-firm-toolkit",
         href: "https://github.com/polycloudin/ca-firm-toolkit",
         external: true,
         status: "private",
-        description: "Recon engine + WhatsApp vendor follow-up + invoice OCR → Tally + ITC dashboard. --demo: 81.2% match, ITC ₹2,685.57. Private during pilot.",
+        description: "37 tools · 353 tests. --demo: 81.2% match, ITC ₹2,685.57. Pushes events to portal once /api/v1/events ships.",
       },
       {
         name: "Tools catalog · 37 subcommands",
