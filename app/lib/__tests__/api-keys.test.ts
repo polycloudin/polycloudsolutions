@@ -1,5 +1,5 @@
-import { test } from "node:test";
-import assert from "node:assert/strict";
+import { test, expect } from "vitest";
+
 import {
   generateKey,
   hashKey,
@@ -18,48 +18,48 @@ delete process.env.TURSO_AUTH_TOKEN;
 
 test("generateKey produces a pck_live_-prefixed token with 32 hex chars", () => {
   const { token, hash } = generateKey();
-  assert.match(token, /^pck_live_[a-f0-9]{32}$/);
+  expect(token).toMatch(/^pck_live_[a-f0-9]{32}$/);
   // 32 hex chars after the prefix.
-  assert.equal(token.length, "pck_live_".length + 32);
+  expect(token.length).toBe("pck_live_".length + 32);
   // hash is sha256 hex (64 chars).
-  assert.match(hash, /^[a-f0-9]{64}$/);
+  expect(hash).toMatch(/^[a-f0-9]{64}$/);
 });
 
 test("generateKey returns a different token every call", () => {
   const a = generateKey();
   const b = generateKey();
-  assert.notEqual(a.token, b.token);
-  assert.notEqual(a.hash, b.hash);
+  expect(a.token).not.toBe(b.token);
+  expect(a.hash).not.toBe(b.hash);
 });
 
 test("hashKey is deterministic", () => {
   const t = "pck_live_" + "a".repeat(32);
-  assert.equal(hashKey(t), hashKey(t));
+  expect(hashKey(t)).toBe(hashKey(t));
 });
 
 test("hashKey changes when input changes", () => {
   const a = hashKey("pck_live_" + "a".repeat(32));
   const b = hashKey("pck_live_" + "b".repeat(32));
-  assert.notEqual(a, b);
+  expect(a).not.toBe(b);
 });
 
 test("looksLikeApiKey rejects garbage", () => {
-  assert.equal(looksLikeApiKey(""), false);
-  assert.equal(looksLikeApiKey("abc"), false);
-  assert.equal(looksLikeApiKey("pck_live_short"), false);
-  assert.equal(looksLikeApiKey("PCK_LIVE_" + "a".repeat(32)), false); // case-sensitive
-  assert.equal(looksLikeApiKey("pck_live_" + "a".repeat(31) + "g"), false); // non-hex
+  expect(looksLikeApiKey("")).toBe(false);
+  expect(looksLikeApiKey("abc")).toBe(false);
+  expect(looksLikeApiKey("pck_live_short")).toBe(false);
+  expect(looksLikeApiKey("PCK_LIVE_" + "a".repeat(32))).toBe(false); // case-sensitive
+  expect(looksLikeApiKey("pck_live_" + "a".repeat(31) + "g")).toBe(false); // non-hex
 });
 
 test("looksLikeApiKey accepts a freshly-minted token", () => {
   const { token } = generateKey();
-  assert.equal(looksLikeApiKey(token), true);
+  expect(looksLikeApiKey(token)).toBe(true);
 });
 
 test("validateApiKey returns null when both headers missing", async () => {
   const req = new Request("https://test/api/events", { method: "POST" });
   const result = await validateApiKey(req);
-  assert.equal(result, null);
+  expect(result).toBe(null);
 });
 
 test("validateApiKey returns null when only X-PolyCloud-Key set", async () => {
@@ -68,7 +68,7 @@ test("validateApiKey returns null when only X-PolyCloud-Key set", async () => {
     method: "POST",
     headers: { "x-polycloud-key": token },
   });
-  assert.equal(await validateApiKey(req), null);
+  expect(await validateApiKey(req)).toBe(null);
 });
 
 test("validateApiKey returns null when only X-PolyCloud-Tenant set", async () => {
@@ -76,7 +76,7 @@ test("validateApiKey returns null when only X-PolyCloud-Tenant set", async () =>
     method: "POST",
     headers: { "x-polycloud-tenant": "kumar-textiles" },
   });
-  assert.equal(await validateApiKey(req), null);
+  expect(await validateApiKey(req)).toBe(null);
 });
 
 test("validateApiKey returns null on malformed key syntax", async () => {
@@ -87,7 +87,7 @@ test("validateApiKey returns null on malformed key syntax", async () => {
       "x-polycloud-tenant": "kumar-textiles",
     },
   });
-  assert.equal(await validateApiKey(req), null);
+  expect(await validateApiKey(req)).toBe(null);
 });
 
 test("validateApiKey returns null when DB is unconfigured (no key row exists)", async () => {
@@ -100,15 +100,13 @@ test("validateApiKey returns null when DB is unconfigured (no key row exists)", 
     },
   });
   // No TURSO env → safeDb returns null → no row → validation null.
-  assert.equal(await validateApiKey(req), null);
+  expect(await validateApiKey(req)).toBe(null);
 });
 
 test("validateApiKey never throws — even on an empty Request", async () => {
   const req = new Request("https://test/api/events");
-  await assert.doesNotReject(async () => {
-    const result = await validateApiKey(req);
-    assert.equal(result, null);
-  });
+  const result = await validateApiKey(req);
+  expect(result).toBe(null);
 });
 
 test("hasScope checks the auth context scope list", () => {
@@ -117,13 +115,13 @@ test("hasScope checks the auth context scope list", () => {
     scopes: ["events:write"],
     hash: "x".repeat(64),
   };
-  assert.equal(hasScope(ctx, "events:write"), true);
-  assert.equal(hasScope(ctx, "notifications:write"), false);
+  expect(hasScope(ctx).toBe("events:write"), true);
+  expect(hasScope(ctx).toBe("notifications:write"), false);
 });
 
 test("VALID_SCOPES has the 4 documented scopes", () => {
-  assert.ok(VALID_SCOPES.includes("events:write"));
-  assert.ok(VALID_SCOPES.includes("notifications:write"));
-  assert.ok(VALID_SCOPES.includes("usage:write"));
-  assert.ok(VALID_SCOPES.includes("realty:write"));
+  expect(VALID_SCOPES.includes("events:write").toBeTruthy());
+  expect(VALID_SCOPES.includes("notifications:write").toBeTruthy());
+  expect(VALID_SCOPES.includes("usage:write").toBeTruthy());
+  expect(VALID_SCOPES.includes("realty:write").toBeTruthy());
 });

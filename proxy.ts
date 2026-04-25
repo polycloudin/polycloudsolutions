@@ -135,11 +135,18 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
   }
 
   // ---------- Identify the gate this request is asking for ----------
+  // /portal/inbox is open to ANY authenticated user — they only see
+  // notifications for tenants they already have access to. Carve out
+  // before the wider /portal/* operator check.
+  const isPortalInbox =
+    pathname === "/portal/inbox" || pathname.startsWith("/portal/inbox/");
+
   const isOperator =
-    pathname === "/dashboard" ||
-    pathname.startsWith("/dashboard/") ||
-    pathname === "/portal" ||
-    pathname.startsWith("/portal/");
+    !isPortalInbox &&
+    (pathname === "/dashboard" ||
+      pathname.startsWith("/dashboard/") ||
+      pathname === "/portal" ||
+      pathname.startsWith("/portal/"));
 
   const clientMatch = pathname.match(/^\/client\/([^/]+)(?:\/.*)?$/);
   const clientSlug = clientMatch ? clientMatch[1] : null;
@@ -148,7 +155,7 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
   const isLabsDashboard =
     pathname === "/labs/dashboard" || pathname.startsWith("/labs/dashboard/");
 
-  if (!isOperator && !isPrivateClient && !isLabsDashboard) {
+  if (!isOperator && !isPrivateClient && !isLabsDashboard && !isPortalInbox) {
     return NextResponse.next();
   }
 
@@ -158,6 +165,7 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
 
   // ---------- Enforce per-route caps ----------
   if (isOperator && !claims.ops) return forbidden(request, claims, pathname);
+  // Inbox needs no extra cap beyond a valid session — any signed-in user.
 
   if (isPrivateClient && clientSlug) {
     if (!(claims.ops || claims.ten.includes(clientSlug))) {
