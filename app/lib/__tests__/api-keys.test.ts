@@ -115,13 +115,13 @@ test("hasScope checks the auth context scope list", () => {
     scopes: ["events:write"],
     hash: "x".repeat(64),
   };
-  expect(hasScope(ctx).toBe("events:write"), true);
-  expect(hasScope(ctx).toBe("notifications:write"), false);
+  expect(hasScope(ctx, "events:write")).toBe(true);
+  expect(hasScope(ctx, "notifications:write")).toBe(false);
 });
 
 test("VALID_SCOPES has the 4 documented scopes", () => {
-  expect(VALID_SCOPES.includes("events:write").toBeTruthy());
-  expect(VALID_SCOPES.includes("notifications:write").toBeTruthy());
-  expect(VALID_SCOPES.includes("usage:write").toBeTruthy());
-  expect(VALID_SCOPES.includes("realty:write").toBeTruthy());
+  expect(VALID_SCOPES.includes("events:write")).toBeTruthy();
+  expect(VALID_SCOPES.includes("notifications:write")).toBeTruthy();
+  expect(VALID_SCOPES.includes("usage:write")).toBeTruthy();
+  expect(VALID_SCOPES.includes("realty:write")).toBeTruthy();
 });

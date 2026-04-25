@@ -48,10 +48,10 @@ test("CLIENT_REGISTRY contains the documented starter tenants", () => {
 test("listTenants includes all registry entries when DB is unconfigured", async () => {
   const all = await listTenants();
   const slugs = all.map((t) => t.slug);
-  expect(slugs.includes("kumar-textiles").toBeTruthy());
-  expect(slugs.includes("polycloud").toBeTruthy());
-  expect(slugs.includes("pkb-associates").toBeTruthy());
-  expect(slugs.includes("pharma-fund-x").toBeTruthy());
+  expect(slugs.includes("kumar-textiles")).toBeTruthy();
+  expect(slugs.includes("polycloud")).toBeTruthy();
+  expect(slugs.includes("pkb-associates")).toBeTruthy();
+  expect(slugs.includes("pharma-fund-x")).toBeTruthy();
 });
 
 test("getTenantConfig honors the override path when libsql row exists (mocked)", async () => {
@@ -68,6 +68,6 @@ test("getTenantConfig honors the override path when libsql row exists (mocked)",
 test("polycloud tenant has labs + ca-firm modules enabled (dogfood)", async () => {
   const cfg = await getTenantConfig("polycloud");
   expect(cfg).toBeTruthy();
-  expect(cfg.modules_enabled.includes("labs").toBeTruthy());
-  expect(cfg.modules_enabled.includes("ca-firm").toBeTruthy());
+  expect(cfg.modules_enabled.includes("labs")).toBeTruthy();
+  expect(cfg.modules_enabled.includes("ca-firm")).toBeTruthy();
 });

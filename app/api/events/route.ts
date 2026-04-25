@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { readSession } from "../../lib/auth";
+import { validateApiKey } from "../../lib/api-keys";
 import {
   EVENT_KINDS,
   listEvents,
@@ -18,25 +19,7 @@ export const runtime = "nodejs";
  * GET   → read events (operator only — UI on /portal/feed)
  *
  * Auth precedence: x-polycloud-key for writes, polycloud_session cookie + ops cap for reads.
- *
- * TODO: Lane A is building app/lib/api-keys.ts with the real validateApiKey().
- * Until that branch merges, the stub below accepts any non-empty x-polycloud-key
- * + x-polycloud-tenant pair and grants events:write. Replace this import + drop
- * the stub once Lane A's PR lands.
  */
-
-interface ApiKeyContext {
-  tenant: string;
-  scopes: string[];
-}
-
-async function validateApiKey(req: Request): Promise<ApiKeyContext | null> {
-  const key = req.headers.get("x-polycloud-key");
-  const tenant = req.headers.get("x-polycloud-tenant");
-  if (!key || !tenant) return null;
-  return { tenant, scopes: ["events:write"] };
-}
-// END STUB — swap with `import { validateApiKey } from "@/app/lib/api-keys"` on integration.
 
 export async function POST(request: Request) {
   // ---------- Auth ----------

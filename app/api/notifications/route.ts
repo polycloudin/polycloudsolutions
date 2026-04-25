@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { readSession } from "../../lib/auth";
+import { validateApiKey } from "../../lib/api-keys";
 import {
   listNotifications,
   recordNotification,
@@ -15,25 +16,7 @@ export const runtime = "nodejs";
  *
  * POST  → create a notification (M2M, requires API key + scope notifications:write)
  * GET   → read notifications for the tenants the current user can see
- *
- * TODO: Lane A is building app/lib/api-keys.ts with the real validateApiKey().
- * Until that branch merges, the stub below accepts any non-empty x-polycloud-key
- * + x-polycloud-tenant pair and grants notifications:write. Replace this import
- * + drop the stub once Lane A's PR lands.
  */
-
-interface ApiKeyContext {
-  tenant: string;
-  scopes: string[];
-}
-
-async function validateApiKey(req: Request): Promise<ApiKeyContext | null> {
-  const key = req.headers.get("x-polycloud-key");
-  const tenant = req.headers.get("x-polycloud-tenant");
-  if (!key || !tenant) return null;
-  return { tenant, scopes: ["notifications:write"] };
-}
-// END STUB — swap with `import { validateApiKey } from "@/app/lib/api-keys"` on integration.
 
 export async function POST(request: Request) {
   const ctx = await validateApiKey(request);
