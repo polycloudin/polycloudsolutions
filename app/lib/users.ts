@@ -16,6 +16,8 @@
  * Migrate to libsql when user count > ~10 — see polycloud_portal_spec.md.
  */
 
+import { safeDb } from "./db/schema";
+
 export interface UserCaps {
   ops: boolean;       // operator wildcard
   ten: string[];      // tenant slugs (subset of CLIENT_REGISTRY keys)
@@ -98,10 +100,164 @@ export async function verifyUser(
   email: string,
   password: string
 ): Promise<User | null> {
-  const u = USERS.find((x) => x.email.toLowerCase() === email.toLowerCase());
+  const u = await getUserByEmail(email);
   if (!u || u.salt === "REPLACE_ME") return null;
   const computed = await hashPassword(password, u.salt);
   return constantTimeEquals(computed, u.hash) ? u : null;
+}
+
+// ----------------------------------------------------------------
+// libsql-backed user store (additive layer on top of the in-code USERS array)
+//
+// Resolution order:
+//   1. libsql `users` table — authoritative if present
+//   2. in-code USERS array — seed data + dev fallback
+//
+// On first DB read we copy any in-code USERS rows into libsql so the
+// table starts populated. Idempotent: rows already in DB win.
+// ----------------------------------------------------------------
+
+let _migrated = false;
+let _migratePromise: Promise<void> | null = null;
+
+/**
+ * Look up a user by email. libsql first, fall back to USERS array.
+ * Always normalizes email comparison to lowercase.
+ */
+export async function getUserByEmail(email: string): Promise<User | null> {
+  if (!email) return null;
+  const normalized = email.toLowerCase();
+  await migrateUsersToDb();
+  const dbRow = await safeDb(async (db) => {
+    const r = await db.execute({
+      sql: `SELECT email, salt, hash, caps_json, notes
+            FROM users WHERE lower(email) = ? LIMIT 1`,
+      args: [normalized],
+    });
+    const row = r.rows[0];
+    if (!row) return null;
+    const caps = parseCapsJson(row.caps_json);
+    if (!caps) return null;
+    return {
+      email: String(row.email),
+      salt: String(row.salt),
+      hash: String(row.hash),
+      caps,
+      notes: row.notes === null ? undefined : String(row.notes),
+    } satisfies User;
+  });
+  if (dbRow) return dbRow;
+  return (
+    USERS.find((u) => u.email.toLowerCase() === normalized) ?? null
+  );
+}
+
+/** Insert or update a user. Returns true on success, false on failure. */
+export async function addUser(user: User): Promise<boolean> {
+  if (!user.email || !user.salt || !user.hash) return false;
+  await migrateUsersToDb();
+  const ok = await safeDb(async (db) => {
+    await db.execute({
+      sql: `INSERT INTO users (email, salt, hash, caps_json, notes)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(email) DO UPDATE SET
+              salt = excluded.salt,
+              hash = excluded.hash,
+              caps_json = excluded.caps_json,
+              notes = excluded.notes`,
+      args: [
+        user.email.toLowerCase(),
+        user.salt,
+        user.hash,
+        JSON.stringify(user.caps),
+        user.notes ?? null,
+      ],
+    });
+    return true;
+  });
+  return ok ?? false;
+}
+
+/** Update only the capability flags for an existing user. */
+export async function updateUserCaps(
+  email: string,
+  caps: UserCaps,
+): Promise<boolean> {
+  if (!email) return false;
+  await migrateUsersToDb();
+  const ok = await safeDb(async (db) => {
+    const r = await db.execute({
+      sql: `UPDATE users SET caps_json = ? WHERE lower(email) = ?`,
+      args: [JSON.stringify(caps), email.toLowerCase()],
+    });
+    return Number(r.rowsAffected ?? 0) > 0;
+  });
+  return ok ?? false;
+}
+
+/**
+ * Copy USERS array seeds into libsql on first connection. Skips entries
+ * with placeholder hashes (`REPLACE_ME`). Idempotent — `INSERT OR IGNORE`
+ * means rows already in DB stay untouched.
+ */
+export async function migrateUsersToDb(): Promise<void> {
+  if (_migrated) return;
+  if (_migratePromise) return _migratePromise;
+  _migratePromise = (async () => {
+    const ok = await safeDb(async (db) => {
+      for (const u of USERS) {
+        if (u.salt === "REPLACE_ME" || u.hash === "REPLACE_ME") continue;
+        await db.execute({
+          sql: `INSERT OR IGNORE INTO users (email, salt, hash, caps_json, notes)
+                VALUES (?, ?, ?, ?, ?)`,
+          args: [
+            u.email.toLowerCase(),
+            u.salt,
+            u.hash,
+            JSON.stringify(u.caps),
+            u.notes ?? null,
+          ],
+        });
+      }
+      return true;
+    });
+    // If safeDb returned null the DB isn't configured — that's fine, fall
+    // back to the in-code USERS array. Mark migrated either way so we
+    // don't spin on every login.
+    _migrated = true;
+    if (ok === null) {
+      // No DB — silent. Login still works via the in-code USERS path.
+      return;
+    }
+  })();
+  return _migratePromise;
+}
+
+function parseCapsJson(raw: unknown): UserCaps | null {
+  try {
+    const obj = JSON.parse(String(raw));
+    if (!obj || typeof obj !== "object") return null;
+    if (
+      typeof obj.ops !== "boolean" ||
+      !Array.isArray(obj.ten) ||
+      typeof obj.lab !== "boolean"
+    ) {
+      return null;
+    }
+    return {
+      ops: obj.ops,
+      ten: obj.ten.map(String),
+      lab: obj.lab,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/** Test-only helper to clear the migration latch. */
+export function _resetUsersMigrationForTests(): void {
+  _migrated = false;
+  _migratePromise = null;
 }
 
 function constantTimeEquals(a: string, b: string): boolean {
