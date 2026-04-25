@@ -2,7 +2,7 @@
 
 > For: CA Firm Toolkit · Labs (Nexus) · Realty Platform
 > Audience: app teams that need to read from / write to the portal at polycloud.in
-> Status: v0.1 · the **shipped** sections work today; the **planned** sections need a sprint each
+> Status: v0.2 · the **shipped** sections work today; the **planned** sections need a sprint each
 
 ---
 
@@ -16,6 +16,7 @@ Base URL: `https://www.polycloud.in`
 | `POST` | `/api/auth/logout` | cookie | Clear the session cookie | shipped |
 | `POST` | `/api/onboard` | none | Submit a 3-screen client intake → structured-log only (libsql table planned) | shipped |
 | `GET`  | `/api/live/[slug]` | none | Live overlay (GA4 + Vercel Analytics) for a tenant's `/client/[slug]` dashboard | shipped (env-pending: needs `GA4_SERVICE_ACCOUNT_KEY` + `VERCEL_ACCESS_TOKEN` to return real numbers; otherwise returns the hardcoded baseline) |
+| `GET`  | `/api/health` | none | Liveness + DB-ready check (`{ "ok": true, "ts": "...", "db": "ok", "version": "v0.2" }`) — apps poll before batched writes | planned · 1 hour |
 
 **Everything else in this doc is the planned API surface — needs a sprint to land.**
 
@@ -66,11 +67,44 @@ Issuance flow:
 
 Server validates by hashing the inbound key and looking up the row — same pattern as Stripe / Anthropic. Rotation = generate a new key, swap, revoke the old one.
 
+#### Retry safety — idempotency keys
+Every write endpoint accepts an optional `Idempotency-Key: <uuid>` header. Same key + same body within 24h returns the original response code + body — never a duplicate write. Apps SHOULD send a UUID per logical operation.
+
+```http
+POST /api/v1/events HTTP/1.1
+X-PolyCloud-Key: pck_live_...
+X-PolyCloud-Tenant: kumar-textiles
+Idempotency-Key: 8f6c3a4e-d3b2-4f8a-9e1c-7b5d2a1c3e4f
+Content-Type: application/json
+{ ... }
+```
+
+Portal stores `(tenant, key) → (status, body, ts)` for dedup. Critical for the CA toolkit and Realty agents which retry on flaky links.
+
+#### Rate limiting
+Per-tenant + per-scope. Default budgets:
+
+| Scope | Per minute | Per hour |
+|---|---|---|
+| `events:write` | 60 | 1,000 |
+| `notifications:write` | 30 | 200 |
+| `usage:write` | 30 | 500 |
+
+Portal returns standard `RateLimit-*` headers (`RateLimit-Limit`, `RateLimit-Remaining`, `RateLimit-Reset`) on every response. On overage: `429 Too Many Requests` with `Retry-After: <seconds>`. Platform Premium tier gets 10× headroom (negotiable per contract).
+
+### 2c · Versioning
+All new machine-to-machine endpoints (sections 3+) live under `/api/v1/`. The legacy browser-auth surface (`/api/auth/*`, `/api/onboard`) stays unversioned for now to avoid breaking the marketing site; it folds into `/api/v2/` when those routes evolve.
+
+**Breaking-change policy:**
+- Additive changes (new fields, new event kinds, new optional headers) are **not** breaking — stay on `v1`
+- Removed fields, type changes, semantic shifts → bumped to `/api/v2/...`
+- 6-month deprecation window on retired endpoints, signalled via `Deprecation: <date>` response header + `Sunset: <date>` header
+
 ---
 
 ## 3 · Endpoints each app will need
 
-### 3a · `POST /api/events` — cross-product event stream (planned)
+### 3a · `POST /api/v1/events` — cross-product event stream (planned)
 Single firehose every app writes to. Becomes the source of truth for the unified Autopilot feed on `/dashboard` and per-tenant `/client/[slug]` dashboards.
 
 **Request:**
@@ -96,7 +130,7 @@ Single firehose every app writes to. Becomes the source of truth for the unified
 
 The portal renders these as **narrative Activity cards** (signal → action → outcome) on the relevant dashboard.
 
-### 3b · `GET /api/tenant/<slug>` — tenant config (planned)
+### 3b · `GET /api/v1/tenant/<slug>` — tenant config (planned)
 Lets an app know what's configured for a given tenant (without hardcoding).
 
 ```json
@@ -112,7 +146,7 @@ Lets an app know what's configured for a given tenant (without hardcoding).
 }
 ```
 
-### 3c · `POST /api/notifications` — unified inbox (planned)
+### 3c · `POST /api/v1/notifications` — unified inbox (planned)
 For deadlines, owner-approval queue items, alerts. Surfaces in `/portal/inbox` (planned) and the per-tenant dashboard's "Needs you" KPI.
 
 ```json
@@ -126,7 +160,7 @@ For deadlines, owner-approval queue items, alerts. Surfaces in `/portal/inbox` (
 }
 ```
 
-### 3d · `POST /api/usage` — telemetry (planned)
+### 3d · `POST /api/v1/usage` — telemetry (planned)
 For Realty's anonymized cohort feed and per-tenant module-usage tracking.
 
 ```json
@@ -140,6 +174,35 @@ For Realty's anonymized cohort feed and per-tenant module-usage tracking.
 ```
 
 For Realty the key gate: **never accept a request whose payload has fewer than 5 contributing tenants** (the "≥5 contributors" cohort rule). Realty's local agent already has `assert_min_contributors` — same logic enforced server-side here.
+
+### 3e · Outbound webhooks — portal → app (planned)
+Apps that need to react to portal-side events (partner approves a review-queue item, operator updates a tenant's bundle, deadline alarm fires) register a webhook URL:
+
+```http
+PUT /api/v1/tenant/<slug>/webhook
+X-PolyCloud-Key: pck_live_...
+Content-Type: application/json
+
+{
+  "url": "https://firm-server.local:8443/polycloud-webhook",
+  "events": ["notification:approved", "notification:dismissed", "tenant:updated", "review:partner-signed"],
+  "secret": "wh_<32-char-token>",
+  "active": true
+}
+```
+
+Portal POSTs to the URL with HMAC-SHA256 signature over the raw body in `X-PolyCloud-Signature: t=<unix>,v1=<hex>`. App verifies with the shared secret. Standard at-least-once delivery + 5-attempt exponential backoff (1s, 5s, 30s, 2m, 10m). After 5 failures the webhook is auto-disabled with a `kind: alert` row in `/portal/inbox`.
+
+### 3f · Polling fallback — for apps behind firewalls (planned)
+The CA Firm Toolkit runs on a partner's laptop without a public IP. Webhooks aren't an option. Use polling:
+
+```http
+GET /api/v1/notifications?since=<iso-ts>&kind=approval-needed&limit=100
+X-PolyCloud-Key: pck_live_...
+X-PolyCloud-Tenant: pkb-associates
+```
+
+Returns ordered notifications since the timestamp. App stores the last-seen `ts` and polls every 30-60s. Cheap on the portal side (indexed query), zero firewall headache for the firm.
 
 ---
 
@@ -155,29 +218,37 @@ For Realty the key gate: **never accept a request whose payload has fewer than 5
    - Tenant: `<firm-slug>` (e.g. `pkb-associates`)
    - Scopes: `events:write`, `notifications:write`
 2. **Set `POLYCLOUD_KEY` + `POLYCLOUD_TENANT`** in the firm's `~/.ca-firm/config.yaml`
-3. **Append to `audit_log()` helper** to optionally POST to `/api/events`:
+3. **Append to `audit_log()` helper** to optionally POST to `/api/v1/events`:
    ```python
    # tools/_shared/portal.py
+   import uuid, os, requests
+
    def push_event(kind: str, payload: dict):
        key = os.environ.get("POLYCLOUD_KEY")
        tenant = os.environ.get("POLYCLOUD_TENANT")
        if not key or not tenant: return  # local-only mode is fine
-       requests.post(
-           "https://www.polycloud.in/api/events",
-           headers={
-               "X-PolyCloud-Key": key,
-               "X-PolyCloud-Tenant": tenant,
-           },
-           json={"kind": kind, "payload": payload},
-           timeout=5,
-       )
+       try:
+           requests.post(
+               "https://www.polycloud.in/api/v1/events",
+               headers={
+                   "X-PolyCloud-Key": key,
+                   "X-PolyCloud-Tenant": tenant,
+                   "Idempotency-Key": str(uuid.uuid4()),
+               },
+               json={"kind": kind, "payload": payload},
+               timeout=5,
+           )
+       except requests.RequestException:
+           pass  # offline → audit log only, never block the tool
    ```
 4. **Call from each tool** at completion:
    - `recon` → after 5-sheet Excel saves
    - `followup` → after WhatsApp send batch completes
    - `ocr` → per invoice, with OCR confidence
    - `dashboard` → on partner sign-off
-5. **For owner-approval items** (recon flagged ITC > ₹10K, low-confidence OCR), use `/api/notifications` with `kind: "approval-needed"` so the firm's portal `/inbox` lights up.
+   - The 19 Tier-E tools (UDIN, payroll, notice, certs, CARO, GST lit, TP, FEMA, FAR, time/billing, etc.) push their own kinds (`udin-issued`, `form-16-generated`, `notice-drafted`, `caro-completed`, ...).
+5. **For owner-approval items** (recon flagged ITC > ₹10K, low-confidence OCR, Form 3CD ready for signature), use `/api/v1/notifications` with `kind: "approval-needed"` so the firm's portal `/inbox` lights up.
+6. **For pulling approval decisions back** (partner approved Form 3CD on the portal → toolkit needs to know), poll `/api/v1/notifications?since=<ts>&kind=approval-decided` every 60s. No webhook receiver needed — firm laptop has no public IP.
 
 **Data sovereignty preserved:** raw GSTR-2B JSON, Tally exports, OCR images NEVER leave the firm. Only summary events + counts + flags go to the portal.
 
@@ -190,9 +261,10 @@ For Realty the key gate: **never accept a request whose payload has fewer than 5
 1. **Generate a Labs-tier API key** per analyst tenant
 2. **From the Decision Composer (A3) in Nexus**: push memo-completion events:
    ```http
-   POST /api/events
+   POST /api/v1/events
    X-PolyCloud-Key: pck_live_...
    X-PolyCloud-Tenant: pharma-fund-x
+   Idempotency-Key: <uuid>
    {
      "kind": "memo-shipped",
      "payload": {
@@ -204,7 +276,7 @@ For Realty the key gate: **never accept a request whose payload has fewer than 5
      }
    }
    ```
-3. **Per-company drill-down** at `/labs/dashboard/company/[slug]` should be a thin renderer over `GET /api/labs/company/<slug>` (planned) which composes Nexus tables.
+3. **Per-company drill-down** at `/labs/dashboard/company/[slug]` should be a thin renderer over `GET /api/v1/labs/company/<slug>` (planned) which composes Nexus tables.
 4. **Cross-link the dossier (A4)** generation events the same way — surfaces in the Labs subscriber's portal feed.
 
 **Decision (per Labs adversarial review · 23 Apr):** position as "Decision Composer + 10 alt-data feeds" in all UI strings. NOT "11 scrapers". The portal already follows this naming on the `/portal#labs` section.
@@ -215,9 +287,9 @@ For Realty the key gate: **never accept a request whose payload has fewer than 5
 
 **To wire up:**
 
-1. **Local agent provisions itself** by hitting (planned) `POST /api/realty/builders` with the operator's setup token (Aasrith's onboarding flow). Returns `builder_slug` + `POLYCLOUD_KEY`.
+1. **Local agent provisions itself** by hitting (planned) `POST /api/v1/realty/builders` with the operator's setup token (Aasrith's onboarding flow). Returns `builder_slug` + `POLYCLOUD_KEY`.
 2. **Local agent runs scheduled scrapes** (Dharani / 99acres / SRO) entirely on the builder's machine. Raw data NEVER leaves.
-3. **`cohort/anonymizer.py` (already merged)** strips PII + IDs, gates on `≥5 contributors`, then pushes to `POST /api/realty/cohort/push`:
+3. **`cohort/anonymizer.py` (already merged)** strips PII + IDs, gates on `≥5 contributors`, then pushes to `POST /api/v1/realty/cohort/push`:
    ```json
    {
      "module": "land-intel",
@@ -227,9 +299,9 @@ For Realty the key gate: **never accept a request whose payload has fewer than 5
      "ts_window": "2024-Q4"
    }
    ```
-4. **Builder usage telemetry** → `POST /api/usage` (anonymized) so the operator sees per-builder engagement on `/admin/realty` (planned) without seeing builder identity in the cohort feed.
+4. **Builder usage telemetry** → `POST /api/v1/usage` (anonymized) so the operator sees per-builder engagement on `/admin/realty` (planned) without seeing builder identity in the cohort feed.
 
-**Hard rule:** the portal NEVER accepts raw scrape output from Realty. If the request body matches the shape of a Dharani plot list or a 99acres listing, drop it on the floor and 422. Enforced via input schema validation on `/api/realty/cohort/push`.
+**Hard rule:** the portal NEVER accepts raw scrape output from Realty. If the request body matches the shape of a Dharani plot list or a 99acres listing, drop it on the floor and 422. Enforced via input schema validation on `/api/v1/realty/cohort/push`.
 
 ---
 
@@ -285,21 +357,45 @@ export interface TenantConfig {
 }
 ```
 
+### 5b · Tenant slug schema + lifecycle
+
+**Slug regex:** `^[a-z][a-z0-9-]{2,40}$` — lowercase, alphanumeric + hyphens, 3-41 chars, must start with a letter.
+
+Examples: `acme-trading`, `sharma-co-llp`, `polycloud-llp`, `kumar-textiles`, `pkb-associates`.
+
+**Lifecycle:**
+1. `POST /api/onboard` creates a `tenant_pending` row with auto-generated slug suggestion + name. Status = `PENDING_APPROVAL`.
+2. Operator reviews on `/portal/onboard-queue` (planned), edits slug if needed, approves → status = `ACTIVE`.
+3. On approval, portal auto-issues the first `pck_live_*` key + provisions tenant config row.
+4. `DELETE /api/v1/tenant/<slug>` is **soft delete** — sets `deleted_at`, revokes all API keys, retains 90-day audit history. Hard purge requires manual operator action via `/portal/audit/purge`.
+
+**Reserved slugs** (operator-only assignment): `polycloud`, `polycloud-llp`, `internal`, `admin`, `api`, `portal`, `dashboard`, `health`, `docs`.
+
 ---
 
 ## 6 · What gets built next (in order)
 
 The portal session priorities, ranked by what unblocks the most:
 
-1. **API keys** — `app/lib/api-keys.ts` + `/api/keys` issue endpoint + `/portal/keys` UI. ~1 day.
-2. **`POST /api/events`** — accept events, write to libsql, emit to in-memory feed for SSE. ~1 day. Unblocks all three apps.
-3. **`POST /api/notifications`** — write to libsql `notifications` table, surface in `/portal/inbox` (new). ~0.5 day.
-4. **`GET /api/tenant/<slug>`** — read from existing `CLIENT_REGISTRY` + libsql overrides. ~2 hours.
-5. **`POST /api/usage`** — Realty cohort feed with the ≥5-contributors gate. ~1 day.
-6. **Realty-specific: `POST /api/realty/cohort/push`** + `POST /api/realty/builders` provisioning. ~1 day.
-7. **libsql migration** for `users` (currently a TS array). ~1 day.
+1. **API keys** — `app/lib/api-keys.ts` + `/api/v1/keys` issue endpoint + `/portal/keys` UI. ~1 day.
+2. **libsql migration for `users`** (currently TS array) — RBAC across tenants needs joins; migrate before second real firm onboards. ~1 day. *Bumped from #7; doing it earlier saves a painful re-migration once events start flowing.*
+3. **`GET /api/health`** — basic liveness for app pre-flight checks. ~1 hour.
+4. **`POST /api/v1/events`** with idempotency keys + per-tenant rate limiting — accept events, write to libsql, emit to in-memory feed for SSE. ~1.5 days (added idempotency dedup table + rate-limit middleware).
+5. **`POST /api/v1/notifications`** + `/portal/inbox` UI — write to libsql `notifications` table. ~0.5 day.
+6. **`GET /api/v1/notifications`** polling endpoint — for CA toolkit / Realty agents behind firewalls. ~2 hours.
+7. **Outbound webhooks** — `PUT /api/v1/tenant/<slug>/webhook` + delivery worker with HMAC signing + retry. ~1 day.
+8. **`GET /api/v1/tenant/<slug>`** — read from existing `CLIENT_REGISTRY` + libsql overrides. ~2 hours.
+9. **Provision `polycloud-llp` as tenant 001 + dogfood the CA toolkit on it** — wire PolyCloud LLP's own TAN HYDP15059C (the one that just got the TDS notice) through the toolkit, push events to portal, validate the entire integration end-to-end on our own books before any external firm. ~0.5 day.
+10. **`POST /api/v1/usage`** — Realty cohort feed with the ≥5-contributors gate. ~1 day.
+11. **Realty-specific:** `POST /api/v1/realty/cohort/push` + `POST /api/v1/realty/builders` provisioning. ~1 day.
 
-Total: ~6-7 days of focused work to unlock all three integrations.
+Total: ~7-8 days of focused work to unlock all three integrations on a foundation that won't break later.
+
+Why the bumps:
+- **libsql users migration earlier** — TS array doesn't support cross-tenant joins; breaks at second firm onboard.
+- **Health endpoint up front** — every app should pre-flight before batched writes; trivial to ship.
+- **Polling fallback** — CA toolkit on a partner's laptop has no public IP; webhooks won't work for them.
+- **Dogfood PolyCloud LLP first** — every integration bug surfaces on our own book before a paying firm sees it.
 
 Until then, all three apps run local-only (which is fine — the toolkit is sold on data sovereignty, Labs has its own portal in Nexus, Realty's local agent is the product).
 
@@ -341,6 +437,50 @@ Live data overlay for an existing tenant:
 ```bash
 curl https://www.polycloud.in/api/live/kumar-textiles
 # → JSON ClientData with overview.kpis + organic.siteTraffic merged from GA4 + Vercel
+```
+
+Health check (after `/api/health` ships — pre-flight before batched writes):
+
+```bash
+curl https://www.polycloud.in/api/health
+# → {"ok":true,"ts":"2026-04-24T...","db":"ok","version":"v0.2"}
+```
+
+Once `/api/v1/events` ships — push an event with idempotency key + observe rate-limit headers:
+
+```bash
+curl -i -X POST https://www.polycloud.in/api/v1/events \
+  -H "X-PolyCloud-Key: pck_live_..." \
+  -H "X-PolyCloud-Tenant: polycloud-llp" \
+  -H "Idempotency-Key: $(uuidgen)" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "kind": "recon-run",
+    "payload": {
+      "ts": "2026-04-24T05:00:00Z",
+      "actor": "ca-firm-toolkit@polycloud-llp",
+      "summary": "Demo recon — 16 invoices · 81.2% match · ₹2,685 ITC at risk",
+      "signal": "16 in 2B, 16 in books",
+      "action": "Matched 13 · flagged 2 · only-in-books 1 · only-in-2B 1",
+      "outcome": "5-sheet Excel ready",
+      "tags": ["gstr-2b","tally","demo"]
+    }
+  }'
+
+# Response headers include:
+#   RateLimit-Limit: 60
+#   RateLimit-Remaining: 59
+#   RateLimit-Reset: 60
+# Replaying the same Idempotency-Key returns the original 201 + same evt_id (no duplicate write).
+```
+
+Polling for partner approvals (CA toolkit pattern):
+
+```bash
+curl "https://www.polycloud.in/api/v1/notifications?since=2026-04-24T00:00:00Z&kind=approval-decided" \
+  -H "X-PolyCloud-Key: pck_live_..." \
+  -H "X-PolyCloud-Tenant: pkb-associates"
+# → {"items":[...], "next_since":"2026-04-24T05:23:00Z"}
 ```
 
 ---
