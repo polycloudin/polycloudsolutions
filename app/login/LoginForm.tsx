@@ -6,9 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 export default function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const next = params.get("next") || "/dashboard";
+  const next = params.get("next") || "";
 
-  const [user, setUser] = useState("polycloud");
+  const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function LoginForm() {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user, pass, next }),
+        body: JSON.stringify({ email, pass, next }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -29,7 +29,11 @@ export default function LoginForm() {
         return;
       }
       // Hard navigation — proxy.ts will now see the cookie and let us through.
-      window.location.href = data.next || "/dashboard";
+      // /api/auth/login picks the right destination based on the user's caps:
+      //   ops      → /dashboard
+      //   tenant   → /client/<their first slug>
+      //   labs-only → /labs/dashboard
+      window.location.href = data.next || "/";
     } catch {
       setError("Network error. Try again.");
     } finally {
@@ -41,19 +45,21 @@ export default function LoginForm() {
     <form onSubmit={onSubmit} className="space-y-3">
       <div>
         <label
-          htmlFor="user"
+          htmlFor="email"
           className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] mb-1.5 block"
         >
-          Username
+          Email
         </label>
         <input
-          id="user"
-          name="user"
-          type="text"
-          autoComplete="username"
+          id="email"
+          name="email"
+          type="email"
+          autoComplete="email"
           required
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
+          autoFocus
+          placeholder="you@polycloud.in"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="w-full px-4 py-3 border border-[var(--color-line)] rounded-lg bg-white text-[14.5px] focus:outline-none focus:border-[var(--color-ink)] focus:ring-2 focus:ring-[var(--color-ink)]/10 transition-all"
         />
       </div>
@@ -71,7 +77,6 @@ export default function LoginForm() {
           type="password"
           autoComplete="current-password"
           required
-          autoFocus
           value={pass}
           onChange={(e) => setPass(e.target.value)}
           className="w-full px-4 py-3 border border-[var(--color-line)] rounded-lg bg-white text-[14.5px] focus:outline-none focus:border-[var(--color-ink)] focus:ring-2 focus:ring-[var(--color-ink)]/10 transition-all"
@@ -86,7 +91,7 @@ export default function LoginForm() {
 
       <button
         type="submit"
-        disabled={loading || !pass}
+        disabled={loading || !email || !pass}
         className="w-full mt-2 px-5 py-3 bg-[var(--color-ink)] text-white rounded-lg text-[14px] font-medium tracking-tight hover:bg-[var(--color-primary-blue)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {loading ? (
