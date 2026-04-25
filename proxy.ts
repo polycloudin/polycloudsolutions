@@ -72,7 +72,11 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
 
   if (!process.env.PRIVATE_DASH_PASS) return misconfigured();
 
-  const isOperator = pathname === "/dashboard" || pathname.startsWith("/dashboard/");
+  const isOperator =
+    pathname === "/dashboard" ||
+    pathname.startsWith("/dashboard/") ||
+    pathname === "/portal" ||
+    pathname.startsWith("/portal/");
   const clientMatch = pathname.match(/^\/client\/([^/]+)(?:\/.*)?$/);
   const isPrivateClient =
     clientMatch !== null && PRIVATE_CLIENT_SLUGS.has(clientMatch[1]);
