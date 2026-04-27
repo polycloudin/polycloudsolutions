@@ -13,7 +13,7 @@ import { jwtVerify } from "jose";
  *   lab   — Labs intelligence subscriber
  *
  * Per-route enforcement:
- *   /dashboard, /portal               → ops === true
+ *   /dashboard, /portal, /admin/*     → ops === true
  *   /client/<slug>                    → ops || ten.includes(slug)  (slug must also be private — public slugs unauth)
  *   /labs/dashboard, /labs/dashboard/* → ops || lab === true
  *   everything else                    → public, no check
