@@ -17,7 +17,6 @@ import {
   OutreachTab,
   LeadsTab,
 } from "../components/tabs";
-import { getClient } from "../data/registry";
 import type { ClientData } from "../data/types";
 
 type TabId =
@@ -66,44 +65,61 @@ function tabsFor(data: ClientData): { id: TabId; label: string; count?: string }
 
 export default function ClientDashboardPage() {
   const { slug } = useParams<{ slug: string }>();
-  const baseline = useMemo(() => getClient(slug), [slug]);
-  const [data, setData] = useState<ClientData | null>(baseline);
-  const [liveStatus, setLiveStatus] = useState<"idle" | "fetching" | "live" | "fallback">(
-    baseline?.liveFeeds ? "fetching" : "idle"
-  );
+  const [data, setData] = useState<ClientData | null>(null);
+  const [loadStatus, setLoadStatus] = useState<
+    "loading" | "loaded" | "live" | "fallback" | "missing"
+  >("loading");
   const tabs = useMemo(() => (data ? tabsFor(data) : []), [data]);
   const [tab, setTab] = useState<TabId>("overview");
 
-  // Fetch live-overlay data from /api/live/<slug> if the client has liveFeeds.
-  // Falls back silently to the registry baseline if the API errors or returns
-  // no overlay.
+  // Fetch the customer's dashboard from /api/live/<slug>. The endpoint
+  // resolves DB row → static-registry fallback → 404, and overlays any
+  // configured liveFeeds (GA4, Vercel Analytics) before returning.
+  // We always fetch — there is no synchronous baseline anymore so that
+  // DB-only customers (onboarded via /admin/clients) work.
   useEffect(() => {
-    if (!baseline?.liveFeeds) {
-      setLiveStatus("idle");
-      return;
-    }
+    if (!slug) return;
     let cancelled = false;
-    setLiveStatus("fetching");
+    setLoadStatus("loading");
     fetch(`/api/live/${slug}`, { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((live: ClientData | null) => {
+      .then(async (r) => {
+        if (r.status === 404) return { kind: "missing" as const };
+        if (!r.ok) return { kind: "error" as const };
+        const json = (await r.json()) as ClientData;
+        return { kind: "ok" as const, data: json };
+      })
+      .then((result) => {
         if (cancelled) return;
-        if (live) {
-          setData(live);
-          setLiveStatus("live");
-        } else {
-          setLiveStatus("fallback");
+        if (result.kind === "missing") {
+          setLoadStatus("missing");
+          return;
         }
+        if (result.kind === "error") {
+          setLoadStatus("fallback");
+          return;
+        }
+        setData(result.data);
+        setLoadStatus(result.data.liveFeeds ? "live" : "loaded");
       })
       .catch(() => {
-        if (!cancelled) setLiveStatus("fallback");
+        if (!cancelled) setLoadStatus("fallback");
       });
     return () => {
       cancelled = true;
     };
-  }, [slug, baseline?.liveFeeds]);
+  }, [slug]);
 
-  if (!data) notFound();
+  if (loadStatus === "missing") notFound();
+  if (!data) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[var(--color-surface)] text-[var(--color-text-secondary)]">
+        <div className="text-center">
+          <p className="mono text-[10px] uppercase tracking-[0.18em] mb-2">Loading</p>
+          <p className="text-[14px]">Fetching dashboard…</p>
+        </div>
+      </div>
+    );
+  }
 
   const m = data.meta;
 
@@ -121,21 +137,14 @@ export default function ClientDashboardPage() {
             </span>
           </div>
           <div className="flex items-center gap-3">
-            {liveStatus !== "idle" && (
+            {loadStatus === "live" || loadStatus === "fallback" ? (
               <span
                 className="mono text-[10px] uppercase tracking-wider hidden md:inline"
-                style={{
-                  color:
-                    liveStatus === "live"
-                      ? "#15803D"
-                      : liveStatus === "fetching"
-                      ? "#B45309"
-                      : "#DC2626",
-                }}
+                style={{ color: loadStatus === "live" ? "#15803D" : "#DC2626" }}
               >
-                {liveStatus === "live" ? "● live" : liveStatus === "fetching" ? "● fetching" : "● fallback"}
+                {loadStatus === "live" ? "● live" : "● fallback"}
               </span>
-            )}
+            ) : null}
             <span className="mono text-[11px] text-[var(--color-text-secondary)] hidden md:inline">
               Week of {m.weekLabel}
             </span>

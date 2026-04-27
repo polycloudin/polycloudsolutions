@@ -45,10 +45,16 @@ export default function OperatorDashboard() {
               })}
             </span>
             <Link
-              href="/digital"
+              href="/admin/clients"
               className="text-[12px] font-medium text-[var(--color-primary-blue)]"
             >
-              ← Site
+              Clients →
+            </Link>
+            <Link
+              href="/admin/clients/onboard"
+              className="text-[12px] font-medium bg-[var(--color-ink)] text-white px-3 py-1.5 rounded-md hover:bg-[var(--color-primary-blue)] transition-colors"
+            >
+              + Onboard
             </Link>
             <SignOutButton />
           </div>

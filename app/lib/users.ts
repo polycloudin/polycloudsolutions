@@ -1,5 +1,5 @@
 /**
- * RBAC user store — seeded in-code for v1.
+ * RBAC user store — hybrid (libsql + in-code).
  *
  * Each user has an email + password (SHA-256 with per-user salt) + a set
  * of capability flags the JWT carries to proxy.ts at every request:
@@ -9,12 +9,21 @@
  *   ten[] — tenant slug allowlist for /client/<slug>. Empty if not a client.
  *   lab   — Labs intelligence access. Grants /labs/dashboard + /labs/dashboard/*.
  *
- * Add a user: append to USERS, generate the hash with
+ * Resolution order (verifyUser):
+ *   1. app_users table (libsql) — every customer onboarded via /admin/clients
+ *   2. USERS array below — operator bootstrap (VK + Aasrith) and any users
+ *      added by appending to the array + redeploying
+ *
+ * Operators don't go in the DB by default — they predate the migration and
+ * stay in code. Customers go in the DB only — onboarding is a runtime op.
+ *
+ * Operator hash bootstrap: append to USERS, generate the hash with
  *   node scripts/hash-password.mjs <plaintext>
  * which prints `salt:hex / hash:hex` to paste in.
- *
- * Migrate to libsql when user count > ~10 — see polycloud_portal_spec.md.
  */
+
+import { safeDb } from "./email/db";
+import type { Client } from "@libsql/client";
 
 export interface UserCaps {
   ops: boolean;       // operator wildcard
@@ -94,11 +103,56 @@ export async function hashPassword(plain: string, salt: string): Promise<string>
   return HEX(digest);
 }
 
+/**
+ * Verify a login attempt. DB-first, then static USERS array.
+ *
+ * Returns the matched User (with caps populated) or null if neither
+ * store recognises the email/password combo. Never throws.
+ */
 export async function verifyUser(
   email: string,
   password: string
 ): Promise<User | null> {
-  const u = USERS.find((x) => x.email.toLowerCase() === email.toLowerCase());
+  const normalized = email.trim().toLowerCase();
+
+  // ---- Path 1: libsql ----
+  const fromDb = await safeDb(async (db) => {
+    await ensureUsersSchema(db);
+    const r = await db.execute({
+      sql: `SELECT email, salt, hash, caps, notes
+            FROM app_users
+            WHERE lower(email) = ?
+            LIMIT 1`,
+      args: [normalized],
+    });
+    const row = r.rows[0];
+    if (!row) return null;
+    let caps: UserCaps;
+    try {
+      caps = JSON.parse(String(row.caps)) as UserCaps;
+    } catch {
+      return null;
+    }
+    return {
+      email: String(row.email),
+      salt: String(row.salt),
+      hash: String(row.hash),
+      caps,
+      notes: row.notes ? String(row.notes) : undefined,
+    } as User;
+  });
+
+  if (fromDb && fromDb.salt !== "REPLACE_ME") {
+    const computed = await hashPassword(password, fromDb.salt);
+    if (constantTimeEquals(computed, fromDb.hash)) return fromDb;
+    // DB row exists but password mismatched — do NOT fall through to the
+    // static array (would let a code-defined password override an
+    // intentionally-rotated DB password).
+    return null;
+  }
+
+  // ---- Path 2: static bootstrap ----
+  const u = USERS.find((x) => x.email.toLowerCase() === normalized);
   if (!u || u.salt === "REPLACE_ME") return null;
   const computed = await hashPassword(password, u.salt);
   return constantTimeEquals(computed, u.hash) ? u : null;
@@ -109,6 +163,102 @@ function constantTimeEquals(a: string, b: string): boolean {
   let mismatch = 0;
   for (let i = 0; i < a.length; i++) mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return mismatch === 0;
+}
+
+// ----------------------------------------------------------------
+// libsql persistence — used by /admin/clients onboarding
+// ----------------------------------------------------------------
+
+let _usersSchemaReady = false;
+
+async function ensureUsersSchema(db: Client): Promise<void> {
+  if (_usersSchemaReady) return;
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS app_users (
+      email      TEXT PRIMARY KEY,
+      salt       TEXT NOT NULL,
+      hash       TEXT NOT NULL,
+      caps       TEXT NOT NULL,
+      notes      TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    )
+  `);
+  _usersSchemaReady = true;
+}
+
+/**
+ * True when the email is taken in EITHER store. Used by onboarding to
+ * reject duplicate signups before insert.
+ */
+export async function userExists(email: string): Promise<boolean> {
+  const normalized = email.trim().toLowerCase();
+  if (USERS.some((u) => u.email.toLowerCase() === normalized)) return true;
+  const r = await safeDb(async (db) => {
+    await ensureUsersSchema(db);
+    const result = await db.execute({
+      sql: `SELECT 1 FROM app_users WHERE lower(email) = ? LIMIT 1`,
+      args: [normalized],
+    });
+    return result.rows.length > 0;
+  });
+  return r === true;
+}
+
+/**
+ * Create or update a user in the DB. The plaintext password is hashed
+ * here with a fresh 16-byte hex salt; callers never see the hash.
+ *
+ * Returns ok:false if libsql is unconfigured/unreachable. Never throws.
+ */
+export async function upsertUser(input: {
+  email: string;
+  password: string;
+  caps: UserCaps;
+  notes?: string;
+}): Promise<{ ok: true } | { ok: false; reason: string }> {
+  const email = input.email.trim().toLowerCase();
+  if (!email || !email.includes("@")) {
+    return { ok: false, reason: "Invalid email" };
+  }
+  if (!input.password || input.password.length < 8) {
+    return { ok: false, reason: "Password must be at least 8 characters" };
+  }
+  const salt = randomHex(16);
+  const hash = await hashPassword(input.password, salt);
+  const caps = JSON.stringify(input.caps);
+
+  const ok = await safeDb(async (db) => {
+    await ensureUsersSchema(db);
+    await db.execute({
+      sql: `INSERT INTO app_users (email, salt, hash, caps, notes)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(email) DO UPDATE SET
+              salt       = excluded.salt,
+              hash       = excluded.hash,
+              caps       = excluded.caps,
+              notes      = excluded.notes,
+              updated_at = datetime('now')`,
+      args: [email, salt, hash, caps, input.notes ?? null],
+    });
+    return true;
+  });
+  return ok === true
+    ? { ok: true }
+    : { ok: false, reason: "Database is unconfigured or unreachable" };
+}
+
+function randomHex(bytes: number): string {
+  const arr = new Uint8Array(bytes);
+  crypto.getRandomValues(arr);
+  return Array.from(arr)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+/** Test-only — clears the schema-cache so a fresh DB re-runs CREATE TABLE. */
+export function _resetUsersSchemaCacheForTests(): void {
+  _usersSchemaReady = false;
 }
 
 // ----------------------------------------------------------------

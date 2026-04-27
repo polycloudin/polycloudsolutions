@@ -63,6 +63,19 @@ const SECTIONS: Section[] = [
         description: "Cross-tenant cockpit. MRR · leads · urgent queue · unified Autopilot feed for every client.",
       },
       {
+        name: "Clients · /admin/clients",
+        href: "/admin/clients",
+        status: "live",
+        description: "Every customer dashboard in one table — DB rows + the three static .ts files. Onboard new customers from here without a code push.",
+        badge: "DB-backed",
+      },
+      {
+        name: "Onboard customer · /admin/clients/onboard",
+        href: "/admin/clients/onboard",
+        status: "live",
+        description: "Form: slug · name · bundle · login email + initial password. Creates the dashboard row + login in one shot. Credentials shown once for handoff.",
+      },
+      {
         name: "PolyCloud Solutions · dogfood",
         href: "/client/polycloud",
         status: "private",
