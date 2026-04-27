@@ -250,7 +250,7 @@ const SECTIONS: Section[] = [
 const ROADMAP: { title: string; rationale: string }[] = [
   {
     title: "Single sign-on across products",
-    rationale: "Partner logs in once → hops CA-firm toolkit ↔ MIS ↔ DMS ↔ trading admin without re-auth. Pre-req for everything below.",
+    rationale: "Partner logs in once → hops CA-firm toolkit ↔ client MIS ↔ DMS portal ↔ Realty admin ↔ Labs subscriber view without re-auth. Pre-req for everything below.",
   },
   {
     title: "Unified notification hub",
