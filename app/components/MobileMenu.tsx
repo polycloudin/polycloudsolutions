@@ -106,6 +106,14 @@ export default function MobileMenu({
               </Link>
             );
           })}
+          <Link
+            href="/login"
+            onClick={() => setOpen(false)}
+            className="flex items-center justify-between py-3 px-3 -mx-1 mt-2 rounded-md text-[17px] text-[var(--color-text)] hover:bg-[var(--color-surface-warm)] border-t border-[var(--color-line)] pt-5 transition-colors"
+          >
+            <span>Sign in</span>
+            <span className="text-[var(--color-text-muted)]">→</span>
+          </Link>
         </nav>
         <div className="px-6 pb-6 pt-2 border-t border-[var(--color-line)]">
           <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">

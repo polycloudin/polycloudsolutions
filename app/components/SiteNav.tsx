@@ -37,6 +37,12 @@ export default function SiteNav({ active }: { active?: NavKey }) {
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
+          <Link
+            href="/login"
+            className="hidden sm:inline-block text-[13px] text-[var(--color-text)] hover:text-[var(--color-ink)] link-underline px-2 py-2"
+          >
+            Sign in
+          </Link>
           <BookButton
             variant="primary"
             className="!py-2 !px-4 !text-[13px]"

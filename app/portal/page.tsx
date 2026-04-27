@@ -1,24 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { readSession, SESSION_COOKIE } from "@/app/lib/auth";
 import SignOutButton from "../dashboard/SignOutButton";
 
 /**
- * Operator portal — single launchpad for every product/surface under
- * polycloudin. Auth-gated alongside /dashboard via proxy.ts. Not in
- * nav, not in sitemap, robots noindex.
+ * /portal — universal post-login entry point.
  *
- * Positioning rule: one product per pitch line, then list inputs.
- * "Decision Composer + 10 alt-data feeds" beats "11 scrapers + a
- * templating engine" (per Labs adversarial review · 23 Apr).
+ * Routing by role (proxy.ts has already verified the session exists):
+ *   ops          → render the operator launchpad (this file's SECTIONS UI)
+ *   tenant (ten) → redirect to /client/<first-slug>
+ *   labs (lab)   → redirect to /labs/dashboard
+ *   none         → redirect to /  (no surfaces granted)
  *
- * Source of truth lives in this file so it can't drift from the
- * running site. Add a surface? Append to a SECTIONS array.
+ * The launchpad UI is the cross-product index VK + Aasrith use to find
+ * every URL/repo/connector. Source of truth lives in this file — append
+ * a Surface to the SECTIONS array to add a tile.
+ *
+ * Positioning rule for entries: one product per pitch line, then list
+ * inputs. "Decision Composer + 10 alt-data feeds" beats "11 scrapers +
+ * a templating engine" (per Labs adversarial review · 23 Apr).
  */
 
 export const metadata: Metadata = {
-  title: "Portal · Everything we run — PolyCloud",
+  title: "Portal · PolyCloud",
   robots: { index: false, follow: false, nocache: true },
 };
+
+export const dynamic = "force-dynamic";
 
 type Status = "live" | "private" | "hidden" | "planned" | "pending";
 
@@ -51,6 +61,19 @@ const SECTIONS: Section[] = [
         href: "/dashboard",
         status: "private",
         description: "Cross-tenant cockpit. MRR · leads · urgent queue · unified Autopilot feed for every client.",
+      },
+      {
+        name: "Clients · /admin/clients",
+        href: "/admin/clients",
+        status: "live",
+        description: "Every customer dashboard in one table — DB rows + the three static .ts files. Onboard new customers from here without a code push.",
+        badge: "DB-backed",
+      },
+      {
+        name: "Onboard customer · /admin/clients/onboard",
+        href: "/admin/clients/onboard",
+        status: "live",
+        description: "Form: slug · name · bundle · login email + initial password. Creates the dashboard row + login in one shot. Credentials shown once for handoff.",
       },
       {
         name: "PolyCloud Solutions · dogfood",
@@ -169,24 +192,32 @@ const SECTIONS: Section[] = [
         description: "Marketing page. Pitch deck CTA. Refund-guarantee block adds when pilot 1 signs.",
       },
       {
-        name: "Builder app · /realty",
-        href: "/solutions/real-estate",
-        status: "planned",
-        description: "Six intel cards: Land · Demand · Supply · Policy · Comparables · Channel+Risk. Each with confidence chip + source chip. Multi-tenant.",
-        badge: "Founding-partner pilot",
+        name: "Realty operator console · /admin/realty",
+        href: "/admin/realty",
+        status: "live",
+        description: "VK + Aasrith view. Builder roster · last-push-at telemetry · cohort feed (≥5-contributors gate) · per-tenant top modules. Reads from realty_builders + realty_cohort + usage_events. Anonymized — never shows raw builder data.",
+        badge: "ops cookie required",
       },
       {
-        name: "Internal console · /admin/realty",
-        href: "/dashboard",
-        status: "planned",
-        description: "VK + Aasrith view. All builders + lifecycle (lead → trial → paying → churned), per-builder usage telemetry, manual report trigger.",
+        name: "Builder app · /realty/app/[slug]",
+        href: "/realty/app/login",
+        status: "live",
+        description: "Per-builder cloud dashboard mirroring the local agent's six intel cards (Land · Demand · Supply · Policy · Comps · Channel). Reads from usage_events filtered to this tenant. Builder logs in with their pck_live_<token> at /realty/app/login.",
+        badge: "Self-service",
+      },
+      {
+        name: "Local agent dashboard · localhost:8787",
+        href: "https://github.com/polycloudin/realty-platform/blob/main/PORTAL_INTEGRATION.md",
+        external: true,
+        status: "live",
+        description: "Runs on the builder's laptop after `bash install.sh`. Same six intel cards + 'Events & cohort feed' card showing portal sync status.",
       },
       {
         name: "polycloudin/realty-platform",
         href: "https://github.com/polycloudin/realty-platform",
         external: true,
         status: "private",
-        description: "FastAPI + SQLite-per-builder + HTML dashboard at localhost:8787. PR #1 open · feat/phase-0-intel-wedge.",
+        description: "FastAPI + SQLite-per-builder + HTML dashboard. PR #1 · feat/phase-0-intel-wedge — 8 commits, 69 tests, wire-aligned with /api/usage + /api/realty/builders.",
       },
     ],
   },
@@ -306,7 +337,31 @@ const STATUS_STYLE: Record<Status, { label: string; color: string; bg: string }>
   pending: { label: "Env-pending", color: "#B45309", bg: "#FFFBEB" },
 };
 
-export default function PortalPage() {
+export default async function PortalPage() {
+  // Role-based routing. proxy.ts has confirmed the user is authenticated;
+  // here we decide where they belong.
+  const jar = await cookies();
+  const token = jar.get(SESSION_COOKIE)?.value ?? null;
+  const claims = await readSession(token);
+
+  if (!claims) {
+    // Defense-in-depth: proxy.ts should have caught this, but if a session
+    // expired between matcher and render, send them to login.
+    redirect("/login?next=%2Fportal");
+  }
+  if (!claims.ops) {
+    if (claims.ten && claims.ten.length > 0) {
+      redirect(`/client/${claims.ten[0]}`);
+    }
+    if (claims.lab) {
+      redirect("/labs/dashboard");
+    }
+    // Authenticated but no surfaces granted — send home with a soft message.
+    // Rare in practice (every account is provisioned with at least one cap).
+    redirect("/");
+  }
+
+  // ops === true falls through to render the launchpad below.
   const allSurfaces = SECTIONS.flatMap((s) => s.surfaces);
   const total = allSurfaces.length;
   const live = allSurfaces.filter((u) => u.status === "live").length;
