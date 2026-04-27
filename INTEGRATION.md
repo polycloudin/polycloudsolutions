@@ -361,7 +361,7 @@ export interface TenantConfig {
 
 **Slug regex:** `^[a-z][a-z0-9-]{2,40}$` — lowercase, alphanumeric + hyphens, 3-41 chars, must start with a letter.
 
-Examples: `acme-trading`, `sharma-co-llp`, `polycloud-llp`, `kumar-textiles`, `pkb-associates`.
+Examples: `acme-imports`, `sharma-co-llp`, `polycloud-llp`, `kumar-textiles`, `pkb-associates`.
 
 **Lifecycle:**
 1. `POST /api/onboard` creates a `tenant_pending` row with auto-generated slug suggestion + name. Status = `PENDING_APPROVAL`.
