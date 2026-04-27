@@ -30,36 +30,31 @@ export default function LoginPage() {
           <div className="w-full max-w-md">
             <div className="mb-8 md:mb-10">
               <p className="mono text-[10px] text-[var(--color-text-muted)] uppercase tracking-[0.22em] mb-3">
-                Internal access
+                Customer portal
               </p>
               <h1 className="text-display text-[clamp(1.75rem,5vw,2.5rem)] leading-[1.05] tracking-tight">
                 Sign in to your{" "}
                 <span className="text-serif-accent text-[var(--color-primary-blue)]">
-                  cockpit
+                  workspace
                 </span>
                 .
               </h1>
               <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed mt-3">
-                Operator dashboard, private client views, and outreach queue.
-                Not a public customer area.
+                Your dashboards, deliverables, and live data — in one place.
+                Don&apos;t have an account?{" "}
+                <a
+                  href="/onboard"
+                  className="text-[var(--color-primary-blue)] font-medium link-underline"
+                >
+                  Start onboarding
+                </a>
+                .
               </p>
             </div>
 
             <Suspense fallback={<FormSkeleton />}>
               <LoginForm />
             </Suspense>
-
-            <div className="mt-8 pt-6 border-t border-[var(--color-line)]">
-              <p className="text-[13px] text-[var(--color-text-secondary)] leading-relaxed">
-                New to PolyCloud?{" "}
-                <a
-                  href="/onboard"
-                  className="text-[var(--color-primary-blue)] font-medium link-underline"
-                >
-                  Start onboarding →
-                </a>
-              </p>
-            </div>
           </div>
         </main>
 

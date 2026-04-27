@@ -13,8 +13,10 @@ import { jwtVerify } from "jose";
  *   lab   — Labs intelligence subscriber
  *
  * Per-route enforcement:
- *   /dashboard, /portal, /admin/*     → ops === true
- *   /client/<slug>                    → ops || ten.includes(slug)  (slug must also be private — public slugs unauth)
+ *   /portal                           → any authenticated user (page does role-routing)
+ *   /portal/*, /dashboard, /admin/*   → ops === true
+ *   /client/<slug>                    → ops || ten.includes(slug)
+ *                                       (PUBLIC_CLIENT_SLUGS bypass auth — showcase pages only)
  *   /labs/dashboard, /labs/dashboard/* → ops || lab === true
  *   everything else                    → public, no check
  *
@@ -22,7 +24,10 @@ import { jwtVerify } from "jose";
  * proxy.ts only needs the JWT verify path, which jose covers.
  */
 
-const PRIVATE_CLIENT_SLUGS = new Set<string>(["polycloud", "viratkota"]);
+// Showcase pages that render public sample data — auth bypass is intentional.
+// Every OTHER /client/<slug> requires login. Add a slug here only when the
+// page is meant to be linkable from marketing without credentials.
+const PUBLIC_CLIENT_SLUGS = new Set<string>(["demo"]);
 const SESSION_COOKIE = "polycloud_session";
 
 interface SessionClaims {
@@ -135,20 +140,29 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
   }
 
   // ---------- Identify the gate this request is asking for ----------
+  // /portal (exact)  → any authenticated user; the page does role-routing.
+  // /portal/*        → operator-only (subroutes like /portal/keys, /portal/inbox).
+  const isPortalIndex = pathname === "/portal";
   const isOperator =
     pathname === "/dashboard" ||
     pathname.startsWith("/dashboard/") ||
-    pathname === "/portal" ||
-    pathname.startsWith("/portal/");
+    pathname.startsWith("/portal/") ||
+    pathname === "/admin" ||
+    pathname.startsWith("/admin/");
 
   const clientMatch = pathname.match(/^\/client\/([^/]+)(?:\/.*)?$/);
   const clientSlug = clientMatch ? clientMatch[1] : null;
-  const isPrivateClient = clientSlug !== null && PRIVATE_CLIENT_SLUGS.has(clientSlug);
+  // Default-private model: any /client/<slug> requires auth UNLESS the slug
+  // is explicitly listed as a public showcase. Inverted from the prior
+  // allowlist so onboarding a new customer doesn't silently expose their
+  // dashboard until someone remembers to update PRIVATE_CLIENT_SLUGS.
+  const isPublicClient = clientSlug !== null && PUBLIC_CLIENT_SLUGS.has(clientSlug);
+  const isPrivateClient = clientSlug !== null && !isPublicClient;
 
   const isLabsDashboard =
     pathname === "/labs/dashboard" || pathname.startsWith("/labs/dashboard/");
 
-  if (!isOperator && !isPrivateClient && !isLabsDashboard) {
+  if (!isPortalIndex && !isOperator && !isPrivateClient && !isLabsDashboard) {
     return NextResponse.next();
   }
 
@@ -157,6 +171,7 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
   if (!claims) return redirectToLogin(request);
 
   // ---------- Enforce per-route caps ----------
+  // /portal (exact) only requires "logged in" — the page redirects by role.
   if (isOperator && !claims.ops) return forbidden(request, claims, pathname);
 
   if (isPrivateClient && clientSlug) {
@@ -180,6 +195,8 @@ export const config = {
     "/dashboard/:path*",
     "/portal",
     "/portal/:path*",
+    "/admin",
+    "/admin/:path*",
     "/labs/dashboard",
     "/labs/dashboard/:path*",
   ],

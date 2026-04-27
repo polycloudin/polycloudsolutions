@@ -64,9 +64,10 @@ export async function POST(request: Request) {
 
 async function issueSession(email: string, caps: UserCaps, next: string | undefined) {
   const token = await signSession({ email, caps });
-  // Default destination based on role
-  const fallback = caps.ops ? "/dashboard" : caps.ten[0] ? `/client/${caps.ten[0]}` : caps.lab ? "/labs/dashboard" : "/";
-  const redirect = next && next.startsWith("/") ? next : fallback;
+  // Universal post-login entry: /portal does the role-routing server-side
+  // (ops → launchpad, tenant → /client/<slug>, labs → /labs/dashboard).
+  // The explicit `next` param still wins so deep links survive the login bounce.
+  const redirect = next && next.startsWith("/") ? next : "/portal";
   const res = NextResponse.json({ ok: true, next: redirect, caps });
   res.cookies.set(SESSION_COOKIE, token, {
     httpOnly: true,
