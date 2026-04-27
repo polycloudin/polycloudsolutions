@@ -18,6 +18,8 @@ import { jwtVerify } from "jose";
  *   /client/<slug>                    → ops || ten.includes(slug)
  *                                       (PUBLIC_CLIENT_SLUGS bypass auth — showcase pages only)
  *   /labs/dashboard, /labs/dashboard/* → ops || lab === true
+ *   /realty/app/<slug>                → ops || ten.includes(slug)
+ *   /realty/app/login                 → public (the login page itself)
  *   everything else                    → public, no check
  *
  * Edge runtime: cannot import the full users module (Node-only crypto).

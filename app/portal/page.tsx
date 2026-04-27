@@ -186,10 +186,10 @@ const SECTIONS: Section[] = [
       },
       {
         name: "Builder app · /realty/app/[slug]",
-        href: "/solutions/real-estate",
-        status: "planned",
-        description: "Per-builder dashboard mirroring the local agent's six intel cards. Embedded view of that tenant's events + cohort contributions. Lights up after first signed pilot.",
-        badge: "Founding-partner pilot",
+        href: "/realty/app/login",
+        status: "live",
+        description: "Per-builder cloud dashboard mirroring the local agent's six intel cards (Land · Demand · Supply · Policy · Comps · Channel). Reads from usage_events filtered to this tenant. Builder logs in with their pck_live_<token> at /realty/app/login.",
+        badge: "Self-service",
       },
       {
         name: "Local agent dashboard · localhost:8787",
