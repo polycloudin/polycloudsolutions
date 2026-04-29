@@ -637,7 +637,7 @@ export default function Consulting() {
           {/* The 3-tier sampler — one hero tool per tier; full 37-tool list on /solutions/ca-firm */}
           <div className="mt-20">
             <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
-              <p className="text-eyebrow text-[var(--color-text-secondary)]">The stack — 37 tools, 3 tiers, one Vercel deploy</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)]">The stack — 37 tools, 3 tiers, one install</p>
               <Link
                 href="/solutions/ca-firm"
                 className="text-sm font-medium link-underline"

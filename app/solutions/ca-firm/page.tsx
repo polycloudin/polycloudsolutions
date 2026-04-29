@@ -10,7 +10,7 @@ import SiteFooter from "../../components/SiteFooter";
 export const metadata: Metadata = {
   title: "PolyCloud CA Practice OS — 37 tools, Firm + Managed mode",
   description:
-    "One web app for the entire Indian CA practice + SME finance workflow. 37 tools spanning GSTR-2B recon, bank → Tally, TDS + 24Q, Form 3CD, CARO + Schedule III, payroll + Form 16, UDIN, 15CA/CB, notice response, GST litigation, FEMA, transfer pricing, peer review, CPE. Two modes — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Single Next.js app, deployed in 3 commands to your Vercel. Live: ca-firm-toolkit.vercel.app.",
+    "One web app for the entire Indian CA practice + SME finance workflow. 37 tools spanning GSTR-2B recon, bank → Tally, TDS + 24Q, Form 3CD, CARO + Schedule III, payroll + Form 16, UDIN, 15CA/CB, notice response, GST litigation, FEMA, transfer pricing, peer review, CPE. Two modes — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Single web app, three commands to stand up under your firm's subdomain. Live: ca-firm-toolkit.vercel.app.",
   alternates: { canonical: "/solutions/ca-firm" },
   keywords: [
     "CA firm automation",
@@ -92,7 +92,7 @@ const tools: Tool[] = [
     name: "ITC risk dashboard",
     tagline: "One screen. Real-time. Runs locally.",
     description:
-      "Next.js webapp deployed to your Vercel (or ours). Shows monthly ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart across the last 12 months. Per-firm tenant isolation; you own the deploy.",
+      "Single web app, deployed under your firm's own subdomain. Shows monthly ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart across the last 12 months. Per-firm tenant isolation; you own the deployment.",
     deliverable: "Partners get a morning dashboard. CFO clients can log in to their own slice.",
   },
   {
@@ -362,7 +362,7 @@ const timeline = [
     week: "Week 1",
     title: "Deploy + pick mode",
     body:
-      "Three commands deploy the full webapp to your Vercel (or ours, if you prefer Managed mode). Tally Bridge installs on whichever laptop holds Tally — that's the only local piece. We walk all 37 tools, you pick Firm or Managed mode + tier, and we wire your first client.",
+      "Three commands stand up the full web app under your firm's subdomain (or ours, if you prefer Managed mode). The Tally Bridge agent installs on whichever laptop holds Tally — that's the only local piece. We walk all 37 tools, you pick Firm or Managed mode + tier, and we wire your first client.",
   },
   {
     week: "Week 2",
@@ -566,8 +566,8 @@ const CLOSE_STEPS: {
 ];
 
 const facts = [
-  { label: "Deployed to", value: "Your Vercel · or ours (Managed mode)" },
-  { label: "Deploy time", value: "Three commands · ~5 minutes" },
+  { label: "Lives at", value: "Your firm's subdomain · single-tenant" },
+  { label: "Stand-up time", value: "Three commands · ~5 minutes" },
   { label: "Local piece", value: "Tally Bridge agent · runs where Tally runs" },
   { label: "Integration stack", value: "Tally, GSTN, MCA21, NIC IRP, WhatsApp Business API" },
 ];
@@ -804,11 +804,11 @@ export default function CaFirmSolution() {
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">The dashboard</p>
               <h2 className="text-[clamp(1.75rem,5vw,4rem)] max-w-2xl leading-[1]">
-                Lives on <span className="text-serif-accent text-[var(--color-primary-blue)]">your Vercel</span>. Data stays under your domain.
+                Lives at <span className="text-serif-accent text-[var(--color-primary-blue)]">your subdomain</span>. Data stays in your tenant.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              One Next.js webapp, deployed in three commands. Single-tenant by default — your firm&apos;s data never sits next to anyone else&apos;s. The white-labeled client view renders at /clients/[id] with your firm&apos;s logo.
+              One web app, three commands to stand up. Single-tenant by default — your firm&apos;s data never sits next to anyone else&apos;s. The white-labeled client view renders at /clients/[id] with your firm&apos;s logo.
             </p>
           </div>
           <MockupLightbox caption="ITC risk dashboard · part of the Practice OS at ca-firm-toolkit.vercel.app. Click to collapse.">
@@ -1000,7 +1000,7 @@ export default function CaFirmSolution() {
             <span className="text-[13.5px] text-[var(--color-text)]">
               <span className="font-medium">37 tools running today</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
-              <span className="font-medium">3-command Vercel deploy</span>
+              <span className="font-medium">3-command stand-up · single-tenant</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
               <span className="font-medium">Single-tenant, your domain</span>
             </span>
@@ -1051,13 +1051,13 @@ export default function CaFirmSolution() {
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
             <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">03 / Pricing · Firm mode</p>
               <h2 className="text-[clamp(1.875rem,6vw,5rem)] leading-[1] max-w-3xl">
                 Pick a tier. <span className="text-serif-accent">Add seats if you want them</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Three tiers cover everything a CA firm runs. Two optional add-ons stack on top. One flat retainer each month — no per-client, per-filing, or per-seat surprises.
+              Three tiers cover everything a CA firm runs. Two optional add-ons stack on top. One flat retainer each month — no per-client, per-filing, or per-seat surprises. <span className="font-medium text-[var(--color-ink)]">Running an SME instead of a CA practice? See <Link href="/managed" className="link-underline text-[var(--color-primary-blue)]">Managed mode →</Link></span>
             </p>
           </div>
 
@@ -1224,7 +1224,7 @@ export default function CaFirmSolution() {
               },
               {
                 q: "Where does the data actually live? What leaves the firm?",
-                a: "Nothing leaves your domain. In Firm mode the webapp deploys to your own Vercel project — your subdomain, your Vercel team, your data. SQLite files per client, your filesystem for documents. The Tally Bridge agent runs on whichever laptop holds Tally. WhatsApp/Meta API and GST portal are the only external hops — and only when you trigger them. In Managed mode the same stack runs on PolyCloud's Vercel under a per-firm tenant; you can move it to your own Vercel any time.",
+                a: "Nothing leaves your tenant. In Firm mode the web app sits under your own subdomain, on your own hosting account, with your own data store — single-tenant by construction. SQLite files per client, your filesystem for documents. The Tally Bridge agent runs on whichever laptop holds Tally. WhatsApp/Meta API and GST portal are the only external hops — and only when you trigger them. In Managed mode the same stack runs under PolyCloud-hosted infrastructure with per-firm tenant isolation; you can migrate it to your own hosting at any time.",
               },
               {
                 q: "What happens after the 30-day pilot?",
@@ -1303,7 +1303,7 @@ export default function CaFirmSolution() {
             We're taking two more pilot <span className="text-serif-accent text-[var(--color-primary-orange)]">CA firms</span> this quarter.
           </h2>
           <p className="text-white/60 text-[17px] max-w-2xl leading-relaxed mb-10">
-            Three-command Vercel deploy in week one. Starter stack live in week two. If the first reconciliation cycle doesn&apos;t save you 8+ hours vs baseline, we don&apos;t charge for weeks 3–4. Upgrade tier or switch to Managed mode in place when the next stack earns it.
+            Three-command stand-up in week one. Starter stack live in week two. If the first reconciliation cycle doesn&apos;t save you 8+ hours vs baseline, we don&apos;t charge for weeks 3–4. Upgrade tier or switch to Managed mode in place when the next stack earns it.
           </p>
           <div className="flex flex-wrap gap-3">
             <BookButton variant="light-primary" topic="consulting">
