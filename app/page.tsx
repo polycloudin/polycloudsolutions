@@ -161,7 +161,7 @@ export default function Home() {
                     Proof · ca-firm-toolkit
                   </p>
                   <p className="text-white text-[13.5px] leading-snug">
-                    <span className="font-medium">8h → 45min</span> per client per month · live MIS demo at polycloud.in/ca-firm
+                    <span className="font-medium">8h → 45min</span> per client · 37 tools live at ca-firm-toolkit.vercel.app
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-white/70">

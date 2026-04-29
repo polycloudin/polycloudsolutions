@@ -52,7 +52,7 @@ const flagships = [
     title: "The CA Firm AI Employee",
     market: "100,138 registered CA firms in India. 72% solo practices. Target retainer ₹15–25K/mo.",
     pain: "40–60 hours per month matching purchase registers against GSTR-2B. Reconciliation alone consumes 8+ hours per filing cycle. Data-entry errors account for a large share of GST compliance issues.",
-    result: "Built and runnable today: 10 tools across 3 tiers (Starter / Growth / Pro) — GSTR-2B recon, WhatsApp vendor follow-up, invoice OCR, bank statement → Tally, TDS 26Q + FVU, compliance calendar, Form 3CD auto-docs, client MIS, receivables, ITC dashboard. Demo pass on synthetic 16-invoice dataset: 81.2% match, ₹2,685 ITC-at-risk surfaced. Full spec at /solutions/ca-firm · live white-label MIS at polycloud.in/ca-firm. First pilot installs opening in Hyderabad.",
+    result: "Built and runnable today: 37 tools spanning the full Indian CA practice + SME finance workflow — GSTR-2B recon, bank → Tally, TDS 26Q FVU, Form 3CD, CARO + Schedule III, payroll + Form 16, UDIN, 15CA/CB, MCA21, GST litigation, FEMA, transfer pricing, peer review, CPE. Demo pass on synthetic 16-invoice dataset: 81.2% match, ₹2,685 ITC-at-risk surfaced. Two modes — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Full spec at /solutions/ca-firm · live OS at ca-firm-toolkit.vercel.app · client dashboard at polycloud.in/ca-firm. First pilots opening in Hyderabad.",
     ctaTopic: "consulting" as const,
     ctaLabel: "Pilot on your firm ↗",
   },
@@ -622,18 +622,27 @@ export default function Consulting() {
           </div>
 
           <p className="mt-6 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-            Numbers above are the actual output of <code className="font-mono">python3 demo.py</code> on synthetic data — reproducible locally. No client data is shown.
+            Numbers above are the actual output of the recon engine on synthetic data — reproducible at{" "}
+            <a
+              href="https://ca-firm-toolkit.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline text-[var(--color-primary-blue)]"
+            >
+              ca-firm-toolkit.vercel.app
+            </a>
+            . No client data is shown.
           </p>
 
-          {/* The 3-tier sampler — one hero tool per tier; full 10-tool list on /solutions/ca-firm */}
+          {/* The 3-tier sampler — one hero tool per tier; full 37-tool list on /solutions/ca-firm */}
           <div className="mt-20">
             <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
-              <p className="text-eyebrow text-[var(--color-text-secondary)]">The stack — 10 tools, 3 tiers, one install</p>
+              <p className="text-eyebrow text-[var(--color-text-secondary)]">The stack — 37 tools, 3 tiers, one Vercel deploy</p>
               <Link
                 href="/solutions/ca-firm"
                 className="text-sm font-medium link-underline"
               >
-                See all 10 tools →
+                See all 37 tools →
               </Link>
             </div>
             <div className="grid md:grid-cols-3 gap-5">
