@@ -8,9 +8,9 @@ import SiteNav from "../../components/SiteNav";
 import SiteFooter from "../../components/SiteFooter";
 
 export const metadata: Metadata = {
-  title: "CA Firm AI Employee — 37 tools, end-to-end practice automation",
+  title: "PolyCloud CA Practice OS — 37 tools, Firm + Managed mode",
   description:
-    "A 37-tool AI employee installed on your firm's laptop. Every workflow a mid-size CA firm runs — GSTR-2B recon, bank → Tally, TDS + 24Q, Form 3CD, CARO + Schedule III, payroll + Form 16, UDIN, 15CA/CB, notice response, GST litigation, FEMA, transfer pricing, peer review, CPE tracking, partner review queue. ₹15-45K/mo + seats. Live demo at polycloud.in/ca-firm.",
+    "One web app for the entire Indian CA practice + SME finance workflow. 37 tools spanning GSTR-2B recon, bank → Tally, TDS + 24Q, Form 3CD, CARO + Schedule III, payroll + Form 16, UDIN, 15CA/CB, notice response, GST litigation, FEMA, transfer pricing, peer review, CPE. Two modes — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Single Next.js app, deployed in 3 commands to your Vercel. Live: ca-firm-toolkit.vercel.app.",
   alternates: { canonical: "/solutions/ca-firm" },
   keywords: [
     "CA firm automation",
@@ -92,7 +92,7 @@ const tools: Tool[] = [
     name: "ITC risk dashboard",
     tagline: "One screen. Real-time. Runs locally.",
     description:
-      "FastAPI backend + SQLite + Next.js frontend, installed on the CA's laptop. Shows monthly ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart across the last 12 months. No data leaves the firm — everything runs on localhost.",
+      "Next.js webapp deployed to your Vercel (or ours). Shows monthly ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart across the last 12 months. Per-firm tenant isolation; you own the deploy.",
     deliverable: "Partners get a morning dashboard. CFO clients can log in to their own slice.",
   },
   {
@@ -138,7 +138,7 @@ const tools: Tool[] = [
     tagline: "White-labeled. Multi-tenant. Shipped monthly.",
     description:
       "One SQLite per client at ~/.ca-firm/clients/<slug>/mis.db — zero cross-tenant leakage. Monthly snapshot of revenue, net profit, GST liability vs paid, TDS deducted vs deposited, closing cash. 30/60/90-day cash flow projection using 6-month rolling average + Indian seasonality (Mar advance-tax, Nov Diwali spike, Sep-Oct inventory build). Confidence score + HEALTHY / ADEQUATE / TIGHT / CRITICAL tier. White-labeled with the firm's logo + colours.",
-    deliverable: "Client CFOs stop calling the partner weekly. See a live demo at polycloud.in/ca-firm.",
+    deliverable: "Client CFOs stop calling the partner weekly. Live demo at ca-firm-toolkit.vercel.app + polycloud.in/ca-firm.",
   },
   {
     num: "10",
@@ -360,27 +360,27 @@ const tools: Tool[] = [
 const timeline = [
   {
     week: "Week 1",
-    title: "Install + pick tier",
+    title: "Deploy + pick mode",
     body:
-      "On-site (or remote via AnyDesk). The full stack installs on your primary laptop in 90 minutes — Tally integration included. We walk you through all 37 tools, you pick Starter / Growth / Pro (and whether to add seats), and we configure what you'll use in week 1.",
+      "Three commands deploy the full webapp to your Vercel (or ours, if you prefer Managed mode). Tally Bridge installs on whichever laptop holds Tally — that's the only local piece. We walk all 37 tools, you pick Firm or Managed mode + tier, and we wire your first client.",
   },
   {
     week: "Week 2",
     title: "Starter stack live",
     body:
-      "Reconciliation engine runs on this month's actual GSTR-2B + Tally data. Vendor follow-up WhatsApp templates approved by Meta. Invoice OCR webhook wired to your clients. ITC risk dashboard on localhost — partners get a morning view. 10 hours collapses to under 2.",
+      "Reconciliation engine runs on this month's actual GSTR-2B + Tally data via /clients/[id]/recon. Vendor follow-up WhatsApp templates approved by Meta. Invoice OCR webhook wired to your clients. ITC risk view in the inbox — partners get a morning summary. 10 hours collapses to under 2.",
   },
   {
     week: "Week 3",
     title: "Growth tier if you're on it",
     body:
-      "Bank statement parser ingests last month's ICICI / HDFC / SBI statements → Tally Prime vouchers. TDS tracker computes 26Q + NSDL FVU file. Compliance calendar sends the first WhatsApp reminder batch across every client. English + Hindi reply classifier active.",
+      "Bank statement parser ingests last month's ICICI / HDFC / SBI statements → Tally Prime vouchers. TDS tracker computes 26Q + NSDL FVU file. Compliance calendar sends the first WhatsApp reminder batch across every client. English + Hindi reply classifier active. Approval queue mints UDINs on partner sign.",
   },
   {
     week: "Week 4",
     title: "Pro tier + handoff",
     body:
-      "Form 3CD auto-fills its 6 high-value clauses on one test client. Client MIS dashboard white-labeled with your firm's logo. Receivables automation loads your firm's own outstanding invoices. Every tool lives behind one command the partner runs. Monthly retainer begins.",
+      "Form 3CD auto-fills its 6 high-value clauses on one test client. Client MIS dashboard white-labeled with your firm's logo. Receivables automation loads your firm's own outstanding invoices. The full /workflow surface is visible to your team — all 22 steps with role + AI + sign metadata. Monthly retainer begins.",
   },
 ];
 
@@ -406,7 +406,7 @@ const baseTiers: BaseTier[] = [
       "GSTR-2B ↔ Tally reconciliation (every filing cycle)",
       "WhatsApp vendor follow-up (3 Meta-approved templates)",
       "Invoice OCR → Tally voucher draft (92%+ accuracy)",
-      "ITC risk dashboard — runs on your laptop",
+      "ITC risk dashboard — visible at /clients/[id]",
       "Fortnightly office hours",
     ],
   },
@@ -566,10 +566,10 @@ const CLOSE_STEPS: {
 ];
 
 const facts = [
-  { label: "Installed on", value: "Your firm's laptop" },
-  { label: "Install time", value: "90 minutes, on-site or remote" },
-  { label: "Integration stack", value: "Tally, GSTN portal, WhatsApp Business API" },
-  { label: "Data stays with", value: "You — nothing leaves the firm" },
+  { label: "Deployed to", value: "Your Vercel · or ours (Managed mode)" },
+  { label: "Deploy time", value: "Three commands · ~5 minutes" },
+  { label: "Local piece", value: "Tally Bridge agent · runs where Tally runs" },
+  { label: "Integration stack", value: "Tally, GSTN, MCA21, NIC IRP, WhatsApp Business API" },
 ];
 
 const demoMetrics = [
@@ -602,14 +602,22 @@ export default function CaFirmSolution() {
           </h1>
           <div className="grid md:grid-cols-[1.3fr_1fr] gap-12 md:gap-20 items-end">
             <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-              A month-end close that used to take <span className="font-medium text-[var(--color-ink)]">8 hours per client</span> now takes <span className="font-medium text-[var(--color-ink)]">45 minutes</span>. <span className="font-medium text-[var(--color-ink)]">Thirty-seven tools</span> covering every workflow a mid-size CA firm runs — recon, Tally vouchering, TDS, Form 3CD, CARO, payroll, UDIN, 15CB, notice response, peer review, CPE. One laptop install. Partner sign-off at every step. Starts at <span className="font-medium text-[var(--color-ink)]">₹15K/month</span>.
+              A month-end close that used to take <span className="font-medium text-[var(--color-ink)]">8 hours per client</span> now takes <span className="font-medium text-[var(--color-ink)]">45 minutes</span>. <span className="font-medium text-[var(--color-ink)]">Thirty-seven tools</span> covering every workflow a mid-size CA firm runs — recon, Tally vouchering, TDS, Form 3CD, CARO, payroll, UDIN, 15CB, notice response, peer review, CPE. One Next.js webapp, deployed in three commands. <span className="font-medium text-[var(--color-ink)]">Two modes</span> — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Starts at <span className="font-medium text-[var(--color-ink)]">₹15K/month</span>.
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary" topic="consulting">
                 Start a 30-day pilot ↗
               </BookButton>
+              <a
+                href="https://ca-firm-toolkit.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+              >
+                Open the live OS ↗
+              </a>
               <Link href="/ca-firm" className="btn-secondary">
-                See a live client dashboard ↗
+                See a client dashboard ↗
               </Link>
             </div>
           </div>
@@ -775,7 +783,16 @@ export default function CaFirmSolution() {
             ))}
           </div>
           <p className="mt-10 text-[13px] text-[var(--color-text-muted)] max-w-2xl leading-relaxed">
-            Ninety seconds on a 5,000-invoice register. Every tool in the stack runs the same way — on your laptop, with a demo cycle you can reproduce before we touch a real client&apos;s books.
+            Ninety seconds on a 5,000-invoice register. Try it yourself at{" "}
+            <a
+              href="https://ca-firm-toolkit.vercel.app/clients"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline text-[var(--color-primary-blue)]"
+            >
+              ca-firm-toolkit.vercel.app
+            </a>
+            {" "}— pick a client, hit &quot;Try with sample data&quot; on the recon page, no signup required.
           </p>
         </div>
       </section>
@@ -787,14 +804,14 @@ export default function CaFirmSolution() {
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">The dashboard</p>
               <h2 className="text-[clamp(1.75rem,5vw,4rem)] max-w-2xl leading-[1]">
-                Runs on your <span className="text-serif-accent text-[var(--color-primary-blue)]">laptop</span>. Data never leaves the firm.
+                Lives on <span className="text-serif-accent text-[var(--color-primary-blue)]">your Vercel</span>. Data stays under your domain.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              One install, opens in any browser. No cloud, no logins, no vendor lock-in. The white-labeled client version ships to each client monthly with your firm&apos;s logo.
+              One Next.js webapp, deployed in three commands. Single-tenant by default — your firm&apos;s data never sits next to anyone else&apos;s. The white-labeled client view renders at /clients/[id] with your firm&apos;s logo.
             </p>
           </div>
-          <MockupLightbox caption="ITC risk dashboard · runs locally on the firm's laptop. Click to collapse.">
+          <MockupLightbox caption="ITC risk dashboard · part of the Practice OS at ca-firm-toolkit.vercel.app. Click to collapse.">
             <DashboardMockup />
           </MockupLightbox>
           <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -805,7 +822,16 @@ export default function CaFirmSolution() {
               See a live client dashboard ↗
             </Link>
             <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
-              Working demo at polycloud.in/ca-firm — built on synthetic client data
+              Full OS at{" "}
+              <a
+                href="https://ca-firm-toolkit.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline text-[var(--color-primary-blue)]"
+              >
+                ca-firm-toolkit.vercel.app
+              </a>
+              {" "}· this dashboard at polycloud.in/ca-firm — both on synthetic data
             </p>
           </div>
         </div>
@@ -974,17 +1000,19 @@ export default function CaFirmSolution() {
             <span className="text-[13.5px] text-[var(--color-text)]">
               <span className="font-medium">37 tools running today</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
-              <span className="font-medium">Installed on-site in 90 minutes</span>
+              <span className="font-medium">3-command Vercel deploy</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
-              <span className="font-medium">Your data never leaves the firm</span>
+              <span className="font-medium">Single-tenant, your domain</span>
             </span>
           </div>
-          <Link
-            href="/ca-firm"
+          <a
+            href="https://ca-firm-toolkit.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mono text-[11px] text-[var(--color-primary-blue)] tracking-[0.1em] link-underline"
           >
-            See the live dashboard →
-          </Link>
+            Open the live OS →
+          </a>
         </div>
       </section>
 
@@ -1196,7 +1224,7 @@ export default function CaFirmSolution() {
               },
               {
                 q: "Where does the data actually live? What leaves the firm?",
-                a: "Nothing leaves. The full stack installs on your primary laptop (or firm server). SQLite files per client, local filesystem for documents. No cloud sync, no accounts, no PolyCloud-side data store. WhatsApp/Meta API and GST portal are the only external hops — and only when you trigger them.",
+                a: "Nothing leaves your domain. In Firm mode the webapp deploys to your own Vercel project — your subdomain, your Vercel team, your data. SQLite files per client, your filesystem for documents. The Tally Bridge agent runs on whichever laptop holds Tally. WhatsApp/Meta API and GST portal are the only external hops — and only when you trigger them. In Managed mode the same stack runs on PolyCloud's Vercel under a per-firm tenant; you can move it to your own Vercel any time.",
               },
               {
                 q: "What happens after the 30-day pilot?",
@@ -1275,7 +1303,7 @@ export default function CaFirmSolution() {
             We're taking two more pilot <span className="text-serif-accent text-[var(--color-primary-orange)]">CA firms</span> this quarter.
           </h2>
           <p className="text-white/60 text-[17px] max-w-2xl leading-relaxed mb-10">
-            First install in week one. Starter stack live in week two. If the first reconciliation cycle doesn&apos;t save you 8+ hours vs baseline, we don&apos;t charge for weeks 3–4. Upgrade to Growth or Pro in place when the next stack earns it.
+            Three-command Vercel deploy in week one. Starter stack live in week two. If the first reconciliation cycle doesn&apos;t save you 8+ hours vs baseline, we don&apos;t charge for weeks 3–4. Upgrade tier or switch to Managed mode in place when the next stack earns it.
           </p>
           <div className="flex flex-wrap gap-3">
             <BookButton variant="light-primary" topic="consulting">
