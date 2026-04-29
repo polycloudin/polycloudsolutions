@@ -125,14 +125,12 @@ export default function ManagedPage() {
               <BookButton variant="primary" topic="consulting">
                 Scope a Managed engagement ↗
               </BookButton>
-              <a
-                href="https://ca-firm-toolkit.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/ca-firm/app/inbox"
                 className="btn-secondary"
               >
                 See the OS we run for you ↗
-              </a>
+              </Link>
             </div>
           </div>
         </div>

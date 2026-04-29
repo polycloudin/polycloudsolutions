@@ -152,9 +152,8 @@ export default function PortalCAFirmPage() {
 
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
             {sortedTenants.map((t) => (
-              <Link
+              <div
                 key={t.slug}
-                href={`/portal/ca-firm/${t.slug}`}
                 className="group bg-white rounded-2xl border border-[var(--color-line)] p-7 hover:border-[var(--color-ink)] transition-colors"
               >
                 <div className="flex items-center justify-between mb-4">
@@ -191,17 +190,30 @@ export default function PortalCAFirmPage() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between text-[12px]">
+                <div className="flex items-center justify-between text-[12px] mb-3">
                   <span className="text-[var(--color-text-muted)]">
                     {t.last_event_ts
                       ? `Last event ${formatRelativeTs(t.last_event_ts)}`
                       : "No events yet"}
                   </span>
-                  <span className="mono text-[10px] text-[var(--color-text-muted)] group-hover:text-[var(--color-ink)] transition-colors">
-                    View →
-                  </span>
                 </div>
-              </Link>
+
+                <div className="flex items-center gap-3 pt-3 border-t border-[var(--color-line)]">
+                  <Link
+                    href={`/portal/ca-firm/${t.slug}`}
+                    className="mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-muted)] hover:text-[var(--color-ink)] transition-colors"
+                  >
+                    Operator view →
+                  </Link>
+                  <span className="text-[var(--color-line)]">·</span>
+                  <Link
+                    href="/ca-firm/app/inbox"
+                    className="mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-primary-blue)] hover:opacity-70 transition-opacity"
+                  >
+                    Open firm dashboard →
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
         </div>

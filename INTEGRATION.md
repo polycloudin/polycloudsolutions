@@ -194,15 +194,16 @@ Content-Type: application/json
 Portal POSTs to the URL with HMAC-SHA256 signature over the raw body in `X-PolyCloud-Signature: t=<unix>,v1=<hex>`. App verifies with the shared secret. Standard at-least-once delivery + 5-attempt exponential backoff (1s, 5s, 30s, 2m, 10m). After 5 failures the webhook is auto-disabled with a `kind: alert` row in `/portal/inbox`.
 
 ### 3f · Polling fallback — for apps behind firewalls (planned)
-The CA Firm Toolkit runs on a partner's laptop without a public IP. Webhooks aren't an option. Use polling:
+
+Originally specced for the CLI version of the CA Firm Toolkit (firm laptop, no public IP). After the toolkit's pivot to webapp on 2026-04-26, webhooks work fine for it. The polling endpoint is still useful for **truly local-only consumers** like the Realty platform's local agent on a builder's laptop.
 
 ```http
 GET /api/v1/notifications?since=<iso-ts>&kind=approval-needed&limit=100
 X-PolyCloud-Key: pck_live_...
-X-PolyCloud-Tenant: pkb-associates
+X-PolyCloud-Tenant: <tenant-slug>
 ```
 
-Returns ordered notifications since the timestamp. App stores the last-seen `ts` and polls every 30-60s. Cheap on the portal side (indexed query), zero firewall headache for the firm.
+Returns ordered notifications since the timestamp. App stores the last-seen `ts` and polls every 30-60s.
 
 ---
 
@@ -210,47 +211,59 @@ Returns ordered notifications since the timestamp. App stores the last-seen `ts`
 
 ### 4a · CA Firm Toolkit (`polycloudin/ca-firm-toolkit`)
 
-**Today:** Local CLI · writes to `~/.ca-firm/audit.jsonl` · no portal connection.
+**Today:** Webapp at `ca-firm-toolkit.vercel.app` · proxied through `polycloud.in/ca-firm/app/*` via Next.js multi-zone rewrite (this repo's `next.config.ts`). Both repos and Vercel projects independent. Same-origin SSO works because the rewrite preserves the `polycloud.in` origin — `polycloud_session` cookie reaches the toolkit transparently.
 
-**To wire up:**
+The pivot from CLI → webapp happened 2026-04-26. The CLI scaffolds (Python tools/, audit.jsonl) still exist in the repo but are no longer the primary surface.
+
+**Architecture:**
+
+```
+Customer browser sees:                    Actually served by:
+polycloud.in/                          →  polycloud-web (this repo)
+polycloud.in/ca-firm/app/inbox         →  ca-firm-toolkit (separate Vercel project)
+polycloud.in/ca-firm/app/api/recon-run →  ca-firm-toolkit (Python serverless)
+ca-firm-toolkit.vercel.app/*           →  ca-firm-toolkit (still works, old URLs redirect)
+```
+
+The toolkit's `next.config.js` reads `NEXT_PUBLIC_BASE_PATH=/ca-firm/app` in production so its routes resolve under that prefix; preview deploys leave the var unset so they work standalone.
+
+**To wire portal events (when `/api/v1/events` ships):**
 
 1. **Operator generates an API key** for the firm via `/portal/keys` (when shipped):
-   - Tenant: `<firm-slug>` (e.g. `pkb-associates`)
+   - Tenant: `<firm-slug>` (e.g. `pkb-associates`, `polycloud-llp`)
    - Scopes: `events:write`, `notifications:write`
-2. **Set `POLYCLOUD_KEY` + `POLYCLOUD_TENANT`** in the firm's `~/.ca-firm/config.yaml`
-3. **Append to `audit_log()` helper** to optionally POST to `/api/v1/events`:
-   ```python
-   # tools/_shared/portal.py
-   import uuid, os, requests
-
-   def push_event(kind: str, payload: dict):
-       key = os.environ.get("POLYCLOUD_KEY")
-       tenant = os.environ.get("POLYCLOUD_TENANT")
-       if not key or not tenant: return  # local-only mode is fine
-       try:
-           requests.post(
-               "https://www.polycloud.in/api/v1/events",
-               headers={
-                   "X-PolyCloud-Key": key,
-                   "X-PolyCloud-Tenant": tenant,
-                   "Idempotency-Key": str(uuid.uuid4()),
-               },
-               json={"kind": kind, "payload": payload},
-               timeout=5,
-           )
-       except requests.RequestException:
-           pass  # offline → audit log only, never block the tool
+2. **Set `POLYCLOUD_KEY` + `POLYCLOUD_TENANT`** as Vercel env vars on the `ca-firm-toolkit` project
+3. **Add a `pushEvent()` helper in TypeScript** (the toolkit is Node now, not Python):
+   ```typescript
+   // dashboard/frontend/lib/portal.ts
+   export async function pushEvent(kind: string, payload: Record<string, unknown>) {
+     const key = process.env.POLYCLOUD_KEY;
+     const tenant = process.env.POLYCLOUD_TENANT;
+     if (!key || !tenant) return;  // local-only mode is fine
+     try {
+       await fetch("https://polycloud.in/api/v1/events", {
+         method: "POST",
+         headers: {
+           "X-PolyCloud-Key": key,
+           "X-PolyCloud-Tenant": tenant,
+           "Idempotency-Key": crypto.randomUUID(),
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify({ kind, payload }),
+       });
+     } catch {
+       // never block the user
+     }
+   }
    ```
-4. **Call from each tool** at completion:
-   - `recon` → after 5-sheet Excel saves
-   - `followup` → after WhatsApp send batch completes
-   - `ocr` → per invoice, with OCR confidence
-   - `dashboard` → on partner sign-off
-   - The 19 Tier-E tools (UDIN, payroll, notice, certs, CARO, GST lit, TP, FEMA, FAR, time/billing, etc.) push their own kinds (`udin-issued`, `form-16-generated`, `notice-drafted`, `caro-completed`, ...).
-5. **For owner-approval items** (recon flagged ITC > ₹10K, low-confidence OCR, Form 3CD ready for signature), use `/api/v1/notifications` with `kind: "approval-needed"` so the firm's portal `/inbox` lights up.
-6. **For pulling approval decisions back** (partner approved Form 3CD on the portal → toolkit needs to know), poll `/api/v1/notifications?since=<ts>&kind=approval-decided` every 60s. No webhook receiver needed — firm laptop has no public IP.
+4. **Call from each Route Handler** at completion:
+   - `/api/recon/run/route.ts` → `pushEvent("recon-run", { ... })` after engine returns
+   - `/api/approvals/[id]/sign/route.ts` → `pushEvent("udin-issued", { ... })`
+   - `/api/approvals/[id]/reject/route.ts` → `pushEvent("review-rejected", { ... })`
+5. **For owner-approval items** (ITC at risk > ₹10K, low-confidence OCR), POST to `/api/v1/notifications` with `kind: "approval-needed"`.
+6. **For inbound webhooks** (operator approves a UDIN-eligible item from the portal), the toolkit accepts `POST /ca-firm/app/api/portal-webhook` with HMAC validation. Polling fallback (§3f) is **not needed** — the toolkit has a public HTTPS endpoint.
 
-**Data sovereignty preserved:** raw GSTR-2B JSON, Tally exports, OCR images NEVER leave the firm. Only summary events + counts + flags go to the portal.
+**Data sovereignty:** since the pivot to webapp, all data flows through Vercel serverless functions. The "nothing leaves the firm" framing from v0.1 of this brief no longer applies — the recon engine runs on Vercel Python, GSTR-2B JSON and Tally CSVs are uploaded to it. Marketing copy on `/solutions/ca-firm` has been updated accordingly.
 
 ### 4b · Labs / Nexus
 

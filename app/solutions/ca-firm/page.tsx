@@ -10,7 +10,7 @@ import SiteFooter from "../../components/SiteFooter";
 export const metadata: Metadata = {
   title: "PolyCloud CA Practice OS — 37 tools, Firm + Managed mode",
   description:
-    "One web app for the entire Indian CA practice + SME finance workflow. 37 tools spanning GSTR-2B recon, bank → Tally, TDS + 24Q, Form 3CD, CARO + Schedule III, payroll + Form 16, UDIN, 15CA/CB, notice response, GST litigation, FEMA, transfer pricing, peer review, CPE. Two modes — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Hosted by PolyCloud · per-firm tenant · live preview at ca-firm-toolkit.vercel.app.",
+    "One web app for the entire Indian CA practice + SME finance workflow. 37 tools spanning GSTR-2B recon, bank → Tally, TDS + 24Q, Form 3CD, CARO + Schedule III, payroll + Form 16, UDIN, 15CA/CB, notice response, GST litigation, FEMA, transfer pricing, peer review, CPE. Two modes — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Hosted by PolyCloud · per-firm tenant · live preview at polycloud.in/ca-firm/app.",
   alternates: { canonical: "/solutions/ca-firm" },
   keywords: [
     "CA firm automation",
@@ -92,7 +92,7 @@ const tools: Tool[] = [
     name: "ITC risk dashboard",
     tagline: "One screen. Real-time. Runs locally.",
     description:
-      "Hosted by PolyCloud · per-firm tenant. Shows monthly ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart across the last 12 months. Your firm's data lives in its own tenant — same engine that drives the public preview at ca-firm-toolkit.vercel.app.",
+      "Hosted by PolyCloud · per-firm tenant. Shows monthly ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart across the last 12 months. Your firm's data lives in its own tenant — same engine that drives the public preview at polycloud.in/ca-firm/app.",
     deliverable: "Partners get a morning dashboard. CFO clients can log in to their own slice.",
   },
   {
@@ -138,7 +138,7 @@ const tools: Tool[] = [
     tagline: "White-labeled. Multi-tenant. Shipped monthly.",
     description:
       "One SQLite per client at ~/.ca-firm/clients/<slug>/mis.db — zero cross-tenant leakage. Monthly snapshot of revenue, net profit, GST liability vs paid, TDS deducted vs deposited, closing cash. 30/60/90-day cash flow projection using 6-month rolling average + Indian seasonality (Mar advance-tax, Nov Diwali spike, Sep-Oct inventory build). Confidence score + HEALTHY / ADEQUATE / TIGHT / CRITICAL tier. White-labeled with the firm's logo + colours.",
-    deliverable: "Client CFOs stop calling the partner weekly. Live demo at ca-firm-toolkit.vercel.app + polycloud.in/ca-firm.",
+    deliverable: "Client CFOs stop calling the partner weekly. Live demo at polycloud.in/ca-firm/app + polycloud.in/ca-firm.",
   },
   {
     num: "10",
@@ -608,14 +608,12 @@ export default function CaFirmSolution() {
               <BookButton variant="primary" topic="consulting">
                 Start a 30-day pilot ↗
               </BookButton>
-              <a
-                href="https://ca-firm-toolkit.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/ca-firm/app/inbox"
                 className="btn-secondary"
               >
                 Open the live OS ↗
-              </a>
+              </Link>
               <Link href="/ca-firm" className="btn-secondary">
                 See a client dashboard ↗
               </Link>
@@ -784,14 +782,12 @@ export default function CaFirmSolution() {
           </div>
           <p className="mt-10 text-[13px] text-[var(--color-text-muted)] max-w-2xl leading-relaxed">
             Ninety seconds on a 5,000-invoice register. Try it yourself at{" "}
-            <a
-              href="https://ca-firm-toolkit.vercel.app/clients"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/ca-firm/app/clients"
               className="link-underline text-[var(--color-primary-blue)]"
             >
-              ca-firm-toolkit.vercel.app
-            </a>
+              polycloud.in/ca-firm/app
+            </Link>
             {" "}— pick a client, hit &quot;Try with sample data&quot; on the recon page, no signup required.
           </p>
         </div>
@@ -811,7 +807,7 @@ export default function CaFirmSolution() {
               One web app, hosted by PolyCloud. Each firm gets its own tenant — your books, your filings, your numbers, never sharing space with another firm&apos;s. The white-labeled client view renders at /clients/[id] with your firm&apos;s logo.
             </p>
           </div>
-          <MockupLightbox caption="ITC risk dashboard · part of the Practice OS at ca-firm-toolkit.vercel.app. Click to collapse.">
+          <MockupLightbox caption="ITC risk dashboard · part of the Practice OS at polycloud.in/ca-firm/app. Click to collapse.">
             <DashboardMockup />
           </MockupLightbox>
           <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -823,14 +819,12 @@ export default function CaFirmSolution() {
             </Link>
             <p className="mono text-[11px] text-[var(--color-text-muted)] tracking-[0.1em]">
               Full OS at{" "}
-              <a
-                href="https://ca-firm-toolkit.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/ca-firm/app/inbox"
                 className="link-underline text-[var(--color-primary-blue)]"
               >
-                ca-firm-toolkit.vercel.app
-              </a>
+                polycloud.in/ca-firm/app
+              </Link>
               {" "}· this dashboard at polycloud.in/ca-firm — both on synthetic data
             </p>
           </div>
@@ -1005,14 +999,12 @@ export default function CaFirmSolution() {
               <span className="font-medium">Single-tenant, your domain</span>
             </span>
           </div>
-          <a
-            href="https://ca-firm-toolkit.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/ca-firm/app/inbox"
             className="mono text-[11px] text-[var(--color-primary-blue)] tracking-[0.1em] link-underline"
           >
             Open the live OS →
-          </a>
+          </Link>
         </div>
       </section>
 

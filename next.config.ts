@@ -10,6 +10,19 @@ const nextConfig: NextConfig = {
       { source: "/consulting/workflow-demo", destination: "/solutions/ca-firm", permanent: true },
     ];
   },
+  async rewrites() {
+    return [
+      // Multi-zone proxy — CA Firm Toolkit deploys independently at
+      // ca-firm-toolkit.vercel.app, but customer sees it at polycloud.in/ca-firm/app/*.
+      // The toolkit's basePath is set to /ca-firm/app via NEXT_PUBLIC_BASE_PATH env var,
+      // so proxied paths land on real routes there.
+      // Repo: polycloudin/ca-firm-toolkit · separate Vercel project, separate iteration.
+      {
+        source: "/ca-firm/app/:path*",
+        destination: "https://ca-firm-toolkit.vercel.app/ca-firm/app/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
