@@ -85,7 +85,7 @@ const replacedBy = [
 const facts = [
   { label: "Audience", value: "SMEs ₹5–100Cr revenue" },
   { label: "Signs as your CA", value: "PolyCloud-employed Chartered Accountant" },
-  { label: "Stand-up time", value: "Week 1: data ingest · Week 2: first close" },
+  { label: "Onboarding", value: "Week 1: data ingest · Week 2: first close" },
   { label: "Switching cost", value: "Zero — you own your data, can move out any month" },
 ];
 

@@ -10,7 +10,7 @@ import SiteFooter from "../../components/SiteFooter";
 export const metadata: Metadata = {
   title: "PolyCloud CA Practice OS — 37 tools, Firm + Managed mode",
   description:
-    "One web app for the entire Indian CA practice + SME finance workflow. 37 tools spanning GSTR-2B recon, bank → Tally, TDS + 24Q, Form 3CD, CARO + Schedule III, payroll + Form 16, UDIN, 15CA/CB, notice response, GST litigation, FEMA, transfer pricing, peer review, CPE. Two modes — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Single web app, three commands to stand up under your firm's subdomain. Live: ca-firm-toolkit.vercel.app.",
+    "One web app for the entire Indian CA practice + SME finance workflow. 37 tools spanning GSTR-2B recon, bank → Tally, TDS + 24Q, Form 3CD, CARO + Schedule III, payroll + Form 16, UDIN, 15CA/CB, notice response, GST litigation, FEMA, transfer pricing, peer review, CPE. Two modes — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Hosted by PolyCloud · per-firm tenant · live preview at ca-firm-toolkit.vercel.app.",
   alternates: { canonical: "/solutions/ca-firm" },
   keywords: [
     "CA firm automation",
@@ -92,7 +92,7 @@ const tools: Tool[] = [
     name: "ITC risk dashboard",
     tagline: "One screen. Real-time. Runs locally.",
     description:
-      "Single web app, deployed under your firm's own subdomain. Shows monthly ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart across the last 12 months. Per-firm tenant isolation; you own the deployment.",
+      "Hosted by PolyCloud · per-firm tenant. Shows monthly ITC claimed vs available vs at-risk, top-10 leaking vendors, trend chart across the last 12 months. Your firm's data lives in its own tenant — same engine that drives the public preview at ca-firm-toolkit.vercel.app.",
     deliverable: "Partners get a morning dashboard. CFO clients can log in to their own slice.",
   },
   {
@@ -362,7 +362,7 @@ const timeline = [
     week: "Week 1",
     title: "Deploy + pick mode",
     body:
-      "Three commands stand up the full web app under your firm's subdomain (or ours, if you prefer Managed mode). The Tally Bridge agent installs on whichever laptop holds Tally — that's the only local piece. We walk all 37 tools, you pick Firm or Managed mode + tier, and we wire your first client.",
+      "Your firm's tenant goes live in five minutes — we provision it, you sign in. The Tally Bridge agent installs on whichever laptop holds Tally — that's the only piece on your side. We walk all 37 tools, you pick Firm or Managed mode + tier, and we wire your first client.",
   },
   {
     week: "Week 2",
@@ -566,8 +566,8 @@ const CLOSE_STEPS: {
 ];
 
 const facts = [
-  { label: "Lives at", value: "Your firm's subdomain · single-tenant" },
-  { label: "Stand-up time", value: "Three commands · ~5 minutes" },
+  { label: "Hosted by", value: "PolyCloud · per-firm tenant" },
+  { label: "Onboarding", value: "~5 minutes · we provision your tenant" },
   { label: "Local piece", value: "Tally Bridge agent · runs where Tally runs" },
   { label: "Integration stack", value: "Tally, GSTN, MCA21, NIC IRP, WhatsApp Business API" },
 ];
@@ -602,7 +602,7 @@ export default function CaFirmSolution() {
           </h1>
           <div className="grid md:grid-cols-[1.3fr_1fr] gap-12 md:gap-20 items-end">
             <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
-              A month-end close that used to take <span className="font-medium text-[var(--color-ink)]">8 hours per client</span> now takes <span className="font-medium text-[var(--color-ink)]">45 minutes</span>. <span className="font-medium text-[var(--color-ink)]">Thirty-seven tools</span> covering every workflow a mid-size CA firm runs — recon, Tally vouchering, TDS, Form 3CD, CARO, payroll, UDIN, 15CB, notice response, peer review, CPE. One Next.js webapp, deployed in three commands. <span className="font-medium text-[var(--color-ink)]">Two modes</span> — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Starts at <span className="font-medium text-[var(--color-ink)]">₹15K/month</span>.
+              A month-end close that used to take <span className="font-medium text-[var(--color-ink)]">8 hours per client</span> now takes <span className="font-medium text-[var(--color-ink)]">45 minutes</span>. <span className="font-medium text-[var(--color-ink)]">Thirty-seven tools</span> covering every workflow a mid-size CA firm runs — recon, Tally vouchering, TDS, Form 3CD, CARO, payroll, UDIN, 15CB, notice response, peer review, CPE. Hosted by PolyCloud, your firm gets its own tenant. <span className="font-medium text-[var(--color-ink)]">Two modes</span> — Firm (your CA practice signs) or Managed (we sign as your in-house CA). Starts at <span className="font-medium text-[var(--color-ink)]">₹15K/month</span>.
             </p>
             <div className="flex flex-wrap gap-3">
               <BookButton variant="primary" topic="consulting">
@@ -804,11 +804,11 @@ export default function CaFirmSolution() {
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">The dashboard</p>
               <h2 className="text-[clamp(1.75rem,5vw,4rem)] max-w-2xl leading-[1]">
-                Lives at <span className="text-serif-accent text-[var(--color-primary-blue)]">your subdomain</span>. Data stays in your tenant.
+                <span className="text-serif-accent text-[var(--color-primary-blue)]">Per-firm tenant</span>. Data stays yours.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              One web app, three commands to stand up. Single-tenant by default — your firm&apos;s data never sits next to anyone else&apos;s. The white-labeled client view renders at /clients/[id] with your firm&apos;s logo.
+              One web app, hosted by PolyCloud. Each firm gets its own tenant — your books, your filings, your numbers, never sharing space with another firm&apos;s. The white-labeled client view renders at /clients/[id] with your firm&apos;s logo.
             </p>
           </div>
           <MockupLightbox caption="ITC risk dashboard · part of the Practice OS at ca-firm-toolkit.vercel.app. Click to collapse.">
@@ -1000,7 +1000,7 @@ export default function CaFirmSolution() {
             <span className="text-[13.5px] text-[var(--color-text)]">
               <span className="font-medium">37 tools running today</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
-              <span className="font-medium">3-command stand-up · single-tenant</span>
+              <span className="font-medium">5-minute onboarding · per-firm tenant</span>
               <span className="text-[var(--color-text-muted)] mx-2">·</span>
               <span className="font-medium">Single-tenant, your domain</span>
             </span>
@@ -1224,7 +1224,7 @@ export default function CaFirmSolution() {
               },
               {
                 q: "Where does the data actually live? What leaves the firm?",
-                a: "Nothing leaves your tenant. In Firm mode the web app sits under your own subdomain, on your own hosting account, with your own data store — single-tenant by construction. SQLite files per client, your filesystem for documents. The Tally Bridge agent runs on whichever laptop holds Tally. WhatsApp/Meta API and GST portal are the only external hops — and only when you trigger them. In Managed mode the same stack runs under PolyCloud-hosted infrastructure with per-firm tenant isolation; you can migrate it to your own hosting at any time.",
+                a: "PolyCloud hosts the app on Vercel and provisions a tenant for each firm — your books, your filings, your client list, isolated from every other tenant. Per-client SQLite stores inside your tenant; document files in your tenant's storage; Tally Bridge agent on whichever laptop holds Tally. The only external hops are WhatsApp/Meta API and the GST portal — and only when you trigger them. If your firm prefers self-hosted, we can hand you the codebase to deploy on your own infrastructure (Firm mode self-host) — no lock-in.",
               },
               {
                 q: "What happens after the 30-day pilot?",
@@ -1303,7 +1303,7 @@ export default function CaFirmSolution() {
             We're taking two more pilot <span className="text-serif-accent text-[var(--color-primary-orange)]">CA firms</span> this quarter.
           </h2>
           <p className="text-white/60 text-[17px] max-w-2xl leading-relaxed mb-10">
-            Three-command stand-up in week one. Starter stack live in week two. If the first reconciliation cycle doesn&apos;t save you 8+ hours vs baseline, we don&apos;t charge for weeks 3–4. Upgrade tier or switch to Managed mode in place when the next stack earns it.
+            Your tenant goes live in week one. Starter stack live in week two. If the first reconciliation cycle doesn&apos;t save you 8+ hours vs baseline, we don&apos;t charge for weeks 3–4. Upgrade tier or switch to Managed mode in place when the next stack earns it.
           </p>
           <div className="flex flex-wrap gap-3">
             <BookButton variant="light-primary" topic="consulting">
