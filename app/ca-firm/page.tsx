@@ -413,10 +413,16 @@ function Cta() {
           <span>Pilot-opening for CA firms in Hyderabad</span>
           <span className="hidden sm:inline text-[var(--color-text-muted)]">·</span>
           <span>
-            <span className="mono text-[var(--color-primary-orange)]">110</span>{" "}
-            tests ·{" "}
-            <span className="mono text-[var(--color-primary-orange)]">6</span>{" "}
-            tools live
+            <span className="mono text-[var(--color-primary-orange)]">37</span>{" "}
+            tools live ·{" "}
+            <a
+              href="https://ca-firm-toolkit.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline text-[var(--color-primary-blue)]"
+            >
+              full operator console →
+            </a>
           </span>
         </div>
         {/* WhatsApp quick link retained for field-team shares */}
