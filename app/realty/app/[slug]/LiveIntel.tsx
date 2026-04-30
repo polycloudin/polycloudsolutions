@@ -31,21 +31,33 @@ interface DigestResponse {
   bullets: DigestBullet[];
 }
 
+interface PriceMapNeighbor {
+  market: string;
+  list_psf: number | null;
+  distance_km: number;
+}
+
 interface PriceMapMarket {
   market: string;
   list_psf: number | null;
   regd_psf: number | null;
   regd_psy: number | null;
-  gap_pct: number | null;
-  verdict: "underpriced" | "fair" | "overpriced" | "no_data";
   lat: number | null;
   lon: number | null;
+  neighbors: PriceMapNeighbor[];
+  neighbor_median_psf: number | null;
+  rel_premium_pct: number | null;
+  verdict: "underpriced" | "fair" | "overpriced" | "no_data" | "no_geo" | "isolated";
 }
 
 interface PriceMapResponse {
   builder: string;
   bhk: string;
-  median_gap_pct: number | null;
+  params: {
+    neighbor_radius_km: number;
+    max_neighbors: number;
+    threshold_pct: number;
+  };
   n_markets: number;
   markets: PriceMapMarket[];
 }
@@ -147,17 +159,15 @@ export default function LiveIntel({ builderSlug }: Props) {
         </div>
       </section>
 
-      {/* 2. Listed vs registered table */}
+      {/* 2. Neighbor-relative over/under-priced table */}
       <section className="px-5 md:px-8 max-w-[1280px] mx-auto pb-6">
         <div className="rounded-lg border border-[var(--color-line)] bg-white overflow-hidden">
           <div className="px-5 py-3.5 border-b border-[var(--color-line)] flex items-baseline justify-between">
             <h2 className="font-serif text-[16px] font-medium">
               Over- &amp; under-priced markets ·{" "}
               <span className="text-[var(--color-text-muted)] font-normal text-[13px]">
-                3BHK · cohort median gap{" "}
-                {priceMap.median_gap_pct != null
-                  ? (priceMap.median_gap_pct * 100).toFixed(0) + "%"
-                  : "—"}
+                {priceMap.bhk} vs nearest neighbors ({priceMap.params.neighbor_radius_km}{" "}
+                km radius)
               </span>
             </h2>
             <a
@@ -171,48 +181,67 @@ export default function LiveIntel({ builderSlug }: Props) {
             <table className="w-full text-[12px]">
               <thead className="bg-[var(--color-surface-warm)]">
                 <tr className="text-left">
-                  <th className="px-4 py-2 mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] font-medium">
-                    Market
-                  </th>
-                  <th className="px-4 py-2 mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] font-medium text-right">
-                    Listed
-                  </th>
-                  <th className="px-4 py-2 mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] font-medium text-right">
-                    Registered
-                  </th>
-                  <th className="px-4 py-2 mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] font-medium text-right">
-                    Premium
-                  </th>
-                  <th className="px-4 py-2 mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] font-medium">
-                    Verdict
-                  </th>
+                  <Th>Market</Th>
+                  <Th align="right">Listed</Th>
+                  <Th align="right">Neighbor median</Th>
+                  <Th align="right">Δ vs neighbors</Th>
+                  <Th>Verdict</Th>
+                  <Th>Nearest neighbors</Th>
                 </tr>
               </thead>
               <tbody>
                 {[...priceMap.markets]
-                  .sort((a, b) => (b.gap_pct ?? -1) - (a.gap_pct ?? -1))
-                  .map((m) => (
-                    <tr
-                      key={m.market}
-                      className="border-t border-[var(--color-line)]"
-                    >
-                      <td className="px-4 py-2 font-medium">{m.market}</td>
-                      <td className="px-4 py-2 mono text-right">
-                        {m.list_psf != null ? "₹" + Math.round(m.list_psf).toLocaleString("en-IN") : "—"}
-                      </td>
-                      <td className="px-4 py-2 mono text-right">
-                        {m.regd_psf != null ? "₹" + Math.round(m.regd_psf).toLocaleString("en-IN") : "—"}
-                      </td>
-                      <td className="px-4 py-2 mono text-right">
-                        {m.gap_pct != null
-                          ? "+" + (m.gap_pct * 100).toFixed(0) + "%"
-                          : "—"}
-                      </td>
-                      <td className="px-4 py-2">
-                        <Verdict v={m.verdict} />
-                      </td>
-                    </tr>
-                  ))}
+                  .sort((a, b) => (b.rel_premium_pct ?? -99) - (a.rel_premium_pct ?? -99))
+                  .map((m) => {
+                    const rel = m.rel_premium_pct;
+                    return (
+                      <tr
+                        key={m.market}
+                        className="border-t border-[var(--color-line)]"
+                      >
+                        <td className="px-4 py-2 font-medium">{m.market}</td>
+                        <td className="px-4 py-2 mono text-right">
+                          {m.list_psf != null
+                            ? "₹" + Math.round(m.list_psf).toLocaleString("en-IN")
+                            : "—"}
+                        </td>
+                        <td className="px-4 py-2 mono text-right">
+                          {m.neighbor_median_psf != null
+                            ? "₹" +
+                              Math.round(m.neighbor_median_psf).toLocaleString(
+                                "en-IN"
+                              )
+                            : "—"}
+                        </td>
+                        <td className="px-4 py-2 mono text-right">
+                          {rel != null
+                            ? (rel >= 0 ? "+" : "") + (rel * 100).toFixed(0) + "%"
+                            : "—"}
+                        </td>
+                        <td className="px-4 py-2">
+                          <Verdict v={m.verdict} />
+                        </td>
+                        <td className="px-4 py-2 text-[11px] text-[var(--color-text-secondary)]">
+                          {m.neighbors.length === 0 ? (
+                            <span className="text-[var(--color-text-muted)]">
+                              none in radius
+                            </span>
+                          ) : (
+                            m.neighbors
+                              .slice(0, 3)
+                              .map((n) => (
+                                <span key={n.market} className="mr-2">
+                                  {n.market}{" "}
+                                  <span className="text-[var(--color-text-muted)] mono text-[10px]">
+                                    ({n.distance_km}km)
+                                  </span>
+                                </span>
+                              ))
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -253,12 +282,30 @@ function Verdict({ v }: { v: PriceMapMarket["verdict"] }) {
       : v === "fair"
       ? "bg-[#FEF3C7] text-[#B45309]"
       : "bg-[var(--color-surface-warm)] text-[var(--color-text-muted)]";
-  const label = v === "no_data" ? "?" : v;
+  const label = v === "no_data" || v === "no_geo" ? "?" : v;
   return (
     <span
       className={`mono text-[10px] uppercase tracking-[0.16em] font-semibold px-2 py-0.5 rounded ${cls}`}
     >
       {label}
     </span>
+  );
+}
+
+function Th({
+  children,
+  align = "left",
+}: {
+  children: React.ReactNode;
+  align?: "left" | "right";
+}) {
+  return (
+    <th
+      className={`px-4 py-2 mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)] font-medium ${
+        align === "right" ? "text-right" : ""
+      }`}
+    >
+      {children}
+    </th>
   );
 }
