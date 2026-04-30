@@ -33,25 +33,19 @@ const modes: {
   name: string;
   audience: string;
   signs: string;
-  pricing: string;
-  href: string;
-  cta: string;
+  engagement: string;
 }[] = [
   {
     name: "Firm mode",
     audience: "CA practices · 3–25 staff",
     signs: "Your partners sign UDINs · COP liability stays with you",
-    pricing: "From ₹15K/mo",
-    href: "#pricing",
-    cta: "See Firm pricing",
+    engagement: "Scoped to your firm size on a 30-min call",
   },
   {
     name: "Managed mode",
     audience: "SMEs ₹5–100Cr revenue",
     signs: "PolyCloud's in-house CA signs your filings",
-    pricing: "Talk to us · scoped per engagement",
-    href: "/managed",
-    cta: "Open Managed mode →",
+    engagement: "Scoped per engagement on a 30-min call",
   },
 ];
 
@@ -171,71 +165,9 @@ const caHandles: { title: string; body: string }[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
-// Pricing — flat anchor per tier so co-partners can budget.
-// Add-ons collapsed to one line. Managed pricing → /managed sidebar.
-// ─────────────────────────────────────────────────────────────────────────
-
-const tiers: {
-  name: string;
-  price: string;
-  anchor: string;
-  summary: string;
-  includes: string[];
-  recommended?: boolean;
-}[] = [
-  {
-    name: "Starter",
-    price: "₹15K /month",
-    anchor: "10 clients · 1 article seat",
-    summary: "The reconciliation stack — enough to collapse a junior's week of data work into an afternoon.",
-    includes: [
-      "GSTR-2B ↔ Tally reconciliation (every filing cycle)",
-      "WhatsApp vendor follow-up (3 Meta-approved templates)",
-      "Invoice OCR → Tally voucher draft",
-      "Local ITC risk dashboard at /clients/[id]",
-      "Fortnightly office hours",
-    ],
-  },
-  {
-    name: "Growth",
-    price: "₹30K /month",
-    anchor: "25 clients · 3 article seats",
-    summary: "Starter plus the tools that close the book — bank → Tally vouchering, quarterly TDS, calendar-driven reminders.",
-    recommended: true,
-    includes: [
-      "Everything in Starter",
-      "Bank statement → Tally voucher (ICICI / HDFC / SBI / Axis / Kotak)",
-      "TDS tracker — 26Q + NSDL FVU + Section 201(1A) interest",
-      "Compliance calendar + WhatsApp alerts per client",
-      "English + Hindi reply classifier (\"done\" / \"ho gaya\" → filed)",
-      "Priority support in tax-filing weeks",
-    ],
-  },
-  {
-    name: "Pro",
-    price: "₹55K /month",
-    anchor: "60 clients · 5 article seats",
-    summary: "Every workflow a mid-size practice runs — tax audit, client MIS, receivables, e-invoice, payroll, UDIN, notice response, CARO, transfer pricing, FEMA, peer review, CPE.",
-    includes: [
-      "Everything in Growth",
-      "Form 3CD auto-fill + Schedule III auto-classification",
-      "Statutory audit + CARO 2020 + working papers (SA 230)",
-      "White-labeled client MIS shipped monthly",
-      "MCA21 ROC tracker + DIR-3 KYC",
-      "UDIN ledger + notice response engine (DRC / ASMT / 143)",
-      "Form 15CB with DTAA rate engine + 3CEB + FEMA",
-      "Receivables automation · time + WIP · partner review queue",
-      "Tax-audit SKU: ₹20K per client per season (Jul–Oct)",
-    ],
-  },
-];
-
-const addOnsLine =
-  "+ Optional add-ons: Intelligence seats (Article workbench / Partner advisory copilot · ₹15-25K per seat) · Platform premium (cross-firm anomaly + cohort benchmarks · activates at 10+ firms).";
-
-// ─────────────────────────────────────────────────────────────────────────
-// Proof strip — keeps the canonical 3 facts + plain-English data residency
-// + the two live-product links.
+// Proof strip — canonical 4 facts + the single "Open the live OS" CTA.
+// Pricing tiers and the /managed sub-page were removed per VK call —
+// engagement is consultative; both modes scope on a 30-min call.
 // ─────────────────────────────────────────────────────────────────────────
 
 const proofFacts = [
@@ -285,7 +217,7 @@ export default function CaFirmSolution() {
               One web app for the day-to-day finance work of an Indian SME — and Chartered Accountants click{" "}
               <span className="font-medium text-[var(--color-ink)]">Sign</span> on the things only a CA is legally allowed to sign. Two modes —{" "}
               <span className="font-medium text-[var(--color-ink)]">Firm</span> (your practice signs UDINs) or{" "}
-              <span className="font-medium text-[var(--color-ink)]">Managed</span> (we sign as your in-house CA). From ₹15K/month.
+              <span className="font-medium text-[var(--color-ink)]">Managed</span> (we sign as your in-house CA).
             </p>
             <div className="flex flex-wrap gap-3 items-center">
               <BookButton variant="primary" topic="consulting">
@@ -335,15 +267,9 @@ export default function CaFirmSolution() {
                 </p>
                 <p className="text-[14px] text-[var(--color-ink)] mb-4">{m.signs}</p>
                 <p className="mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-muted)] mb-2">
-                  Pricing
+                  Engagement
                 </p>
-                <p className="text-[14px] text-[var(--color-ink)] mb-6">{m.pricing}</p>
-                <Link
-                  href={m.href}
-                  className="mt-auto text-[13px] font-medium link-underline text-[var(--color-primary-blue)]"
-                >
-                  {m.cta}
-                </Link>
+                <p className="text-[14px] text-[var(--color-ink)]">{m.engagement}</p>
               </div>
             ))}
           </div>
@@ -477,114 +403,7 @@ export default function CaFirmSolution() {
         </div>
       </section>
 
-      {/* 05 / Pricing ───────────────────────────────────────────────── */}
-      <section id="pricing" className="px-6 md:px-10 py-16 md:py-32">
-        <div className="max-w-[1440px] mx-auto">
-          <div className="flex items-end justify-between mb-12 md:mb-16 flex-wrap gap-6">
-            <div>
-              <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">
-                03 / Firm-mode pricing
-              </p>
-              <h2 className="text-[clamp(1.875rem,5vw,4rem)] leading-[1.05] max-w-3xl">
-                Flat monthly.{" "}
-                <span className="text-serif-accent">No per-filing fees</span>.
-              </h2>
-            </div>
-            <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              One invoice on the 1st. Cancel any month. If you&apos;re an SME, not a CA practice —{" "}
-              <Link href="/managed" className="link-underline text-[var(--color-primary-blue)]">
-                see Managed mode →
-              </Link>
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-5">
-            {tiers.map((t) => (
-              <div
-                key={t.name}
-                className={`rounded-2xl p-8 md:p-10 relative overflow-hidden ${
-                  t.recommended
-                    ? "text-white"
-                    : "bg-white border border-[var(--color-line)]"
-                }`}
-                style={t.recommended ? { backgroundColor: "#0A0A0A" } : undefined}
-              >
-                {t.recommended && (
-                  <div
-                    className="absolute inset-0 opacity-30 pointer-events-none"
-                    style={{
-                      background:
-                        "radial-gradient(ellipse 60% 60% at 100% 0%, rgba(244, 107, 44, 0.25) 0%, transparent 60%)",
-                    }}
-                  />
-                )}
-                <div className="relative">
-                  <div className="flex items-center justify-between mb-5">
-                    <p
-                      className={`text-eyebrow ${
-                        t.recommended
-                          ? "text-white/55"
-                          : "text-[var(--color-text-muted)]"
-                      }`}
-                    >
-                      {t.name}
-                    </p>
-                    {t.recommended && (
-                      <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-primary-orange)]">
-                        Most popular
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-display text-[clamp(2rem,3.5vw,3rem)] leading-none mb-1">
-                    {t.price}
-                  </p>
-                  <p
-                    className={`mono text-[12px] tracking-[0.08em] mb-2 ${
-                      t.recommended ? "text-white/65" : "text-[var(--color-text-muted)]"
-                    }`}
-                  >
-                    {t.anchor}
-                  </p>
-                  <p
-                    className={`text-[14px] leading-relaxed mb-7 ${
-                      t.recommended
-                        ? "text-white/80"
-                        : "text-[var(--color-text-secondary)]"
-                    }`}
-                  >
-                    {t.summary}
-                  </p>
-                  <ul className="space-y-2.5 mb-8">
-                    {t.includes.map((inc) => (
-                      <li
-                        key={inc}
-                        className={`text-[13px] leading-relaxed flex gap-3 ${
-                          t.recommended ? "text-white/85" : "text-[var(--color-text)]"
-                        }`}
-                      >
-                        <span className="text-[var(--color-primary-orange)] shrink-0">—</span>
-                        <span>{inc}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <BookButton
-                    variant={t.recommended ? "light-primary" : "primary"}
-                    topic="consulting"
-                  >
-                    Start with {t.name} ↗
-                  </BookButton>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <p className="mt-8 text-[13px] text-[var(--color-text-secondary)] max-w-3xl leading-relaxed">
-            {addOnsLine}
-          </p>
-        </div>
-      </section>
-
-      {/* 06 / Proof ─────────────────────────────────────────────────── */}
+      {/* 03 / Proof ─────────────────────────────────────────────────── */}
       <section className="px-6 md:px-10 py-12 md:py-20 border-y border-[var(--color-line)] bg-[var(--color-surface-warm)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="grid md:grid-cols-4 gap-8 md:gap-10 mb-10">
@@ -626,7 +445,7 @@ export default function CaFirmSolution() {
           }}
         />
         <div className="max-w-[1100px] mx-auto relative">
-          <p className="text-eyebrow text-white/55 mb-8">04 / Next step</p>
+          <p className="text-eyebrow text-white/55 mb-8">03 / Next step</p>
           <h2 className="text-display text-[clamp(2rem,6vw,5rem)] mb-10 leading-[0.95]">
             Two more pilot CA firms{" "}
             <span className="text-serif-accent text-[var(--color-primary-orange)]">

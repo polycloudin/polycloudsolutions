@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
       { source: "/digital/demos/3d-product", destination: "/digital", permanent: true },
       { source: "/digital/demos/depth-3d", destination: "/digital", permanent: true },
       { source: "/consulting/workflow-demo", destination: "/solutions/ca-firm", permanent: true },
+      // /managed page deleted — Managed mode positioning lives on /solutions/ca-firm
+      // alongside Firm mode (both shown on the "Pick your mode" section). Redirect
+      // any inbound links so external / cached / shared URLs don't 404.
+      { source: "/managed", destination: "/solutions/ca-firm", permanent: true },
     ];
   },
   async rewrites() {
