@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { readSession, SESSION_COOKIE } from "@/app/lib/auth";
 import { aggregateUsage, type UsageAggregate } from "@/app/lib/usage";
+import LiveIntel from "./LiveIntel";
 
 /**
  * /realty/app/[slug] — per-builder cloud dashboard.
@@ -94,8 +95,16 @@ export default async function BuilderAppPage({ params }: PageProps) {
         </p>
       </section>
 
-      {/* 6 cards */}
+      {/* Live intel from the realty FastAPI backend (digest + over/underpriced) */}
+      <LiveIntel builderSlug={slug} />
+
+      {/* 6 cards (legacy view, fed by usage_events on the portal side) */}
       <section className="px-5 md:px-8 max-w-[1280px] mx-auto pb-16">
+        <div className="mb-3">
+          <p className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+            Local agent view · usage-events stream
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {cards.map((c) => (
             <Card key={c.id} card={c} />
