@@ -25,7 +25,7 @@ export default function Home() {
           <div className="anim-fade-up delay-1 flex items-center gap-3 mb-8 md:mb-12">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary-orange)]" />
             <p className="text-eyebrow text-[var(--color-text-secondary)]">
-              AI-native automation firm · Since 2020
+              AI-native automation firm · Hyderabad
             </p>
           </div>
 
@@ -45,8 +45,11 @@ export default function Home() {
                 Book a call
                 <span className="text-base opacity-70">↗</span>
               </BookButton>
+              <Link href="/ca-firm/app" className="btn-secondary">
+                See the live OS →
+              </Link>
               <Link href="/client/kumar-textiles" className="btn-secondary">
-                See a live dashboard →
+                See a Digital dashboard →
               </Link>
             </div>
           </div>
@@ -158,10 +161,10 @@ export default function Home() {
                 </p>
                 <div className="mb-5 pb-5 border-b border-white/15">
                   <p className="mono text-[10px] uppercase tracking-[0.18em] text-white/55 mb-1.5">
-                    Proof · ca-firm-toolkit
+                    Proof · CA Practice OS
                   </p>
                   <p className="text-white text-[13.5px] leading-snug">
-                    <span className="font-medium">8h → 45min</span> per client · 37 tools live at ca-firm-toolkit.vercel.app
+                    <span className="font-medium">8h → 45min</span> per client · 37 tools · two modes (Firm + Managed) · live at polycloud.in/ca-firm/app
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-white/70">
@@ -203,10 +206,10 @@ export default function Home() {
                 </p>
                 <div className="mb-5 pb-5 border-b border-white/20">
                   <p className="mono text-[10px] uppercase tracking-[0.18em] text-white/60 mb-1.5">
-                    Proof · LENR synthesis
+                    Proof · 3 reports + CDSCO scraper
                   </p>
                   <p className="text-white text-[13.5px] leading-snug">
-                    <span className="font-medium">8 agents · KG memory</span> · compounds every engagement
+                    <span className="font-medium">LENR (17p) · LK-99 (10p) · India pharma CI</span> · daily CDSCO digest live
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[13px] text-white/70">

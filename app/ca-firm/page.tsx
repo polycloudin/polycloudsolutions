@@ -415,14 +415,12 @@ function Cta() {
           <span>
             <span className="mono text-[var(--color-primary-orange)]">37</span>{" "}
             tools live ·{" "}
-            <a
-              href="https://ca-firm-toolkit.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/ca-firm/app/inbox"
               className="link-underline text-[var(--color-primary-blue)]"
             >
               full operator console →
-            </a>
+            </Link>
           </span>
         </div>
         {/* WhatsApp quick link retained for field-team shares */}
