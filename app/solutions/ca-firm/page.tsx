@@ -119,84 +119,54 @@ const capabilityGroups: {
 const firmInternalTools = "+ peer review · CPE / articleship tracking · registrations (entity setup)";
 
 // ─────────────────────────────────────────────────────────────────────────
-// 22-step workflow strip — flagship visual. Each step shows AI level +
-// who signs. The reviewer who flagged this said it's insightful IFF the
-// AI/sign columns are honest about where AI stops. Honest framing below.
+// AI vs CA split — replaces the generic 4-step. The point is to make the
+// human/judgment vs machine/mechanical line visible. Lifted from the MAP
+// walkthrough — this is the bridge between "What's in the box" and Pricing.
 // ─────────────────────────────────────────────────────────────────────────
 
-const workflowSteps: {
-  cadence: "MONTHLY" | "QUARTERLY" | "ANNUAL" | "AS-NEEDED";
-  step: string;
-  ai: "EXTRACT" | "DRAFT" | "COMPUTE" | "AUTONOMOUS" | "—";
-  who: "Article" | "Senior" | "Partner CA" | "Founder";
-}[] = [
-  { cadence: "MONTHLY", step: "Capture purchase invoices", ai: "EXTRACT", who: "Article" },
-  { cadence: "MONTHLY", step: "Bank statement → Tally vouchers", ai: "DRAFT", who: "Article" },
-  { cadence: "MONTHLY", step: "TDS payment (7th)", ai: "COMPUTE", who: "Senior" },
-  { cadence: "MONTHLY", step: "GSTR-1 outward supplies (11th)", ai: "DRAFT", who: "Senior" },
-  { cadence: "MONTHLY", step: "IMS dashboard actions", ai: "DRAFT", who: "Article" },
-  { cadence: "MONTHLY", step: "GSTR-2B 3-way reconciliation", ai: "AUTONOMOUS", who: "Article" },
-  { cadence: "MONTHLY", step: "Vendor follow-up WhatsApps", ai: "DRAFT", who: "Article" },
-  { cadence: "MONTHLY", step: "GSTR-3B summary + payment (20th)", ai: "DRAFT", who: "Partner CA" },
-  { cadence: "MONTHLY", step: "Payroll · PF / ESI / PT + 24Q", ai: "COMPUTE", who: "Senior" },
-  { cadence: "MONTHLY", step: "Client MIS dispatch (5th of next)", ai: "AUTONOMOUS", who: "Article" },
-  { cadence: "QUARTERLY", step: "TDS return 26Q + NSDL FVU", ai: "COMPUTE", who: "Senior" },
-  { cadence: "QUARTERLY", step: "Advance tax computation", ai: "COMPUTE", who: "Partner CA" },
-  { cadence: "QUARTERLY", step: "Receivables ageing + chase", ai: "DRAFT", who: "Senior" },
-  { cadence: "ANNUAL", step: "Form 3CD tax audit", ai: "DRAFT", who: "Partner CA" },
-  { cadence: "ANNUAL", step: "Statutory audit + CARO 2020", ai: "DRAFT", who: "Partner CA" },
-  { cadence: "ANNUAL", step: "ITR-6 / 3CB-3CD filing", ai: "DRAFT", who: "Partner CA" },
-  { cadence: "ANNUAL", step: "ROC · AOC-4 XBRL (30 Oct)", ai: "DRAFT", who: "Senior" },
-  { cadence: "ANNUAL", step: "ROC · MGT-7 (29 Nov)", ai: "DRAFT", who: "Senior" },
-  { cadence: "ANNUAL", step: "DIR-3 KYC", ai: "EXTRACT", who: "Article" },
-  { cadence: "AS-NEEDED", step: "Notice response (DRC-01 / ASMT-10 / 143(1)(a))", ai: "DRAFT", who: "Partner CA" },
-  { cadence: "AS-NEEDED", step: "Form 15CB cross-border + DTAA", ai: "COMPUTE", who: "Partner CA" },
-  { cadence: "AS-NEEDED", step: "Transfer pricing 3CEB / FEMA FC-GPR", ai: "DRAFT", who: "Partner CA" },
+const aiHandles: { title: string; body: string }[] = [
+  {
+    title: "Reads the invoice",
+    body: "Vision extraction — vendor, GSTIN, line items, CGST/SGST/IGST split.",
+  },
+  {
+    title: "Matches against your books",
+    body: "Fuzzy invoice-number match, ₹1 amount tolerance, GSTIN-grouped 3-way recon against Tally + GSTR-2B.",
+  },
+  {
+    title: "Computes the math",
+    body: "Tax payable, ITC available, RCM, Section 50 interest, DTAA rates, e-invoice IRN payload.",
+  },
+  {
+    title: "Drafts the document",
+    body: "GSTR-1 · GSTR-3B summary · 26Q FVU · Form 3CD scaffolding · CARO 2020 working papers · 15CB.",
+  },
+  {
+    title: "Sends the follow-up",
+    body: "WhatsApp blast to mismatched vendors with the exact discrepancy. English + Hindi reply classifier.",
+  },
 ];
 
-const aiLevelMeta: Record<
-  "EXTRACT" | "DRAFT" | "COMPUTE" | "AUTONOMOUS" | "—",
-  { label: string; color: string; bg: string }
-> = {
-  EXTRACT: { label: "Extract", color: "#1A5FD4", bg: "#EEF4FF" },
-  DRAFT: { label: "AI drafts", color: "#B45309", bg: "#FFFBEB" },
-  COMPUTE: { label: "Compute", color: "#15803D", bg: "#ECFDF3" },
-  AUTONOMOUS: { label: "Autonomous", color: "#9D174D", bg: "#FDF2F8" },
-  "—": { label: "Manual", color: "var(--color-text-muted)", bg: "var(--color-surface)" },
-};
-
-// ─────────────────────────────────────────────────────────────────────────
-// 4-step "How it works" — specific, not generic SaaS template.
-// ─────────────────────────────────────────────────────────────────────────
-
-const howItWorks: { num: string; title: string; time: string; body: string }[] = [
+const caHandles: { title: string; body: string }[] = [
   {
-    num: "01",
-    title: "Onboard",
-    time: "~5 minutes",
-    body:
-      "Paste your firm GSTIN + Tally export + ICAI Membership No. We provision a per-firm tenant under polycloud.in/ca-firm/app/<your-slug>. First reconciliation runs against last month's data within 60 minutes.",
+    title: "Signs the GSTR-3B submit",
+    body: "Hard-locked from 2B since June 2025. Your name on the irreversible filing. We do not sign for you.",
   },
   {
-    num: "02",
-    title: "Run",
-    time: "Daily",
-    body:
-      "Auto-recon every morning. Exception inbox sorts mismatches by severity. WhatsApp templates queued for vendor follow-up. Compliance calendar nudges every client deadline (GSTR-1 11th · TDS 7th · GSTR-3B 20th).",
+    title: "Mints the UDIN",
+    body: "Form 3CD · CARO · 15CB · statutory audit reports. Partner reviews, partner clicks, UDIN minted.",
   },
   {
-    num: "03",
-    title: "Sign",
-    time: "Per output",
-    body:
-      "Every UDIN-bearing output gates on partner sign-off. The OS drafts, you review, you sign. UDIN minted automatically and persisted to your firm's ledger. Your COP liability is unchanged.",
+    title: "Decides on flagged exceptions",
+    body: "Suspended GSTIN vendors · disputed amounts · advisory opinions. The queue surfaces them; you call it.",
   },
   {
-    num: "04",
-    title: "Bill",
-    time: "Monthly",
-    body:
-      "One flat invoice on the 1st. Includes the OS, the in-house support, the Meta-template renewals, the office hours. No per-filing surprise. No tool licences to track.",
+    title: "Responds to notices",
+    body: "AI drafts the reply (DRC-01 / ASMT-10 / 143(1)(a)). You decide the strategy and represent.",
+  },
+  {
+    title: "Gives actual advice",
+    body: "Tax planning · structuring · due diligence · representation — the work clients pay you for.",
   },
 ];
 
@@ -312,9 +282,10 @@ export default function CaFirmSolution() {
             <p className="text-[17px] md:text-xl text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
               <span className="font-medium text-[var(--color-ink)]">8 hours → 45 minutes</span>{" "}
               <span className="text-[var(--color-text-muted)]">per monthly close per client.</span>{" "}
-              37 workflows live across reconciliation, tax, audit, compliance and client ops. One web app, two modes —{" "}
-              <span className="font-medium text-[var(--color-ink)]">Firm</span> (your CA practice signs UDINs) or{" "}
-              <span className="font-medium text-[var(--color-ink)]">Managed</span> (we sign as your in-house CA). Hosted by PolyCloud · per-firm tenant · starts at ₹15K/month.
+              One web app for the day-to-day finance work of an Indian SME — and Chartered Accountants click{" "}
+              <span className="font-medium text-[var(--color-ink)]">Sign</span> on the things only a CA is legally allowed to sign. Two modes —{" "}
+              <span className="font-medium text-[var(--color-ink)]">Firm</span> (your practice signs UDINs) or{" "}
+              <span className="font-medium text-[var(--color-ink)]">Managed</span> (we sign as your in-house CA). From ₹15K/month.
             </p>
             <div className="flex flex-wrap gap-3 items-center">
               <BookButton variant="primary" topic="consulting">
@@ -439,126 +410,69 @@ export default function CaFirmSolution() {
             {firmInternalTools}
           </p>
 
-          {/* Flagship visual — 22-step workflow strip with honest AI/sign columns */}
-          <div className="mt-16 md:mt-24">
-            <div className="flex items-end justify-between mb-6 flex-wrap gap-4">
-              <div>
-                <p className="text-eyebrow text-[var(--color-text-secondary)] mb-3">
-                  The 22-step Indian CA cycle, modelled
-                </p>
-                <h3 className="text-[clamp(1.25rem,2.5vw,2rem)] leading-tight max-w-2xl">
-                  Honest about{" "}
-                  <span className="text-serif-accent text-[var(--color-primary-blue)]">
-                    where AI stops
-                  </span>{" "}
-                  on every step.
-                </h3>
-              </div>
-              <div className="flex flex-wrap gap-2 text-[11px]">
-                {(["EXTRACT", "DRAFT", "COMPUTE", "AUTONOMOUS"] as const).map((k) => {
-                  const m = aiLevelMeta[k];
-                  return (
-                    <span
-                      key={k}
-                      className="mono uppercase tracking-[0.1em] px-2 py-1 rounded"
-                      style={{ color: m.color, background: m.bg }}
-                    >
-                      {m.label}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-[var(--color-line)] bg-white overflow-hidden">
-              <div className="grid grid-cols-[1fr_2.4fr_1fr_1fr] bg-[var(--color-surface-warm)] border-b border-[var(--color-line)]">
-                {["Cadence", "Step", "AI level", "Owner"].map((h) => (
-                  <div
-                    key={h}
-                    className="px-4 md:px-5 py-2.5 mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-muted)]"
-                  >
-                    {h}
-                  </div>
-                ))}
-              </div>
-              {workflowSteps.map((s, i) => {
-                const m = aiLevelMeta[s.ai];
-                return (
-                  <div
-                    key={i}
-                    className={`grid grid-cols-[1fr_2.4fr_1fr_1fr] ${
-                      i < workflowSteps.length - 1 ? "border-b border-[var(--color-line)]" : ""
-                    }`}
-                  >
-                    <div className="px-4 md:px-5 py-3 mono text-[11px] tracking-[0.06em] text-[var(--color-text-muted)] uppercase self-center">
-                      {s.cadence}
-                    </div>
-                    <div className="px-4 md:px-5 py-3 text-[13.5px] text-[var(--color-ink)] self-center">
-                      {s.step}
-                    </div>
-                    <div className="px-4 md:px-5 py-3 self-center">
-                      <span
-                        className="mono text-[10px] uppercase tracking-[0.1em] px-2 py-0.5 rounded"
-                        style={{ color: m.color, background: m.bg }}
-                      >
-                        {m.label}
-                      </span>
-                    </div>
-                    <div className="px-4 md:px-5 py-3 mono text-[11px] tracking-[0.04em] text-[var(--color-text-secondary)] self-center">
-                      {s.who}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <p className="mt-4 mono text-[11px] text-[var(--color-text-muted)] tracking-[0.08em]">
-              Source: <code className="font-mono">lib/workflow.ts</code> in the toolkit. Live-OS view at{" "}
-              <Link href="/ca-firm/app" className="link-underline text-[var(--color-primary-blue)]">
-                polycloud.in/ca-firm/app/workflow
-              </Link>
-              .
-            </p>
-          </div>
         </div>
       </section>
 
-      {/* 04 / How it works ──────────────────────────────────────────── */}
+      {/* 02 / The honest split — what AI does vs what the CA does ──── */}
       <section className="px-6 md:px-10 py-16 md:py-32 bg-[var(--color-surface-warm)] border-y border-[var(--color-line)]">
         <div className="max-w-[1440px] mx-auto">
           <div className="flex items-end justify-between mb-12 md:mb-16 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">
-                02 / How it works
+                02 / The honest split
               </p>
               <h2 className="text-[clamp(1.875rem,5vw,4rem)] max-w-2xl leading-[1.05]">
-                Onboard. Run. <span className="text-serif-accent">Sign.</span> Bill.
+                What the AI does. <span className="text-serif-accent">What the CA does.</span>
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              Four steps from your first Tally export to your first signed UDIN. Partner sign-off gates every output — your COP liability is unchanged.
+              We don&apos;t replace the Chartered Accountant. We replace the typing. UDIN-bearing outputs always gate on partner sign-off — your COP liability is unchanged.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-            {howItWorks.map((s) => (
-              <div
-                key={s.num}
-                className="bg-white rounded-xl border border-[var(--color-line)] p-7 md:p-8 flex flex-col"
-              >
-                <p className="mono text-xs text-[var(--color-primary-orange)] mb-4 tracking-[0.12em]">
-                  {s.num}
-                </p>
-                <h3 className="text-display text-[clamp(1.25rem,1.8vw,1.65rem)] mb-1 leading-tight">
-                  {s.title}
-                </h3>
-                <p className="mono text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-muted)] mb-4">
-                  {s.time}
-                </p>
-                <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed">
-                  {s.body}
-                </p>
-              </div>
-            ))}
+          <div className="grid md:grid-cols-2 gap-px bg-[var(--color-line)] rounded-2xl overflow-hidden border border-[var(--color-line)]">
+            {/* AI side */}
+            <div className="bg-[#FFFBEB] p-8 md:p-10">
+              <p className="mono text-[10px] uppercase tracking-[0.18em] text-[#B45309] mb-3">
+                AI handles
+              </p>
+              <h3 className="text-display text-[clamp(1.5rem,2.4vw,2rem)] leading-tight mb-7">
+                The mechanical work
+              </h3>
+              <ul className="space-y-5">
+                {aiHandles.map((item) => (
+                  <li key={item.title}>
+                    <p className="text-[15px] font-medium text-[var(--color-ink)] mb-1">
+                      {item.title}
+                    </p>
+                    <p className="text-[13.5px] text-[var(--color-text-secondary)] leading-relaxed">
+                      {item.body}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* CA side */}
+            <div className="bg-[#FDF2F8] p-8 md:p-10">
+              <p className="mono text-[10px] uppercase tracking-[0.18em] text-[#9D174D] mb-3">
+                Partner CA handles
+              </p>
+              <h3 className="text-display text-[clamp(1.5rem,2.4vw,2rem)] leading-tight mb-7">
+                The judgment
+              </h3>
+              <ul className="space-y-5">
+                {caHandles.map((item) => (
+                  <li key={item.title}>
+                    <p className="text-[15px] font-medium text-[var(--color-ink)] mb-1">
+                      {item.title}
+                    </p>
+                    <p className="text-[13.5px] text-[var(--color-text-secondary)] leading-relaxed">
+                      {item.body}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -569,17 +483,17 @@ export default function CaFirmSolution() {
           <div className="flex items-end justify-between mb-12 md:mb-16 flex-wrap gap-6">
             <div>
               <p className="text-eyebrow text-[var(--color-text-secondary)] mb-5">
-                03 / Pricing · Firm mode
+                03 / Firm-mode pricing
               </p>
               <h2 className="text-[clamp(1.875rem,5vw,4rem)] leading-[1.05] max-w-3xl">
-                Three flat anchors.{" "}
-                <span className="text-serif-accent">No per-filing surprise</span>.
+                Flat monthly.{" "}
+                <span className="text-serif-accent">No per-filing fees</span>.
               </h2>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-md text-[15px] leading-relaxed">
-              One monthly invoice. Cancel any month. Running an SME instead of a CA practice?{" "}
+              One invoice on the 1st. Cancel any month. If you&apos;re an SME, not a CA practice —{" "}
               <Link href="/managed" className="link-underline text-[var(--color-primary-blue)]">
-                See Managed mode →
+                see Managed mode →
               </Link>
             </p>
           </div>
@@ -687,22 +601,14 @@ export default function CaFirmSolution() {
           </div>
           <div className="border-t border-[var(--color-line)] pt-6 flex flex-wrap items-center gap-6 justify-between">
             <p className="mono text-[11px] tracking-[0.1em] text-[var(--color-text-muted)]">
-              Real product, synthetic data. Browse before you book.
+              Real product · synthetic data · click around before you talk to us
             </p>
-            <div className="flex flex-wrap gap-4 text-[13px]">
-              <Link
-                href="/ca-firm/app"
-                className="link-underline font-medium text-[var(--color-primary-blue)]"
-              >
-                Open the live operator console →
-              </Link>
-              <Link
-                href="/ca-firm"
-                className="link-underline font-medium text-[var(--color-primary-blue)]"
-              >
-                See the white-label client dashboard →
-              </Link>
-            </div>
+            <Link
+              href="/ca-firm/app"
+              className="text-[13px] font-medium link-underline text-[var(--color-primary-blue)]"
+            >
+              Open the live OS →
+            </Link>
           </div>
         </div>
       </section>
